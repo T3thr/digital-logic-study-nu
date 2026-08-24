@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>เฉลยละเอียด — MUX/DMUX ข้อที่ 1 (รูปที่ 3.40) · 305241 Digital Logic</title>
+<style>
+/* ═══════════ พื้นฐานแบบหนังสือเรียน ═══════════ */
+:root{
+  --paper:#FBF8F1; --paper2:#F5F0E4; --ink:#22292F; --ink-soft:#4B5563;
+  --rule:#D8CFBC; --accent:#1E40AF; --accent2:#B45309;
+  --green:#047857; --green-bg:#ECFDF5; --red:#B91C1C; --red-bg:#FEF2F2;
+  --purple:#6D28D9; --amber-bg:#FFFBEB; --blue-bg:#EFF6FF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans Thai","Sarabun","Thonburi","Noto Sans Thai",-apple-system,"Segoe UI",sans-serif;
+  font-size:16.5px; line-height:1.85;
+}
+.page{max-width:1020px; margin:0 auto; padding:34px 30px 90px}
+
+/* ═══════════ ส่วนหัวแบบตำรา ═══════════ */
+.course-line{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  border-bottom:3px double var(--ink); padding-bottom:8px; margin-bottom:22px;
+  font-size:.86rem; letter-spacing:.04em; color:var(--ink-soft);
+}
+.chip{border:1.5px solid var(--ink); border-radius:999px; padding:2px 14px; white-space:nowrap}
+h1.book-title{font-size:2rem; line-height:1.35; margin:14px 0 6px; font-weight:800}
+.subtitle{color:var(--ink-soft); font-size:1.02rem; margin-bottom:20px}
+
+.problem-box{
+  border:2px solid var(--ink); background:#fff;
+  padding:20px 26px; margin:26px 0 8px; position:relative;
+  box-shadow:6px 6px 0 var(--paper2);
+}
+.problem-box::before{
+  content:"โจทย์"; position:absolute; top:-15px; left:22px;
+  background:var(--ink); color:#fff; font-weight:700; font-size:.82rem;
+  padding:2px 16px; letter-spacing:.12em;
+}
+.problem-box p{margin:6px 0}
+.src-note{font-size:.88rem; color:var(--ink-soft)}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc{
+  border:1.5px solid var(--rule); background:#fffdf7;
+  padding:18px 26px; margin:28px 0; columns:2; column-gap:44px;
+}
+nav.toc .toc-head{column-span:all; font-weight:800; font-size:1.05rem; margin-bottom:10px;
+  border-bottom:1.5px solid var(--rule); padding-bottom:6px}
+nav.toc a{display:block; color:var(--ink); text-decoration:none; padding:3.5px 0; break-inside:avoid}
+nav.toc a:hover{color:var(--accent)}
+nav.toc .no{display:inline-block; width:2.1em; color:var(--accent2); font-weight:700; font-variant-numeric:tabular-nums}
+
+/* ═══════════ หัวข้อ ═══════════ */
+section{margin-top:58px; scroll-margin-top:24px}
+.sec-head{display:flex; align-items:baseline; gap:16px; border-bottom:2.5px solid var(--ink); padding-bottom:8px; margin-bottom:20px}
+.sec-no{
+  flex:0 0 auto; width:52px; height:52px; border-radius:50%;
+  background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center;
+  font-size:1.25rem; font-weight:800; transform:translateY(10px);
+}
+h2{font-size:1.42rem; margin:0; font-weight:800; line-height:1.4}
+h3{font-size:1.13rem; margin:30px 0 10px; font-weight:800; color:var(--accent)}
+h3::before{content:"§ "; color:var(--accent2)}
+p{margin:10px 0}
+b,strong{font-weight:700}
+
+/* ═══════════ รูปแบบตำรา ═══════════ */
+figure.textbook{margin:30px 0; text-align:center}
+figure.textbook .frame{
+  border:1.5px solid var(--rule); background:#fff; padding:12px;
+  box-shadow:0 2px 10px rgba(60,50,20,.07);
+}
+figure.textbook img{width:100%; height:auto; display:block; cursor:zoom-in}
+figcaption{
+  margin-top:12px; font-size:.93rem; color:var(--ink-soft); line-height:1.6;
+}
+figcaption .fno{font-weight:800; color:var(--ink)}
+.zoom-hint{font-size:.78rem; color:#A8A29E; margin-top:4px}
+
+/* รูปอ้างอิงจาก Lecture สไลด์ */
+figure.textbook.lecture-ref .frame{
+  border:1.5px dashed #64748B;
+  background:#FAF8F5;
+  border-radius:10px;
+  max-width:680px;
+  margin:0 auto;
+  padding:14px;
+}
+figure.textbook.lecture-ref img{
+  max-height:540px;
+  object-fit:contain;
+  margin:0 auto;
+}
+figure.textbook.lecture-ref figcaption .fno{
+  background:#0F172A;
+  color:#F8FAFC;
+  padding:2px 10px;
+  border-radius:6px;
+  font-size:.82rem;
+  margin-right:6px;
+  display:inline-block;
+}
+
+/* ═══════════ กล่องเน้น ═══════════ */
+.callout{border-left:5px solid; padding:13px 20px; margin:20px 0; background:#fff; border-radius:0 8px 8px 0}
+.callout .lab{font-weight:800; font-size:.85rem; letter-spacing:.06em; display:block; margin-bottom:4px}
+.c-key{border-color:var(--accent)}   .c-key .lab{color:var(--accent)}
+.c-warn{border-color:var(--red); background:var(--red-bg)} .c-warn .lab{color:var(--red)}
+.c-tip{border-color:var(--green); background:var(--green-bg)} .c-tip .lab{color:var(--green)}
+.c-ex{border-color:var(--accent2); background:var(--amber-bg)} .c-ex .lab{color:var(--accent2)}
+
+.formula{
+  background:#fff; border:1.5px solid var(--rule); border-radius:10px;
+  padding:18px 24px; margin:20px 0; text-align:center; font-size:1.12rem; overflow-x:auto;
+}
+.formula.big{font-size:1.22rem; border-width:2px; border-color:var(--ink)}
+
+/* ═══════════ ตารางแบบตำรา ═══════════ */
+table.tb{border-collapse:collapse; margin:18px auto; background:#fff; font-size:.97rem}
+table.tb caption{caption-side:top; font-weight:800; padding-bottom:8px; font-size:.98rem}
+table.tb th{background:var(--ink); color:#fff; font-weight:600; padding:7px 14px; border:1px solid #3a4149}
+table.tb td{padding:6px 14px; border:1px solid var(--rule); text-align:center; font-variant-numeric:tabular-nums}
+table.tb tr:nth-child(even) td{background:#FAF7EF}
+table.tb td.hl{background:var(--amber-bg)!important; font-weight:700}
+table.tb .t-l{text-align:left}
+table.tb .t-r{text-align:right}
+
+/* ตัวหนังสือพิเศษ */
+.ov{text-decoration:overline; white-space:nowrap}
+sub{font-size:.72em}
+.dsig{font-family:"Menlo","Consolas",monospace; letter-spacing:.14em; font-weight:700}
+.y-c{color:var(--green)} .w-c{color:#C2410C}
+
+/* ลำดับคำตอบเป็นบล็อกชิป */
+.seq-wrap{display:flex; gap:34px; justify-content:center; flex-wrap:wrap; margin:22px 0}
+.seq{display:flex; gap:5px; align-items:center}
+.seq .name{font-size:1.5rem; font-weight:800; margin-right:8px}
+.seq b{
+  width:38px; height:44px; display:flex; align-items:center; justify-content:center;
+  font-size:1.25rem; border-radius:7px; border:1.5px solid;
+}
+.seq b.v1{background:var(--green-bg); color:var(--green); border-color:#A7F3D0}
+.seq b.v0{background:#F8FAFC; color:#94A3B8; border-color:#E2E8F0}
+
+/* ═══════════ การไล่ทีละช่วง ═══════════ */
+.slot-nav{display:flex; gap:7px; flex-wrap:wrap; margin:18px 0 8px}
+.slot-nav a{
+  min-width:44px; text-align:center; padding:5px 10px; border:1.5px solid var(--ink);
+  border-radius:8px; text-decoration:none; color:var(--ink); font-weight:700; background:#fff;
+}
+.slot-nav a:hover{background:var(--ink); color:var(--paper)}
+.slot-nav a.warn{border-color:var(--red); color:var(--red)}
+
+article.slot{
+  border:1.5px solid var(--rule); border-radius:12px; background:#fffdf7;
+  padding:0; margin:26px 0; overflow:hidden; scroll-margin-top:24px;
+}
+article.slot.split{border-color:#E7B4AE}
+.slot-head{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  background:linear-gradient(#F3EEE2,#EDE6D4); border-bottom:1.5px solid var(--rule);
+  padding:11px 22px;
+}
+article.slot.split .slot-head{background:linear-gradient(#FDEBE8,#FADFD9)}
+.slot-head .sn{font-weight:800; font-size:1.06rem}
+.slot-head .code{font-family:Menlo,Consolas,monospace; font-size:.95rem; color:var(--accent); font-weight:700}
+.slot-body{padding:16px 24px 20px}
+.steps{list-style:none; margin:8px 0; padding:0}
+.steps li{display:flex; gap:12px; padding:6px 0; align-items:flex-start}
+.steps .qno{
+  flex:0 0 27px; height:27px; border-radius:50%; background:var(--accent); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:.9rem; font-weight:700; margin-top:3px;
+}
+.mini-tb{margin:12px auto}
+.badge{display:inline-block; padding:1px 11px; border-radius:999px; font-size:.83rem; font-weight:700; border:1.5px solid}
+.b-off{background:var(--red-bg); color:var(--red); border-color:#ECC6C1}
+.b-on{background:var(--green-bg); color:var(--green); border-color:#A7F3D0}
+
+/* ═══════════ lightbox ═══════════ */
+#lb{position:fixed; inset:0; background:rgba(20,16,8,.88); display:none; z-index:99;
+    align-items:center; justify-content:center; padding:26px; cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:96vw; max-height:94vh; border:6px solid #fff; box-shadow:0 10px 60px rgba(0,0,0,.6)}
+#lb .x{position:fixed; top:14px; right:22px; color:#fff; font-size:2rem; font-weight:300}
+
+footer.colophon{
+  margin-top:64px; border-top:3px double var(--ink); padding-top:18px;
+  font-size:.9rem; color:var(--ink-soft);
+}
+.filemap{columns:2; column-gap:40px; font-size:.9rem}
+.filemap div{break-inside:avoid; padding:2.5px 0}
+.filemap code{background:#F1EDE2; padding:1px 7px; border-radius:5px; font-size:.85em}
+
+.top-link{position:fixed; right:22px; bottom:22px; background:var(--ink); color:var(--paper);
+  width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  text-decoration:none; font-size:1.2rem; box-shadow:0 4px 14px rgba(0,0,0,.25); opacity:.85}
+.top-link:hover{opacity:1}
+
+@media (max-width:720px){
+  body{font-size:15.5px} .page{padding:20px 14px 70px}
+  .course-line{flex-wrap:wrap;justify-content:center;text-align:center}.course-line span{max-width:100%}
+  nav.toc{columns:1} .filemap{columns:1} .seq b{width:32px;height:38px;font-size:1.05rem}
+  .sec-no{width:42px;height:42px;font-size:1.05rem}
+  .seq-wrap{justify-content:flex-start;overflow-x:auto;padding-bottom:8px}.seq{min-width:max-content}
+  table.tb{display:block;max-width:100%;overflow-x:auto}
+}
+
+/* ═══════════ Virtual Digital Logic Trainer & Breadboard Lab ═══════════ */
+.lab-shell{
+  --tr-bg:#171b1e;--tr-panel:#252b2f;--tr-edge:#596168;--tr-ink:#eef7f3;--tr-muted:#9da9a5;
+  --tr-green:#52f2a4;--tr-red:#ff5d55;--tr-amber:#ffd166;--tr-cyan:#55e6ff;--tr-blue:#4d8dff;
+  position:relative;margin:28px 0;overflow:hidden;border:1px solid #737b81;border-radius:22px;color:var(--tr-ink);
+  background:repeating-linear-gradient(95deg,rgba(255,255,255,.018) 0 1px,transparent 1px 4px),linear-gradient(145deg,#394045,#181c1f 45%,#0d1012);
+  box-shadow:0 28px 60px rgba(23,27,30,.3),inset 0 1px rgba(255,255,255,.23),inset 0 -4px 10px rgba(0,0,0,.62);
+  isolation:isolate;
+}
+.lab-shell::before,.lab-shell::after{content:"";position:absolute;z-index:20;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#e7ecee,#737b80 37%,#24292c 70%);box-shadow:0 1px 3px #000}
+.lab-shell::before{left:10px;top:10px}.lab-shell::after{right:10px;top:10px}
+.trainer-nameplate{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 26px 10px;color:#dfe7e4}
+.trainer-nameplate strong{font:800 .78rem/1.2 Menlo,Consolas,monospace;letter-spacing:.16em}.trainer-nameplate span{font:700 .62rem/1 Menlo,monospace;color:#8f9c98;letter-spacing:.08em}
+.trainer-top{display:grid;grid-template-columns:1.25fr .85fr .7fr;gap:10px;padding:0 18px 13px}
+.instrument,.trainer-side,.switch-panel,.analyzer-panel{min-width:0;border:1px solid #596168;border-radius:10px;background:linear-gradient(155deg,#30373b,#1b2023);box-shadow:inset 0 1px rgba(255,255,255,.13),0 3px 8px rgba(0,0,0,.35)}
+.instrument{padding:11px 12px}.instrument-head{display:flex;justify-content:space-between;gap:8px;margin-bottom:7px;font:800 .6rem/1 Menlo,monospace;letter-spacing:.1em;color:#aeb9b6}.instrument-head em{font-style:normal;color:#68736f}
+.lcd{position:relative;overflow:hidden;border:5px solid #101415;border-radius:5px;padding:8px 11px;background:linear-gradient(#b9dc80,#91ba5c);box-shadow:inset 0 0 14px rgba(21,51,14,.55),0 1px #717b7c;color:#173116;text-shadow:0 1px rgba(255,255,255,.35);font:800 .76rem/1.42 Menlo,Consolas,monospace;letter-spacing:.03em}
+.lcd::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 7px,rgba(36,78,31,.05) 7px 8px);pointer-events:none}.lcd.off{background:#46523f;color:#263025;text-shadow:none}
+.instrument-controls{display:flex;align-items:center;gap:9px;margin-top:8px}.mini-key{width:23px;height:17px;border:1px solid #6e777b;border-radius:3px;background:linear-gradient(#e6e9e7,#8f989b);box-shadow:0 2px #111}.rotary{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 37% 32%,#ecf0ef,#7f898b 38%,#252b2e 70%);box-shadow:0 2px 4px #000}.rotary::after{content:"";display:block;width:2px;height:11px;margin:3px auto;background:#202527}.bnc{width:24px;height:24px;border-radius:50%;border:5px solid #a8afb0;background:#0a0d0e;box-shadow:0 1px 4px #000}
+.aux-displays{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.aux-module{text-align:center;color:#68736f;font:700 .56rem/1.25 Menlo,monospace}.seven-seg{display:block;margin-bottom:5px;padding:6px 2px;border:3px solid #0b0d0e;border-radius:4px;background:#18120f;color:#43241d;font:800 1.15rem/1 Menlo,monospace;text-shadow:0 0 4px #30100d}.aux-knob{margin:2px auto 7px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#bac2c0,#424a4d 45%,#171b1d)}
+.power-bay{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}.power-label{grid-column:1/-1;font:800 .6rem/1 Menlo,monospace;letter-spacing:.11em;color:#adb7b4}.rocker-power,.breaker,.sound-toggle{min-height:52px;border:1px solid #111719;border-radius:6px;background:linear-gradient(#30373a,#111517);color:#cbd4d1;cursor:pointer;font:800 .62rem/1.2 Menlo,monospace;box-shadow:inset 0 1px rgba(255,255,255,.13),0 2px 4px #080a0b}.rocker-power[aria-pressed="true"]{color:#dfffea;border-color:#416c58}.power-led,.status-dot{display:inline-block;width:9px;height:9px;margin-right:6px;border-radius:50%;background:#17241d;border:1px solid #55615b}.rocker-power[aria-pressed="true"] .power-led{background:var(--tr-green);box-shadow:0 0 12px var(--tr-green)}.breaker{background:radial-gradient(circle at 50% 35%,#ff7e73 0 22%,#a72722 24% 39%,#33100e 42% 48%,transparent 50%),linear-gradient(#30373a,#15191b)}.sound-toggle{grid-column:1/-1;min-height:29px}.sound-toggle[aria-pressed="true"]{color:var(--tr-cyan)}
+.trainer-bus{display:flex;align-items:center;gap:10px;margin:0 18px 12px;padding:9px 13px;border:1px solid #697176;border-radius:8px;background:linear-gradient(#d9dddc,#9ba2a3);color:#202628;box-shadow:inset 0 1px #fff,0 3px 6px #080a0b;font:800 .62rem/1 Menlo,monospace}.bus-title{margin-right:auto;letter-spacing:.08em}.bus-terminal{display:flex;align-items:center;gap:5px;white-space:nowrap}.terminal-socket{display:inline-block;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,#141819 0 25%,var(--socket,#b62a25) 28% 54%,#e1e4e3 57% 68%,#737b7e 71%);box-shadow:0 1px 3px rgba(0,0,0,.6)}
+.trainer-modebar{display:flex;align-items:flex-end;gap:7px;padding:0 18px}.lab-tab{border:1px solid #596268;border-bottom:0;border-radius:8px 8px 0 0;padding:9px 14px;background:#1a1f22;color:#9ca8a5;cursor:pointer;font:inherit;font-size:.78rem;font-weight:800}.lab-tab[aria-selected="true"]{background:#0d3530;color:#e8fffa;border-color:#3c8f81}.lab-tab:focus-visible,.trainer-switch:focus-visible,.player-btn:focus-visible,.rocker-power:focus-visible,.breaker:focus-visible,.sound-toggle:focus-visible,.pulse-button:focus-visible{outline:3px solid #fff;outline-offset:2px}.lab-pane{display:none}.lab-pane.on{display:block}
+.mode-pane{margin:0 18px 12px;padding:11px 13px;border:1px solid #3e625b;border-radius:0 8px 8px 8px;background:#102723}.free-copy{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#bdcfca;font-size:.76rem}.free-copy b{color:#fff}.mode-readout{white-space:nowrap;font:800 .66rem/1 Menlo,monospace;color:var(--tr-green)}
+.lab-player{display:grid;grid-template-columns:auto minmax(150px,1fr);gap:9px 14px;align-items:center}.player-buttons{display:flex;gap:6px}.player-btn{border:1px solid #61706e;border-radius:6px;padding:7px 10px;background:linear-gradient(#35403e,#141a19);color:#e7f1ee;cursor:pointer;font-weight:800}.player-btn.primary{background:linear-gradient(#61f1d1,#29ad94);color:#08251f;border-color:#7affe1}.player-scrub{width:100%;accent-color:var(--tr-amber)}.player-meta{display:flex;justify-content:space-between;gap:10px;color:#aebebb;font-size:.7rem}.player-meta strong{color:#fff;font:800 .68rem/1.2 Menlo,monospace}.player-track{grid-column:1/-1;display:grid;grid-template-columns:repeat(15,1fr);gap:3px}.track-cell{height:8px;border:0;border-radius:99px;background:#3b4946;cursor:pointer;padding:0}.track-cell.past{background:#6c8f88}.track-cell.now{background:var(--tr-amber);box-shadow:0 0 10px var(--tr-amber)}.track-cell.trap{outline:1px solid #ff766e}.player-note{grid-column:1/-1;margin:0;color:#b6c5c1;font-size:.73rem;line-height:1.45}
+.trainer-workgrid{display:grid;grid-template-columns:155px minmax(0,1fr) 205px;gap:10px;padding:0 18px 12px}.trainer-side{padding:11px}.panel-title{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:9px;font:800 .62rem/1 Menlo,monospace;letter-spacing:.08em;color:#d9e2df}.panel-title span{color:#76817e;font-size:.54rem}.monitor-list{display:grid;gap:6px}.monitor-channel{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:7px;padding:6px;border:1px solid #41494c;border-radius:6px;background:#171c1e}.monitor-channel.output{border-color:#586a65}.monitor-led{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#1b2d22 0 20%,#0b130f 45%,#030504 70%);border:2px solid #5c6662;box-shadow:inset 0 0 7px #000}.monitor-channel.high .monitor-led{background:radial-gradient(circle at 35% 30%,#fffbd0 0 8%,#ffda57 20%,#ff5c43 53%,#53100d 75%);box-shadow:0 0 7px #ff654f,0 0 18px rgba(255,80,55,.85),inset 0 0 4px #fff}.monitor-channel.low .monitor-led{background:radial-gradient(circle at 35% 30%,#c9ffe1 0 7%,#42e58e 25%,#0a6e3c 55%,#062617 75%);box-shadow:0 0 8px rgba(63,229,139,.65),inset 0 0 4px #d8ffe7}.monitor-name{font:800 .68rem/1.15 Menlo,monospace}.monitor-name small{display:block;margin-top:2px;color:#78837f;font:600 .5rem/1.1 inherit}.monitor-value{font:900 .72rem/1 Menlo,monospace;color:#72817d}.monitor-channel.high .monitor-value{color:#ffb49f}.monitor-channel.low .monitor-value{color:#75efae}
+.breadboard-frame{position:relative;min-width:0;overflow:hidden;border:5px solid #147258;border-radius:12px;background:#0d503e;box-shadow:inset 0 0 0 2px #052d23,0 5px 12px #050706}.breadboard-frame::before{content:"PROTOTYPING AREA · 2.54 mm TIE POINTS";position:absolute;z-index:3;left:12px;top:8px;color:#bde7d4;font:800 .5rem/1 Menlo,monospace;letter-spacing:.1em}.breadboard-scroll{overflow:hidden}.breadboard-svg{display:block;width:100%;height:auto;min-height:370px;background:linear-gradient(145deg,#11644c,#0a3d30)}
+.bb-board{fill:url(#boardShade);stroke:#d2d1c7;stroke-width:2;filter:url(#boardShadow)}.bb-field{fill:url(#holePattern);opacity:.82}.bb-trench{fill:#d4d2c5;stroke:#aaa99f;stroke-width:1}.bb-rail{fill:none;stroke-width:3;stroke-linecap:round}.bb-rail.plus{stroke:#df4d48}.bb-rail.ground{stroke:#4589ca}.bb-rail-text{font:800 10px Menlo,monospace}.bb-hole{fill:#555a58;stroke:#f8f7ed;stroke-width:2}.bb-terminal-label{font:800 10px Menlo,monospace;fill:#3e4845}.wire{fill:none;stroke:var(--wire,#eee);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;opacity:.42;filter:drop-shadow(0 4px 2px rgba(0,0,0,.42));cursor:help;transition:opacity .15s,stroke-width .15s,filter .15s}.wire.is-high{opacity:1;stroke-width:8;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--wire) 75%,white)) drop-shadow(0 4px 2px rgba(0,0,0,.5))}.wire.is-low{opacity:.34}.wire.is-off{opacity:.12;filter:none}.wire.active-route{opacity:1;stroke-width:10;stroke-dasharray:14 6;animation:signalTravel .55s linear infinite;filter:drop-shadow(0 0 6px var(--tr-cyan))}.trainer.is-disabled .wire.active-route{stroke:#ff817a;animation:warningPulse .75s ease-in-out infinite}.wire:hover{opacity:1;stroke-width:12}.bb-chip{fill:url(#chipTop);stroke:#55594f;stroke-width:2;filter:url(#chipShadow)}.bb-chip-label{font:800 15px Menlo,monospace;fill:#b8aa7a;letter-spacing:1px}.bb-chip-sub{font:700 8px Menlo,monospace;fill:#79755f;letter-spacing:1px}.bb-notch{fill:#d5d3c8;stroke:#55594f;stroke-width:2}.bb-leg{fill:url(#pinMetal);stroke:#777d78;stroke-width:1}.bb-pin text{font:800 9px Menlo,monospace;fill:#26302d}.bb-pin:hover .bb-leg,.bb-pin.selected .bb-leg{stroke:#00dcc0;stroke-width:3;filter:drop-shadow(0 0 4px #00f0cf)}.bb-pin{cursor:help}.bb-ic-title{font:800 11px Menlo,monospace;fill:#193c31}.bb-gate{fill:#f2f1e7;stroke:#43514d;stroke-width:1.5}.bb-gate-text{font:800 9px Menlo,monospace;fill:#25312e}.bb-node{fill:#3a413f;stroke:#f4f4ed;stroke-width:2}.bb-node.is-high{fill:#ffca4a;filter:drop-shadow(0 0 5px #ffd45e)}
+@keyframes signalTravel{to{stroke-dashoffset:-20}}@keyframes warningPulse{50%{opacity:.35}}@keyframes ledPulse{50%{filter:brightness(1.3)}}
+.status-card{padding:9px;border:1px solid #414a4c;border-radius:7px;background:#141a1c;margin-bottom:8px}.status-label{font:800 .52rem/1 Menlo,monospace;color:#7f8c88;letter-spacing:.08em}.status-big{margin-top:5px;font:900 1.12rem/1 Menlo,monospace;color:var(--tr-cyan)}.status-source{margin-top:5px;color:#bdcac6;font-size:.67rem;line-height:1.4}.mode-badge{display:inline-flex;align-items:center;margin-top:7px;padding:4px 7px;border:1px solid #347d68;border-radius:99px;background:#0c3026;color:#77f6c0;font:800 .56rem/1 Menlo,monospace}.mode-badge.disabled{border-color:#9d3e38;background:#3a1714;color:#ff9d95;animation:warningPulse .8s ease-in-out infinite}.equation-trace{font:700 .65rem/1.55 Menlo,monospace;color:#d9e5e1;word-break:break-word}.disable-alert{display:none;margin-top:8px;padding:7px;border:1px solid #d65349;border-radius:6px;background:#481a16;color:#ffb2aa;font-size:.65rem;line-height:1.35}.disable-alert.on{display:block}.net-inspector{min-height:72px;color:#9fb0ab;font-size:.64rem;line-height:1.45}.net-inspector b{color:#fff}.trainer-tooltip{position:absolute;z-index:50;display:none;max-width:230px;padding:8px 10px;border:1px solid #73a79c;border-radius:7px;background:rgba(7,18,16,.96);box-shadow:0 8px 20px rgba(0,0,0,.45);pointer-events:none;color:#eafff9;font-size:.68rem;line-height:1.4}.trainer-tooltip.on{display:block}.trainer-tooltip strong{display:block;color:var(--tr-cyan);font:800 .62rem/1.3 Menlo,monospace}
+.analyzer-panel{margin:0 18px 12px;padding:10px 12px}.analyzer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}.analyzer-title{font:800 .62rem/1 Menlo,monospace;letter-spacing:.08em}.answer-sequences{display:flex;gap:12px;flex-wrap:wrap;font:800 .64rem/1 Menlo,monospace}.answer-sequences .y{color:#66f0b0}.answer-sequences .w{color:#ffbd6f}.logic-analyzer{display:block;width:100%;height:auto;border:1px solid #1c3732;border-radius:5px;background:#07110f}.an-grid{stroke:#18312c;stroke-width:1}.an-label{fill:#86a59d;font:800 9px Menlo,monospace}.an-wave{fill:none;stroke-width:2}.an-cursor{stroke:#ffd166;stroke-width:2;filter:drop-shadow(0 0 4px #ffd166)}
+.switch-panel{margin:0 18px 18px;padding:11px 13px}.switch-bank{display:grid;grid-template-columns:repeat(6,minmax(66px,1fr)) 1.3fr;gap:9px}.trainer-switch{position:relative;min-height:112px;border:1px solid #4e585b;border-radius:8px;background:linear-gradient(155deg,#30373a,#121719);color:#dce6e3;cursor:pointer;box-shadow:inset 0 1px rgba(255,255,255,.12),0 3px 6px #080a0b}.trainer-switch .switch-led{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:#0b281b;border:1px solid #55635e}.trainer-switch.high .switch-led{background:#ffbd43;box-shadow:0 0 8px #ffc54c,0 0 16px rgba(255,114,55,.7)}.toggle-base{position:absolute;left:50%;top:37px;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0f2f1,#899194 38%,#242a2c 70%);box-shadow:0 2px 5px #000}.toggle-lever{position:absolute;left:50%;top:43px;width:8px;height:34px;border-radius:8px;background:linear-gradient(90deg,#737b7d,#eef0ef 48%,#60686a);transform-origin:50% 25px;transform:translateX(-50%) rotate(22deg);box-shadow:2px 3px 3px rgba(0,0,0,.45);transition:transform .16s cubic-bezier(.2,.9,.25,1.3)}.trainer-switch.high .toggle-lever{transform:translateX(-50%) rotate(-22deg)}.switch-copy{position:absolute;left:5px;right:5px;bottom:8px;text-align:center;font:900 .72rem/1.15 Menlo,monospace}.switch-copy small{display:block;margin-top:3px;color:#788581;font:700 .52rem/1 Menlo,monospace}.trainer-switch.high .switch-copy small{color:#ffd977}.pulse-button{min-height:112px;border:1px solid #596366;border-radius:8px;background:radial-gradient(circle at 50% 40%,#ff776d 0 18%,#9f2924 20% 31%,#2a0c0a 33% 36%,transparent 38%),linear-gradient(155deg,#30373a,#121719);color:#dce6e3;cursor:pointer;font:800 .63rem/1.35 Menlo,monospace;padding-top:64px;box-shadow:inset 0 1px rgba(255,255,255,.12),0 3px 6px #080a0b}.pulse-button:active{transform:translateY(2px);filter:brightness(.8)}
+.power-off-mask{position:absolute;z-index:40;inset:0;display:none;align-items:center;justify-content:center;background:rgba(5,7,8,.55);pointer-events:none}.trainer.power-off .power-off-mask{display:flex}.power-off-mask span{padding:12px 18px;border:1px solid #66706f;border-radius:8px;background:#0b0f10;color:#9aa5a2;font:800 .78rem/1 Menlo,monospace;letter-spacing:.14em}
+.trainer-reference{margin:0 18px 16px;color:#93a19d;font-size:.7rem}.trainer-reference summary{cursor:pointer}.trainer-reference-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}.trainer-reference img{width:100%;height:120px;object-fit:contain;border-radius:7px;background:#eef0eb}
+@media(max-width:1000px){.trainer-top{grid-template-columns:1.2fr .8fr}.power-bay{grid-column:1/-1;grid-template-columns:1fr 1fr 1fr}.power-label{grid-column:1/-1}.sound-toggle{grid-column:auto}.trainer-workgrid{grid-template-columns:140px minmax(0,1fr)}.status-panel{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.status-panel>.panel-title{grid-column:1/-1}.status-card{margin:0}.net-inspector{min-height:0}}
+@media(max-width:700px){.trainer-nameplate{padding:15px 18px 9px}.trainer-nameplate span{display:none}.trainer-top{grid-template-columns:1fr;padding:0 10px 10px}.power-bay{grid-column:auto;grid-template-columns:1fr 1fr}.sound-toggle{grid-column:1/-1}.trainer-bus{margin:0 10px 10px;overflow-x:auto}.bus-title{display:none}.trainer-modebar{padding:0 10px}.mode-pane{margin:0 10px 10px}.free-copy{display:block}.mode-readout{display:block;margin-top:6px}.lab-player{grid-template-columns:1fr}.player-scrub{grid-column:1/-1}.trainer-workgrid{grid-template-columns:1fr;padding:0 10px 10px}.breadboard-frame{grid-row:1}.monitor-list{grid-template-columns:repeat(4,1fr)}.monitor-channel{grid-template-columns:22px 1fr;padding:5px}.monitor-led{width:20px;height:20px}.monitor-value{display:none}.status-panel{grid-template-columns:1fr}.breadboard-svg{min-height:0}.analyzer-panel,.switch-panel{margin:0 10px 10px}.switch-bank{grid-template-columns:repeat(3,1fr)}.pulse-button{grid-column:1/-1;min-height:78px;padding-top:48px}.trainer-reference{margin:0 10px 14px}.trainer-reference-grid{grid-template-columns:1fr}.trainer-reference img{height:160px}}
+@media(max-width:400px){.lab-shell{border-radius:13px}.lab-tab{padding:8px 9px;font-size:.68rem}.player-buttons{width:100%}.player-btn{flex:1;padding:7px 5px}.monitor-list{grid-template-columns:repeat(2,1fr)}.switch-bank{gap:6px}.trainer-switch{min-height:104px}.trainer-bus{font-size:.55rem}.breadboard-frame::before{font-size:.42rem}.answer-sequences{font-size:.56rem}.status-panel{display:block}.status-card{margin-bottom:7px}}
+@media(prefers-reduced-motion:reduce){.wire.active-route,.mode-badge.disabled{animation:none}.toggle-lever{transition:none}}
+/* ═══════════ กล่องโจทย์พร้อมรูป ═══════════ */
+.problem-box .prob-grid{display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap}
+.problem-box .prob-text{flex:1 1 340px; min-width:300px}
+.problem-box .prob-fig{flex:0 0 330px; max-width:330px; cursor:zoom-in; position:relative}
+.problem-box .prob-fig img{
+  width:100%; display:block; border:1.5px solid var(--rule); border-radius:8px;
+  transition:transform .18s ease;
+}
+.problem-box .prob-fig:hover img{transform:scale(1.02)}
+.prob-cap{font-size:.78rem; color:var(--ink-soft); margin-top:6px; text-align:center}
+
+/* ═══════════ Floating toolbar ═══════════ */
+.float-bar{
+  position:fixed; left:20px; bottom:20px; z-index:60;
+  display:flex; gap:9px; align-items:center;
+  background:#fffdf7; border:1.5px solid var(--ink); border-radius:14px;
+  padding:9px 13px; box-shadow:0 6px 22px rgba(40,32,10,.22);
+}
+.float-bar .fb-label{font-size:.78rem; color:var(--ink-soft); font-weight:700; margin-right:2px}
+.fb-btn{
+  width:44px; height:44px; border-radius:10px; border:1.5px solid var(--ink);
+  background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all .15s ease; padding:0;
+}
+.fb-btn:hover{background:var(--ink)}
+.fb-btn:hover svg *{stroke:var(--paper)}
+.fb-btn svg{width:23px; height:23px}
+.fb-btn svg *{stroke:var(--ink); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+.fb-btn svg .fillme{fill:var(--ink); stroke:none}
+.fb-btn:hover svg .fillme{fill:var(--paper)}
+
+/* แผงรูปโจทย์ลอย */
+#prob-panel{
+  position:fixed; left:20px; bottom:82px; z-index:59;
+  width:min(430px, calc(100vw - 40px));
+  background:#fffdf7; border:2px solid var(--ink); border-radius:14px;
+  box-shadow:0 14px 46px rgba(30,22,4,.35);
+  padding:12px; display:none;
+}
+#prob-panel.on{display:block}
+#prob-panel img{width:100%; display:block; border-radius:8px; cursor:zoom-in}
+#prob-panel .pp-head{
+  display:flex; justify-content:space-between; align-items:center; padding:2px 4px 9px;
+}
+#prob-panel .pp-head b{font-size:.88rem}
+#prob-panel .pp-close{
+  border:none; background:none; font-size:1.15rem; cursor:pointer; color:var(--ink-soft);
+  padding:0 4px;
+}
+#prob-panel .pp-close:hover{color:var(--red)}
+
+@media (max-width:720px){
+  .float-bar{left:8px;bottom:8px;width:54px;padding:5px;flex-direction:column;gap:5px}
+  .float-bar .fb-label{display:none}.float-bar .fb-btn{width:42px;height:42px}
+  .float-bar .fb-btn:last-child{display:none}
+  #prob-panel{left:12px; bottom:74px}
+  .problem-box .prob-fig{flex:1 1 100%; max-width:none}
+}
+@media print{.float-bar,#prob-panel{display:none!important}}
+@media print{
+  .top-link,.zoom-hint,#lb{display:none!important}
+  body{background:#fff} .page{max-width:none}
+  article.slot,.callout,figure.textbook .frame{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div id="lb"><span class="x">×</span><img alt=""></div>
+
+<div class="page">
+
+<div class="breadcrumb" style="display:flex; align-items:center; gap:8px; font-size:.88rem; color:var(--ink-soft); margin-bottom:14px;">
+  <a href="../../../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">หน้าหลักวิชา 305241</a>
+  <span style="color:#9CA3AF;">/</span>
+  <a href="../../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">บทที่ 3 (MUX & DMUX)</a>
+  <span style="color:#9CA3AF;">/</span>
+  <a href="../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">คลังข้อสอบ</a>
+  <span style="color:#9CA3AF;">/</span>
+  <span>ข้อที่ 1 (เฉลยละเอียด)</span>
+</div>
+
+<header>
+  <div class="course-line">
+    <span>305241 · DIGITAL LOGIC</span>
+    <span class="chip">บทที่ 3 · MSI LOGIC — MUX / DMUX</span>
+    <span>แบบฝึกหัดท้ายบท · ข้อที่ 1</span>
+  </div>
+  <h1 class="book-title">เฉลยละเอียด: หารูปคลื่นเอาต์พุต <span class="y-c">Y</span> และ <span class="w-c">W</span><br>จากวงจรมัลติเพล็กเซอร์ 74151</h1>
+  <p class="subtitle">ฉบับสมบูรณ์ อ้างอิงทฤษฎีจากสไลด์บรรยาย 305241 ทุกขั้นตอน · เขียนสำหรับผู้เรียนที่ไม่มีพื้นฐาน MUX</p>
+
+  <div class="problem-box">
+    <div class="prob-grid">
+      <div class="prob-text">
+        <p><b>1. จงหารูปคลื่นเอาต์พุต Y และรูปคลื่นเอาต์พุต W จากวงจรและรูปคลื่นอินพุตที่กำหนดให้ในรูปที่ 3.40</b></p>
+        <p class="src-note">— แบบฝึกหัดท้ายบทที่ 3, สไลด์บรรยาย 305241 หน้า 110 (เลขหน้าในเล่ม 97)</p>
+        <p style="margin-top:12px;font-size:.92rem;color:var(--ink-soft)">
+        โจทย์ให้มา 2 อย่าง: <b>(ก)</b> รูปคลื่นอินพุต 6 เส้น และ <b>(ข)</b> วงจร 74151 พร้อมวิธีต่อ
+        → ต้องนำมาประกอบกันเพื่อหารูปคลื่นเอาต์พุต (เปิดดูรูปโจทย์ได้ตลอดจากปุ่มมุมซ้ายล่าง)</p>
+      </div>
+      <figure class="prob-fig" onclick="openLB('assets/example01_original.jpeg')">
+        <img src="assets/example01_original.jpeg" alt="โจทย์ต้นฉบับ รูปที่ 3.40">
+        <figcaption class="prob-cap">รูปที่ 3.40 ต้นฉบับ · คลิกเพื่อขยาย</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-head">สารบัญเฉลย</div>
+    <a href="#s0"><span class="no">0</span>สรุปคำตอบ (สำหรับคนรีบ)</a>
+    <a href="#s1"><span class="no">1</span>ปรับพื้นฐาน — มัลติเพล็กเซอร์คืออะไร</a>
+    <a href="#s2"><span class="no">2</span>กฎการทำงานของ 74151</a>
+    <a href="#lab74151"><span class="no">LAB</span>จับไอซีจริง — ทดลองภาพและโมเดล 3D</a>
+    <a href="#s3"><span class="no">3</span>ขั้นที่ 1 — อ่านวงจร: แต่ละช่องต่อกับอะไร</a>
+    <a href="#s4"><span class="no">4</span>ขั้นที่ 2 — A, B, C คือตัวนับฐานสอง</a>
+    <a href="#s5"><span class="no">5</span>ขั้นที่ 3 — อ่านขาอีนาเบิล E</a>
+    <a href="#s6"><span class="no">6</span>ขั้นที่ 4 — เตรียมสัญญาณกลับค่า</a>
+    <a href="#s7"><span class="no">7</span>ขั้นที่ 5 — ไล่คำตอบทีละช่วงเวลา</a>
+    <a href="#s8"><span class="no">8</span>คำตอบ: รูปคลื่น Y และ W</a>
+    <a href="#s9"><span class="no">9</span>สมการบูลีนของวงจรนี้</a>
+    <a href="#s10"><span class="no">10</span>5 จุดที่ข้อสอบตั้งใจดัก</a>
+    <a href="#s11"><span class="no">11</span>วิธีตรวจคำตอบด้วยตัวเอง</a>
+  </nav>
+</header>
+
+<!-- ══════════════════ 0. สรุปคำตอบ ══════════════════ -->
+<section id="s0">
+  <div class="sec-head"><div class="sec-no">0</div><h2>สรุปคำตอบก่อน (สำหรับคนรีบ)</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/09_final_answer.png" alt="คำตอบรูปคลื่น Y และ W"></div>
+    <figcaption><span class="fno">รูปที่ 0.1</span> — รูปคลื่นเอาต์พุต <b>Y</b> และ <b>W</b> วางซ้อนบนอินพุตทั้งหมดบนแกนเวลาเดียวกัน</figcaption>
+  </figure>
+
+  <p style="text-align:center;font-weight:700">คำตอบในรูปลำดับลอจิก (ไล่จากซ้ายไปขวา ท่อนที่ค่าเปลี่ยน)</p>
+  <div class="seq-wrap">
+    <div class="seq"><span class="name y-c">Y</span><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b></div>
+    <div class="seq"><span class="name w-c">W</span><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b><b class="v0">0</b><b class="v1">1</b></div>
+  </div>
+  <p style="text-align:center;color:var(--ink-soft)">Y = 11 ท่อน · W = 11 ท่อน · W เป็นส่วนกลับของ Y ทุกจุด (ตรวจแล้วครบ 1,776 พิกเซล)</p>
+
+  <div class="callout c-key">
+    <span class="lab">กฎ 3 ข้อที่ใช้ตลอดข้อนี้</span>
+    <b>(1)</b>&nbsp; E = 1 → ไอซีถูกปิด → บังคับ Y = 0, W = 1 (ไม่สนใจอะไรเลย) &nbsp;&nbsp;
+    <b>(2)</b>&nbsp; E = 0 → ไอซีทำงาน → Y = D<sub>n</sub> โดย n = 4C + 2B + A &nbsp;&nbsp;
+    <b>(3)</b>&nbsp; W = <span class="ov">Y</span> เสมอ
+  </div>
+
+  <div class="callout c-warn">
+    <span class="lab">อ่านหัวข้อ 10 ด้วย!</span>
+    ถ้าอ่านแค่สรุปนี้แล้วไปสอบ จะพลาด <b>2 จุดที่โจทย์ตั้งใจดัก</b> —
+    E เปลี่ยนค่า "กลางช่วง" ไม่ตรงขอบช่วง และ D₀ ไม่ซิงค์กับตัวนับ ดูหัวข้อ <a href="#s10">ข้อ 10</a>
+  </div>
+</section>
+
+<!-- ══════════════════ 1. พื้นฐาน (ฉบับปูพื้นเชื่อมโยง) ══════════════════ -->
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>ปรับพื้นฐาน: Multiplexer คืออะไร? (ทำไมโจทย์ถึงออกแบบนี้)</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/01_mux_concept.png" alt="พื้นฐานมัลติเพล็กเซอร์"></div>
+    <figcaption><span class="fno">รูปที่ 1.1</span> — ซ้าย: MUX เทียบกับสวิตช์หมุน · ขวา: ตารางเลือกช่องของ MUX 8:1</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <!-- 1.0 แผนที่นำทาง: ทฤษฎี → โจทย์ -->
+  <div class="callout c-key">
+    <span class="lab">อ่านหัวข้อนี้ด้วยคำถามเดียวในใจ: "ของที่เรียน ไปผูกกับโจทย์ตรงไหน?"</span>
+    ทุกหัวย่อยด้านล่างจะปิดท้ายด้วยกล่อง <b>"↔ เชื่อมกับโจทย์"</b> บอกให้ชัดว่า
+    ความรู้ชิ้นนี้ถูกใช้ตอนไหนของการแก้ข้อนี้ — เพราะโจทย์ข้อสอบไม่เคยถามทฤษฎีลอย ๆ
+    มันเอาทฤษฎีมา "ต่อกันเป็นวงจร" แล้วถามผลลัพธ์
+  </div>
+
+  <p><b>มัลติเพล็กเซอร์ (Multiplexer, MUX)</b> หรือ <b>อุปกรณ์เลือกข้อมูล (Data Selector)</b>
+  คือวงจรที่ทำหน้าที่เหมือน <b>สวิตช์หมุนเลือกช่อง</b>:</p>
+
+  <table class="tb">
+    <tr><th>ส่วนประกอบ</th><th class="t-l">หน้าที่</th><th class="t-l">เปรียบเทียบกับสวิตช์หมุน</th></tr>
+    <tr><td>อินพุตข้อมูล D₀…D<sub>n−1</sub></td><td class="t-l">ทางเข้าของสัญญาณ (2<sup>n</sup> ช่อง)</td><td class="t-l">หน้าสัมผัสรอบขอบสวิตช์</td></tr>
+    <tr><td>ขาเลือกอินพุต (Select) n เส้น</td><td class="t-l">บอกว่าให้ช่องไหน "ผ่าน"</td><td class="t-l">ตำแหน่งก้านสวิตช์ที่หันไปชี้</td></tr>
+    <tr><td>เอาต์พุต Y</td><td class="t-l">ทางออกเดียวที่ได้ค่าของช่องที่ถูกเลือก</td><td class="t-l">ปลายก้านสวิตช์ (ศูนย์กลาง)</td></tr>
+  </table>
+  <p>MUX 8:1 มีอินพุต 8 ช่อง ⇒ ต้องใช้ขาเลือก n = 3 เส้น (เพราะ 2³ = 8)</p>
+
+  <h3>1.1 ขาเลือกอินพุต = "เลขที่อยู่" ของช่อง (lecture รูปที่ 3.1–3.2)</h3>
+  <figure class="textbook lecture-ref">
+    <div class="frame"><img src="assets/lecture_refs/lecture_fig3_1_mux_block.png" alt="รูปที่ 3.1 แผนภาพบล็อกของมัลติเพล็กเซอร์ จากสไลด์บรรยาย 305241 หน้า 82"></div>
+    <figcaption><span class="fno">สไลด์บรรยาย รูปที่ 3.1</span> แผนภาพบล็อกและแนวคิดสวิตช์หมุนเลือกช่องข้อมูลของมัลติเพล็กเซอร์ (หน้า 82)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยายต้นฉบับ</div>
+  </figure>
+
+  <p>เลขฐานสองบนขาเลือก คือ <b>เลขที่อยู่ (address)</b> ของช่องที่จะให้ผ่านไป Y —
+  นี่คือประโยคเดียวที่ต้องจำให้แม่น:</p>
+  <table class="tb">
+    <caption>ตารางที่ 1.1 — ถอดรหัสขาเลือก → ช่องที่ถูกเลือก</caption>
+    <tr><th>S₂ S₁ S₀</th><th>= 4·S₂+2·S₁+S₀</th><th>ช่องที่ถูกเลือก</th></tr>
+    <tr><td>000</td><td>0</td><td>D₀</td></tr>
+    <tr><td>001</td><td>1</td><td>D₁</td></tr>
+    <tr><td class="hl">010</td><td class="hl">2</td><td class="hl">D₂ ← ตัวอย่าง: ก้านสวิตช์ในรูป 1.1 ชี้ช่องนี้</td></tr>
+    <tr><td colspan="3"><a href="#s4_2" style="color:var(--accent);text-decoration:underline;font-weight:700">… ตารางเต็มดูหัวข้อ 4.2 (คลิกเพื่อข้ามไปดู) …</a></td></tr>
+    <tr><td>111</td><td>7</td><td>D₇</td></tr>
+  </table>
+
+  <div class="callout c-ex">
+    <span class="lab">↔ เชื่อมกับโจทย์ (ใช้ตอนหัวข้อ 4)</span>
+    ในวงจรของเรา ขาเลือกคือ A, B, C ซึ่งโจทย์ให้มาเป็น<b>รูปคลื่นที่เปลี่ยนค่าไปเรื่อย ๆ</b> —
+    ไม่ได้นิ่งเหมือนตาราง! เพราะฉะนั้น "ช่องที่ถูกเลือก" จึง<b>เปลี่ยนไปตามเวลา</b>
+    ⇒ ตาราง 1.1 นี่แหละคือเครื่องมือที่เราจะใช้ไล่ "ช่วงเวลาที่ t ใช้ช่องไหน" ในหัวข้อ 4
+  </div>
+
+  <h3>1.2 ค่าที่ป้อนเข้าช่องได้มีแค่ 3 แบบ (lecture ตัวอย่างที่ 3.3, รูปที่ 3.19–3.20)</h3>
+  <figure class="textbook lecture-ref">
+    <div class="frame"><img src="assets/lecture_refs/lecture_example3_3_logic_gen.png" alt="ตัวอย่างที่ 3.3 และรูปที่ 3.19–3.20 จากสไลด์บรรยาย 305241 หน้า 96"></div>
+    <figcaption><span class="fno">สไลด์บรรยาย ตัวอย่างที่ 3.3</span> รูปที่ 3.19–3.20 แสดงการนำ 74151 มาสร้างฟังก์ชันลอจิก โดยการป้อนค่า 0, 1 และตัวแปรเข้าช่อง D₀…D₇ (หน้า 96)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยายต้นฉบับ</div>
+  </figure>
+
+  <p>Lecture สอนการนำ MUX ไปสร้างฟังก์ชันลอจิกโดย "ต่อค่า" เข้าช่อง D₀…D₇ ซึ่งมีได้แค่ 3 รูปแบบ:</p>
+  <table class="tb">
+    <caption>ตารางที่ 1.2 — 3 แบบของค่าที่ต่อเข้าช่อง (จำไว้ ใช้อ่านวงจร)</caption>
+    <tr><th>แบบที่ต่อ</th><th class="t-l">เชื่อมต่อจริงในวงจร</th><th class="t-l">ค่าที่ช่องนั้นส่งออก</th><th class="t-l">ลักษณะในรูปคลื่นคำตอบ</th></tr>
+    <tr><td class="hl"><b>0</b></td><td class="t-l hl">ต่อลงกราวด์ (GND)</td><td class="t-l hl">0 ตลอดเวลา</td><td class="t-l hl">เส้นตรงแบนต่ำ</td></tr>
+    <tr><td class="hl"><b>1</b></td><td class="t-l hl">ต่อเข้า +5 V</td><td class="t-l hl">1 ตลอดเวลา</td><td class="t-l hl">เส้นตรงแบนสูง</td></tr>
+    <tr><td><b>สัญญาณ</b></td><td class="t-l">ต่อสายสัญญาณ (หรือผ่านอินเวอร์เตอร์เป็น <span class="ov">สัญญาณ</span>)</td><td class="t-l">เปลี่ยนตามเวลา</td><td class="t-l">ลอกรูปคลื่นมาแสดง (หรือภาพกลับ)</td></tr>
+  </table>
+
+  <div class="callout c-ex">
+    <span class="lab">↔ เชื่อมกับโจทย์ (ใช้ตอนหัวข้อ 3)</span>
+    เปิดรูปโจทย์ (ปุ่มมุมซ้ายล่าง) ดูวงจรด้านล่าง — จะเห็นครบทั้ง 3 แบบ:
+    มี <b>+5 V × 2</b>, <b>กราวด์ × 2</b> และ <b>สัญญาณ D₀, D₂ ที่แตกไปอินเวอร์เตอร์ด้วย</b>
+    หน้าที่ของเราตอนหัวข้อ 3 คือทำตาราง "ช่องไหนต่อแบบไหน" ให้ครบทั้ง 8 ช่อง
+  </div>
+
+  <h3>1.3 ไอซีตระกูล MUX — ทำไมโจทย์เลือก 74151 (lecture หน้า 82)</h3>
+  <p>ข้อความจาก lecture หน้า 82 คัดมาตรงตัว:</p>
+  <table class="tb">
+    <caption>ตารางที่ 1.3 — เปรียบเทียบไอซี TTL ตระกูล MUX</caption>
+    <tr><th>ไอซี</th><th>อินพุตข้อมูล</th><th>ขาเลือก</th><th class="t-l">ลักษณะเอาต์พุต</th></tr>
+    <tr><td>74150</td><td>16 ช่อง</td><td>4 บิต</td><td class="t-l">แบบกลับค่า (อย่างเดียว) ⇒ ถ้าโจทย์ใช้ตัวนี้ จะไม่มีขา Y!</td></tr>
+    <tr><td class="hl"><b>74151</b></td><td class="hl"><b>8 ช่อง</b></td><td class="hl"><b>3 บิต</b></td><td class="t-l hl"><b>ทั้งแบบให้ค่าจริง (Y) และแบบกลับค่า (W)</b></td></tr>
+    <tr><td>74152</td><td>8 ช่อง</td><td>3 บิต</td><td class="t-l">แบบให้ค่าจริง (อย่างเดียว) ⇒ ถ้าใช้ตัวนี้ โจทย์ถาม W ไม่ได้</td></tr>
+  </table>
+
+  <div class="callout c-ex">
+    <span class="lab">↔ เชื่อมกับโจทย์</span>
+    โจทย์ถามหา <b>ทั้ง Y และ W</b> ⇒ ตั้งแต่ยังไม่เริ่มแก้ เราก็รู้แล้วว่าต้องเป็นไอซีที่มีเอาต์พุต 2 ขา
+    ซึ่งในตระกูลนี้คือ <b>74151</b> พอดี — และเมื่อหา Y ได้ W ได้ฟรี เพราะ W = <span class="ov">Y</span>
+  </div>
+
+  <h3>1.4 อีนาเบิล active LOW — ทำไมต้องมีขีดบน (lecture หน้า 83, รูปที่ 3.3)</h3>
+  <figure class="textbook lecture-ref">
+    <div class="frame"><img src="assets/lecture_refs/lecture_fig3_3_74150_table.png" alt="รูปที่ 3.3 ตารางการทำงานของ 74150 จากสไลด์บรรยาย 305241 หน้า 83"></div>
+    <figcaption><span class="fno">สไลด์บรรยาย รูปที่ 3.3</span> ตารางฟังก์ชันของ 74150 สอนกฎของขาอีนาเบิล Active-LOW (<span class="ov">G</span> = H คือปิดการทำงาน บังคับเอาต์พุต) (หน้า 83)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยายต้นฉบับ</div>
+  </figure>
+
+  <p>จากตาราง 74150 ใน lecture (รูปที่ 3.3) มีข้อความสอนไว้ว่า:
+  <em>"อินพุตอีนาเบิลจะเป็นอินพุตที่กำหนดว่าจะให้มัลติเพล็กเซอร์นี้ทำงานหรือไม่ทำงาน…
+  และทำงานที่สภาวะลอจิกต่ำ"</em> — อ่านว่าอะไร:</p>
+  <ul style="line-height:2.05">
+    <li><b>อีนาเบิล</b> = สวิตช์เปิด-ปิดตัวไอซีทั้งตัว (ไม่ใช่สวิตช์เลือกช่อง — คนละหน้าที่กับ Select)</li>
+    <li><b>ทำงานที่ลอจิกต่ำ (active LOW)</b> = ต้องป้อน <b>0</b> ไอซีถึงทำงาน · ป้อน <b>1</b> = สั่งปิด</li>
+    <li><b>สัญญาณเตือน:</b> ชื่อขาที่มีขีดบน (<span class="ov">G</span>) หรือมี bubble วงกลมที่ขา = "ทำงานตอน 0" เสมอ</li>
+  </ul>
+
+  <div class="callout c-ex">
+    <span class="lab">↔ เชื่อมกับโจทย์ (ใช้ตอนหัวข้อ 5 — จุดดักอันดับ 1 ของข้อสอบ)</span>
+    ในรูปโจทย์ สัญญาณ E เดินเข้าขาที่มี bubble (= <span class="ov">G</span>) ⇒ กฎเดียวกับที่ lecture สอน
+    ใช้กับ 74151 ทุกประการ: <b>E = 0 ทำงาน · E = 1 ปิด</b>
+    และเพราะโจทย์วางให้ E = 1 ทั้งช่วงต้นและช่วงท้ายของกราฟ จึงมีผลกับคำตอบ 2 ช่วงเต็ม ๆ
+  </div>
+
+  <h3>1.5 แผนที่รวม: ทฤษฎี 5 ชิ้น → 5 ขั้นตอนแก้โจทย์</h3>
+  <table class="tb">
+    <caption>ตารางที่ 1.4 — เส้นทางจากทฤษฎีสู่คำตอบ (สรุปทั้งหัวข้อ 1)</caption>
+    <tr><th>ทฤษฎีจาก lecture</th><th>ใช้ทำอะไร</th><th>หัวข้อที่ใช้</th><th>ผลลัพธ์ที่ได้</th></tr>
+    <tr><td>§1.1 ขาเลือก = เลขที่อยู่</td><td class="t-l">ไล่ว่าช่วงเวลาที่ t ใช้ช่องไหน</td><td><a href="#s4">4</a></td><td class="t-l">ตาราง 9 ช่วง → ช่อง D₀…D₇…D₀</td></tr>
+    <tr><td>§1.2 ค่า 3 แบบ (0/1/สัญญาณ)</td><td class="t-l">อ่านวงจรว่าแต่ละช่องต่ออะไร</td><td><a href="#s3">3</a></td><td class="t-l">Channel Map ครบ 8 ช่อง</td></tr>
+    <tr><td>§1.3 74151 มี Y + W</td><td class="t-l">รู้ว่าต้องตอบ 2 รูปคลื่น</td><td><a href="#s2">2</a>, <a href="#s8">8</a></td><td class="t-l">Y แล้ว W ตามมา</td></tr>
+    <tr><td>§1.4 อีนาเบิล active LOW</td><td class="t-l">เช็กว่าช่วงไหนไอซีปิด</td><td><a href="#s5">5</a></td><td class="t-l">รู้ว่าช่วงไหน Y=0 บังคับ</td></tr>
+    <tr><td>NOT gate กลับค่าสัญญาณ</td><td class="t-l">เตรียม <span class="ov">D₀</span>, <span class="ov">D₂</span></td><td><a href="#s6">6</a></td><td class="t-l">ครบทุกสัญญาณที่วงจรใช้</td></tr>
+  </table>
+  <p style="color:var(--ink-soft)">เมื่อครบ 5 ขั้น ⇒ ประกอบเป็นคำตอบในหัวข้อ <a href="#s7">7</a> และ <a href="#s8">8</a></p>
+</section>
+
+<!-- ══════════════════ 2. กฎของ 74151 ══════════════════ -->
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>กฎการทำงานของ 74151 (อ้างอิงจาก lecture)</h2></div>
+
+  <div class="callout c-key"><span class="lab">ทำไมต้องมีหัวข้อนี้</span>
+  หัวข้อ 1 บอกว่า MUX “เลือกช่องตามเลขที่อยู่” — แต่การแก้โจทย์จริงต้องรู้
+  <b>กฎละเอียดของไอซีที่โจทย์ใช้</b>: enable ปิดแล้วเอาต์พุตเป็นอะไร W ต่างจาก Y ยังไง
+  คำตอบอยู่ใน <b>ตารางฟังก์ชัน (function table)</b> ของไอซี ซึ่ง lecture ให้มาในรูปที่ 3.2 (หน้า 82)
+  และเราจะใช้เป็น “กฎหมาย” ของทั้งข้อ</div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/02_74151_function_table.png" alt="ตารางฟังก์ชัน 74151"></div>
+    <figcaption><span class="fno">รูปที่ 2.1</span> — ตารางแสดงการทำงานของมัลติเพล็กเซอร์เบอร์ 74151
+    (คัดจากสไลด์บรรยาย หน้า 82 เลขหน้าในเล่ม 71, <b>รูปที่ 3.2</b> — ทุกขั้นตอนที่เหลืออ้างตารางนี้)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <figure class="textbook lecture-ref">
+    <div class="frame"><img src="assets/lecture_refs/lecture_fig3_2_74151_table.png" alt="รูปที่ 3.2 ตารางแสดงการทำงานของ 74151 จากสไลด์บรรยาย 305241 หน้า 82"></div>
+    <figcaption><span class="fno">สไลด์บรรยาย รูปที่ 3.2</span> ตารางแสดงการทำงานของ 74151 ต้นฉบับจาก Lecture (หน้า 82) พร้อมลายมือเขียนกำกับ *(default)* ที่แถวแรกเมื่อ <span class="ov">G</span> = H</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยายต้นฉบับ</div>
+  </figure>
+
+  <h3>อ่านตารางให้ออก — 3 ประเด็นสำคัญ</h3>
+
+  <p><b>ประเด็นที่ 1 · แถวแรกสำคัญที่สุด:</b> ขา <span class="ov">G</span> มีขีดบน ⇒
+  เป็นขาที่ <b>ทำงานที่ลอจิกต่ำ (active LOW)</b></p>
+  <table class="tb">
+    <tr><th>ค่าที่ขา <span class="ov">G</span></th><th>สถานะไอซี</th><th>ผลที่เอาต์พุต</th></tr>
+    <tr><td class="hl">H (ลอจิก 1)</td><td class="hl">ถูกปิด (ดิสเอเบิล)</td><td class="hl"><b>บังคับ</b> Y = L, W = H</td></tr>
+    <tr><td>L (ลอจิก 0)</td><td>ทำงานปกติ</td><td>Y = D<sub>n</sub>, W = <span class="ov">D<sub>n</sub></span></td></tr>
+  </table>
+  <p>สังเกตแถวแรก C, B, A เป็น <b>X</b> = "ไม่สนใจ (don't care)" —
+  ไม่ว่าขาเลือกจะเป็นอะไร ไอซีก็ส่ง Y = L, W = H เหมือนกันหมด
+  เพราะโจทย์ทำให้ E = 1 ช่วงต้นและช่วงท้ายกราฟ ถ้าลืมกฎนี้จะตอบผิดทันที 2 ช่วง</p>
+
+  <p><b>ประเด็นที่ 2 · การถอดรหัสขาเลือก:</b> n = 4C + 2B + A
+  (C มีน้ำหนักมากสุด = MSB, A น้อยสุด = LSB)</p>
+
+  <p><b>ประเด็นที่ 3 · W คือส่วนกลับของ Y:</b> คอลัมน์ W มีขีดบนทุกตัว (<span class="ov">D₀</span>, <span class="ov">D₁</span>, …)
+  ขณะที่ Y ไม่มีขีด ⇒ <b>W = <span class="ov">Y</span> เสมอ</b>
+  ตรงกับข้อความ lecture หน้า 71: "...มีเอาต์พุตเป็นทั้งแบบให้ค่าจริงและแบบกลับค่า"</p>
+
+  <div class="callout c-tip">
+    <span class="lab">ข้อสังเกตจากผู้อ่านต้นฉบับ</span>
+    ในไฟล์ PDF มีลายมือสีแดงเขียนไว้ข้างแถวแรกของตารางว่า <b>"(default)"</b> —
+    หมายความว่าสถานะ Y = L, W = H คือ "สถานะพัก" ของ 74151 เมื่อไม่มีการ enable
+    นั่นยืนยันอีกชั้นว่าเราอ่านตารางตรงกับผู้เรียนคนก่อน
+  </div>
+</section>
+
+<!-- ══════════════════ LAB. Virtual Digital Logic Trainer ══════════════════ -->
+<section id="lab74151">
+  <div class="sec-head"><div class="sec-no">LAB</div><h2>Virtual Digital Logic Trainer — ต่อ 74151 และ 7404 บนเบรดบอร์ดจริง</h2></div>
+
+  <p>นี่คือชุดทดลองเสมือนของ<b>วงจรข้อ 1 โดยเฉพาะ</b> ไม่ใช่ MUX ตัวอย่างทั่วไป:
+  ไอซี 74151 และ 7404 เสียบข้ามร่องกลาง สายสีทุกเส้นตรงตามเน็ตลิสต์ และไฟ Logic Monitor แสดง Y/W ที่ขา 5/6 จริง
+  ชี้สายหรือขาใดก็ได้เพื่อดูชื่อเน็ต แรงดัน และสถานะลอจิก แล้วลองสับสวิตช์เหมือนอยู่หน้าเครื่องในห้องแล็บ</p>
+
+  <div class="lab-shell trainer" id="mux-lab">
+    <div class="power-off-mask"><span>TRAINER POWER · OFF</span></div>
+    <div class="trainer-tooltip" id="trainer-tooltip" role="tooltip"></div>
+
+    <div class="trainer-nameplate">
+      <strong>DIGITAL CIRCUIT FUNDAMENTAL · VIRTUAL TRAINER DT-305241</strong>
+      <span>TTL LAB · +5 V · EXAM 3.40</span>
+    </div>
+
+    <div class="trainer-top">
+      <div class="instrument">
+        <div class="instrument-head"><span>DDS SIGNAL GENERATOR / SYSTEM LCD</span><em>TTL OUT</em></div>
+        <div class="lcd" id="trainer-lcd"><div id="lcd-line1">FREE LAB  CBA=000</div><div id="lcd-line2">ACTIVE  Y=0 W=1</div></div>
+        <div class="instrument-controls" aria-hidden="true"><span class="mini-key"></span><span class="mini-key"></span><span class="mini-key"></span><span class="rotary"></span><span class="bnc"></span></div>
+      </div>
+
+      <div class="instrument">
+        <div class="instrument-head"><span>AUXILIARY INSTRUMENTS</span><em>STANDBY</em></div>
+        <div class="aux-displays" aria-label="เครื่องมือเสริมอยู่ในโหมด standby">
+          <div class="aux-module"><span class="seven-seg">--</span>VOLTMETER</div>
+          <div class="aux-module"><span class="seven-seg">8.8</span>7-SEG BCD</div>
+          <div class="aux-module"><span class="aux-knob"></span>DAC / R-2R</div>
+        </div>
+      </div>
+
+      <div class="instrument power-bay">
+        <div class="power-label">MASTER POWER / PROTECTION</div>
+        <button class="rocker-power" id="trainer-power" type="button" aria-pressed="true"><span class="power-led"></span>POWER ON</button>
+        <button class="breaker" id="trainer-reset" type="button">RESET<br>BREAKER</button>
+        <button class="sound-toggle" id="trainer-sound" type="button" aria-pressed="true">♪ TACTILE AUDIO · ON</button>
+      </div>
+    </div>
+
+    <div class="trainer-bus" aria-label="รางจ่ายไฟคงที่">
+      <span class="bus-title">FIXED DC POWER SUPPLY BUS</span>
+      <span class="bus-terminal" data-tip="ราง +5 V สำหรับ TTL" data-net="VCC"><i class="terminal-socket" style="--socket:#d9322c"></i>+5V</span>
+      <span class="bus-terminal" data-tip="ราง −5 V (ไม่ได้ใช้ในวงจรนี้)"><i class="terminal-socket" style="--socket:#4077b9"></i>−5V</span>
+      <span class="bus-terminal" data-tip="กราวด์อ้างอิง 0 V" data-net="GND"><i class="terminal-socket" style="--socket:#1a1e20"></i>GND 0V</span>
+      <span class="bus-terminal" data-tip="ราง +12 V (standby)"><i class="terminal-socket" style="--socket:#df7a29"></i>+12V</span>
+      <span class="bus-terminal" data-tip="ราง −12 V (standby)"><i class="terminal-socket" style="--socket:#7553a8"></i>−12V</span>
+    </div>
+
+    <div class="trainer-modebar" role="tablist" aria-label="โหมดห้องทดลอง">
+      <button class="lab-tab" id="tab-free" role="tab" aria-selected="true" aria-controls="pane-free" data-mode="free">โหมด 1 · FREE LAB</button>
+      <button class="lab-tab" id="tab-exam" role="tab" aria-selected="false" aria-controls="pane-exam" data-mode="exam">โหมด 2 · EXAM PLAYER</button>
+    </div>
+
+    <div class="lab-pane on mode-pane" id="pane-free" role="tabpanel" aria-labelledby="tab-free">
+      <div class="free-copy"><span><b>ทดลองต่อวงจรด้วยมือ:</b> สับ E, C, B, A, D₀, D₂ ที่แผงล่าง หรือกด STEP PULSER เพื่อเลื่อน CBA</span><span class="mode-readout" id="free-readout">SELECT D₀ · PIN 4</span></div>
+    </div>
+
+    <div class="lab-pane mode-pane" id="pane-exam" role="tabpanel" aria-labelledby="tab-exam">
+      <div class="lab-player">
+        <div class="player-buttons">
+          <button class="player-btn" id="sim-prev" type="button" aria-label="ก่อนหน้า">◀</button>
+          <button class="player-btn primary" id="sim-play" type="button">▶ PLAY</button>
+          <button class="player-btn" id="sim-next" type="button" aria-label="ถัดไป">▶</button>
+          <button class="player-btn" id="sim-restart" type="button" aria-label="เริ่มใหม่">↺</button>
+        </div>
+        <input class="player-scrub" id="sim-scrub" type="range" min="0" max="14" value="0" step="1" aria-label="เลื่อนเวลา 15 micro-slices">
+        <div class="player-meta"><strong id="sim-status">SLOT 1 · 1/15</strong><span>9 slots / 15 micro-slices</span></div>
+        <div class="player-track" id="sim-track" aria-label="เส้นเวลาจำลองโจทย์ 15 ส่วนย่อย"></div>
+        <p class="player-note" id="sim-note">E = 1 ปิด 74151 แม้ CBA จะชี้ D₀ — Y ถูกบังคับเป็น 0 และ W เป็น 1</p>
+      </div>
+    </div>
+
+    <div class="trainer-workgrid">
+      <aside class="trainer-side monitor-panel" aria-label="Logic Monitor 8 ช่อง">
+        <div class="panel-title">LOGIC MONITOR <span>0V / 5V</span></div>
+        <div class="monitor-list">
+          <div class="monitor-channel output" data-monitor="Y" data-tip="LED 1 รับจาก 74151 Pin 5" data-net="Y"><span class="monitor-led"></span><span class="monitor-name">LED 1 · Y<small>PIN 5</small></span><span class="monitor-value">0</span></div>
+          <div class="monitor-channel output" data-monitor="W" data-tip="LED 2 รับจาก 74151 Pin 6; W = NOT Y" data-net="W"><span class="monitor-led"></span><span class="monitor-name">LED 2 · W<small>PIN 6</small></span><span class="monitor-value">1</span></div>
+          <div class="monitor-channel" data-monitor="C" data-tip="Select C / S2 (MSB)" data-net="C"><span class="monitor-led"></span><span class="monitor-name">C<small>S2 · MSB</small></span><span class="monitor-value">0</span></div>
+          <div class="monitor-channel" data-monitor="B" data-tip="Select B / S1" data-net="B"><span class="monitor-led"></span><span class="monitor-name">B<small>S1</small></span><span class="monitor-value">0</span></div>
+          <div class="monitor-channel" data-monitor="A" data-tip="Select A / S0 (LSB)" data-net="A"><span class="monitor-led"></span><span class="monitor-name">A<small>S0 · LSB</small></span><span class="monitor-value">0</span></div>
+          <div class="monitor-channel" data-monitor="E" data-tip="Enable Ē ทำงานที่ลอจิกต่ำ" data-net="E"><span class="monitor-led"></span><span class="monitor-name">Ē<small>ACTIVE LOW</small></span><span class="monitor-value">0</span></div>
+          <div class="monitor-channel" data-monitor="D0" data-tip="สัญญาณ D0 จากสวิตช์" data-net="D0"><span class="monitor-led"></span><span class="monitor-name">D₀<small>DATA</small></span><span class="monitor-value">0</span></div>
+          <div class="monitor-channel" data-monitor="D2" data-tip="สัญญาณ D2 จากสวิตช์" data-net="D2"><span class="monitor-led"></span><span class="monitor-name">D₂<small>DATA</small></span><span class="monitor-value">0</span></div>
+        </div>
+      </aside>
+
+      <div class="breadboard-frame">
+        <div class="breadboard-scroll">
+          <svg class="breadboard-svg" id="breadboard-svg" viewBox="0 0 960 600" role="img" aria-label="เบรดบอร์ดต่อไอซี 74151 และ 7404 ตามวงจรข้อสอบข้อ 1">
+            <defs>
+              <linearGradient id="boardShade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffef5"/><stop offset=".52" stop-color="#ebe9dc"/><stop offset="1" stop-color="#c7c5b9"/></linearGradient>
+              <linearGradient id="chipTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#45463e"/><stop offset=".2" stop-color="#171914"/><stop offset=".7" stop-color="#090b08"/><stop offset="1" stop-color="#303129"/></linearGradient>
+              <linearGradient id="pinMetal"><stop offset="0" stop-color="#747975"/><stop offset=".45" stop-color="#f1f0e8"/><stop offset="1" stop-color="#7e837f"/></linearGradient>
+              <pattern id="holePattern" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="2.5" fill="#5c605d"/><circle cx="8.3" cy="8.2" r=".8" fill="#151817"/></pattern>
+              <filter id="boardShadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".38"/></filter>
+              <filter id="chipShadow"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-opacity=".65"/></filter>
+            </defs>
+
+            <rect class="bb-board" x="18" y="20" width="924" height="560" rx="24"/>
+            <rect class="bb-field" x="52" y="112" width="856" height="124" rx="8"/>
+            <rect class="bb-field" x="52" y="334" width="856" height="130" rx="8"/>
+            <rect class="bb-trench" x="45" y="270" width="870" height="54" rx="7"/>
+            <line class="bb-rail plus" x1="64" y1="62" x2="896" y2="62"/><line class="bb-rail ground" x1="64" y1="92" x2="896" y2="92"/>
+            <line class="bb-rail plus" x1="64" y1="508" x2="896" y2="508"/><line class="bb-rail ground" x1="64" y1="538" x2="896" y2="538"/>
+            <text class="bb-rail-text" x="40" y="66" fill="#c63732">+</text><text class="bb-rail-text" x="39" y="96" fill="#2b6ba5">−</text>
+            <text class="bb-rail-text" x="40" y="512" fill="#c63732">+</text><text class="bb-rail-text" x="39" y="542" fill="#2b6ba5">−</text>
+            <text class="bb-ic-title" x="480" y="293" text-anchor="middle">CENTER TRENCH · ICs STRADDLE THIS VALLEY</text>
+
+            <!-- Curved color-coded jumper wires: one net is one inspectable electrical connection -->
+            <path class="wire" style="--wire:#e54238" data-net="VCC" data-tip="+5V rail → 74151 Pin 16 (VCC)" d="M230 220 C230 165 180 130 230 62"/>
+            <path class="wire" style="--wire:#e54238" data-net="VCC" data-channel-wire="7" data-tip="+5V rail → 74151 Pin 12 (D7 = 1)" d="M406 220 C408 160 432 122 406 62"/>
+            <path class="wire" style="--wire:#e54238" data-net="VCC" data-channel-wire="1" data-tip="+5V rail → 74151 Pin 3 (D1 = 1)" d="M318 340 C320 410 286 456 318 508"/>
+            <path class="wire" style="--wire:#e54238" data-net="VCC" data-tip="+5V rail → 7404 Pin 14 (VCC)" d="M630 220 C628 157 665 118 630 62"/>
+            <path class="wire" style="--wire:#15191b" data-net="GND" data-channel-wire="3" data-tip="GND rail → 74151 Pin 1 (D3 = 0)" d="M230 340 C197 408 215 475 230 538"/>
+            <path class="wire" style="--wire:#15191b" data-net="GND" data-channel-wire="5" data-tip="GND rail → 74151 Pin 14 (D5 = 0)" d="M318 220 C300 168 345 132 318 92"/>
+            <path class="wire" style="--wire:#15191b" data-net="GND" data-tip="GND rail → 74151 Pin 8" d="M538 340 C555 410 510 472 538 538"/>
+            <path class="wire" style="--wire:#15191b" data-net="GND" data-tip="GND rail → 7404 Pin 7" d="M846 340 C875 405 820 474 846 538"/>
+
+            <path class="wire" style="--wire:#36b96c" data-net="D0" data-channel-wire="0" data-tip="Switch D0 → 74151 Pin 4 (D0)" d="M210 554 C236 468 330 432 362 340"/>
+            <path class="wire" style="--wire:#36b96c" data-net="D0" data-tip="Switch D0 → 7404 Pin 1 (Gate 1 input)" d="M210 554 C330 500 514 435 630 340"/>
+            <path class="wire" style="--wire:#f0c52e" data-net="D2" data-channel-wire="2" data-tip="Switch D2 → 74151 Pin 2 (D2)" d="M310 554 C308 467 250 424 274 340"/>
+            <path class="wire" style="--wire:#f0c52e" data-net="D2" data-tip="Switch D2 → 7404 Pin 3 (Gate 2 input)" d="M310 554 C430 505 594 438 702 340"/>
+            <path class="wire" style="--wire:#f39a2f" data-net="E" data-tip="Switch E → 74151 Pin 7 (Ē active-LOW)" d="M410 554 C398 464 484 425 494 340"/>
+            <path class="wire" style="--wire:#3688e8" data-net="A" data-tip="Switch A → 74151 Pin 11 (S0 / LSB)" d="M510 554 C548 458 586 170 450 220"/>
+            <path class="wire" style="--wire:#276fdb" data-net="B" data-tip="Switch B → 74151 Pin 10 (S1)" d="M610 554 C633 455 624 160 494 220"/>
+            <path class="wire" style="--wire:#174fb7" data-net="C" data-tip="Switch C → 74151 Pin 9 (S2 / MSB)" d="M710 554 C718 442 666 146 538 220"/>
+
+            <path class="wire" style="--wire:#e5f2e9" data-net="D0bar" data-channel-wire="4" data-tip="7404 Pin 2 (NOT D0) → 74151 Pin 15 (D4)" d="M666 340 C628 398 595 174 520 150 C425 120 306 145 274 220"/>
+            <path class="wire" style="--wire:#79e7e7" data-net="D2bar" data-channel-wire="6" data-tip="7404 Pin 4 (NOT D2) → 74151 Pin 13 (D6)" d="M738 340 C694 420 627 205 555 178 C480 150 390 161 362 220"/>
+            <path class="wire" style="--wire:#a566e8" data-net="Y" data-tip="74151 Pin 5 (Y) → Logic Monitor LED 1" d="M406 340 C330 402 190 170 42 180"/>
+            <path class="wire" style="--wire:#ff8a34" data-net="W" data-tip="74151 Pin 6 (W = NOT Y) → Logic Monitor LED 2" d="M450 340 C355 455 190 225 42 215"/>
+
+            <!-- Connection terminals that correspond to physical panel sockets -->
+            <g data-tip="Logic Monitor socket LED 1 · Y" data-net="Y"><circle class="bb-node" cx="42" cy="180" r="7"/><text class="bb-terminal-label" x="55" y="184">Y</text></g>
+            <g data-tip="Logic Monitor socket LED 2 · W" data-net="W"><circle class="bb-node" cx="42" cy="215" r="7"/><text class="bb-terminal-label" x="55" y="219">W</text></g>
+            <g data-tip="Data Switch D0 terminal" data-net="D0"><circle class="bb-node" cx="210" cy="554" r="7"/><text class="bb-terminal-label" x="210" y="575" text-anchor="middle">D0</text></g>
+            <g data-tip="Data Switch D2 terminal" data-net="D2"><circle class="bb-node" cx="310" cy="554" r="7"/><text class="bb-terminal-label" x="310" y="575" text-anchor="middle">D2</text></g>
+            <g data-tip="Enable Ē terminal" data-net="E"><circle class="bb-node" cx="410" cy="554" r="7"/><text class="bb-terminal-label" x="410" y="575" text-anchor="middle">Ē</text></g>
+            <g data-tip="Select A / S0 terminal" data-net="A"><circle class="bb-node" cx="510" cy="554" r="7"/><text class="bb-terminal-label" x="510" y="575" text-anchor="middle">A</text></g>
+            <g data-tip="Select B / S1 terminal" data-net="B"><circle class="bb-node" cx="610" cy="554" r="7"/><text class="bb-terminal-label" x="610" y="575" text-anchor="middle">B</text></g>
+            <g data-tip="Select C / S2 terminal" data-net="C"><circle class="bb-node" cx="710" cy="554" r="7"/><text class="bb-terminal-label" x="710" y="575" text-anchor="middle">C</text></g>
+
+            <!-- 74151 DIP-16: top row 16→9, bottom row 1→8 -->
+            <rect class="bb-chip" x="207" y="240" width="354" height="80" rx="12"/>
+            <circle class="bb-notch" cx="207" cy="280" r="13"/><circle cx="226" cy="255" r="5" fill="#060806" stroke="#57594f"/>
+            <text class="bb-chip-sub" x="384" y="262" text-anchor="middle">TTL · 8-TO-1 DATA SELECTOR</text>
+            <text class="bb-chip-label" x="384" y="285" text-anchor="middle">SN74151N</text>
+            <text class="bb-chip-sub" x="384" y="303" text-anchor="middle">DIP-16 · NOTCH / PIN 1 →</text>
+
+            <g class="bb-pin" data-tip="74151 Pin 16 · VCC +5V" data-net="VCC"><rect class="bb-leg" x="223" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="230" cy="220" r="5"/><text x="230" y="211" text-anchor="middle">16</text></g>
+            <g class="bb-pin" data-channel-pin="4" data-tip="74151 Pin 15 · D4 = NOT D0" data-net="D0bar"><rect class="bb-leg" x="267" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="274" cy="220" r="5"/><text x="274" y="211" text-anchor="middle">15</text></g>
+            <g class="bb-pin" data-channel-pin="5" data-tip="74151 Pin 14 · D5 = GND" data-net="GND"><rect class="bb-leg" x="311" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="318" cy="220" r="5"/><text x="318" y="211" text-anchor="middle">14</text></g>
+            <g class="bb-pin" data-channel-pin="6" data-tip="74151 Pin 13 · D6 = NOT D2" data-net="D2bar"><rect class="bb-leg" x="355" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="362" cy="220" r="5"/><text x="362" y="211" text-anchor="middle">13</text></g>
+            <g class="bb-pin" data-channel-pin="7" data-tip="74151 Pin 12 · D7 = +5V" data-net="VCC"><rect class="bb-leg" x="399" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="406" cy="220" r="5"/><text x="406" y="211" text-anchor="middle">12</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 11 · S0 / A (LSB)" data-net="A"><rect class="bb-leg" x="443" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="450" cy="220" r="5"/><text x="450" y="211" text-anchor="middle">11</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 10 · S1 / B" data-net="B"><rect class="bb-leg" x="487" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="494" cy="220" r="5"/><text x="494" y="211" text-anchor="middle">10</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 9 · S2 / C (MSB)" data-net="C"><rect class="bb-leg" x="531" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="538" cy="220" r="5"/><text x="538" y="211" text-anchor="middle">9</text></g>
+
+            <g class="bb-pin" data-channel-pin="3" data-tip="74151 Pin 1 · D3 = GND" data-net="GND"><rect class="bb-leg" x="223" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="230" cy="340" r="5"/><text x="230" y="358" text-anchor="middle">1</text></g>
+            <g class="bb-pin" data-channel-pin="2" data-tip="74151 Pin 2 · D2 from switch" data-net="D2"><rect class="bb-leg" x="267" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="274" cy="340" r="5"/><text x="274" y="358" text-anchor="middle">2</text></g>
+            <g class="bb-pin" data-channel-pin="1" data-tip="74151 Pin 3 · D1 = +5V" data-net="VCC"><rect class="bb-leg" x="311" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="318" cy="340" r="5"/><text x="318" y="358" text-anchor="middle">3</text></g>
+            <g class="bb-pin" data-channel-pin="0" data-tip="74151 Pin 4 · D0 from switch" data-net="D0"><rect class="bb-leg" x="355" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="362" cy="340" r="5"/><text x="362" y="358" text-anchor="middle">4</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 5 · True output Y" data-net="Y"><rect class="bb-leg" x="399" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="406" cy="340" r="5"/><text x="406" y="358" text-anchor="middle">5</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 6 · Complement output W" data-net="W"><rect class="bb-leg" x="443" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="450" cy="340" r="5"/><text x="450" y="358" text-anchor="middle">6</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 7 · Ē active-LOW enable" data-net="E"><rect class="bb-leg" x="487" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="494" cy="340" r="5"/><text x="494" y="358" text-anchor="middle">7</text></g>
+            <g class="bb-pin" data-tip="74151 Pin 8 · GND 0V" data-net="GND"><rect class="bb-leg" x="531" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="538" cy="340" r="5"/><text x="538" y="358" text-anchor="middle">8</text></g>
+
+            <!-- 7404 DIP-14: two used inverter gates are visible and electrically traced -->
+            <rect class="bb-chip" x="611" y="240" width="254" height="80" rx="12"/>
+            <circle class="bb-notch" cx="611" cy="280" r="13"/><circle cx="629" cy="255" r="5" fill="#060806" stroke="#57594f"/>
+            <text class="bb-chip-sub" x="738" y="259" text-anchor="middle">HEX INVERTER</text><text class="bb-chip-label" x="738" y="282" text-anchor="middle">74LS04N</text>
+            <path class="bb-gate" d="M651 292 l18 0 l-9 15 z"/><circle class="bb-gate" cx="660" cy="309" r="3"/><text class="bb-gate-text" x="675" y="307">1→2</text>
+            <path class="bb-gate" d="M720 292 l18 0 l-9 15 z"/><circle class="bb-gate" cx="729" cy="309" r="3"/><text class="bb-gate-text" x="744" y="307">3→4</text>
+
+            <g class="bb-pin" data-tip="7404 Pin 14 · VCC +5V" data-net="VCC"><rect class="bb-leg" x="623" y="215" width="14" height="31" rx="2"/><circle class="bb-node" cx="630" cy="220" r="5"/><text x="630" y="211" text-anchor="middle">14</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 13 · unused"><rect class="bb-leg" x="659" y="215" width="14" height="31" rx="2"/><text x="666" y="211" text-anchor="middle">13</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 12 · unused"><rect class="bb-leg" x="695" y="215" width="14" height="31" rx="2"/><text x="702" y="211" text-anchor="middle">12</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 11 · unused"><rect class="bb-leg" x="731" y="215" width="14" height="31" rx="2"/><text x="738" y="211" text-anchor="middle">11</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 10 · unused"><rect class="bb-leg" x="767" y="215" width="14" height="31" rx="2"/><text x="774" y="211" text-anchor="middle">10</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 9 · unused"><rect class="bb-leg" x="803" y="215" width="14" height="31" rx="2"/><text x="810" y="211" text-anchor="middle">9</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 8 · unused"><rect class="bb-leg" x="839" y="215" width="14" height="31" rx="2"/><text x="846" y="211" text-anchor="middle">8</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 1 · Gate 1 input from D0" data-net="D0"><rect class="bb-leg" x="623" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="630" cy="340" r="5"/><text x="630" y="358" text-anchor="middle">1</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 2 · Gate 1 output NOT D0" data-net="D0bar"><rect class="bb-leg" x="659" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="666" cy="340" r="5"/><text x="666" y="358" text-anchor="middle">2</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 3 · Gate 2 input from D2" data-net="D2"><rect class="bb-leg" x="695" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="702" cy="340" r="5"/><text x="702" y="358" text-anchor="middle">3</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 4 · Gate 2 output NOT D2" data-net="D2bar"><rect class="bb-leg" x="731" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="738" cy="340" r="5"/><text x="738" y="358" text-anchor="middle">4</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 5 · unused"><rect class="bb-leg" x="767" y="314" width="14" height="31" rx="2"/><text x="774" y="358" text-anchor="middle">5</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 6 · unused"><rect class="bb-leg" x="803" y="314" width="14" height="31" rx="2"/><text x="810" y="358" text-anchor="middle">6</text></g>
+            <g class="bb-pin" data-tip="7404 Pin 7 · GND 0V" data-net="GND"><rect class="bb-leg" x="839" y="314" width="14" height="31" rx="2"/><circle class="bb-node" cx="846" cy="340" r="5"/><text x="846" y="358" text-anchor="middle">7</text></g>
+          </svg>
+        </div>
+      </div>
+
+      <aside class="trainer-side status-panel" aria-live="polite">
+        <div class="panel-title">STATUS & SIGNAL FLOW <span>LIVE</span></div>
+        <div class="status-card"><div class="status-label">ACTIVE CHANNEL</div><div class="status-big" id="status-channel">D₀ · PIN 4</div><div class="status-source" id="status-source">D₀ จากสวิตช์ = 0 V</div><span class="mode-badge" id="status-mode">ACTIVE · E=0</span></div>
+        <div class="status-card"><div class="status-label">LOGIC EQUATION TRACE</div><div class="equation-trace" id="status-equation">CBA=000 → D₀=0 → Y=0 → W=1</div><div class="disable-alert" id="disable-alert"><b>DISABLE OVERRIDE</b><br>Ē = 1 บังคับ Y=0, W=1 โดยไม่สนใจ Dₙ</div></div>
+        <div class="status-card"><div class="status-label">TOOLTIP INSPECTOR</div><div class="net-inspector" id="net-inspector"><b>ชี้สายหรือขาไอซี</b><br>เพื่อดูต้นทาง–ปลายทาง แรงดัน และสถานะลอจิกของเน็ตนั้น</div></div>
+      </aside>
+    </div>
+
+    <div class="analyzer-panel">
+      <div class="analyzer-head"><span class="analyzer-title">8-CHANNEL LOGIC ANALYZER · EXAM TIMELINE</span><span class="answer-sequences"><span class="y">Y 01010101010</span><span class="w">W 10101010101</span></span></div>
+      <svg class="logic-analyzer" id="logic-analyzer" viewBox="0 0 900 190" role="img" aria-label="รูปคลื่น C B A E D0 D2 Y W และเคอร์เซอร์เวลา"></svg>
+    </div>
+
+    <div class="switch-panel">
+      <div class="panel-title">DATA INPUT SWITCH BANK <span>0 = GND · 1 = +5V · DEBOUNCED</span></div>
+      <div class="switch-bank">
+        <button class="trainer-switch" type="button" data-toggle="E" aria-pressed="false"><span class="switch-led"></span><span class="toggle-base"></span><span class="toggle-lever"></span><span class="switch-copy">Ē<small>0 · ACTIVE</small></span></button>
+        <button class="trainer-switch" type="button" data-toggle="C" aria-pressed="false"><span class="switch-led"></span><span class="toggle-base"></span><span class="toggle-lever"></span><span class="switch-copy">C / S₂<small>0 · MSB</small></span></button>
+        <button class="trainer-switch" type="button" data-toggle="B" aria-pressed="false"><span class="switch-led"></span><span class="toggle-base"></span><span class="toggle-lever"></span><span class="switch-copy">B / S₁<small>0</small></span></button>
+        <button class="trainer-switch" type="button" data-toggle="A" aria-pressed="false"><span class="switch-led"></span><span class="toggle-base"></span><span class="toggle-lever"></span><span class="switch-copy">A / S₀<small>0 · LSB</small></span></button>
+        <button class="trainer-switch" type="button" data-toggle="D0" aria-pressed="false"><span class="switch-led"></span><span class="toggle-base"></span><span class="toggle-lever"></span><span class="switch-copy">D₀<small>0 · GREEN WIRE</small></span></button>
+        <button class="trainer-switch" type="button" data-toggle="D2" aria-pressed="false"><span class="switch-led"></span><span class="toggle-base"></span><span class="toggle-lever"></span><span class="switch-copy">D₂<small>0 · YELLOW WIRE</small></span></button>
+        <button class="pulse-button" id="step-pulse" type="button">STEP PULSER<br>CBA + 1</button>
+      </div>
+    </div>
+
+    <details class="trainer-reference">
+      <summary>เปิดภาพอ้างอิงฮาร์ดแวร์และ pinout ที่ใช้สร้างชุดทดลองนี้</summary>
+      <div class="trainer-reference-grid">
+        <img src="assets/interactive/Digital-Logic-Trainer-Kit.png" alt="Digital Circuit Fundamental Trainer Kit ต้นแบบ">
+        <img src="assets/interactive/74151-DIP-IC–8-to-1Multiplexer.png" alt="ภาพถ่ายไอซี 74151 DIP-16 ต้นแบบ">
+        <img src="assets/interactive/74151(8-to-1-multiplexer).png" alt="ผังขาไอซี 74151">
+      </div>
+    </details>
+  </div>
+
+  <div class="callout c-tip">
+    <span class="lab">ภารกิจแล็บ 60 วินาที</span>
+    ตั้ง CBA = 100 เพื่อเลือก D₄ แล้วสับ D₀: ดูสัญญาณเดินจากสวิตช์ → 7404 Pin 1/2 → 74151 Pin 15 → LED Y แบบกลับค่า
+    จากนั้นสับ Ē = 1 — เส้นทางข้อมูลจะเปลี่ยนเป็นสีเตือนและ 74151 บังคับ Y=0, W=1 ทันที นี่คือช่วงที่ 5 และจุดดัก active-LOW ของโจทย์ในฮาร์ดแวร์จริง
+  </div>
+</section>
+
+<!-- ══════════════════ 3. อ่านวงจร ══════════════════ -->
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>ขั้นที่ 1 — อ่านวงจร: แต่ละช่องต่อกับอะไร</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/03_circuit_annotated.png" alt="วงจร 74151 วาดใหม่พร้อมคำกำกับ"></div>
+    <figcaption><span class="fno">รูปที่ 3.1</span> — วงจรจากโจทย์ (รูปที่ 3.40) วาดใหม่พร้อมกำกับค่าที่ต่ออยู่ทุกช่อง</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย — นี่คือรูปที่ต้องอ่านให้คล่องที่สุด</div>
+  </figure>
+
+  <div class="callout c-key"><span class="lab">ทำไมขั้นนี้ถึงมาก่อนการดูรูปคลื่น</span>
+  คำถามของโจทย์คือ “Y เป็นรูปคลื่นแบบไหน” — และ Y จะเป็นรูปคลื่นอะไร
+  <b>ขึ้นกับสิ่งที่ต่ออยู่ที่ช่องที่ถูกเลือกในขณะนั้น</b>
+  ยังไม่ต้องรู้เลยว่าช่วงไหนเลือกช่องไหน (เรื่องของหัวข้อ 4)
+  แต่ต้องรู้ก่อนว่า <b>“ถ้าโดนเลือกช่อง D₄ แล้ว Y จะได้อะไร”</b>
+  ⇒ คำตอบอยู่ในตาราง Channel Map ด้านล่างนี้ ซึ่งจะถูกเรียกใช้อีกทีในหัวข้อ 7 ทุกช่วงเวลา</div>
+
+  <p>นี่คือขั้นที่ <b>สำคัญที่สุด</b> ของข้อนี้ — ถ้าอ่านวงจรผิด คำตอบผิดทั้งข้อ
+  วิธีอ่านเป็นระบบ: <b>(1)</b> ไล่ดูสายควบคุมก่อน → <b>(2)</b> ไล่ช่องข้อมูล D₀–D₇ ทีละช่อง
+  โดยถามว่า “ช่องนี้ต่อกับอะไร” แล้วจัดเข้าตาราง 3 แบบจากหัวข้อ 1.2</p>
+
+  <h3>3.1 สายควบคุม 4 เส้น</h3>
+  <table class="tb">
+    <tr><th>ขาไอซี</th><th>ต่อกับ</th><th class="t-l">ความหมาย</th></tr>
+    <tr><td><span class="ov">G</span></td><td>สัญญาณ E</td><td class="t-l">อีนาเบิล — ขามี <b>bubble</b> (วงกลมเล็ก) ยืนยันว่า active LOW</td></tr>
+    <tr><td>A</td><td>สัญญาณ A</td><td class="t-l">ขาเลือก บิตต่ำสุด (LSB)</td></tr>
+    <tr><td>B</td><td>สัญญาณ B</td><td class="t-l">ขาเลือก บิตกลาง</td></tr>
+    <tr><td>C</td><td>สัญญาณ C</td><td class="t-l">ขาเลือก บิตสูงสุด (MSB)</td></tr>
+  </table>
+
+  <h3>3.2 ช่องข้อมูลทั้ง 8 ช่อง — ตารางที่ต้องอ่านออกจากรูป</h3>
+  <table class="tb">
+    <caption>ตารางที่ 3.1 — Channel Map: หัวใจของข้อนี้</caption>
+    <tr><th>ช่อง</th><th class="t-l">ต่อกับอะไรในรูป</th><th>ค่าที่ส่งออก Y</th></tr>
+    <tr><td>D₀</td><td class="t-l">สัญญาณ D₀ โดยตรง (มีจุดต่อทึบ)</td><td>D₀</td></tr>
+    <tr><td>D₁</td><td class="t-l">+5 V</td><td class="hl">1 คงที่</td></tr>
+    <tr><td>D₂</td><td class="t-l">สัญญาณ D₂ โดยตรง (มีจุดต่อทึบ)</td><td>D₂</td></tr>
+    <tr><td>D₃</td><td class="t-l">กราวด์</td><td class="hl">0 คงที่</td></tr>
+    <tr><td>D₄</td><td class="t-l">เอาต์พุตอินเวอร์เตอร์ ที่รับ D₀</td><td class="hl"><span class="ov">D₀</span></td></tr>
+    <tr><td>D₅</td><td class="t-l">กราวด์</td><td class="hl">0 คงที่</td></tr>
+    <tr><td>D₆</td><td class="t-l">เอาต์พุตอินเวอร์เตอร์ ที่รับ D₂</td><td class="hl"><span class="ov">D₂</span></td></tr>
+    <tr><td>D₇</td><td class="t-l">+5 V</td><td class="hl">1 คงที่</td></tr>
+  </table>
+
+  <h3>3.3 อ่านสัญลักษณ์ในรูป (สำหรับคนไม่มีพื้นฐาน)</h3>
+  <table class="tb">
+    <tr><th class="t-l">สัญลักษณ์</th><th class="t-l">อ่านว่า</th><th>ค่าลอจิก</th></tr>
+    <tr><td class="t-l">ลูกศรชี้ขึ้น + "+5 V"</td><td class="t-l">ต่อกับไฟเลี้ยง</td><td><b>คงที่ 1</b> ตลอดเวลา</td></tr>
+    <tr><td class="t-l">แถบขีดสั้นลง 3 ชั้น (GND)</td><td class="t-l">ต่อลงกราวด์</td><td><b>คงที่ 0</b> ตลอดเวลา</td></tr>
+    <tr><td class="t-l">สามเหลี่ยม + วงกลมเล็กที่ปลาย</td><td class="t-l">อินเวอร์เตอร์ (NOT)</td><td><b>กลับค่า</b>สัญญาณที่เข้า</td></tr>
+    <tr><td class="t-l"><b>จุดทึบ</b> ตรงที่สองเส้นตัดกัน</td><td class="t-l">จุดต่อ (junction)</td><td><b>เชื่อมกัน</b></td></tr>
+    <tr><td class="t-l">เส้นตัดกันแบบ<b>สะพานข้าม</b> (ไม่มีจุด)</td><td class="t-l">crossover</td><td><b>ไม่เชื่อมกัน</b></td></tr>
+  </table>
+
+  <div class="callout c-warn">
+    <span class="lab">จุดที่ต้องระวังมากในรูปนี้</span>
+    สายที่ลากลงจากจุดต่อของ D₀ ไปเข้าอินเวอร์เตอร์ <b>ตัดผ่าน</b> เส้น D₂ โดย <b>ไม่มีจุดต่อ</b> —
+    สองเส้นนี้ <b>ไม่ได้เชื่อมกัน</b> ตรวจยืนยันด้วยการวิเคราะห์พิกเซลจากภาพต้นฉบับแล้ว
+    ว่าไม่มี junction dot ที่จุดตัดจริง (ดู VERIFICATION.md)
+  </div>
+
+  <div class="callout c-key">
+    <span class="lab">แบบแผนที่ผู้ออกโจทย์ตั้งใจ</span>
+    เรียงค่าที่ส่งออกได้: D₀, 1, D₂, 0, <span class="ov">D₀</span>, 0, <span class="ov">D₂</span>, 1 →
+    สัญญาณจริง 2 ตัวปรากฏ <b>ทั้งแบบปกติและแบบกลับค่า</b> ที่เหลือเป็นค่าคงที่
+    ข้อนี้จึงทดสอบว่าเราแยกออกไหม ระหว่าง "ช่องที่ค่าเปลี่ยนตามเวลา" กับ "ช่องที่ค่าคงที่"
+  </div>
+</section>
+
+<!-- ══════════════════ 4. ตัวนับ ══════════════════ -->
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>ขั้นที่ 2 — อ่านขาเลือกอินพุต: A, B, C คือตัวนับฐานสอง</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/04_input_waveforms.png" alt="รูปคลื่นอินพุตที่โจทย์ให้"></div>
+    <figcaption><span class="fno">รูปที่ 4.1</span> — รูปคลื่นอินพุตทั้ง 6 เส้นที่โจทย์ให้ (วาดใหม่จากต้นฉบับ)
+    เส้นประแนวตั้ง = ขอบขาของ A ซึ่งใช้แบ่ง "ช่วงเวลา" ทั้ง 9 ช่วง ·
+    พื้นชมพู = ช่วงที่ E = 1 (ไอซีถูกปิด)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/05_select_counter.png" alt="A B C เป็นตัวนับฐานสอง"></div>
+    <figcaption><span class="fno">รูปที่ 4.2</span> — ถอดรหัส A, B, C ได้ลำดับการเลือกช่อง D₀ → D₇ แล้ววนกลับมา D₀</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <div class="callout c-key"><span class="lab">ทำไมต้องแยกรูปคลื่น A,B,C ออกมาพิจารณา</span>
+  จากหัวข้อ 1.1 เรารู้แล้วว่า “เลขบนขาเลือก = ช่องที่ถูกเลือก”
+  ปัญหาคือในโจทย์ A, B, C <b>ไม่ได้คงที่</b> — เปลี่ยนไปเรื่อย ๆ ตามเวลา!
+  ⇒ เป้าหมายของขั้นนี้คือเปลี่ยนรูปคลื่น 3 เส้น ให้กลายเป็น
+  <b>ตาราง “ช่วงเวลา → เลข n → ช่องที่ถูกเลือก”</b>
+  เทคนิค: เลือกขอบขาของ A (เร็วที่สุด) เป็นเส้นแบ่ง “ช่วงเวลา”
+  เพราะภายในหนึ่งช่วง CBA จะไม่เปลี่ยนเลย ทำให้ตารางอ่านได้ครบทุกช่วงพอดี</div>
+
+  <h3>4.1 สังเกตจังหวะการสลับ — "ลายเซ็น" ของตัวนับ</h3>
+  <table class="tb">
+    <tr><th>สัญญาณ</th><th>จังหวะการสลับ</th><th>บทบาท</th></tr>
+    <tr><td>A</td><td>สลับทุก 1 ช่วง (เร็วสุด)</td><td>บิตต่ำสุด (LSB)</td></tr>
+    <tr><td>B</td><td>สลับทุก 2 ช่วง</td><td>บิตกลาง</td></tr>
+    <tr><td>C</td><td>สลับทุก 4 ช่วง (ช้าสุด)</td><td>บิตสูงสุด (MSB)</td></tr>
+  </table>
+  <p>ความถี่ลดลงครึ่งหนึ่งทุกบิตที่สูงขึ้น — นี่คือลักษณะเฉพาะของ
+  <b>ตัวนับฐานสองขึ้น (binary up-counter)</b></p>
+
+  <h3 id="s4_2">4.2 ถอดรหัสด้วย n = 4C + 2B + A</h3>
+  <table class="tb">
+    <caption>ตารางที่ 4.1 — ช่วงเวลาทั้ง 9 ช่วง: ช่วงไหนเลือกช่องไหน</caption>
+    <tr><th>ช่วงที่</th><th>C</th><th>B</th><th>A</th><th>n</th><th>ช่องที่ถูกเลือก</th></tr>
+    <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>D₀</td></tr>
+    <tr><td>2</td><td>0</td><td>0</td><td>1</td><td>1</td><td>D₁</td></tr>
+    <tr><td>3</td><td>0</td><td>1</td><td>0</td><td>2</td><td>D₂</td></tr>
+    <tr><td>4</td><td>0</td><td>1</td><td>1</td><td>3</td><td>D₃</td></tr>
+    <tr><td>5</td><td>1</td><td>0</td><td>0</td><td>4</td><td>D₄</td></tr>
+    <tr><td>6</td><td>1</td><td>0</td><td>1</td><td>5</td><td>D₅</td></tr>
+    <tr><td>7</td><td>1</td><td>1</td><td>0</td><td>6</td><td>D₆</td></tr>
+    <tr><td>8</td><td>1</td><td>1</td><td>1</td><td>7</td><td>D₇</td></tr>
+    <tr><td class="hl">9</td><td class="hl">0</td><td class="hl">0</td><td class="hl">0</td><td class="hl">0</td><td class="hl">D₀ (วนกลับ — ตัวนับ 3 บิตล้น)</td></tr>
+  </table>
+
+  <div class="callout c-ex">
+    <span class="lab">ตัวอย่างการคำนวณทีละช่วง</span>
+    ช่วงที่ 5: อ่านจากกราฟได้ C=1, B=0, A=0 → n = 4(1) + 2(0) + 0 = <b>4</b> → เลือก D₄<br>
+    ช่วงที่ 7: อ่านจากกราฟได้ C=1, B=1, A=0 → n = 4(1) + 2(1) + 0 = <b>6</b> → เลือก D₆
+  </div>
+</section>
+
+<!-- ══════════════════ 5. อีนาเบิล ══════════════════ -->
+<section id="s5">
+  <div class="sec-head"><div class="sec-no">5</div><h2>ขั้นที่ 3 — อ่านขาอีนาเบิล E</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/06_enable_analysis.png" alt="วิเคราะห์ขาอีนาเบิล"></div>
+    <figcaption><span class="fno">รูปที่ 5.1</span> — E มีค่า 1 ช่วงต้นและช่วงท้ายกราฟ
+    (จุดที่ E เปลี่ยนค่าอยู่ <b>กลางช่วง</b> ไม่ตรงขอบช่วง)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <div class="callout c-key"><span class="lab">ทำไมต้องพิจารณา E แยกออกมาต่างหาก</span>
+  เพราะ E มีอำนาจ “ลบล้าง” ทุกอย่างที่คำนวณมา:
+  ไม่ว่าช่วงนั้นจะเลือกช่องไหน (ผลจากหัวข้อ 4) และไม่ว่าสัญญาณข้อมูลจะกระโดดแค่ไหน —
+  ถ้า E = 1 ทุกอย่างเป็นโมฆะ Y = 0 ทันที
+  ⇒ ลำดับการคิดที่ถูกคือ: <b>เช็ก E ก่อนเป็นอย่างแรก</b> แล้วค่อยถามว่าเลือกช่องไหน
+  (นี่คือเหตุผลที่ในหัวข้อ 7 ทุกช่วงจะเริ่มจากคำถามข้อ ① “E เป็นเท่าไร”)</div>
+
+  <p>E ต่อเข้าขา <span class="ov">G</span> ซึ่งทำงานที่ลอจิกต่ำ ⇒</p>
+  <table class="tb">
+    <tr><th>ค่าของ E</th><th>สถานะไอซี</th><th class="t-l">ผลที่เอาต์พุต</th></tr>
+    <tr><td class="hl">E = 1</td><td class="hl">ถูกปิด</td><td class="t-l hl">บังคับ Y = 0, W = 1 — ไม่สนใจ C,B,A และไม่สนใจข้อมูลเลย</td></tr>
+    <tr><td>E = 0</td><td>ทำงานปกติ</td><td class="t-l">Y = D<sub>n</sub> ตามช่องที่เลือก, W = <span class="ov">Y</span></td></tr>
+  </table>
+
+  <h3>5.1 อ่านค่า E จากกราฟได้ 3 ท่อน</h3>
+  <ol style="line-height:2.15">
+    <li><b>เริ่มต้น E = 1</b> — ครอบช่วงที่ 1 ทั้งช่วง และกินเข้าไปในช่วงที่ 2 ประมาณ 38%</li>
+    <li><b>ตกลงเป็น E = 0</b> — ครอบตั้งแต่กลางช่วงที่ 2 ถึงประมาณ 43% ของช่วงที่ 9</li>
+    <li><b>ขึ้นกลับเป็น E = 1</b> — ครอบส่วนท้ายของช่วงที่ 9</li>
+  </ol>
+
+  <div class="callout c-warn">
+    <span class="lab">จุดดักที่ 1 ของข้อสอบ</span>
+    E เปลี่ยนค่า <b>กลางช่วง</b> ไม่ตรงกับขอบช่วงเวลา!
+    ⇒ ช่วงที่ 2 และช่วงที่ 9 ต้องถูกแบ่งเป็น <b>2 ส่วนย่อย</b>:
+    ส่วนหนึ่งไอซีปิด อีกส่วนไอซีทำงาน
+    ถ้าคิดว่า "1 ช่วง = 1 คำตอบ" จะตอบผิดทั้ง 2 ช่วงนี้แน่นอน
+  </div>
+</section>
+
+<!-- ══════════════════ 6. สัญญาณกลับค่า ══════════════════ -->
+<section id="s6">
+  <div class="sec-head"><div class="sec-no">6</div><h2>ขั้นที่ 4 — เตรียมสัญญาณกลับค่า <span class="ov">D₀</span> และ <span class="ov">D₂</span></h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/07_inverted_signals.png" alt="สัญญาณกลับค่า D0-bar D2-bar"></div>
+    <figcaption><span class="fno">รูปที่ 6.1</span> — สัญญาณที่ใช้จริงในวงจร: D₀, <span class="ov">D₀</span>, D₂, <span class="ov">D₂</span>
+    (สีม่วง = สัญญาณเดิม, สีชมพู = กลับค่าแล้ว)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <div class="callout c-key"><span class="lab">ทำไมต้อง "เตรียม" สัญญาณกลับค่าล่วงหน้า</span>
+  Channel Map (หัวข้อ 3.2) บอกว่าช่อง D₄ = <span class="ov">D₀</span> และ D₆ = <span class="ov">D₂</span>
+  แต่โจทย์ให้รูปคลื่นมาแค่ D₀, D₂ ตรง ๆ — ยังไม่มีใครให้ <span class="ov">D₀</span>, <span class="ov">D₂</span> มา!
+  ⇒ เราต้องสร้างเองจากกฎ NOT gate: <b>พลิกทุกจุด</b> (เดิม 1 → 0, เดิม 0 → 1)
+  ทำล่วงหน้าเป็นกราฟคู่ขนานแบบนี้เพื่อว่าพอถึงหัวข้อ 7 ช่วงที่ 5 กับ 7
+  เราแค่ “ลอกเส้น” จากกราฟที่เตรียมไว้ ไม่ต้องมานั่งพลิกค่าทีละจุดกลางอากาศ —
+  ลดโอกาสพลาดตอนสอบลงเยอะ</div>
+
+  <table class="tb">
+    <tr><th>สัญญาณ</th><th>ใช้เข้าช่อง</th><th class="t-l">วิธีสร้าง</th></tr>
+    <tr><td>D₀</td><td>D₀</td><td class="t-l">ใช้ตามที่โจทย์ให้</td></tr>
+    <tr><td class="hl"><span class="ov">D₀</span></td><td class="hl">D₄</td><td class="t-l hl">พลิกกลับ D₀ ทุกจุด</td></tr>
+    <tr><td>D₂</td><td>D₂</td><td class="t-l">ใช้ตามที่โจทย์ให้</td></tr>
+    <tr><td class="hl"><span class="ov">D₂</span></td><td class="hl">D₆</td><td class="t-l hl">พลิกกลับ D₂ ทุกจุด</td></tr>
+  </table>
+
+  <table class="tb">
+    <tr><th>สัญญาณ</th><th>ใช้เข้าช่อง</th><th class="t-l">วิธีสร้าง</th></tr>
+    <tr><td>D₀</td><td>D₀</td><td class="t-l">ใช้ตามที่โจทย์ให้</td></tr>
+    <tr><td class="hl"><span class="ov">D₀</span></td><td class="hl">D₄</td><td class="t-l hl">พลิกกลับ D₀ ทุกจุด</td></tr>
+    <tr><td>D₂</td><td>D₂</td><td class="t-l">ใช้ตามที่โจทย์ให้</td></tr>
+    <tr><td class="hl"><span class="ov">D₂</span></td><td class="hl">D₆</td><td class="t-l hl">พลิกกลับ D₂ ทุกจุด</td></tr>
+  </table>
+
+  <h3>6.1 ข้อสังเกตพิเศษที่ตรวจพบจากต้นฉบับ (ด้วยการวิเคราะห์พิกเซล)</h3>
+  <table class="tb">
+    <caption>ตารางที่ 6.1 — ความสัมพันธ์เชิงเวลาที่ตรวจพบ</caption>
+    <tr><th>ข้อสังเกต</th><th class="t-l">รายละเอียด</th><th class="t-l">นัยต่อการเฉลย</th></tr>
+    <tr><td class="t-r"><b>(ก)</b> D₂ = D₀ ÷ 2</td><td class="t-l">ขอบของ D₂ ตรงกับขอบ<b>ขาลง</b>ของ D₀ ทุกจุด (6 จุด ตรงเป๊ะ)</td><td class="t-l">วาดกราฟได้สอดคล้องกัน ใช้ตรวจทานข้อผิดพลาด</td></tr>
+    <tr><td class="t-r"><b>(ข)</b> D₀ ไม่ซิงค์ตัวนับ</td><td class="t-l">คาบของ D₀ ≈ 1.23 เท่าของความกว้างช่วงเวลา</td><td class="t-l">Y เปลี่ยนค่าได้<b>หลายครั้งใน 1 ช่วง</b> — ห้ามคิดว่า 1 ช่วง = 1 ค่าคงที่</td></tr>
+  </table>
+
+  <div class="callout c-warn">
+    <span class="lab">จุดดักที่ 2 ของข้อสอบ</span>
+    เพราะ D₀ ไม่ซิงค์กับตัวนับ ⇒ ภายในหนึ่งช่วงเวลา เอาต์พุตอาจเปลี่ยนค่าได้หลายครั้ง
+    ต้องดูขอบของ D₀ ทุกครั้ง ไม่ใช่ดูแค่ค่าต้นช่วง
+  </div>
+</section>
+
+<!-- ══════════════════ 7. ไล่ทีละช่วง ══════════════════ -->
+<section id="s7">
+  <div class="sec-head"><div class="sec-no">7</div><h2>ขั้นที่ 5 — ไล่คำตอบทีละช่วงเวลา</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/08_slot_by_slot.png" alt="ไล่คำตอบทีละช่วง 9 แผง"></div>
+    <figcaption><span class="fno">รูปที่ 7.1</span> — ภาพรวมทั้ง 9 ช่วง (แต่ละแผง = 1 ช่วงเวลา)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย — แล้วอ่านรายละเอียดแต่ละช่วงด้านล่าง</div>
+  </figure>
+
+  <div class="callout c-key"><span class="lab">ทำไมใช้คำถามเดิม ๆ ซ้ำทุกช่วงได้</span>
+  เพราะ MUX ไม่มีหน่วยความจำ — <b>ผลลัพธ์ ณ เวลาใด ๆ ขึ้นกับ "สถานะปัจจุบัน" ของอินพุตเท่านั้น</b>
+  (combinational circuit) ไม่จำสิ่งที่เกิดก่อนหน้า
+  ⇒ ไม่ต้องคิดเรื่องต่อเนื่องระหว่างช่วงเลย! แค่ตอบ 3 คำถามนี้ให้ครบทีละช่วง:
+  ① E = ? (มีอำนาจสูงสุด — ถ้า E=1 จบ Y=0)
+  ② ถ้า E=0, CBA = n เท่าไร? (เลือกช่อง D<sub>n</sub>)
+  ③ ช่อง D<sub>n</sub> ต่ออะไร? (เปิด Channel Map หัวข้อ 3.2)
+  คำตอบของช่วงนั้น = ค่าของช่องที่โดนเลือก ณ ช่วงเวลานั้น</div>
+
+  <p>ตอนนี้ข้อมูลครบแล้ว ใช้<b>ตรรกะเดียวกันทุกช่วง 3 คำถาม</b>:</p>
+  <ul class="steps">
+    <li><span class="qno">①</span><span>ช่วงนี้ <b>E เป็นเท่าไร?</b> — ถ้า E = 1 จบเลย Y = 0</span></li>
+    <li><span class="qno">②</span><span>ถ้า E = 0, <b>ช่วงนี้เลือกช่องไหน?</b> — ใช้ n = 4C + 2B + A</span></li>
+    <li><span class="qno">③</span><span><b>ช่องนั้นต่อกับอะไร?</b> — เปิดตารางที่ 3.1 แล้วลอกค่ามา</span></li>
+  </ul>
+
+  <nav class="slot-nav">
+    <a href="#slot1">1</a><a href="#slot2" class="warn">2 ⚠</a><a href="#slot3">3</a>
+    <a href="#slot4">4</a><a href="#slot5">5</a><a href="#slot6">6</a>
+    <a href="#slot7">7</a><a href="#slot8">8</a><a href="#slot9" class="warn">9 ⚠</a>
+  </nav>
+
+  <!-- ช่วง 1 -->
+  <article class="slot" id="slot1">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 1 · CBA = 000 → เลือกช่อง D₀</span>
+      <span class="badge b-off">E = 1 ตลอดช่วง → ไอซีปิด</span>
+    </div>
+    <div class="slot-body">
+      <ol class="steps">
+        <li><span class="qno">①</span><span>E = 1 <b>ทั้งช่วง</b></span></li>
+        <li><span class="qno">②</span><span>n = 000₂ = 0 → เลือก D₀ (แต่ไม่มีผล เพราะไอซีปิด)</span></li>
+        <li><span class="qno">③</span><span><b>Y = 0 ทั้งช่วง, W = 1 ทั้งช่วง</b></span></li>
+      </ol>
+      <div class="callout c-tip" style="margin-bottom:0">
+        <span class="lab">บทเรียนของช่วงนี้</span>
+        D₀ มีขอบขาขึ้นจริง ๆ ตอนท้ายช่วง แต่ <b>ไม่มีผลต่อ Y เลย</b>
+        เพราะไอซีถูกปิด — โจทย์วางไว้ทดสอบว่าเราเข้าใจ active-LOW enable จริงหรือไม่
+      </div>
+    </div>
+  </article>
+
+  <!-- ช่วง 2 -->
+  <article class="slot split" id="slot2">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 2 · CBA = 001 → เลือกช่อง D₁ ⚠ แบ่ง 2 ส่วน</span>
+      <span class="badge b-off">E: 1 → 0 (ตกที่ 38% ของช่วง)</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₁ ต่อกับ <b>+5 V</b> ⇒ ค่าที่รออยู่คือ <b>คงที่ 1</b></p>
+      <table class="tb mini-tb">
+        <tr><th>ส่วนย่อย</th><th>E</th><th>สถานะไอซี</th><th>Y</th><th>W</th></tr>
+        <tr><td>0% – 38%</td><td>1</td><td>ปิด</td><td class="hl">0</td><td>1</td></tr>
+        <tr><td>38% – 100%</td><td>0</td><td>ทำงาน → ส่ง D₁ = 1</td><td class="hl">1</td><td>0</td></tr>
+      </table>
+      <p>⇒ Y มีขอบขาขึ้น <b>ตรงจุดที่ E ตกลง</b> พอดี</p>
+    </div>
+  </article>
+
+  <!-- ช่วง 3 -->
+  <article class="slot" id="slot3">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 3 · CBA = 010 → เลือกช่อง D₂</span>
+      <span class="badge b-on">E = 0 ทั้งช่วง → ทำงาน</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₂ ต่อกับ <b>สัญญาณ D₂ โดยตรง</b> ⇒ Y ลอกรูปคลื่น D₂ มาตรง ๆ</p>
+      <table class="tb mini-tb">
+        <tr><th>ช่วงย่อยในช่วงที่ 3</th><th>D₂</th><th>Y</th><th>W</th></tr>
+        <tr><td>0% – 60%</td><td>0</td><td class="hl">0</td><td>1</td></tr>
+        <tr><td>60% – 100% (D₂ ขึ้น)</td><td>1</td><td class="hl">1</td><td>0</td></tr>
+      </table>
+    </div>
+  </article>
+
+  <!-- ช่วง 4 -->
+  <article class="slot" id="slot4">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 4 · CBA = 011 → เลือกช่อง D₃</span>
+      <span class="badge b-on">E = 0 → ทำงาน</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₃ ต่อ<b>กราวด์</b> ⇒ ค่าคงที่ 0 ⇒ <b>Y = 0 แบนทั้งช่วง, W = 1 ทั้งช่วง</b>
+      (ไม่มีขอบขึ้นลงใด ๆ เพราะค่าคงที่ไม่เปลี่ยนตามเวลา)</p>
+    </div>
+  </article>
+
+  <!-- ช่วง 5 -->
+  <article class="slot" id="slot5">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 5 · CBA = 100 → เลือกช่อง D₄</span>
+      <span class="badge b-on">E = 0 → ทำงาน</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₄ ต่อผ่าน<b>อินเวอร์เตอร์</b>ของ D₀ ⇒ ค่าที่รออยู่คือ <span class="ov">D₀</span></p>
+      <table class="tb mini-tb">
+        <tr><th>ช่วงย่อยในช่วงที่ 5</th><th>D₀ (เดิม)</th><th><span class="ov">D₀</span> → Y</th><th>W</th></tr>
+        <tr><td>0% – 46%</td><td>0</td><td class="hl">1</td><td>0</td></tr>
+        <tr><td>46% – 100%</td><td>1</td><td class="hl">0</td><td>1</td></tr>
+      </table>
+      <div class="callout c-ex" style="margin-bottom:0">
+        <span class="lab">ตรวจง่าย ๆ</span>
+        ในช่วงนี้ D₀ เดิมเป็น 0 แล้วขึ้นเป็น 1 ⇒ พลิกกลับได้ 1 แล้วตกเป็น 0 ✓
+      </div>
+    </div>
+  </article>
+
+  <!-- ช่วง 6 -->
+  <article class="slot" id="slot6">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 6 · CBA = 101 → เลือกช่อง D₅</span>
+      <span class="badge b-on">E = 0 → ทำงาน</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₅ ต่อ<b>กราวด์</b> ⇒ ค่าคงที่ 0 ⇒ <b>Y = 0 แบนทั้งช่วง, W = 1 ทั้งช่วง</b></p>
+    </div>
+  </article>
+
+  <!-- ช่วง 7 -->
+  <article class="slot" id="slot7">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 7 · CBA = 110 → เลือกช่อง D₆</span>
+      <span class="badge b-on">E = 0 → ทำงาน</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₆ ต่อผ่าน<b>อินเวอร์เตอร์</b>ของ D₂ ⇒ ค่าที่รออยู่คือ <span class="ov">D₂</span></p>
+      <table class="tb mini-tb">
+        <tr><th>ช่วงย่อยในช่วงที่ 7</th><th>D₂ (เดิม)</th><th><span class="ov">D₂</span> → Y</th><th>W</th></tr>
+        <tr><td>0% – 31%</td><td>1</td><td class="hl">0</td><td>1</td></tr>
+        <tr><td>31% – 100%</td><td>0</td><td class="hl">1</td><td>0</td></tr>
+      </table>
+    </div>
+  </article>
+
+  <!-- ช่วง 8 -->
+  <article class="slot" id="slot8">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 8 · CBA = 111 → เลือกช่อง D₇</span>
+      <span class="badge b-on">E = 0 → ทำงาน</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ช่อง D₇ ต่อ<b>+5 V</b> ⇒ ค่าคงที่ 1 ⇒ <b>Y = 1 แบนทั้งช่วง, W = 0 ทั้งช่วง</b></p>
+    </div>
+  </article>
+
+  <!-- ช่วง 9 -->
+  <article class="slot split" id="slot9">
+    <div class="slot-head">
+      <span class="sn">ช่วงที่ 9 · CBA = 000 → เลือกช่อง D₀ (วนกลับ) ⚠ แบ่ง 3 ส่วน</span>
+      <span class="badge b-off">E: 0 → 1 (ขึ้นที่ 43% ของช่วง)</span>
+    </div>
+    <div class="slot-body">
+      <p style="margin-top:2px">ตัวนับล้นกลับมาที่ 000 ⇒ เลือก D₀ อีกครั้ง และ E <b>ขึ้นกลับเป็น 1 กลางช่วง</b></p>
+      <table class="tb mini-tb">
+        <tr><th>ส่วนย่อย</th><th>E</th><th>สถานะ</th><th>D₀ ณ ขณะนั้น</th><th>Y</th><th>W</th></tr>
+        <tr><td>0% – 21%</td><td>0</td><td>ทำงาน</td><td>0</td><td class="hl">0</td><td>1</td></tr>
+        <tr><td>21% – 43%</td><td>0</td><td>ทำงาน</td><td>ขึ้นเป็น 1</td><td class="hl">1</td><td>0</td></tr>
+        <tr><td>43% – 100%</td><td class="hl">1</td><td class="hl">ปิด</td><td>(ยังเป็น 1 ต่อ)</td><td class="hl">0</td><td>1</td></tr>
+      </table>
+      <div class="callout c-warn" style="margin-bottom:0">
+        <span class="lab">จุดที่ตอบผิดกันมากที่สุด</span>
+        D₀ ยังคงเป็น 1 ต่อไปหลังจุด 43% แต่ Y <b>ถูกบังคับเป็น 0</b> เพราะไอซีถูกปิดแล้ว
+        ⇒ เกิดเป็น <b>พัลส์แคบ ๆ</b> ในช่วงที่ 9
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ══════════════════ 8. คำตอบสมบูรณ์ ══════════════════ -->
+<section id="s8">
+  <div class="sec-head"><div class="sec-no">8</div><h2>คำตอบ: รูปคลื่น Y และ W</h2></div>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/09_final_answer.png" alt="คำตอบรูปคลื่นเอาต์พุต Y และ W"></div>
+    <figcaption><span class="fno">รูปที่ 8.1</span> — <b>คำตอบสมบูรณ์:</b>
+    อินพุตด้านบนตามที่โจทย์ให้ · กรอบเขียวด้านล่างคือคำตอบ
+    (Y = เส้นเขียวหนา, W = เส้นส้ม) อ่านเทียบกันได้ตรงแกนเวลาเดียวกัน ·
+    พื้นชมพู = ช่วงที่ E = 1 (ไอซีปิด)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <div class="callout c-key"><span class="lab">จากตาราง → รูปคลื่น: วาดยังไง</span>
+  ผลการไล่ทั้ง 9 ช่วงให้ลำดับค่า Y เรียงกันแล้ว “0-1 สลับกัน” 11 ท่อนพอดี —
+  ตอนวาดกราฟจริงในใบสอบ ให้วาดเป็นท่อนยาว ๆ ตามลำดับ โดยขีดเส้นแบ่งช่วงเวลาไว้ก่อน
+  แล้วค่อยวาดระดับ 0/1 ทับ · ส่วน W <b>ไม่ต้องคิดใหม่เลย</b>:
+  74151 มีขา W ต่อภายในเป็น <span class="ov">Y</span> (หัวข้อ 1.3) ⇒ วาดภาพกระจกพลิกขึ้นลงจาก Y เท่านั้น
+  และช่วง E = 1 ทั้งสองจุด W ต้องสูง = 1 ตามตารางฟังก์ชัน</div>
+
+  <h3>8.1 ตารางสรุปคำตอบทั้ง 9 ช่วง</h3>
+  <table class="tb">
+    <tr><th>ช่วง</th><th>CBA</th><th>ช่อง</th><th class="t-l">ช่องต่อกับ</th><th>E</th><th>Y</th><th>W = <span class="ov">Y</span></th></tr>
+    <tr><td>1</td><td>000</td><td>D₀</td><td class="t-l">สัญญาณ D₀</td><td>1</td><td class="hl">0 คงที่</td><td>1 คงที่</td></tr>
+    <tr><td>2 ⚠</td><td>001</td><td>D₁</td><td class="t-l">+5 V → 1</td><td>1→0</td><td class="hl">0 แล้ว 1</td><td>1 แล้ว 0</td></tr>
+    <tr><td>3</td><td>010</td><td>D₂</td><td class="t-l">สัญญาณ D₂</td><td>0</td><td class="hl">0 แล้ว 1</td><td>1 แล้ว 0</td></tr>
+    <tr><td>4</td><td>011</td><td>D₃</td><td class="t-l">GND → 0</td><td>0</td><td class="hl">0 คงที่</td><td>1 คงที่</td></tr>
+    <tr><td>5</td><td>100</td><td>D₄</td><td class="t-l"><span class="ov">D₀</span></td><td>0</td><td class="hl">1 แล้ว 0</td><td>0 แล้ว 1</td></tr>
+    <tr><td>6</td><td>101</td><td>D₅</td><td class="t-l">GND → 0</td><td>0</td><td class="hl">0 คงที่</td><td>1 คงที่</td></tr>
+    <tr><td>7</td><td>110</td><td>D₆</td><td class="t-l"><span class="ov">D₂</span></td><td>0</td><td class="hl">0 แล้ว 1</td><td>1 แล้ว 0</td></tr>
+    <tr><td>8</td><td>111</td><td>D₇</td><td class="t-l">+5 V → 1</td><td>0</td><td class="hl">1 คงที่</td><td>0 คงที่</td></tr>
+    <tr><td>9 ⚠</td><td>000</td><td>D₀</td><td class="t-l">สัญญาณ D₀</td><td>0→1</td><td class="hl">0, 1, 0</td><td>1, 0, 1</td></tr>
+  </table>
+
+  <figure class="textbook">
+    <div class="frame"><img src="assets/10_summary_table.png" alt="ตารางสรุปคำตอบรายช่วง"></div>
+    <figcaption><span class="fno">รูปที่ 8.2</span> — ตารางสรุปคำตอบฉบับวาดกราฟ (ใช้ทบทวนก่อนสอบ)</figcaption>
+    <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+  </figure>
+
+  <div class="callout c-key">
+    <span class="lab">ความสวยงามที่ใช้ตรวจคำตอบได้</span>
+    ลำดับคำตอบสลับ 0-1 พอดี 11 ท่อน และ W เป็นส่วนกลับของ Y ทุกท่อน —
+    ตรวจแล้วทีละพิกเซลครบ 1,776 จุด: Y + W = 1 ทุกจุด ไม่มีข้อยกเว้น
+  </div>
+</section>
+
+<!-- ══════════════════ 9. สมการบูลีน ══════════════════ -->
+<section id="s9">
+  <div class="sec-head"><div class="sec-no">9</div><h2>สมการบูลีนของวงจรนี้</h2></div>
+
+  <p>นอกจากวาดรูปคลื่น เราเขียนวงจรนี้เป็นสมการได้ด้วย — เริ่มจากสมการทั่วไปของ MUX 8:1:</p>
+
+  <div class="formula">
+    Y = <span class="ov">C</span><span class="ov">B</span><span class="ov">A</span>·D₀ + <span class="ov">C</span><span class="ov">B</span>A·D₁ + <span class="ov">C</span>B<span class="ov">A</span>·D₂ + <span class="ov">C</span>BA·D₃ +
+        C<span class="ov">B</span><span class="ov">A</span>·D₄ + C<span class="ov">B</span>A·D₅ + CB<span class="ov">A</span>·D₆ + CBA·D₇
+  </div>
+
+  <p><b>แทนค่าที่ต่ออยู่จริงในวงจรนี้:</b> D₁ = D₇ = 1, D₃ = D₅ = 0, D₄ = <span class="ov">D₀</span>, D₆ = <span class="ov">D₂</span>
+  → พจน์ที่คูณกับ 0 หายไป พจน์ที่คูณกับ 1 เหลือแค่ตัวขาเลือก:</p>
+
+  <div class="formula">
+    Y = <span class="ov">C</span><span class="ov">B</span><span class="ov">A</span>·D₀ + <span class="ov">C</span><span class="ov">B</span>A + <span class="ov">C</span>B<span class="ov">A</span>·D₂ +
+        C<span class="ov">B</span><span class="ov">A</span>·<span class="ov">D₀</span> + CB<span class="ov">A</span>·<span class="ov">D₂</span> + CBA
+  </div>
+
+  <p><b>รวมผลของอีนาเบิล:</b> เพราะ E = 1 บังคับ Y = 0 จึงต้องคูณ <span class="ov">E</span> เข้าไปทั้งก้อน:</p>
+
+  <div class="formula big">
+    <b>Y = <span class="ov">E</span> ( <span class="ov">C</span><span class="ov">B</span><span class="ov">A</span>·D₀ + <span class="ov">C</span><span class="ov">B</span>A + <span class="ov">C</span>B<span class="ov">A</span>·D₂ +
+        C<span class="ov">B</span><span class="ov">A</span>·<span class="ov">D₀</span> + CB<span class="ov">A</span>·<span class="ov">D₂</span> + CBA )</b>
+    <br><br><b>W = <span class="ov">Y</span></b>
+  </div>
+
+  <div class="callout c-tip">
+    <span class="lab">การตรวจสอบสมการ</span>
+    สมการนี้ถูกทดสอบโดยโปรแกรม: ให้ผลตรงกับตารางฟังก์ชัน 74151 <b>ครบทั้ง 64 กรณี</b>
+    ของตัวแปรอิสระ (E, C, B, A, D₀, D₂) และตรงกับรูปคลื่นคำตอบครบทั้ง 1,776 พิกเซล
+  </div>
+</section>
+
+<!-- ══════════════════ 10. จุดดัก ══════════════════ -->
+<section id="s10">
+  <div class="sec-head"><div class="sec-no">10</div><h2>5 จุดที่ข้อสอบตั้งใจดัก</h2></div>
+
+  <table class="tb" style="width:100%">
+    <caption>ตารางที่ 10.1 — รู้ไว้ก่อนสอบ จะไม่พลาด</caption>
+    <tr><th>#</th><th class="t-l">จุดดัก</th><th class="t-l">ถ้าพลาดจะเป็นอย่างไร</th><th class="t-l">วิธีกัน</th></tr>
+    <tr><td>1</td><td class="t-l">ขา <span class="ov">G</span> ทำงานที่<b>ลอจิกต่ำ</b></td><td class="t-l">สลับหัวท้ายกราฟทั้งหมด</td><td class="t-l">เห็นขีดบน + bubble ⇒ active LOW</td></tr>
+    <tr><td>2</td><td class="t-l">E เปลี่ยนค่า<b>กลางช่วง</b></td><td class="t-l">ตอบผิดช่วงที่ 2 และ 9</td><td class="t-l">แบ่งช่วงนั้นเป็น 2 ส่วนย่อย</td></tr>
+    <tr><td>3</td><td class="t-l">D₀ <b>ไม่ซิงค์</b>กับตัวนับ</td><td class="t-l">คิดว่า 1 ช่วง = 1 ค่าคงที่</td><td class="t-l">ดูขอบของ D₀ ทุกครั้ง ไม่ใช่แค่ต้นช่วง</td></tr>
+    <tr><td>4</td><td class="t-l">ช่อง D₄, D₆ ต่อผ่าน<b>อินเวอร์เตอร์</b></td><td class="t-l">ลืมกลับค่า ⇒ ช่วงที่ 5, 7 ผิด</td><td class="t-l">เตรียม <span class="ov">D₀</span>, <span class="ov">D₂</span> ไว้ก่อน</td></tr>
+    <tr><td>5</td><td class="t-l">สายลงอินเวอร์เตอร์<b>ตัดผ่านไม่เชื่อม</b></td><td class="t-l">อ่านวงจรผิด ⇒ ผิดทั้งข้อ</td><td class="t-l">จุดทึบ = เชื่อม, สะพานข้าม = ไม่เชื่อม</td></tr>
+  </table>
+
+  <h3>10.1 ข้อควรระวังเพิ่มเติม</h3>
+  <ul style="line-height:2.15">
+    <li><b>ตัวนับวนกลับ:</b> ช่วงที่ 9 คือ CBA = 000 ไม่ใช่ 1000 — ตัวนับ 3 บิตล้นแล้ววนกลับ 0</li>
+    <li><b>ช่อง D₁ vs สัญญาณ D₀:</b> ชื่อคล้ายกันมาก อย่าสับสน — ช่อง D₁ ต่อ +5 V ไม่ได้ต่อสัญญาณอะไรเลย</li>
+    <li><b>W ไม่ใช่ high-impedance:</b> เมื่อไอซีถูกปิด W = 1 (ไม่ใช่ลอยหรือ Hi-Z) ตามตาราง lecture</li>
+  </ul>
+</section>
+
+<!-- ══════════════════ 11. ตรวจคำตอบ ══════════════════ -->
+<section id="s11">
+  <div class="sec-head"><div class="sec-no">11</div><h2>วิธีตรวจคำตอบด้วยตัวเอง (1 นาทีในห้องสอบ)</h2></div>
+
+  <ol style="line-height:2.3">
+    <li><b>Y กับ W ต้องตรงข้ามกันทุกจุด</b> — วางกราฟทับกัน ทุกจุดที่ Y สูง W ต้องต่ำ
+      <em style="color:var(--red)">ไม่มีข้อยกเว้น</em> ถ้าเจอจุดที่ทั้งคู่สูงหรือทั้งคู่ต่ำ ⇒ ผิดแน่</li>
+    <li><b>ช่วงที่ E = 1 ต้องได้ Y = 0, W = 1 เท่านั้น</b> — ดูหัวและท้ายกราฟ
+      ถ้า Y ยังกระดิกตามข้อมูลอยู่ ⇒ ลืมกฎ enable</li>
+    <li><b>ช่วงที่ต่อค่าคงที่ ต้องได้เส้นตรงแบน</b> — ช่วงที่ 4, 6 (GND) Y ต้องแบนที่ 0;
+      ช่วงที่ 8 (+5 V) Y ต้องแบนที่ 1; ถ้ามีขอบขึ้นลง ⇒ ผิด เพราะค่าคงที่ไม่เปลี่ยนตามเวลา</li>
+    <li><b>ช่วงที่ 5 กับ 7 ต้องเป็นภาพกลับของสัญญาณเดิม</b> — ช่วง 5: Y = ภาพกลับของ D₀;
+      ช่วง 7: Y = ภาพกลับของ D₂</li>
+  </ol>
+
+  <footer class="colophon">
+    <p style="margin-top:6px"><b>อ้างอิง:</b>
+    สไลด์บรรยาย 305241 Digital Logic — หน้า 82 (เล่ม 71) รูปที่ 3.1–3.2 [ทฤษฎี MUX และตารางฟังก์ชัน 74151] ·
+    หน้า 87 (เล่ม 75) ตัวอย่างที่ 3.1 [แนวทางหารูปคลื่นเอาต์พุต] ·
+    หน้า 110 (เล่ม 97) รูปที่ 3.40 [ตัวโจทย์]</p>
+
+    <p><b>ความน่าเชื่อถือของเฉลย:</b> รูปคลื่นอินพุตทั้ง 6 ถูกสกัดจากต้นฉบับด้วยการวิเคราะห์พิกเซล
+    และตรวจไขว้ระหว่างภาพสแกนกับต้นฉบับ vector ใน PDF — ผลตรงกันทุกบิต
+    คำตอบคำนวณด้วยโปรแกรมและตรวจสอบด้วย invariant (W = <span class="ov">Y</span> ทุกพิกเซล)
+    รายละเอียดหลักฐานทั้งหมดอยู่ใน <code>VERIFICATION.md</code></p>
+
+    <div class="filemap" style="margin-top:14px">
+      <div><code>README.md</code> — เฉลยฉบับ Markdown</div>
+      <div><code>VERIFICATION.md</code> — หลักฐานการตรวจสอบ</div>
+      <div><code>solution.html</code> — หน้านี้ (พร้อม Virtual Lab)</div>
+      <div><code>assets/example01_original.jpeg</code> — ภาพโจทย์ต้นฉบับ</div>
+      <div><code>assets/lecture_refs/*.png</code> — ภาพอ้างอิงตรงจากสไลด์บรรยาย (305241 Lecture)</div>
+      <div><code>assets/01…10_*.png</code> — ไดอะแกรมเฉลย 10 รูป (300 DPI)</div>
+      <div><code>generate_all_diagrams.py</code> — สคริปต์สร้างไดอะแกรม</div>
+      <div><code>verify_render.py</code> — สคริปต์ตรวจคำตอบอัตโนมัติ</div>
+    </div>
+
+    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:.92rem;">
+      <a href="../index.html" style="color:var(--accent); text-decoration:none; font-weight:700;">← กลับหน้ารวมข้อสอบบทที่ 3 (Exam Archive)</a>
+      <a href="../../index.html" style="color:var(--accent); text-decoration:none; font-weight:700;">ภาพรวมบทที่ 3 (MUX/DMUX)</a>
+      <a href="../../../index.html" style="color:var(--accent); text-decoration:none; font-weight:700;">หน้าหลักวิชา 305241</a>
+    </div>
+  </footer>
+</section>
+
+</div><!-- /page -->
+
+<!-- Floating: ปุ่มเปิด/ปิดรูปโจทย์ -->
+<div id="prob-panel">
+  <div class="pp-head">
+    <b>รูปที่ 3.40 — โจทย์ต้นฉบับ</b>
+    <button class="pp-close" onclick="toggleProb(false)" title="ปิด">✕</button>
+  </div>
+  <img src="assets/example01_original.jpeg" alt="โจทย์ต้นฉบับ" onclick="openLB('assets/example01_original.jpeg')">
+</div>
+
+<div class="float-bar">
+  <span class="fb-label">โจทย์</span>
+  <button class="fb-btn" id="btn-eye" onclick="toggleProb()" title="เปิด/ปิดรูปโจทย์ (ตัวอย่าง: example01)">
+    <svg viewBox="0 0 24 24"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+  </button>
+  <button class="fb-btn" onclick="openLB('assets/example01_original.jpeg')" title="ขยายรูปโจทย์เต็มจอ">
+    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6" class="fillme"/><path d="M21 16l-5-5-9 8"/></svg>
+  </button>
+</div>
+
+<a class="top-link" href="#" title="กลับขึ้นด้านบน">↑</a>
+
+<script>
+// ── Floating panel: เปิด/ปิดรูปโจทย์ ──
+const panel = document.getElementById('prob-panel');
+function toggleProb(force){
+  const on = force !== undefined ? force : !panel.classList.contains('on');
+  panel.classList.toggle('on', on);
+  document.getElementById('btn-eye').style.background = on ? 'var(--ink)' : '#fff';
+}
+function openLB(src){ lbImg.src = src; lb.classList.add('on'); }
+
+// lightbox: คลิกรูปเพื่อขยายเต็มจอ
+const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+document.querySelectorAll('figure.textbook img, .prob-fig img, #prob-panel img').forEach(img=>{
+  img.addEventListener('click',e=>{ e.stopPropagation(); lbImg.src=img.src; lb.classList.add('on'); });
+});
+lb.addEventListener('click',()=> lb.classList.remove('on'));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ lb.classList.remove('on'); toggleProb(false);} });
+
+// ── Virtual Trainer Engine: one electrical state drives wires, ICs, LEDs, switches and analyzer ──
+const muxLab = document.getElementById('mux-lab');
+const muxState = { E:0, C:0, B:0, A:0, D0:0, D2:0 };
+let labMode='free', simIndex=0, simTimer=null, trainerPower=true, soundEnabled=true, audioContext=null;
+
+// Strict 74151 invariant for the exact Exam #1 netlist.
+function evaluate74151(C,B,A,E,D0,D2){
+  const D0_bar=D0===1?0:1;
+  const D2_bar=D2===1?0:1;
+  const channels=[D0,1,D2,0,D0_bar,0,D2_bar,1];
+  const n=(C<<2)|(B<<1)|A;
+  let Y,W,mode;
+  if(E===1){Y=0;W=1;mode='DISABLED'}
+  else{Y=channels[n];W=Y===1?0:1;mode='ACTIVE'}
+  return {n,channels,Y,W,mode,D0_bar,D2_bar};
+}
+
+// Every real transition in the nine slots: 15 micro-slices collapse to 11 output segments.
+const examFrames=[
+  {slot:'1',E:1,C:0,B:0,A:0,D0:0,D2:0,note:'E = 1 ปิด 74151 แม้ CBA จะชี้ D₀ — Y ถูกบังคับเป็น 0 และ W เป็น 1'},
+  {slot:'2ก',E:1,C:0,B:0,A:1,D0:1,D2:0,note:'ช่วง 2 ก่อนจุด 38%: D₁ ต่อ +5V แต่ E ยังเป็น 1 ค่าจึงยังผ่านไม่ได้'},
+  {slot:'2ข',E:0,C:0,B:0,A:1,D0:1,D2:0,note:'กับดักช่วง 2: E ตก 1→0 ที่ 38% เปิดไอซี ทำให้ D₁=1 ผ่านไป Y ทันที'},
+  {slot:'3ก',E:0,C:0,B:1,A:0,D0:1,D2:0,note:'CBA=010 เลือก D₂; ก่อนขอบขาขึ้น D₂=0 จึง Y=0'},
+  {slot:'3ข',E:0,C:0,B:1,A:0,D0:1,D2:1,note:'D₂ ขึ้นเป็น 1 ที่ 60% ของช่วง 3 และผ่านตรงไป Y'},
+  {slot:'4',E:0,C:0,B:1,A:1,D0:0,D2:1,note:'CBA=011 เลือก D₃ ที่ต่อ GND — Y=0 คงที่'},
+  {slot:'5ก',E:0,C:1,B:0,A:0,D0:0,D2:1,note:'CBA=100 เลือก D₄; D₀=0 ผ่าน 7404 กลับเป็น 1 ที่ Pin 15'},
+  {slot:'5ข',E:0,C:1,B:0,A:0,D0:1,D2:1,note:'D₀ ขึ้นเป็น 1 ที่ 46%; 7404 กลับ D₄ เป็น 0 จึง Y ตก'},
+  {slot:'6',E:0,C:1,B:0,A:1,D0:1,D2:1,note:'CBA=101 เลือก D₅ ที่ต่อ GND — Y=0 คงที่'},
+  {slot:'7ก',E:0,C:1,B:1,A:0,D0:1,D2:1,note:'CBA=110 เลือก D₆; D₂=1 ผ่าน 7404 กลับเป็น 0'},
+  {slot:'7ข',E:0,C:1,B:1,A:0,D0:1,D2:0,note:'D₂ ตกเป็น 0 ที่ 31%; 7404 กลับ D₆ เป็น 1 แล้วส่งไป Y'},
+  {slot:'8',E:0,C:1,B:1,A:1,D0:0,D2:0,note:'CBA=111 เลือก D₇ ที่ต่อ +5V — Y=1 คงที่'},
+  {slot:'9ก',E:0,C:0,B:0,A:0,D0:0,D2:0,note:'ตัวนับวนกลับ 000; D₀=0 จึง Y=0'},
+  {slot:'9ข',E:0,C:0,B:0,A:0,D0:1,D2:0,note:'D₀ ขึ้นที่ 21% ของช่วง 9 ทำให้ Y=1 เริ่มพัลส์แคบ'},
+  {slot:'9ค',E:1,C:0,B:0,A:0,D0:1,D2:0,note:'กับดักช่วง 9: E ขึ้น 0→1 ที่ 43% ปิดไอซีและตัดพัลส์ Y กลับเป็น 0'}
+];
+
+const channelNames=['D₀','D₁','D₂','D₃','D₄','D₅','D₆','D₇'];
+const channelPins=[4,3,2,1,15,14,13,12];
+const sourceNames=['D₀ จากสวิตช์','+5V คงที่','D₂ จากสวิตช์','GND คงที่','NOT D₀ จาก 7404 Pin 2','GND คงที่','NOT D₂ จาก 7404 Pin 4','+5V คงที่'];
+
+function currentResult(){return evaluate74151(muxState.C,muxState.B,muxState.A,muxState.E,muxState.D0,muxState.D2)}
+function netValues(result){return {VCC:1,GND:0,E:muxState.E,C:muxState.C,B:muxState.B,A:muxState.A,D0:muxState.D0,D2:muxState.D2,D0bar:result.D0_bar,D2bar:result.D2_bar,Y:result.Y,W:result.W}}
+function stateClass(element,value){
+  element.classList.remove('high','low','off','is-high','is-low','is-off');
+  if(value===null||value===undefined){element.classList.add('off','is-off')}
+  else if(value===1){element.classList.add('high','is-high')}
+  else{element.classList.add('low','is-low')}
+}
+
+function tactileSound(kind='switch'){
+  if(!soundEnabled)return;
+  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+  try{
+    audioContext=audioContext||new AC();
+    const now=audioContext.currentTime,osc=audioContext.createOscillator(),gain=audioContext.createGain();
+    osc.type=kind==='power'?'square':kind==='step'?'triangle':'sine';
+    osc.frequency.setValueAtTime(kind==='power'?90:kind==='step'?260:720,now);
+    osc.frequency.exponentialRampToValueAtTime(kind==='power'?48:kind==='step'?130:330,now+.055);
+    gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(kind==='power'?.09:.045,now+.004);gain.gain.exponentialRampToValueAtTime(.0001,now+.07);
+    osc.connect(gain).connect(audioContext.destination);osc.start(now);osc.stop(now+.075);
+  }catch(_error){/* Audio is optional; simulation must continue if the browser blocks it. */}
+}
+
+function renderMuxLab(){
+  const result=currentResult(),nets=netValues(result),live=trainerPower;
+  muxLab.classList.toggle('power-off',!live);muxLab.classList.toggle('is-disabled',live&&result.mode==='DISABLED');
+
+  document.getElementById('trainer-power').setAttribute('aria-pressed',String(live));
+  document.getElementById('trainer-power').innerHTML=`<span class="power-led"></span>POWER ${live?'ON':'OFF'}`;
+  const lcd=document.getElementById('trainer-lcd');lcd.classList.toggle('off',!live);
+  const cba=`${muxState.C}${muxState.B}${muxState.A}`;
+  document.getElementById('lcd-line1').textContent=live?`${labMode==='exam'?'EXAM '+examFrames[simIndex].slot:'FREE LAB'}  CBA=${cba}`:'SYSTEM POWER OFF';
+  document.getElementById('lcd-line2').textContent=live?`${result.mode.padEnd(8)} Y=${result.Y} W=${result.W}`:'CHECK +5V / RESET';
+
+  muxLab.querySelectorAll('.trainer-switch').forEach(button=>{
+    const key=button.dataset.toggle,value=muxState[key];stateClass(button,live?value:null);
+    button.setAttribute('aria-pressed',String(Boolean(value)));
+    const detail=key==='E'?(value?'DISABLED':'ACTIVE'):key==='C'?(value?'5V · MSB':'0V · MSB'):key==='A'?(value?'5V · LSB':'0V · LSB'):`${value?'5V':'0V'}`;
+    button.querySelector('.switch-copy small').textContent=`${value} · ${detail}`;
+  });
+
+  muxLab.querySelectorAll('.monitor-channel').forEach(channel=>{
+    const key=channel.dataset.monitor,value=live?nets[key]:null;stateClass(channel,value);
+    channel.querySelector('.monitor-value').textContent=value===null?'—':value;
+  });
+
+  muxLab.querySelectorAll('[data-net]').forEach(element=>{
+    if(element.classList.contains('monitor-channel'))return;
+    stateClass(element,live?nets[element.dataset.net]:null);
+  });
+  muxLab.querySelectorAll('[data-channel-wire]').forEach(wire=>wire.classList.toggle('active-route',live&&Number(wire.dataset.channelWire)===result.n));
+  muxLab.querySelectorAll('[data-channel-pin]').forEach(pin=>pin.classList.toggle('selected',live&&Number(pin.dataset.channelPin)===result.n));
+
+  document.getElementById('status-channel').textContent=`${channelNames[result.n]} · PIN ${channelPins[result.n]}`;
+  document.getElementById('status-source').textContent=live?`${sourceNames[result.n]} = ${result.channels[result.n]?'+5 V':'0 V'}`:'ไม่มีไฟเลี้ยง — Logic Monitor ดับ';
+  const badge=document.getElementById('status-mode');badge.textContent=live?`${result.mode} · E=${muxState.E}`:'POWER OFF';badge.classList.toggle('disabled',!live||result.mode==='DISABLED');
+  document.getElementById('status-equation').textContent=live?(result.mode==='DISABLED'?`Ē=1 OVERRIDE → Y=0 → W=1`:`CBA=${cba} → ${channelNames[result.n]}=${result.channels[result.n]} → Y=${result.Y} → W=${result.W}`):'VCC=0 V → IC outputs unavailable';
+  document.getElementById('disable-alert').classList.toggle('on',live&&result.mode==='DISABLED');
+  document.getElementById('free-readout').textContent=`SELECT ${channelNames[result.n]} · PIN ${channelPins[result.n]}`;
+
+  if(labMode==='exam'){
+    document.getElementById('sim-status').textContent=`SLOT ${examFrames[simIndex].slot} · ${simIndex+1}/15`;
+    document.getElementById('sim-note').textContent=examFrames[simIndex].note;
+    document.getElementById('sim-scrub').value=simIndex;
+    document.querySelectorAll('.track-cell').forEach((cell,index)=>{cell.classList.toggle('past',index<simIndex);cell.classList.toggle('now',index===simIndex)});
+  }
+  const cursor=document.getElementById('analyzer-cursor');if(cursor){const x=50+(simIndex+.5)*(840/examFrames.length);cursor.setAttribute('x1',x);cursor.setAttribute('x2',x)}
+}
+
+function svgElement(name,attributes={}){const el=document.createElementNS('http://www.w3.org/2000/svg',name);Object.entries(attributes).forEach(([key,value])=>el.setAttribute(key,value));return el}
+function drawAnalyzer(){
+  const svg=document.getElementById('logic-analyzer'),keys=['C','B','A','E','D0','D2','Y','W'],colors=['#4d8dff','#4d8dff','#4d8dff','#ff9c40','#4cdf86','#f0c52e','#66f0b0','#ff9a55'];
+  const x0=50,width=840,rowH=21;
+  for(let i=0;i<=examFrames.length;i++){const x=x0+i*(width/examFrames.length);svg.appendChild(svgElement('line',{x1:x,y1:0,x2:x,y2:184,class:'an-grid'}))}
+  keys.forEach((key,row)=>{
+    const top=4+row*rowH;const label=svgElement('text',{x:8,y:top+13,class:'an-label'});label.textContent=key.replace('0','₀').replace('2','₂');svg.appendChild(label);
+    svg.appendChild(svgElement('line',{x1:x0,y1:top+17,x2:890,y2:top+17,class:'an-grid'}));
+    const vals=examFrames.map(frame=>{const r=evaluate74151(frame.C,frame.B,frame.A,frame.E,frame.D0,frame.D2);return key==='Y'?r.Y:key==='W'?r.W:frame[key]});
+    const yFor=value=>top+(value?3:16);let d=`M ${x0} ${yFor(vals[0])}`;
+    vals.forEach((value,index)=>{const nextX=x0+(index+1)*(width/vals.length);d+=` H ${nextX}`;if(index<vals.length-1&&vals[index+1]!==value)d+=` V ${yFor(vals[index+1])}`});
+    svg.appendChild(svgElement('path',{d,class:'an-wave',stroke:colors[row]}));
+  });
+  svg.appendChild(svgElement('line',{id:'analyzer-cursor',x1:78,y1:0,x2:78,y2:184,class:'an-cursor'}));
+}
+
+function pauseSimulation(){clearInterval(simTimer);simTimer=null;document.getElementById('sim-play').textContent='▶ PLAY'}
+function applyFrame(index,withSound=false){
+  simIndex=Math.max(0,Math.min(examFrames.length-1,Number(index)));const frame=examFrames[simIndex];
+  ['E','C','B','A','D0','D2'].forEach(key=>muxState[key]=frame[key]);if(withSound)tactileSound('step');renderMuxLab();
+}
+function setLabMode(mode){
+  labMode=mode;pauseSimulation();
+  muxLab.querySelectorAll('.lab-tab').forEach(tab=>tab.setAttribute('aria-selected',String(tab.dataset.mode===mode)));
+  document.getElementById('pane-free').classList.toggle('on',mode==='free');document.getElementById('pane-exam').classList.toggle('on',mode==='exam');
+  if(mode==='exam')applyFrame(simIndex);else renderMuxLab();
+}
+
+muxLab.querySelectorAll('.lab-tab').forEach(tab=>tab.addEventListener('click',()=>{tactileSound();setLabMode(tab.dataset.mode)}));
+muxLab.querySelectorAll('.trainer-switch').forEach(button=>button.addEventListener('click',()=>{
+  if(labMode==='exam')setLabMode('free');const key=button.dataset.toggle;muxState[key]=1-muxState[key];tactileSound();renderMuxLab();
+}));
+document.getElementById('step-pulse').addEventListener('click',()=>{
+  if(labMode==='exam')setLabMode('free');let n=((muxState.C<<2)|(muxState.B<<1)|muxState.A)+1;n%=8;muxState.C=(n>>2)&1;muxState.B=(n>>1)&1;muxState.A=n&1;tactileSound('step');renderMuxLab();
+});
+document.getElementById('trainer-power').addEventListener('click',()=>{trainerPower=!trainerPower;tactileSound('power');renderMuxLab()});
+document.getElementById('trainer-reset').addEventListener('click',()=>{trainerPower=true;Object.keys(muxState).forEach(key=>muxState[key]=0);simIndex=0;pauseSimulation();tactileSound('power');renderMuxLab()});
+document.getElementById('trainer-sound').addEventListener('click',event=>{soundEnabled=!soundEnabled;event.currentTarget.setAttribute('aria-pressed',String(soundEnabled));event.currentTarget.textContent=`♪ TACTILE AUDIO · ${soundEnabled?'ON':'OFF'}`;if(soundEnabled)tactileSound()});
+
+const simTrack=document.getElementById('sim-track');
+examFrames.forEach((frame,index)=>{const cell=document.createElement('button');cell.type='button';cell.className='track-cell';if(['2ก','2ข','9ข','9ค'].includes(frame.slot))cell.classList.add('trap');cell.title=`ช่วง ${frame.slot}: ${frame.note}`;cell.setAttribute('aria-label',`ไปช่วง ${frame.slot}`);cell.addEventListener('click',()=>{pauseSimulation();applyFrame(index,true)});simTrack.appendChild(cell)});
+document.getElementById('sim-scrub').addEventListener('input',event=>{pauseSimulation();applyFrame(event.currentTarget.value)});
+document.getElementById('sim-prev').addEventListener('click',()=>{pauseSimulation();applyFrame(simIndex-1,true)});
+document.getElementById('sim-next').addEventListener('click',()=>{pauseSimulation();applyFrame(simIndex+1,true)});
+document.getElementById('sim-restart').addEventListener('click',()=>{pauseSimulation();applyFrame(0,true)});
+document.getElementById('sim-play').addEventListener('click',()=>{
+  if(simTimer){pauseSimulation();return}if(simIndex===examFrames.length-1)applyFrame(0);
+  document.getElementById('sim-play').textContent='❚❚ PAUSE';simTimer=setInterval(()=>{if(simIndex>=examFrames.length-1){pauseSimulation();return}applyFrame(simIndex+1,true)},950);
+});
+
+// Electrical inspector: hover/focus reports physical connection, voltage and logic state.
+const trainerTooltip=document.getElementById('trainer-tooltip'),netInspector=document.getElementById('net-inspector');
+function inspectTarget(target,event){
+  const item=target.closest('[data-tip]');if(!item){trainerTooltip.classList.remove('on');return}
+  const result=currentResult(),nets=netValues(result),net=item.dataset.net,value=trainerPower&&net!==undefined?nets[net]:null;
+  const voltage=value===null?'POWER OFF / Hi-Z':value===1?'+5.0 V · LOGIC HIGH':'0.0 V · LOGIC LOW';
+  const netLine=net?`NET ${net} · ${voltage}`:voltage;trainerTooltip.innerHTML=`<strong>${netLine}</strong>${item.dataset.tip}`;netInspector.innerHTML=`<b>${netLine}</b><br>${item.dataset.tip}`;
+  if(event){const rect=muxLab.getBoundingClientRect();let x=event.clientX-rect.left+13,y=event.clientY-rect.top+13;x=Math.min(x,muxLab.clientWidth-245);y=Math.min(y,muxLab.clientHeight-82);trainerTooltip.style.left=`${Math.max(8,x)}px`;trainerTooltip.style.top=`${Math.max(8,y)}px`;trainerTooltip.classList.add('on')}
+}
+muxLab.addEventListener('pointermove',event=>inspectTarget(event.target,event));muxLab.addEventListener('pointerleave',()=>trainerTooltip.classList.remove('on'));
+muxLab.addEventListener('focusin',event=>{if(event.target.matches('[data-tip]'))inspectTarget(event.target)});
+
+drawAnalyzer();renderMuxLab();
+</script>
+</body>
+</html>

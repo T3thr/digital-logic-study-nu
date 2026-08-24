@@ -1,0 +1,34 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# Git Ignore Configuration for Digital Logic Study Repository
+# Repository: https://github.com/T3thr/digital-logic-sturdy-nu
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Ignore raw university lecture slides and copyrighted PDFs
+00-lecture/
+*.pdf
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python bytecode and temporary caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Editor and IDE metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
