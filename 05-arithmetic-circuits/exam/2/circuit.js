@@ -96,6 +96,24 @@
     if (stateSelect) {
       stateSelect.value = dec.toString();
     }
+
+    // Real-time JK Monitor Elements
+    const { jd, kd, jc, kc, jb, kb, ja, ka } = computeInputs(qd, qc, qb, qa);
+    const updateMon = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = val;
+        el.classList.toggle('val-high', val === 1);
+      }
+    };
+    updateMon('mon-jd', jd);
+    updateMon('mon-kd', kd);
+    updateMon('mon-jc', jc);
+    updateMon('mon-kc', kc);
+    updateMon('mon-jb', jb);
+    updateMon('mon-kb', kb);
+    updateMon('mon-ja', ja);
+    updateMon('mon-ka', ka);
   }
 
   function appendLog(msg) {
