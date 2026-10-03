@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>คู่มือการลดรูป K-Map 5 ตัวแปร ทุกกรณีอย่างละเอียดที่สุด (5-Variable Karnaugh Map Masterclass) · 305241 Digital Logic</title>
+<style>
+/* ═══════════ THEME & CSS VARIABLES ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper-card: #FFFFFF;
+  --paper2: #F3EEDF;
+  --ink: #1F2937;
+  --ink-soft: #4B5563;
+  --ink-muted: #6B7280;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent-light: #EFF6FF;
+  --accent-border: #BFDBFE;
+  --accent2: #B45309;
+  --accent2-light: #FFFBEB;
+  --green: #047857;
+  --green-light: #ECFDF5;
+  --green-border: #A7F3D0;
+  --purple: #6D28D9;
+  --purple-light: #F5F3FF;
+  --purple-border: #DDD6FE;
+  --red: #B91C1C;
+  --red-light: #FEF2F2;
+  --red-border: #FECACA;
+  --teal: #0F766E;
+  --teal-light: #F0FDFA;
+  --pink: #BE185D;
+  --pink-light: #FDF2F8;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --font-thai: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Courier New", monospace;
+}
+
+[data-theme="dark"] {
+  --paper: #0F172A;
+  --paper-card: #1E293B;
+  --paper2: #141E33;
+  --ink: #F1F5F9;
+  --ink-soft: #CBD5E1;
+  --ink-muted: #94A3B8;
+  --rule: #334155;
+  --accent: #60A5FA;
+  --accent-light: #1E3A8A;
+  --accent-border: #2563EB;
+  --accent2: #FBBF24;
+  --accent2-light: #451A03;
+  --green: #34D399;
+  --green-light: #064E3B;
+  --green-border: #059669;
+  --purple: #C084FC;
+  --purple-light: #3B0764;
+  --purple-border: #7E22CE;
+  --red: #F87171;
+  --red-light: #450A0A;
+  --red-border: #DC2626;
+  --teal: #2DD4BF;
+  --teal-light: #134E4A;
+  --pink: #F472B6;
+  --pink-light: #500724;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  font-size: 16.5px;
+  line-height: 1.85;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* ═══════════ LAYOUT & CONTAINER ═══════════ */
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 36px 28px 100px;
+}
+
+/* ═══════════ BREADCRUMB & HEADER ═══════════ */
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .90rem;
+  color: var(--ink-muted);
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: var(--ink-muted);
+}
+
+.theme-toggle-btn {
+  background: var(--paper-card);
+  border: 1.5px solid var(--rule);
+  color: var(--ink);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: .88rem;
+  font-family: inherit;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.course-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px double var(--rule);
+  padding-bottom: 10px;
+  margin-bottom: 28px;
+  font-size: .88rem;
+  letter-spacing: .03em;
+  color: var(--ink-soft);
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 14px;
+  white-space: nowrap;
+  font-weight: 700;
+  background: var(--paper-card);
+  color: var(--ink);
+}
+
+/* ═══════════ TYPOGRAPHY ═══════════ */
+h1.main-title {
+  font-size: 2.25rem;
+  line-height: 1.35;
+  margin: 10px 0 12px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.10rem;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+h2.section-head {
+  font-size: 1.55rem;
+  font-weight: 800;
+  margin: 48px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--rule);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  scroll-margin-top: 24px;
+}
+
+h2.section-head .badge-num {
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: .95rem;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+h3.sub-head {
+  font-size: 1.28rem;
+  font-weight: 700;
+  margin: 32px 0 14px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h4.card-title {
+  font-size: 1.10rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+
+p, li {
+  color: var(--ink);
+}
+
+/* ═══════════ CARDS, CALLOUTS & BOXES ═══════════ */
+.callout {
+  border-left: 5px solid var(--accent);
+  background: var(--paper-card);
+  padding: 20px 24px;
+  border-radius: 0 8px 8px 0;
+  margin: 24px 0;
+  box-shadow: var(--shadow-sm);
+  border-top: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.callout.amber {
+  border-left-color: var(--accent2);
+  background: var(--accent2-light);
+}
+
+.callout.green {
+  border-left-color: var(--green);
+  background: var(--green-light);
+}
+
+.callout.red {
+  border-left-color: var(--red);
+  background: var(--red-light);
+}
+
+.callout.purple {
+  border-left-color: var(--purple);
+  background: var(--purple-light);
+}
+
+.callout-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.formula-box {
+  background: var(--paper-card);
+  border: 1.5px solid var(--rule);
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 16px 0;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.rule-pill {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+}
+
+/* ═══════════ TABLE OF CONTENTS (TOC) ═══════════ */
+.toc-box {
+  background: var(--paper-card);
+  border: 2px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 28px 0 40px;
+  box-shadow: var(--shadow-md);
+}
+
+.toc-title {
+  font-weight: 800;
+  font-size: 1.20rem;
+  margin-bottom: 16px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px 24px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: .95rem;
+}
+
+.toc-item a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+
+.toc-item a:hover {
+  text-decoration: underline;
+  color: var(--purple);
+}
+
+.toc-item .num {
+  font-weight: 800;
+  color: var(--ink-muted);
+  font-size: .88rem;
+  min-width: 24px;
+}
+
+/* ═══════════ TABLES ═══════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 8px;
+  border: 1.5px solid var(--rule);
+  background: var(--paper-card);
+  box-shadow: var(--shadow-sm);
+}
+
+table.kmap-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+table.kmap-data-table th {
+  background: var(--paper2);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+table.kmap-data-table th:last-child {
+  border-right: none;
+}
+
+table.kmap-data-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  color: var(--ink);
+}
+
+table.kmap-data-table td:last-child {
+  border-right: none;
+}
+
+table.kmap-data-table tr:last-child td {
+  border-bottom: none;
+}
+
+table.kmap-data-table tr:hover {
+  background: var(--paper);
+}
+
+/* ═══════════ K-MAP DIAGRAM & VISUAL DISPLAY ═══════════ */
+.kmap-dual-container {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.kmap-submap-box {
+  background: var(--paper-card);
+  border: 2px solid var(--rule);
+  border-radius: 12px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  flex: 1;
+  min-width: 320px;
+  max-width: 460px;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kmap-submap-box:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.kmap-submap-header {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kmap-submap-header .layer-tag {
+  font-size: 0.82rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.layer-left {
+  color: #1D4ED8;
+  background: #DBEAFE;
+}
+
+.layer-right {
+  color: #B45309;
+  background: #FEF3C7;
+}
+
+.kmap-grid {
+  display: grid;
+  grid-template-columns: 70px repeat(4, 1fr);
+  grid-template-rows: 38px repeat(4, 52px);
+  gap: 4px;
+  font-family: var(--font-mono);
+  user-select: none;
+}
+
+.kmap-corner-label {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  position: relative;
+}
+
+.kmap-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.90rem;
+  color: var(--ink-soft);
+  background: var(--paper2);
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+}
+
+.kmap-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.90rem;
+  color: var(--ink-soft);
+  background: var(--paper2);
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+}
+
+.kmap-cell {
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kmap-cell:hover {
+  border-color: var(--accent);
+  transform: scale(1.03);
+  z-index: 2;
+}
+
+.kmap-cell .cell-minterm {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.kmap-cell .cell-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.kmap-cell.active-1 {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+}
+.kmap-cell.active-1 .cell-val {
+  color: #1D4ED8;
+}
+
+.kmap-cell.active-0 {
+  background: #FEF2F2;
+  border-color: #EF4444;
+}
+.kmap-cell.active-0 .cell-val {
+  color: #B91C1C;
+}
+
+.kmap-cell.active-x {
+  background: #F5F3FF;
+  border-color: #8B5CF6;
+}
+.kmap-cell.active-x .cell-val {
+  color: #6D28D9;
+}
+
+/* Highlight styles for grouping */
+.kmap-cell.group-blue {
+  background: rgba(59, 130, 246, 0.22) !important;
+  border: 2px solid #2563EB !important;
+}
+
+.kmap-cell.group-green {
+  background: rgba(16, 185, 129, 0.22) !important;
+  border: 2px solid #059669 !important;
+}
+
+.kmap-cell.group-purple {
+  background: rgba(168, 85, 247, 0.22) !important;
+  border: 2px solid #7C3AED !important;
+}
+
+.kmap-cell.group-amber {
+  background: rgba(245, 158, 11, 0.22) !important;
+  border: 2px solid #D97706 !important;
+}
+
+.kmap-cell.group-red {
+  background: rgba(239, 68, 68, 0.22) !important;
+  border: 2px solid #DC2626 !important;
+}
+
+.kmap-cell.group-teal {
+  background: rgba(20, 184, 166, 0.22) !important;
+  border: 2px solid #0D9488 !important;
+}
+
+.kmap-cell.superimposed-glow {
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+  animation: pulse-glow 1.5s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.06); }
+}
+
+/* ═══════════ CASE CARDS ═══════════ */
+.case-card {
+  background: var(--paper-card);
+  border: 2px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 28px 0;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.case-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule);
+}
+
+.case-tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.case-tag.blue { background: #DBEAFE; color: #1D4ED8; }
+.case-tag.green { background: #D1FAE5; color: #065F46; }
+.case-tag.purple { background: #EDE9FE; color: #5B21B6; }
+.case-tag.amber { background: #FEF3C7; color: #92400E; }
+.case-tag.red { background: #FEE2E2; color: #991B1B; }
+
+/* ═══════════ INTERACTIVE SIMULATOR CONTROLS ═══════════ */
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+  padding: 16px;
+  background: var(--paper2);
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  align-items: center;
+}
+
+.sim-btn {
+  background: var(--paper-card);
+  border: 1.5px solid var(--rule);
+  color: var(--ink);
+  padding: 7px 15px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.90rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sim-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sim-btn.primary {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.sim-btn.primary:hover {
+  opacity: 0.92;
+}
+
+.sim-select {
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1.5px solid var(--rule);
+  background: var(--paper-card);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.90rem;
+  font-weight: 600;
+}
+
+.result-display-panel {
+  background: var(--paper2);
+  border: 2px solid var(--accent-border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-top: 20px;
+}
+
+.result-formula {
+  font-family: var(--font-mono);
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 6px 0 12px;
+  word-break: break-all;
+}
+
+/* ═══════════ FOOTER & BACK TO TOP ═══════════ */
+.footer-nav {
+  margin-top: 70px;
+  padding-top: 24px;
+  border-top: 2px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.92rem;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--accent);
+  color: #FFFFFF;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 100;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .page { padding: 20px 16px 80px; }
+  h1.main-title { font-size: 1.75rem; }
+  .kmap-dual-container { gap: 16px; }
+  .kmap-submap-box { min-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══════════ BREADCRUMB & THEME ═══════════ -->
+  <div class="nav-header">
+    <div class="breadcrumb">
+      <a href="../README.md">บทที่ 2 (Combinational Circuits)</a>
+      <span class="sep">/</span>
+      <a href="../06-karnaugh-map/README.md">2.7 Karnaugh Map</a>
+      <span class="sep">/</span>
+      <span style="font-weight:700; color:var(--ink);">5-Variable K-Map Complete Guide</span>
+    </div>
+    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span> <span id="themeText">โหมดมืด (Dark Mode)</span>
+    </button>
+  </div>
+
+  <div class="course-line">
+    <span>305241 DIGITAL LOGIC DESIGN &amp; ENGINEERING</span>
+    <span class="chip">MASTERCLASS TUTORIAL</span>
+    <span>ภาควิชาวิศวกรรมคอมพิวเตอร์</span>
+  </div>
+
+  <!-- ═══════════ TITLE ═══════════ -->
+  <h1 class="main-title">🗺️ คัมภีร์การลดรูป K-Map 5 ตัวแปร ทุกกรณีอย่างละเอียดที่สุด</h1>
+  <div class="subtitle">
+    คู่มือสมบูรณ์แบบอธิบายโครงสร้าง 3 มิติ (Two 4×4 Sub-maps / 3D Superposition), กฎความประชิดทุกทิศทาง,
+    การรวมกลุ่มขนาด 1, 2, 4, 8, 16, 32 ช่อง, กรณีมุมทั้ง 8, SOP vs POS, Don't Care (X) พร้อมตัวจำลอง Interactive Visualizer ในตัว
+  </div>
+
+  <!-- ═══════════ TABLE OF CONTENTS ═══════════ -->
+  <div class="toc-box">
+    <div class="toc-title">
+      <span>📚 สารบัญเนื้อหาในคู่มือฉบับนี้ (Table of Contents)</span>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-item">
+        <span class="num">1.</span>
+        <a href="#section-1">โครงสร้างและแบบจำลองความคิด 5-Variable K-Map (3D Superposition)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">2.</span>
+        <a href="#section-2">กฎความประชิด 3 ระดับ (2D vs 3D Adjacency Rules)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">3.</span>
+        <a href="#section-3">ตารางและสูตรการตัดทอนตัวแปร (Variable Elimination Formula)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">4.</span>
+        <a href="#section-4">เจาะลึกการวงกลุ่มครบทุกขนาด &amp; ทุกกรณี (Catalog of All Cases)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">5.</span>
+        <a href="#section-5">กรณีระดับตำนาน: การรวม 8 มุมข้ามตาราง (The 8-Corners Octet)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">6.</span>
+        <a href="#section-6">การลดรูป Minimal SOP (วงเลข 1) vs Minimal POS (วงเลข 0)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">7.</span>
+        <a href="#section-7">การใช้งานสภาวะ Don't Care (X) ข้ามตาราง</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">8.</span>
+        <a href="#section-8">ข้อควรระวัง &amp; กับดักที่พบบ่อย (Common Pitfalls &amp; Traps)</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">9.</span>
+        <a href="#section-9">เครื่องมือทดลอง Interactive 5-Variable K-Map Simulator</a>
+      </div>
+      <div class="toc-item">
+        <span class="num">10.</span>
+        <a href="#section-10">คลังตัวอย่างโจทย์ข้อสอบจริงพร้อมเฉลยละเอียดทีละขั้น (Step-by-Step)</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 1: FOUNDATION & 3D MENTAL MODEL
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-1">
+    <span class="badge-num">บทที่ 1</span> โครงสร้างและแบบจำลองความคิด (Architecture &amp; 3D Mental Model)
+  </h2>
+
+  <p>
+    ฟังก์ชันตรรกศาสตร์ที่มี <strong>5 ตัวแปรนำเข้า (5 Inputs: A, B, C, D, E)</strong> จะมีจำนวนสถานะของมินเทอมทั้งหมดเท่ากับ 
+    <code>2⁵ = 32 ช่อง</code> (ตั้งแต่ <code>m₀</code> ถึง <code>m₃₁</code>) 
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">💡 หัวใจสำคัญในการมอง K-Map 5 ตัวแปร (Two 4×4 Sub-maps)</div>
+    <p>
+      เนื่องจากตาราง 2 มิติทั่วไปมีขนาดสูงสุดที่สะดวกคือ 4×4 (16 ช่อง) สำหรับ 4 ตัวแปร (BCDE) 
+      เมื่อเพิ่มตัวแปรที่ 5 คือ <strong>A (Most Significant Bit - MSB)</strong> เราจึงแยกแผนผังออกเป็น <strong>2 ตารางย่อย (Sub-maps) ขนาด 4×4</strong> วางคู่กัน:
+    </p>
+    <ul>
+      <li><strong>ตารางซ้าย: ตารางย่อย A = 0 (หรือ A')</strong> ครอบคลุมมินเทอม <code>m₀ ถึง m₁₅</code> (เลขฐานสองบิตแรกเป็น 0: <code>00000₂ ถึง 01111₂</code>)</li>
+      <li><strong>ตารางขวา: ตารางย่อย A = 1 (หรือ A)</strong> ครอบคลุมมินเทอม <code>m₁₆ ถึง m₃₁</code> (เลขฐานสองบิตแรกเป็น 1: <code>10000₂ ถึง 11111₂</code>)</li>
+    </ul>
+    <p>
+      <strong>แบบจำลอง 3 มิติ (3D Layer):</strong> ให้จินตนาการว่าตารางขวา (A=1) ถูกนำมา <em>"วางซ้อนทับอยู่เหนือตารางซ้าย (A=0)"</em> เหมือนชั้นตึก 2 ชั้น! 
+      ช่องที่อยู่ <strong>พิกัด (แถว BC, คอลัมน์ DE) เดียวกันเป๊ะ</strong> ในทั้งสองตาราง จะถือว่า <strong>"ประชิดกันในมิติที่ 3 (Adjacent in the 3rd dimension)"</strong> ทันที!
+    </p>
+  </div>
+
+  <h3 class="sub-head">📍 แผนผังพิกัดมินเทอม (Minterm Index Map) ทั้ง 32 ช่อง</h3>
+  <p>
+    ทั้งสองตารางถูกกำกับด้วยรหัสเกรย์ (Gray Code: <code>00, 01, 11, 10</code>) ในแนวแถว <code>BC</code> และแนวคอลัมน์ <code>DE</code> ดังนี้:
+  </p>
+
+  <!-- DUAL 4x4 MAP DISPLAY -->
+  <div class="kmap-dual-container">
+    
+    <!-- SUB-MAP A = 0 -->
+    <div class="kmap-submap-box">
+      <div class="kmap-submap-header">
+        <span>ตารางซ้าย: A = 0 (A')</span>
+        <span class="layer-tag layer-left">m₀ – m₁₅</span>
+      </div>
+      <div class="kmap-grid">
+        <div class="kmap-corner-label">BC \ DE</div>
+        <div class="kmap-col-header">00</div>
+        <div class="kmap-col-header">01</div>
+        <div class="kmap-col-header">11</div>
+        <div class="kmap-col-header">10</div>
+
+        <!-- Row 00 -->
+        <div class="kmap-row-header">00</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₀</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₃</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂</span><span class="cell-val">-</span></div>
+
+        <!-- Row 01 -->
+        <div class="kmap-row-header">01</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₄</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₅</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₇</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₆</span><span class="cell-val">-</span></div>
+
+        <!-- Row 11 -->
+        <div class="kmap-row-header">11</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₂</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₃</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₅</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₄</span><span class="cell-val">-</span></div>
+
+        <!-- Row 10 -->
+        <div class="kmap-row-header">10</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₈</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₉</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₁</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₀</span><span class="cell-val">-</span></div>
+      </div>
+    </div>
+
+    <!-- SUB-MAP A = 1 -->
+    <div class="kmap-submap-box">
+      <div class="kmap-submap-header">
+        <span>ตารางขวา: A = 1 (A)</span>
+        <span class="layer-tag layer-right">m₁₆ – m₃₁</span>
+      </div>
+      <div class="kmap-grid">
+        <div class="kmap-corner-label">BC \ DE</div>
+        <div class="kmap-col-header">00</div>
+        <div class="kmap-col-header">01</div>
+        <div class="kmap-col-header">11</div>
+        <div class="kmap-col-header">10</div>
+
+        <!-- Row 00 -->
+        <div class="kmap-row-header">00</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₆</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₇</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₉</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₁₈</span><span class="cell-val">-</span></div>
+
+        <!-- Row 01 -->
+        <div class="kmap-row-header">01</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₀</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₁</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₃</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₂</span><span class="cell-val">-</span></div>
+
+        <!-- Row 11 -->
+        <div class="kmap-row-header">11</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₈</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₉</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₃₁</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₃₀</span><span class="cell-val">-</span></div>
+
+        <!-- Row 10 -->
+        <div class="kmap-row-header">10</div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₄</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₅</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₇</span><span class="cell-val">-</span></div>
+        <div class="kmap-cell"><span class="cell-minterm">m₂₆</span><span class="cell-val">-</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout green">
+    <div class="callout-title">🔑 กฎการคำนวณเลขมินเทอมข้ามตาราง (The +16 Superposition Rule)</div>
+    <p>
+      สังเกตว่า ทุกช่องในตารางขวา (A=1) จะมีเลขมินเทอมเท่ากับ <strong>เลขมินเทอมของช่องพิกัดเดียวกันในตารางซ้าย + 16</strong> เสมอ!
+    </p>
+    <div class="formula-box">
+      m(ตารางขวา) = m(ตารางซ้าย) + 16 &nbsp;&nbsp;[เช่น m₀ ↔ m₁₆, m₅ ↔ m₂₁, m₁₅ ↔ m₃₁]
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 2: ADJACENCY RULES (2D vs 3D)
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-2">
+    <span class="badge-num">บทที่ 2</span> กฎความประชิด 3 มิติ (The 3 Dimensions of Adjacency)
+  </h2>
+
+  <p>
+    ในการรวมกลุ่ม (Grouping) บน K-Map เซลล์จะรวมกลุ่มกันได้ก็ต่อเมื่อ <strong>มีสถานะทางตรรกศาสตร์ประชิดกัน (Hamming Distance = 1 bit difference)</strong>
+    สำหรับ 5 ตัวแปร ความประชิดเกิดขึ้นได้ 3 ระดับ:
+  </p>
+
+  <div class="table-wrap">
+    <table class="kmap-data-table">
+      <thead>
+        <tr>
+          <th>ระดับความประชิด</th>
+          <th>ลักษณะทางกายภาพบนตาราง</th>
+          <th>ตัวอย่างมินเทอมที่ประชิดกัน</th>
+          <th>คำอธิบายทางตรรกศาสตร์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Intra-Map 2D (ภายในตารางเดียวกัน)</strong></td>
+          <td>ช่องติดกันแนวนอน / แนวตั้ง</td>
+          <td><code>(m₀, m₁)</code> หรือ <code>(m₀, m₄)</code></td>
+          <td>ต่างกันเพียง 1 บิตในตัวแปร D หรือ C</td>
+        </tr>
+        <tr>
+          <td><strong>2. Intra-Map Wraparound (การพับขอบชนกัน)</strong></td>
+          <td>ขอบซ้ายชนขอบขวา, ขอบบนชนขอบล่าง</td>
+          <td><code>(m₀, m₂)</code> [ซ้าย-ขวา], <code>(m₀, m₈)</code> [บน-ล่าง]</td>
+          <td>รหัสเกรย์ <code>00</code> ประชิดกับ <code>10</code></td>
+        </tr>
+        <tr>
+          <td><strong>3. Intra-Map 4-Corners (มุมทั้ง 4 ภายในตาราง)</strong></td>
+          <td>4 มุมของตารางย่อยเดียวกัน</td>
+          <td><code>(m₀, m₂, m₈, m₁₀)</code> ใน A=0<br><code>(m₁₆, m₁₈, m₂₄, m₂₆)</code> ใน A=1</td>
+          <td>ตัดตัวแปรได้ 2 ตัว (C และ D)</td>
+        </tr>
+        <tr>
+          <td><strong>4. Inter-Map 3D (ประชิดข้ามตาราง / ซ้อนทับ)</strong></td>
+          <td>ช่องที่มีพิกัด (BC, DE) เดียวกันเป๊ะ ทั้ง 2 ตาราง</td>
+          <td><code>(m₀, m₁₆)</code>, <code>(m₅, m₂₁)</code>, <code>(m₁₅, m₃₁)</code></td>
+          <td>BCDE เหมือนกันทุกประการ ต่างกันแค่ค่า A (0 vs 1) <strong>ตัดตัวแปร A ทิ้งทันที!</strong></td>
+        </tr>
+        <tr>
+          <td><strong>5. Combined 2D + 3D (การรวมกลุ่มซ้อนทับข้ามตาราง)</strong></td>
+          <td>กลุ่ม 2D ใน A=0 ซ้อนทับกับกลุ่ม 2D รูปร่างเดียวกันใน A=1</td>
+          <td>กลุ่ม 2 ช่องคู่ <code>(m₀,m₁) + (m₁₆,m₁₇)</code><br>กลุ่ม 4 ช่อง <code>(m₀,m₁,m₄,m₅) + (m₁₆,m₁₇,m₂₀,m₂₁)</code></td>
+          <td>รวมเป็นกลุ่มขนาด 2 เท่า (2D Quad กลายเป็น 3D Octet) และตัดตัวแปร A ทิ้ง!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 3: VARIABLE ELIMINATION FORMULA
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-3">
+    <span class="badge-num">บทที่ 3</span> ตารางและสูตรการตัดทอนตัวแปร (Variable Elimination Formula)
+  </h2>
+
+  <p>
+    การรวมกลุ่มต้องมีขนาดเป็นเลขยกกำลังของ 2 เสมอ คือ <code>2ⁿ ช่อง (1, 2, 4, 8, 16, 32 ช่อง)</code> 
+    ยิ่งกลุ่มมีขนาดใหญ่มากเท่าใด จะยิ่ง <strong>ตัดตัวแปรทิ้งได้มากขึ้นเท่านั้น</strong> ตามกฎ:
+  </p>
+
+  <div class="formula-box">
+    จำนวนตัวแปรที่ถูกตัดทิ้ง = log₂(ขนาดกลุ่ม) = n ตัวแปร &nbsp;&nbsp;|&nbsp;&nbsp; ลิทเทอรัลคงเหลือ = 5 - n ลิทเทอรัล
+  </div>
+
+  <div class="table-wrap">
+    <table class="kmap-data-table">
+      <thead>
+        <tr>
+          <th>ขนาดกลุ่ม (จำนวนเซลล์)</th>
+          <th>เลขยกกำลัง (2ⁿ)</th>
+          <th>จำนวนตัวแปรที่ถูกตัดทิ้ง (n)</th>
+          <th>จำนวนลิทเทอรัลในพจน์ผลลัพธ์</th>
+          <th>ตัวอย่างผลลัพธ์ของพจน์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>กลุ่ม 1 ช่อง (Single Minterm)</strong></td>
+          <td>2⁰</td>
+          <td>0 ตัวแปร</td>
+          <td><strong>5 ลิทเทอรัล</strong> (ไม่ถูกตัด)</td>
+          <td><code>A'·B'·C·D'·E</code></td>
+        </tr>
+        <tr>
+          <td><strong>กลุ่ม 2 ช่อง (Pair)</strong></td>
+          <td>2¹</td>
+          <td>1 ตัวแปร</td>
+          <td><strong>4 ลิทเทอรัล</strong></td>
+          <td><code>A'·B'·D'·E</code> หรือ <code>B'·C·D'·E</code> (ถ้าข้ามตาราง)</td>
+        </tr>
+        <tr>
+          <td><strong>กลุ่ม 4 ช่อง (Quad)</strong></td>
+          <td>2²</td>
+          <td>2 ตัวแปร</td>
+          <td><strong>3 ลิทเทอรัล</strong></td>
+          <td><code>A'·B'·D</code> หรือ <code>B'·D'·E</code> (ถ้าข้ามตาราง)</td>
+        </tr>
+        <tr>
+          <td><strong>กลุ่ม 8 ช่อง (Octet)</strong></td>
+          <td>2³</td>
+          <td>3 ตัวแปร</td>
+          <td><strong>2 ลิทเทอรัล</strong></td>
+          <td><code>A'·B</code> หรือ <code>C'·E'</code> (8 มุมข้ามตาราง)</td>
+        </tr>
+        <tr>
+          <td><strong>กลุ่ม 16 ช่อง (16-Cell)</strong></td>
+          <td>2⁴</td>
+          <td>4 ตัวแปร</td>
+          <td><strong>1 ลิทเทอรัล</strong></td>
+          <td><code>A'</code> (เต็มตารางซ้าย) หรือ <code>B'</code> (ซ้อนทับ 2 แถวทั้ง 2 ตาราง)</td>
+        </tr>
+        <tr>
+          <td><strong>กลุ่ม 32 ช่อง (Full Map)</strong></td>
+          <td>2⁵</td>
+          <td>5 ตัวแปร (ตัดหมด)</td>
+          <td><strong>ค่าคงที่ 1</strong></td>
+          <td><code>F = 1</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 4: CATALOG OF ALL GROUPING CASES
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-4">
+    <span class="badge-num">บทที่ 4</span> รวมกรณีการวงกลุ่มครบทุกขนาด &amp; ทุกรูปแบบ (Comprehensive Grouping Catalog)
+  </h2>
+
+  <p>
+    ในหัวข้อนี้ เราจะแยกแยะและสาธิต <strong>ทุกกรณีการวงกลุ่มที่เป็นไปได้ใน K-Map 5 ตัวแปร</strong> ตั้งแต่กลุ่มเดี่ยวไปจนถึงกลุ่มขนาด 16 ช่อง 
+    โดยแสดงตำแหน่งมินเทอม วิธีพิจารณาตัวแปรที่คงที่ และพจน์ผลลัพธ์ที่ได้:
+  </p>
+
+  <!-- ═══════════ CASE 1: 1-CELL ═══════════ -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📌 กรณีที่ 1: กลุ่มขนาด 1 ช่อง (Single Isolated Cell → 5 Literals)</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">เมื่อมินเทอมโดดเดี่ยว ไม่มีเพื่อนประชิดในตารางเดียวกัน และไม่มีคู่ซ้อนทับในตารางตรงข้าม</span>
+      </div>
+      <span class="case-tag blue">ขนาด 1 เซลล์ · 5 ลิทเทอรัล</span>
+    </div>
+    <p><strong>ตัวอย่าง:</strong> มีลอจิก 1 เฉพาะที่ช่อง <code>m₅ (00101₂)</code> ในตาราง A=0 เพียงช่องเดียว</p>
+    <ul>
+      <li>ค่าในตารางซ้าย (A=0): <code>A=0, B=0, C=1, D=0, E=1</code></li>
+      <li>ในตารางขวา (A=1) ที่ช่อง <code>m₂₁</code> มีค่าเป็น 0 (ไม่สามารถรวมข้ามตารางได้)</li>
+      <li><strong>พจน์ที่ได้:</strong> <code class="rule-pill">A' · B' · C · D' · E</code></li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ CASE 2: 2-CELL PAIRS ═══════════ -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📌 กรณีที่ 2: กลุ่มขนาด 2 ช่อง (Pair → 4 Literals)</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">ลดตัวแปรได้ 1 ตัว เหลือ 4 ลิทเทอรัล — แบ่งเป็น 2 ประเภทย่อย</span>
+      </div>
+      <span class="case-tag green">ขนาด 2 เซลล์ · 4 ลิทเทอรัล</span>
+    </div>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top:14px;">
+      <!-- 2A -->
+      <div style="background:var(--paper); padding:16px; border-radius:8px; border:1px solid var(--rule);">
+        <h4 style="color:var(--green); margin-top:0;">🔹 แบบ 2A: คู่ภายในตารางเดียวกัน (2D Pair)</h4>
+        <p style="font-size:0.92rem;">อยู่ติดกันแนวนอน / แนวตั้ง / พับขอบในตาราง A=0 หรือ A=1 เพียงตารางเดียว</p>
+        <ul style="font-size:0.90rem; padding-left:20px;">
+          <li><strong>แนวนอน:</strong> <code>(m₀, m₁)</code> ใน A=0 → E เปลี่ยน (0↔1) คงที่คือ A=0, B=0, C=0, D=0<br>
+              ได้พจน์: <code>A' · B' · C' · D'</code></li>
+          <li><strong>แนวตั้ง:</strong> <code>(m₀, m₄)</code> ใน A=0 → C เปลี่ยน (0↔1)<br>
+              ได้พจน์: <code>A' · B' · D' · E'</code></li>
+          <li><strong>พับขอบซ้าย-ขวา:</strong> <code>(m₀, m₂)</code> ใน A=0 → D เปลี่ยน<br>
+              ได้พจน์: <code>A' · B' · C' · E'</code></li>
+          <li><strong>พับขอบบน-ล่าง:</strong> <code>(m₀, m₈)</code> ใน A=0 → B เปลี่ยน<br>
+              ได้พจน์: <code>A' · C' · D' · E'</code></li>
+        </ul>
+      </div>
+
+      <!-- 2B -->
+      <div style="background:var(--paper); padding:16px; border-radius:8px; border:1px solid var(--rule);">
+        <h4 style="color:var(--accent2); margin-top:0;">🔸 แบบ 2B: คู่ซ้อนทับข้ามตาราง (3D Superimposed Pair)</h4>
+        <p style="font-size:0.92rem;">อยู่พิกัด (BC, DE) เดียวกันเป๊ะ 1 ช่องใน A=0 และ 1 ช่องใน A=1</p>
+        <ul style="font-size:0.90rem; padding-left:20px;">
+          <li><strong>ตัวอย่าง:</strong> <code>(m₀, m₁₆)</code> (ช่องบนซ้ายสุดของทั้งสองตาราง)<br>
+              พิกัด BC=00, DE=00 ทั้งสองตาราง<br>
+              ตัวแปร A เปลี่ยนค่า (0 ใน m₀, 1 ใน m₁₆) <strong>จึงตัด A ทิ้ง!</strong><br>
+              ได้พจน์: <code>B' · C' · D' · E'</code></li>
+          <li><strong>ตัวอย่าง:</strong> <code>(m₅, m₂₁)</code> (ช่อง BC=01, DE=01 ทั้งสองตาราง)<br>
+              ตัด A ทิ้ง → ได้พจน์: <code>B' · C · D' · E</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CASE 3: 4-CELL QUADS ═══════════ -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📌 กรณีที่ 3: กลุ่มขนาด 4 ช่อง (Quad → 3 Literals)</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">ลดตัวแปรได้ 2 ตัว เหลือ 3 ลิทเทอรัล — แบ่งเป็น 2 ประเภทย่อยที่พบบ่อยมาก</span>
+      </div>
+      <span class="case-tag purple">ขนาด 4 เซลล์ · 3 ลิทเทอรัล</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top:14px;">
+      <!-- 3A -->
+      <div style="background:var(--paper); padding:16px; border-radius:8px; border:1px solid var(--rule);">
+        <h4 style="color:var(--purple); margin-top:0;">🔹 แบบ 3A: สี่ช่องในตารางเดียว (2D Quad)</h4>
+        <p style="font-size:0.92rem;">อยู่ในตารางย่อยเดียวกันทั้งหมด (คงที่ตัวแปร A)</p>
+        <ul style="font-size:0.90rem; padding-left:20px;">
+          <li><strong>สี่เหลี่ยม 2×2:</strong> <code>(m₀, m₁, m₄, m₅)</code> ใน A=0<br>
+              C เปลี่ยน (0↔1), E เปลี่ยน (0↔1)<br>
+              คงที่คือ A=0, B=0, D=0 → ได้: <code>A' · B' · D'</code></li>
+          <li><strong>แถวเต็ม 1×4:</strong> <code>(m₀, m₁, m₃, m₂)</code> ใน A=0<br>
+              D, E เปลี่ยนครบทั้ง 4 ค่า → ได้: <code>A' · B' · C'</code></li>
+          <li><strong>คอลัมน์เต็ม 4×1:</strong> <code>(m₀, m₄, m₁₂, m₈)</code> ใน A=0<br>
+              B, C เปลี่ยนครบทั้ง 4 ค่า → ได้: <code>A' · D' · E'</code></li>
+          <li><strong>ขอบ 2×2 ซ้าย-ขวา:</strong> <code>(m₀, m₂, m₄, m₆)</code> ใน A=0<br>
+              ได้พจน์: <code>A' · B' · E'</code></li>
+          <li><strong>มุมทั้ง 4 ในตารางเดียว:</strong> <code>(m₀, m₂, m₈, m₁₀)</code> ใน A=0<br>
+              ได้พจน์: <code>A' · C' · E'</code> (หรือใน A=1 คือ <code>m₁₆,m₁₈,m₂₄,m₂₆ → A·C'·E'</code>)</li>
+        </ul>
+      </div>
+
+      <!-- 3B -->
+      <div style="background:var(--paper); padding:16px; border-radius:8px; border:1px solid var(--rule);">
+        <h4 style="color:var(--accent2); margin-top:0;">🔸 แบบ 3B: สี่ช่องซ้อนทับข้ามตาราง (3D Superimposed Quad)</h4>
+        <p style="font-size:0.92rem;">เกิดจาก <strong>คู่ 2 ช่องใน A=0 ซ้อนทับกับคู่ 2 ช่องตำแหน่งเดียวกันใน A=1</strong> (ตัดตัวแปร A ทิ้ง + ตัดตัวแปรภายใน 1 ตัว)</p>
+        <ul style="font-size:0.90rem; padding-left:20px;">
+          <li><strong>เส้นคู่นอนซ้อนกัน:</strong> <code>(m₀, m₁) + (m₁₆, m₁₇)</code><br>
+              ตัด A ทิ้ง และตัด E ทิ้ง → ได้: <code>B' · C' · D'</code></li>
+          <li><strong>เส้นคู่ตั้งซ้อนกัน:</strong> <code>(m₀, m₄) + (m₁₆, m₂₀)</code><br>
+              ตัด A ทิ้ง และตัด C ทิ้ง → ได้: <code>B' · D' · E'</code></li>
+          <li><strong>ขอบคู่ซ้าย-ขวาซ้อนกัน:</strong> <code>(m₀, m₂) + (m₁₆, m₁₈)</code><br>
+              ตัด A ทิ้ง และตัด D ทิ้ง → ได้: <code>B' · C' · E'</code></li>
+          <li><strong>ขอบคู่บน-ล่างซ้อนกัน:</strong> <code>(m₀, m₈) + (m₁₆, m₂₄)</code><br>
+              ตัด A ทิ้ง และตัด B ทิ้ง → ได้: <code>C' · D' · E'</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CASE 4: 8-CELL OCTETS ═══════════ -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📌 กรณีที่ 4: กลุ่มขนาด 8 ช่อง (Octet → 2 Literals)</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">ลดตัวแปรได้ 3 ตัว เหลือเพียง 2 ลิทเทอรัล — ทรงพลังมากในการทำให้วงจรกะทัดรัด</span>
+      </div>
+      <span class="case-tag amber">ขนาด 8 เซลล์ · 2 ลิทเทอรัล</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top:14px;">
+      <!-- 4A -->
+      <div style="background:var(--paper); padding:16px; border-radius:8px; border:1px solid var(--rule);">
+        <h4 style="color:var(--accent2); margin-top:0;">🔹 แบบ 4A: แปดช่องในตารางเดียว (2D Octet)</h4>
+        <p style="font-size:0.92rem;">กินพื้นที่ครึ่งหนึ่งของตารางย่อย 4×4 ตารางใดตารางหนึ่ง (คงที่ A)</p>
+        <ul style="font-size:0.90rem; padding-left:20px;">
+          <li><strong>สองแถวเต็ม 2×4:</strong> <code>m₀ ถึง m₇</code> ใน A=0<br>
+              BC เป็น 00 และ 01 (C เปลี่ยน, D และ E เปลี่ยนครบ)<br>
+              คงที่คือ A=0, B=0 → ได้พจน์: <code>A' · B'</code></li>
+          <li><strong>สองคอลัมน์เต็ม 4×2:</strong> คอลัมน์ 00 และ 01 ทั้ง 4 แถวใน A=0<br>
+              <code>(m₀, m₁, m₄, m₅, m₁₂, m₁₃, m₈, m₉)</code><br>
+              คงที่คือ A=0, D=0 → ได้พจน์: <code>A' · D'</code></li>
+          <li><strong>สองแถวขอบบน-ล่าง:</strong> แถว 00 และ 10 ใน A=0<br>
+              <code>(m₀..m₃) + (m₈..m₁₁)</code> → ได้พจน์: <code>A' · C'</code></li>
+          <li><strong>สองคอลัมน์ขอบซ้าย-ขวา:</strong> คอลัมน์ 00 และ 10 ใน A=0<br>
+              <code>(m₀,m₂,m₄,m₆,m₁₂,m₁₄,m₈,m₁₀)</code> → ได้พจน์: <code>A' · E'</code></li>
+        </ul>
+      </div>
+
+      <!-- 4B -->
+      <div style="background:var(--paper); padding:16px; border-radius:8px; border:1px solid var(--rule);">
+        <h4 style="color:var(--teal); margin-top:0;">🔸 แบบ 4B: แปดช่องซ้อนทับข้ามตาราง (3D Superimposed Octet)</h4>
+        <p style="font-size:0.92rem;">เกิดจาก <strong>Quad 4 ช่องใน A=0 ซ้อนทับกับ Quad 4 ช่องตำแหน่งเดียวกันใน A=1</strong> (ตัด A ทิ้ง + ตัดตัวแปรภายใน 2 ตัว)</p>
+        <ul style="font-size:0.90rem; padding-left:20px;">
+          <li><strong>บล็อก 2×2 ซ้อนกัน 2 ตาราง:</strong><br>
+              <code>(m₀,m₁,m₄,m₅)</code> ใน A=0 + <code>(m₁₆,m₁₇,m₂₀,m₂₁)</code> ใน A=1<br>
+              ตัด A ทิ้ง, ตัด C ทิ้ง, ตัด E ทิ้ง → ได้พจน์: <code>B' · D'</code></li>
+          <li><strong>หนึ่งแถวเต็ม 1×4 ซ้อนกัน 2 ตาราง:</strong><br>
+              <code>(m₀..m₃)</code> ใน A=0 + <code>(m₁₆..m₁₉)</code> ใน A=1<br>
+              ตัด A ทิ้ง, ตัด D,E ทิ้ง → ได้พจน์: <code>B' · C'</code></li>
+          <li><strong>หนึ่งคอลัมน์เต็ม 4×1 ซ้อนกัน 2 ตาราง:</strong><br>
+              <code>(m₀,m₄,m₁₂,m₈)</code> + <code>(m₁₆,m₂₀,m₂₈,m₂₄)</code><br>
+              ตัด A ทิ้ง, ตัด B,C ทิ้ง → ได้พจน์: <code>D' · E'</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CASE 5: 16-CELL & 32-CELL ═══════════ -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📌 กรณีที่ 5: กลุ่มขนาด 16 ช่อง และ 32 ช่อง (16-Cell &amp; 32-Cell)</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">ลดตัวแปรได้ 4 ตัว (เหลือ 1 ลิทเทอรัล) หรือตัดหมด 5 ตัว (ได้ค่าคงที่ 1)</span>
+      </div>
+      <span class="case-tag red">ขนาด 16/32 เซลล์ · 1 ลิทเทอรัล / ค่าคงที่</span>
+    </div>
+
+    <ul style="padding-left: 20px;">
+      <li>
+        <strong>เต็มตารางย่อยตารางใดตารางหนึ่ง (16 ช่อง):</strong><br>
+        • ถ้าลอจิก 1 เต็มตาราง A=0 ทั้ง 16 ช่อง (<code>m₀ ถึง m₁₅</code>) → ตัวแปร BCDE เปลี่ยนครบทุกสถานะ คงที่เพียง <code>A=0</code> → ได้พจน์: <code class="rule-pill">A'</code><br>
+        • ถ้าลอจิก 1 เต็มตาราง A=1 ทั้ง 16 ช่อง (<code>m₁₆ ถึง m₃₁</code>) → ได้พจน์: <code class="rule-pill">A</code>
+      </li>
+      <li style="margin-top:10px;">
+        <strong>สองแถวเต็มทั้งสองตาราง (2×4 × 2 = 16 ช่อง):</strong><br>
+        • แถว 00 และ 01 ของทั้งสองตาราง (<code>m₀..m₇</code> และ <code>m₁₆..m₂₃</code>) → ตัด A, C, D, E ทิ้ง คงที่เพียง <code>B=0</code> → ได้พจน์: <code class="rule-pill">B'</code>
+      </li>
+      <li style="margin-top:10px;">
+        <strong>สองคอลัมน์เต็มทั้งสองตาราง (4×2 × 2 = 16 ช่อง):</strong><br>
+        • คอลัมน์ 00 และ 01 ของทั้งสองตาราง → ตัด A, B, C, E ทิ้ง คงที่เพียง <code>D=0</code> → ได้พจน์: <code class="rule-pill">D'</code>
+      </li>
+      <li style="margin-top:10px;">
+        <strong>แถวบนสุด + แถวล่างสุดทั้งสองตาราง (16 ช่อง):</strong><br>
+        • แถว 00 และ 10 ของทั้งสองตาราง → คงที่เพียง <code>C=0</code> → ได้พจน์: <code class="rule-pill">C'</code>
+      </li>
+      <li style="margin-top:10px;">
+        <strong>คอลัมน์ซ้ายสุด + คอลัมน์ขวาสุดทั้งสองตาราง (16 ช่อง):</strong><br>
+        • คอลัมน์ 00 และ 10 ของทั้งสองตาราง → คงที่เพียง <code>E=0</code> → ได้พจน์: <code class="rule-pill">E'</code>
+      </li>
+      <li style="margin-top:10px;">
+        <strong>เต็มทั้งสองตาราง (32 ช่อง):</strong> ลอจิก 1 ทุกช่องตั้งแต่ m₀ ถึง m₃₁ → <code class="rule-pill">F = 1</code>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 5: THE 8-CORNERS OCTET (LEGENDARY CASE)
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-5">
+    <span class="badge-num">บทที่ 5</span> กรณีพิเศษระดับตำนาน: 8 มุมซ้อนทับข้ามตาราง (The 8-Corners Octet)
+  </h2>
+
+  <div class="callout amber">
+    <div class="callout-title">👑 กรณีปราบเซียนในข้อสอบ: รวม 4 มุมของ A=0 เข้ากับ 4 มุมของ A=1</div>
+    <p>
+      นี่คือรูปแบบที่นักศึกษา <strong>พลาดบ่อยที่สุด</strong> ในห้องสอบ! 
+      เมื่อมีลอจิก 1 อยู่ที่มุมทั้ง 4 ของตารางซ้าย (A=0) และอยู่ที่มุมทั้ง 4 ของตารางขวา (A=1) พอดี:
+    </p>
+    <div class="formula-box">
+      มินเทอม 8 มุม = { m₀, m₂, m₈, m₁₀, m₁₆, m₁₈, m₂₄, m₂₆ } &nbsp;⇒&nbsp; ผลลัพธ์ = C' · E'
+    </div>
+  </div>
+
+  <h3 class="sub-head">🔍 พิสูจน์ทีละบิตว่าทำไมได้ C' · E':</h3>
+  <div class="table-wrap">
+    <table class="kmap-data-table">
+      <thead>
+        <tr>
+          <th>มินเทอม</th>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>D</th>
+          <th>E</th>
+          <th>คำอธิบายสถานะบิต</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>m₀</td><td>0</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมบนซ้าย A=0 (แถว 00, หลัก 00)</td></tr>
+        <tr><td>m₂</td><td>0</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมบนขวา A=0 (แถว 00, หลัก 10)</td></tr>
+        <tr><td>m₈</td><td>0</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมล่างซ้าย A=0 (แถว 10, หลัก 00)</td></tr>
+        <tr><td>m₁₀</td><td>0</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมล่างขวา A=0 (แถว 10, หลัก 10)</td></tr>
+        <tr><td>m₁₆</td><td>1</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมบนซ้าย A=1 (แถว 00, หลัก 00)</td></tr>
+        <tr><td>m₁₈</td><td>1</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมบนขวา A=1 (แถว 00, หลัก 10)</td></tr>
+        <tr><td>m₂₄</td><td>1</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>0</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมล่างซ้าย A=1 (แถว 10, หลัก 00)</td></tr>
+        <tr><td>m₂₆</td><td>1</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>1</td><td style="color:#047857; font-weight:bold;">0</td><td>มุมล่างขวา A=1 (แถว 10, หลัก 10)</td></tr>
+        <tr style="background:var(--green-light); font-weight:bold;">
+          <td>สรุปสถานะ</td>
+          <td style="color:#B91C1C;">เปลี่ยน (0↔1) ตัดทิ้ง</td>
+          <td style="color:#B91C1C;">เปลี่ยน (0↔1) ตัดทิ้ง</td>
+          <td style="color:#047857;">คงที่ 0 → C'</td>
+          <td style="color:#B91C1C;">เปลี่ยน (0↔1) ตัดทิ้ง</td>
+          <td style="color:#047857;">คงที่ 0 → E'</td>
+          <td>เหลือพจน์: <code>C' · E'</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 6: SOP vs POS ON 5-VARIABLE K-MAP
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-6">
+    <span class="badge-num">บทที่ 6</span> การลดรูป Minimal SOP (วงเลข 1) vs Minimal POS (วงเลข 0)
+  </h2>
+
+  <p>
+    การลดรูปฟังก์ชัน 5 ตัวแปร สามารถเลือกทำได้ 2 รูปแบบมาตรฐานขึ้นอยู่กับความเหมาะสมของวงจร:
+  </p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin: 20px 0;">
+    
+    <!-- SOP CARD -->
+    <div class="callout" style="border-left-color: var(--accent); margin:0;">
+      <div class="callout-title" style="color:var(--accent);">🟢 1. Minimal SOP (Sum of Products)</div>
+      <ul>
+        <li><strong>เป้าหมาย:</strong> จับกลุ่มเลข <strong>ลอจิก 1 (Minterms)</strong> ให้ครบทุกตัว</li>
+        <li><strong>กฎการอ่านค่า:</strong>
+          <ul>
+            <li>ตัวแปรคงที่เป็น <code>1</code> → เขียนตัวแปรปกติ (เช่น <code>A</code>)</li>
+            <li>ตัวแปรคงที่เป็น <code>0</code> → เขียนตัวแปรติดบาร์ (เช่น <code>A'</code>)</li>
+            <li>ตัวแปรที่เปลี่ยนค่า (0↔1) → <strong>ตัดทิ้ง</strong></li>
+          </ul>
+        </li>
+        <li><strong>โครงสร้างสมการ:</strong> นำแต่ละพจน์ผลคูณ (Product Terms) มา <strong>OR (+)</strong> เข้าด้วยกัน</li>
+        <li><strong>ตัวอย่าง:</strong> <code>F = A'·B + C·E + B'·D'·E</code></li>
+      </ul>
+    </div>
+
+    <!-- POS CARD -->
+    <div class="callout" style="border-left-color: var(--red); margin:0; background:var(--red-light);">
+      <div class="callout-title" style="color:var(--red);">🔴 2. Minimal POS (Product of Sums)</div>
+      <ul>
+        <li><strong>เป้าหมาย:</strong> จับกลุ่มเลข <strong>ลอจิก 0 (Maxterms)</strong> ให้ครบทุกตัว</li>
+        <li><strong>กฎการอ่านค่า (ตรงข้ามกับ SOP!):</strong>
+          <ul>
+            <li>ตัวแปรคงที่เป็น <code>0</code> → เขียนตัวแปรปกติ (เช่น <code>A</code>)</li>
+            <li>ตัวแปรคงที่เป็น <code>1</code> → เขียนตัวแปรติดบาร์ (เช่น <code>A'</code>)</li>
+            <li>ตัวแปรที่เปลี่ยนค่า (0↔1) → <strong>ตัดทิ้ง</strong></li>
+          </ul>
+        </li>
+        <li><strong>โครงสร้างสมการ:</strong> แต่ละพจน์เป็นผลบวก (Sum Terms) นำมา <strong>AND (·)</strong> เข้าด้วยกัน</li>
+        <li><strong>ตัวอย่าง:</strong> <code>F = (A + B') · (C' + E') · (B + D + E')</code></li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 7: DON'T CARE CONDITIONS (X)
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-7">
+    <span class="badge-num">บทที่ 7</span> สภาวะ Don't Care (X) ใน K-Map 5 ตัวแปร
+  </h2>
+
+  <div class="callout purple">
+    <div class="callout-title">⚡ กฎทองของการใช้ Don't Care (X) ใน 5 ตัวแปร</div>
+    <ol>
+      <li><strong>เลือกเป็น 1 (ใน SOP) หรือ 0 (ใน POS) ได้เฉพาะเมื่อ "ช่วยขยายขนาดกลุ่มให้ใหญ่ขึ้น":</strong> เช่น เปลี่ยนกลุ่ม 2 ให้เป็นกลุ่ม 4, เปลี่ยนกลุ่ม 4 ให้เป็นกลุ่ม 8, หรือช่วยจับคู่ซ้อนทับข้ามตาราง 3D</li>
+      <li><strong>ไม่จำเป็นต้องวง X ทุกตัว:</strong> ช่อง X ที่ไม่ช่วยขยายกลุ่มหรืออยู่โดดเดี่ยว ให้ปล่อยทิ้งไว้ได้ทันที (ถือว่าเป็น 0 ใน SOP หรือเป็น 1 ใน POS) ไม่ต้องสร้างกลุ่มเดี่ยวมาครอบ</li>
+      <li><strong>Superposition Boost:</strong> ถ้าในตาราง A=0 มีเลข 1 อยู่ 4 ช่อง แต่ใน A=1 ช่องพิกัดเดียวกันเป็น X ทั้งหมด 4 ช่อง เราสามารถถือว่า X เหล่านั้นเป็น 1 แล้วรวมกันเป็น <strong>Octet 8 ช่องข้ามตารางได้ทันที!</strong></li>
+    </ol>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 8: COMMON PITFALLS & TRAPS
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-8">
+    <span class="badge-num">บทที่ 8</span> ข้อควรระวัง &amp; กับดักที่พบบ่อย (Common Pitfalls &amp; Traps)
+  </h2>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+    
+    <div style="background:var(--paper-card); border:1.5px solid var(--red-border); border-radius:8px; padding:16px; box-shadow:var(--shadow-sm);">
+      <div style="color:var(--red); font-weight:800; margin-bottom:8px;">❌ กับดักที่ 1: วงข้ามตารางแนวทแยง/ไม่ตรงพิกัด</div>
+      <p style="font-size:0.90rem; margin:0;">
+        <strong>ข้อห้าม:</strong> ช่องใน A=0 จะรวมข้ามตารางกับ A=1 ได้ <em>เฉพาะช่องที่พิกัด (BC, DE) เดียวกันเท่านั้น!</em> 
+        ห้ามวงข้ามตารางแบบทแยงมุมหรือพิกัดคนละแถว/หลักเด็ดขาด เพราะค่าตัวแปรจะเปลี่ยนเกิน 1 บิต
+      </p>
+    </div>
+
+    <div style="background:var(--paper-card); border:1.5px solid var(--red-border); border-radius:8px; padding:16px; box-shadow:var(--shadow-sm);">
+      <div style="color:var(--red); font-weight:800; margin-bottom:8px;">❌ กับดักที่ 2: ลืมเช็กการซ้อนทับ 3D (ทำให้กลุ่มเล็ก)</div>
+      <p style="font-size:0.90rem; margin:0;">
+        หลายคนมักแยกคิดตารางซ้ายและขวาออกจากกัน ทำให้วงได้แค่กลุ่ม 2 หรือ 4 ในแต่ละตาราง 
+        ทั้งที่จริงถ้ามองซ้อนทับจะรวมเป็น <strong>กลุ่ม 4 หรือ 8 ข้ามตารางได้</strong> ซึ่งทำให้สมการยาวเกินจำเป็นและไม่ได้คะแนนเต็ม!
+      </p>
+    </div>
+
+    <div style="background:var(--paper-card); border:1.5px solid var(--red-border); border-radius:8px; padding:16px; box-shadow:var(--shadow-sm);">
+      <div style="color:var(--red); font-weight:800; margin-bottom:8px;">❌ กับดักที่ 3: สับสนลำดับ Gray Code แถว 3 กับ 4</div>
+      <p style="font-size:0.90rem; margin:0;">
+        จำไว้เสมอว่าแถวและคอลัมน์เรียงตามรหัสเกรย์: <code>00, 01, 11, 10</code> 
+        แถวที่ 3 คือ <code>11 (m₁₂..m₁₅ / m₂₈..m₃₁)</code> และแถวที่ 4 คือ <code>10 (m₈..m₁₁ / m₂₄..m₂₇)</code> <strong>ห้ามสลับแถว 11 กับ 10 เด็ดขาด!</strong>
+      </p>
+    </div>
+
+    <div style="background:var(--paper-card); border:1.5px solid var(--red-border); border-radius:8px; padding:16px; box-shadow:var(--shadow-sm);">
+      <div style="color:var(--red); font-weight:800; margin-bottom:8px;">❌ กับดักที่ 4: วงกลุ่มซ้ำซ้อน (Redundant Group)</div>
+      <p style="font-size:0.90rem; margin:0;">
+        ถ้าเลข 1 ทุกตัวในกลุ่มหนึ่ง ถูกครอบคลุมโดยกลุ่มจำเป็น (Essential Prime Implicants) อื่นๆ ครบหมดแล้ว 
+        กลุ่มนั้นถือเป็น <strong>Redundant Group</strong> ต้องตัดทิ้ง ไม่นำมาเขียนในสมการขั้นต่ำ
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 9: INTERACTIVE 5-VARIABLE K-MAP SIMULATOR
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-9">
+    <span class="badge-num">บทที่ 9</span> 🛠️ เครื่องมือจำลอง Interactive 5-Variable K-Map Simulator
+  </h2>
+
+  <p>
+    ทดลองคลิกที่แต่ละช่องในตารางเพื่อเปลี่ยนสถานะ (<code>- → 1 → 0 → X</code>) หรือเลือกพรีเซ็ตตัวอย่างกรณีศึกษาด้านล่าง 
+    ระบบจะคำนวณและแสดงผลการจับกลุ่ม ไฮไลต์เซลล์ที่ซ้อนทับ และสร้างสมการ Minimal SOP / POS ให้ทันที!
+  </p>
+
+  <!-- CONTROLS -->
+  <div class="sim-controls">
+    <span style="font-weight:700;">เลือกตัวอย่างกรณีศึกษา:</span>
+    <select id="presetSelect" class="sim-select" onchange="loadPreset(this.value)">
+      <option value="clear">-- ล้างตาราง (Clear All) --</option>
+      <option value="pair_2d">1. คู่ 2 ช่องในตารางเดียว (2D Pair: m0, m1)</option>
+      <option value="pair_3d">2. คู่ 2 ช่องซ้อนทับข้ามตาราง (3D Superimposed Pair: m0, m16)</option>
+      <option value="quad_2d">3. สี่เหลี่ยม 4 ช่องในตารางเดียว (2D Quad: m0, m1, m4, m5)</option>
+      <option value="quad_3d">4. สี่ช่องซ้อนทับข้ามตาราง (3D Quad: m0,m1 + m16,m17)</option>
+      <option value="octet_2d">5. แปดช่อง 2 แถวเต็มในตารางเดียว (2D Octet: m0..m7)</option>
+      <option value="octet_3d">6. แปดช่องบล็อก 2x2 ซ้อนกัน 2 ตาราง (3D Octet: m0,m1,m4,m5 + m16,m17,m20,m21)</option>
+      <option value="corners_8">7. กรณี 8 มุมข้ามตารางสุดคลาสสิก (8-Corners: m0,m2,m8,m10 + m16,m18,m24,m26)</option>
+      <option value="half_map_16">8. เต็ม 1 ตารางย่อย (16-Cell: A=0 ทั้งหมด m0..m15)</option>
+      <option value="super_16">9. ซ้อนทับ 2 แถวทั้ง 2 ตาราง (16-Cell: m0..m7 + m16..m23)</option>
+      <option value="exam_sop">10. ตัวอย่างโจทย์ข้อสอบจริง (Mixed SOP with Don't Care)</option>
+      <option value="exam_pos">11. ตัวอย่างโจทย์ข้อสอบจริง (Mixed POS Grouping 0s)</option>
+    </select>
+
+    <button class="sim-btn primary" onclick="solveKMap()">⚡ วิเคราะห์และลดรูปสมการ</button>
+    <button class="sim-btn" onclick="clearKMap()">🧹 ล้างค่าทั้งหมด</button>
+    <button class="sim-btn" onclick="fillAll('1')">เติม 1 ทั้งหมด</button>
+    <button class="sim-btn" onclick="fillAll('0')">เติม 0 ทั้งหมด</button>
+  </div>
+
+  <!-- INTERACTIVE DUAL MAPS -->
+  <div class="kmap-dual-container">
+    
+    <!-- SUB-MAP A = 0 -->
+    <div class="kmap-submap-box" id="submap0">
+      <div class="kmap-submap-header">
+        <span>ตารางซ้าย: A = 0 (A')</span>
+        <span class="layer-tag layer-left">m₀ – m₁₅</span>
+      </div>
+      <div class="kmap-grid" id="gridA0">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- SUB-MAP A = 1 -->
+    <div class="kmap-submap-box" id="submap1">
+      <div class="kmap-submap-header">
+        <span>ตารางขวา: A = 1 (A)</span>
+        <span class="layer-tag layer-right">m₁₆ – m₃₁</span>
+      </div>
+      <div class="kmap-grid" id="gridA1">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="result-display-panel" id="resultPanel">
+    <div style="font-weight:800; font-size:1.15rem; color:var(--ink); margin-bottom:8px;">
+      📊 ผลการวิเคราะห์และสมการลดรูปขั้นต่ำ (Minimization Results)
+    </div>
+    <div style="font-size:0.95rem; color:var(--ink-soft); margin-bottom:4px;">
+      <strong>สมการผลรวมของผลคูณขั้นต่ำ (Minimal SOP):</strong>
+    </div>
+    <div class="result-formula" id="sopResultFormula">
+      F(A, B, C, D, E) = (คลิกปุ่มวิเคราะห์ด้านบนเพื่อคำนวณ)
+    </div>
+
+    <div style="font-size:0.95rem; color:var(--ink-soft); margin-top:14px; margin-bottom:4px;">
+      <strong>รายละเอียดกลุ่มเฉพาะ (Prime Implicants Breakdown):</strong>
+    </div>
+    <div id="groupDetailsList" style="font-size:0.92rem; line-height:1.7;">
+      ยังไม่มีข้อมูลกลุ่ม
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 10: STEP-BY-STEP WORKED EXAMPLES
+  ══════════════════════════════════════════════════════════════ -->
+  <h2 class="section-head" id="section-10">
+    <span class="badge-num">บทที่ 10</span> คลังตัวอย่างโจทย์ข้อสอบจริงพร้อมเฉลยละเอียดทีละขั้น (Step-by-Step)
+  </h2>
+
+  <!-- EXAMPLE 1 -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📝 ตัวอย่างที่ 1: โจทย์วิเคราะห์วงจรผสมผสานกลุ่ม 3D Octet, 2D Quad และ Don't Care</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">จงหาฟังก์ชัน Minimal SOP ของ: <code>F(A,B,C,D,E) = Σm(0, 1, 4, 5, 12, 13, 16, 17, 20, 21, 28, 29) + d(8, 9, 24, 25)</code></span>
+      </div>
+      <span class="case-tag green">ระดับข้อสอบกลางภาค</span>
+    </div>
+
+    <p><strong>ขั้นตอนการวิเคราะห์และจัดกลุ่ม:</strong></p>
+    <ol>
+      <li>
+        <strong>ลงตำแหน่งมินเทอมและ Don't Care บนตารางทั้งสอง:</strong><br>
+        • ในตาราง A=0: มีลอจิก 1 ที่ <code>m₀, m₁, m₄, m₅, m₁₂, m₁₃</code> และ d ที่ <code>m₈, m₉</code> (จะเห็นว่าเป็นคอลัมน์ 00 และ 01 ครบทั้ง 4 แถว!)<br>
+        • ในตาราง A=1: มีลอจิก 1 ที่ <code>m₁₆, m₁₇, m₂₀, m₂₁, m₂₈, m₂₉</code> และ d ที่ <code>m₂₄, m₂₅</code> (เป็นคอลัมน์ 00 และ 01 ครบทั้ง 4 แถวเช่นกัน!)
+      </li>
+      <li>
+        <strong>พิจารณาการรวมกลุ่มขนาดใหญ่ที่สุด (Superimposed 16-Cell):</strong><br>
+        เมื่อใช้ Don't Care ทั้ง 4 ตัวช่วย จะได้พื้นที่ <strong>2 คอลัมน์เต็ม (4×2) ใน A=0 รวมกับ 2 คอลัมน์เต็ม (4×2) ใน A=1</strong> เป็นกลุ่มขนาด 16 ช่องทันที!
+      </li>
+      <li>
+        <strong>อ่านค่าตัวแปร:</strong><br>
+        • ตัวแปร A: เปลี่ยน 0↔1 → ตัดทิ้ง<br>
+        • ตัวแปร B, C: เปลี่ยนครบทุกแถว 00, 01, 11, 10 → ตัดทิ้ง<br>
+        • ตัวแปร D, E: คอลัมน์ 00 และ 01 → D คงที่เป็น 0, E เปลี่ยน 0↔1 → เหลือเพียง <code>D'</code>
+      </li>
+    </ol>
+
+    <div class="formula-box" style="color:var(--green); font-size:1.25rem;">
+      🎯 สรุปคำตอบ Minimal SOP: F = D' &nbsp;&nbsp;(ลดจาก 12 มินเทอมเหลือเพียง 1 ลิทเทอรัล!)
+    </div>
+  </div>
+
+  <!-- EXAMPLE 2 -->
+  <div class="case-card">
+    <div class="case-card-header">
+      <div>
+        <h4 class="card-title">📝 ตัวอย่างที่ 2: การเปรียบเทียบ Minimal SOP vs Minimal POS บนฟังก์ชันเดียวกัน</h4>
+        <span style="color:var(--ink-soft); font-size:0.9rem;">กำหนดฟังก์ชัน: <code>F(A,B,C,D,E) = Σm(0, 2, 8, 10, 16, 18, 24, 26, 7, 15, 23, 31)</code></span>
+      </div>
+      <span class="case-tag purple">วิเคราะห์เปรียบเทียบ 2 ระบบ</span>
+    </div>
+
+    <p><strong>การจัดกลุ่มแบบ SOP (วงเลข 1):</strong></p>
+    <ul>
+      <li><strong>กลุ่มที่ 1 (8-Corners Octet):</strong> <code>{m₀, m₂, m₈, m₁₀, m₁₆, m₁₈, m₂₄, m₂₆}</code> → ตัด A, B, D ทิ้ง ได้พจน์ <code class="rule-pill">C' · E'</code></li>
+      <li><strong>กลุ่มที่ 2 (3D Quad):</strong> คอลัมน์ 11 ในแถว 01 และ 11 ทั้งสองตาราง <code>{m₇, m₁₅, m₂₃, m₃₁}</code> → ตัด A และ B ทิ้ง ได้พจน์ <code class="rule-pill">C · D · E</code></li>
+      <li><strong>สมการ SOP:</strong> <code style="font-weight:bold; color:var(--accent);">F_SOP = C'·E' + C·D·E</code> (2 พจน์, 5 ลิทเทอรัล)</li>
+    </ul>
+
+    <p><strong>การจัดกลุ่มแบบ POS (วงเลข 0):</strong></p>
+    <ul>
+      <li>มินเทอมที่เหลืออีก 20 ช่องมีค่าเป็น 0 จับกลุ่มขนาดใหญ่ได้กลุ่ม Maxterm ที่ครอบคลุม</li>
+      <li><strong>สมการ POS:</strong> <code style="font-weight:bold; color:var(--red);">F_POS = (C + E') · (C' + E) · (C' + D) · (D + E')</code></li>
+      <li><strong>ข้อสรุปเชิงวิศวกรรม:</strong> ในฟังก์ชันนี้ <strong>SOP ใช้จำนวนเกตและลิทเทอรัลน้อยกว่า POS อย่างมหาศาล</strong> จึงควรเลือกสร้างวงจรด้วย SOP!</li>
+    </ul>
+  </div>
+
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <div class="footer-nav">
+    <div>
+      ⬅️ กลับไปยัง: <a href="../06-karnaugh-map/README.md" style="color:var(--accent); font-weight:700;">2.7 Karnaugh Map Overview</a>
+    </div>
+    <div>
+      🏠 หน้ารวมบทที่ 2: <a href="../README.md" style="color:var(--accent); font-weight:700;">Logic Functions &amp; Combinational Logic</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- BACK TO TOP BUTTON -->
+<a href="#" class="back-to-top" id="backToTop" title="กลับสู่ด้านบน">↑</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     JAVASCRIPT LOGIC & SIMULATOR ENGINE
+══════════════════════════════════════════════════════════════ -->
+<script>
+// Minterm mappings
+// Row BC: 00 (row 0), 01 (row 1), 11 (row 2), 10 (row 3)
+// Col DE: 00 (col 0), 01 (col 1), 11 (col 2), 10 (col 3)
+const MINTERMS_A0 = [
+  [0, 1, 3, 2],
+  [4, 5, 7, 6],
+  [12, 13, 15, 14],
+  [8, 9, 11, 10]
+];
+
+const MINTERMS_A1 = [
+  [16, 17, 19, 18],
+  [20, 21, 23, 22],
+  [28, 29, 31, 30],
+  [24, 25, 27, 26]
+];
+
+// State array of 32 elements: index 0..31 -> '-' | '1' | '0' | 'X'
+let kmapState = new Array(32).fill('-');
+
+// Initialize DOM Grids
+function initGrids() {
+  const gridA0 = document.getElementById('gridA0');
+  const gridA1 = document.getElementById('gridA1');
+
+  gridA0.innerHTML = '';
+  gridA1.innerHTML = '';
+
+  const colHeaders = ['00', '01', '11', '10'];
+  const rowHeaders = ['00', '01', '11', '10'];
+
+  // Setup A0
+  setupGridElements(gridA0, MINTERMS_A0, colHeaders, rowHeaders, 0);
+  // Setup A1
+  setupGridElements(gridA1, MINTERMS_A1, colHeaders, rowHeaders, 1);
+}
+
+function setupGridElements(gridEl, mintermMatrix, colHeaders, rowHeaders, submapIndex) {
+  // Corner
+  const corner = document.createElement('div');
+  corner.className = 'kmap-corner-label';
+  corner.innerText = 'BC \\ DE';
+  gridEl.appendChild(corner);
+
+  // Col headers
+  colHeaders.forEach(ch => {
+    const colH = document.createElement('div');
+    colH.className = 'kmap-col-header';
+    colH.innerText = ch;
+    gridEl.appendChild(colH);
+  });
+
+  // Rows and cells
+  for (let r = 0; r < 4; r++) {
+    const rowH = document.createElement('div');
+    rowH.className = 'kmap-row-header';
+    rowH.innerText = rowHeaders[r];
+    gridEl.appendChild(rowH);
+
+    for (let c = 0; c < 4; c++) {
+      const mNum = mintermMatrix[r][c];
+      const cell = document.createElement('div');
+      cell.className = 'kmap-cell';
+      cell.id = `cell-${mNum}`;
+      cell.onclick = () => toggleCell(mNum);
+
+      const mLabel = document.createElement('span');
+      mLabel.className = 'cell-minterm';
+      mLabel.innerText = `m${mNum}`;
+
+      const valSpan = document.createElement('span');
+      valSpan.className = 'cell-val';
+      valSpan.id = `val-${mNum}`;
+      valSpan.innerText = kmapState[mNum];
+
+      cell.appendChild(mLabel);
+      cell.appendChild(valSpan);
+      gridEl.appendChild(cell);
+    }
+  }
+}
+
+// Toggle cell value cycle: '-' -> '1' -> '0' -> 'X' -> '-'
+function toggleCell(mNum) {
+  const current = kmapState[mNum];
+  let next = '1';
+  if (current === '-') next = '1';
+  else if (current === '1') next = '0';
+  else if (current === '0') next = 'X';
+  else if (current === 'X') next = '-';
+
+  kmapState[mNum] = next;
+  updateCellDisplay(mNum);
+  solveKMap();
+}
+
+function updateCellDisplay(mNum) {
+  const cell = document.getElementById(`cell-${mNum}`);
+  const valSpan = document.getElementById(`val-${mNum}`);
+  if (!cell || !valSpan) return;
+
+  const val = kmapState[mNum];
+  valSpan.innerText = val;
+
+  cell.classList.remove('active-1', 'active-0', 'active-x');
+  if (val === '1') cell.classList.add('active-1');
+  else if (val === '0') cell.classList.add('active-0');
+  else if (val === 'X') cell.classList.add('active-x');
+}
+
+function updateAllCells() {
+  for (let i = 0; i < 32; i++) {
+    updateCellDisplay(i);
+  }
+}
+
+function clearHighlights() {
+  for (let i = 0; i < 32; i++) {
+    const cell = document.getElementById(`cell-${i}`);
+    if (cell) {
+      cell.classList.remove('group-blue', 'group-green', 'group-purple', 'group-amber', 'group-red', 'group-teal', 'superimposed-glow');
+    }
+  }
+}
+
+function clearKMap() {
+  kmapState.fill('-');
+  clearHighlights();
+  updateAllCells();
+  document.getElementById('presetSelect').value = 'clear';
+  document.getElementById('sopResultFormula').innerText = 'F(A, B, C, D, E) = 0';
+  document.getElementById('groupDetailsList').innerHTML = 'ตารางว่างเปล่า';
+}
+
+function fillAll(val) {
+  kmapState.fill(val);
+  clearHighlights();
+  updateAllCells();
+  solveKMap();
+}
+
+// Presets Loader
+function loadPreset(presetKey) {
+  clearKMap();
+  document.getElementById('presetSelect').value = presetKey;
+
+  switch (presetKey) {
+    case 'pair_2d':
+      kmapState[0] = '1';
+      kmapState[1] = '1';
+      break;
+    case 'pair_3d':
+      kmapState[0] = '1';
+      kmapState[16] = '1';
+      break;
+    case 'quad_2d':
+      [0, 1, 4, 5].forEach(m => kmapState[m] = '1');
+      break;
+    case 'quad_3d':
+      [0, 1, 16, 17].forEach(m => kmapState[m] = '1');
+      break;
+    case 'octet_2d':
+      [0, 1, 2, 3, 4, 5, 6, 7].forEach(m => kmapState[m] = '1');
+      break;
+    case 'octet_3d':
+      [0, 1, 4, 5, 16, 17, 20, 21].forEach(m => kmapState[m] = '1');
+      break;
+    case 'corners_8':
+      [0, 2, 8, 10, 16, 18, 24, 26].forEach(m => kmapState[m] = '1');
+      break;
+    case 'half_map_16':
+      for (let i = 0; i < 16; i++) kmapState[i] = '1';
+      break;
+    case 'super_16':
+      for (let i = 0; i < 8; i++) { kmapState[i] = '1'; kmapState[i + 16] = '1'; }
+      break;
+    case 'exam_sop':
+      [0, 1, 4, 5, 12, 13, 16, 17, 20, 21, 28, 29].forEach(m => kmapState[m] = '1');
+      [8, 9, 24, 25].forEach(m => kmapState[m] = 'X');
+      break;
+    case 'exam_pos':
+      // fill some 0s
+      [0, 2, 8, 10, 16, 18, 24, 26].forEach(m => kmapState[m] = '0');
+      [1, 3, 9, 11].forEach(m => kmapState[m] = '1');
+      break;
+  }
+
+  updateAllCells();
+  solveKMap();
+}
+
+// 5-Variable Minimization Engine (Quine-McCluskey / K-Map Logic)
+function solveKMap() {
+  clearHighlights();
+
+  const ones = [];
+  const dc = [];
+  const zeros = [];
+
+  for (let i = 0; i < 32; i++) {
+    if (kmapState[i] === '1') ones.push(i);
+    else if (kmapState[i] === 'X') dc.push(i);
+    else zeros.push(i);
+  }
+
+  if (ones.length === 0) {
+    document.getElementById('sopResultFormula').innerText = 'F(A, B, C, D, E) = 0';
+    document.getElementById('groupDetailsList').innerHTML = 'ไม่มีลอจิก 1 ในตาราง (ฟังก์ชันเป็น 0 เสมอ)';
+    return;
+  }
+
+  if (ones.length + dc.length === 32) {
+    document.getElementById('sopResultFormula').innerText = 'F(A, B, C, D, E) = 1';
+    document.getElementById('groupDetailsList').innerHTML = 'ลอจิก 1 เต็มทุกช่อง (ฟังก์ชันเป็น 1 เสมอ)';
+    return;
+  }
+
+  // Generate All Prime Implicants
+  const primeImplicants = findPrimeImplicants(ones, dc);
+  const essentialPIs = selectEssentialPIs(primeImplicants, ones);
+
+  // Format Formula
+  const colors = ['group-blue', 'group-green', 'group-purple', 'group-amber', 'group-red', 'group-teal'];
+  let formulaParts = [];
+  let detailsHtml = '<ol style="padding-left:20px; margin:6px 0;">';
+
+  essentialPIs.forEach((pi, idx) => {
+    const term = formatTerm(pi.mask);
+    const colorClass = colors[idx % colors.length];
+    formulaParts.push(term);
+
+    // Highlight cells
+    pi.coveredMinterms.forEach(m => {
+      const cell = document.getElementById(`cell-${m}`);
+      if (cell) {
+        cell.classList.add(colorClass);
+        if (pi.isSuperimposed) {
+          cell.classList.add('superimposed-glow');
+        }
+      }
+    });
+
+    const mList = pi.coveredMinterms.map(m => `m${m}`).join(', ');
+    const sizeType = pi.coveredMinterms.length === 1 ? 'Single (1 ช่อง)' :
+                     pi.coveredMinterms.length === 2 ? 'Pair (2 ช่อง)' :
+                     pi.coveredMinterms.length === 4 ? 'Quad (4 ช่อง)' :
+                     pi.coveredMinterms.length === 8 ? 'Octet (8 ช่อง)' : '16-Cell (16 ช่อง)';
+    
+    detailsHtml += `<li><strong>กลุ่มที่ ${idx + 1} (${sizeType}):</strong> ครอบคลุม [${mList}] &nbsp;→&nbsp; พจน์: <code style="font-weight:bold; color:var(--accent);">${term}</code> ${pi.isSuperimposed ? '<span class="rule-pill">3D ซ้อนทับข้ามตาราง</span>' : ''}</li>`;
+  });
+
+  detailsHtml += '</ol>';
+
+  document.getElementById('sopResultFormula').innerText = 'F(A, B, C, D, E) = ' + formulaParts.join(' + ');
+  document.getElementById('groupDetailsList').innerHTML = detailsHtml;
+}
+
+// Logic Minimization Utilities
+function findPrimeImplicants(ones, dc) {
+  const allTerms = [...ones, ...dc];
+  let groups = {};
+
+  allTerms.forEach(m => {
+    const bin = m.toString(2).padStart(5, '0');
+    const onesCount = (bin.match(/1/g) || []).length;
+    if (!groups[onesCount]) groups[onesCount] = [];
+    groups[onesCount].push({ mask: bin, minterms: [m], used: false });
+  });
+
+  let primeImplicants = [];
+  let currentGroups = groups;
+
+  while (Object.keys(currentGroups).length > 0) {
+    let nextGroups = {};
+    let matched = false;
+    const sortedKeys = Object.keys(currentGroups).map(Number).sort((a,b) => a - b);
+
+    for (let i = 0; i < sortedKeys.length - 1; i++) {
+      const k1 = sortedKeys[i];
+      const k2 = sortedKeys[i + 1];
+      if (k2 !== k1 + 1) continue;
+
+      currentGroups[k1].forEach(t1 => {
+        currentGroups[k2].forEach(t2 => {
+          const diffIdx = findSingleBitDiff(t1.mask, t2.mask);
+          if (diffIdx !== -1) {
+            t1.used = true;
+            t2.used = true;
+            matched = true;
+            const newMask = t1.mask.substring(0, diffIdx) + '-' + t1.mask.substring(diffIdx + 1);
+            const combinedMinterms = Array.from(new Set([...t1.minterms, ...t2.minterms])).sort((a,b) => a - b);
+            
+            const onesCount = (newMask.replace(/-/g, '').match(/1/g) || []).length;
+            if (!nextGroups[onesCount]) nextGroups[onesCount] = [];
+            
+            if (!nextGroups[onesCount].some(item => item.mask === newMask)) {
+              nextGroups[onesCount].push({ mask: newMask, minterms: combinedMinterms, used: false });
+            }
+          }
+        });
+      });
+    }
+
+    // Collect unused terms as Prime Implicants
+    Object.values(currentGroups).forEach(grp => {
+      grp.forEach(term => {
+        if (!term.used && !primeImplicants.some(pi => pi.mask === term.mask)) {
+          // check if covers at least one required '1'
+          if (term.minterms.some(m => ones.includes(m))) {
+            const hasA0 = term.minterms.some(m => m < 16);
+            const hasA1 = term.minterms.some(m => m >= 16);
+            primeImplicants.push({
+              mask: term.mask,
+              coveredMinterms: term.minterms,
+              isSuperimposed: hasA0 && hasA1
+            });
+          }
+        }
+      });
+    });
+
+    currentGroups = nextGroups;
+  }
+
+  return primeImplicants;
+}
+
+function findSingleBitDiff(m1, m2) {
+  let diffCount = 0;
+  let diffIdx = -1;
+  for (let i = 0; i < 5; i++) {
+    if (m1[i] !== m2[i]) {
+      if (m1[i] === '-' || m2[i] === '-') return -1;
+      diffCount++;
+      diffIdx = i;
+    }
+  }
+  return diffCount === 1 ? diffIdx : -1;
+}
+
+function selectEssentialPIs(primeImplicants, ones) {
+  let remainingOnes = new Set(ones);
+  let selected = [];
+
+  // Greedy set cover
+  while (remainingOnes.size > 0 && primeImplicants.length > 0) {
+    // Pick PI that covers the most remaining ones, tiebreak with larger total size
+    primeImplicants.sort((a, b) => {
+      const aCoverage = a.coveredMinterms.filter(m => remainingOnes.has(m)).length;
+      const bCoverage = b.coveredMinterms.filter(m => remainingOnes.has(m)).length;
+      if (bCoverage !== aCoverage) return bCoverage - aCoverage;
+      return b.coveredMinterms.length - a.coveredMinterms.length;
+    });
+
+    const bestPI = primeImplicants[0];
+    selected.push(bestPI);
+    bestPI.coveredMinterms.forEach(m => remainingOnes.delete(m));
+    primeImplicants.shift();
+  }
+
+  return selected;
+}
+
+function formatTerm(mask) {
+  const varNames = ['A', 'B', 'C', 'D', 'E'];
+  let parts = [];
+  for (let i = 0; i < 5; i++) {
+    if (mask[i] === '1') parts.push(varNames[i]);
+    else if (mask[i] === '0') parts.push(varNames[i] + "'");
+  }
+  return parts.length > 0 ? parts.join('·') : '1';
+}
+
+// Theme Toggle
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', targetTheme);
+  
+  const icon = document.getElementById('themeIcon');
+  const text = document.getElementById('themeText');
+  if (targetTheme === 'dark') {
+    icon.innerText = '☀️';
+    text.innerText = 'โหมดสว่าง (Light Mode)';
+    localStorage.setItem('dl_kmap_theme', 'dark');
+  } else {
+    icon.innerText = '🌙';
+    text.innerText = 'โหมดมืด (Dark Mode)';
+    localStorage.setItem('dl_kmap_theme', 'light');
+  }
+}
+
+// Back to Top Button
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backToTop');
+  if (window.scrollY > 300) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+// Init on Load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('dl_kmap_theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeIcon').innerText = '☀️';
+    document.getElementById('themeText').innerText = 'โหมดสว่าง (Light Mode)';
+  }
+
+  initGrids();
+  // Default load preset: 8-corners
+  loadPreset('corners_8');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>เฉลยละเอียด — MUX/DMUX ข้อที่ 2 (Special DEMUX — IC 74138) · 305241 Digital Logic</title>
+<style>
+/* ═══════════ พื้นฐานแบบหนังสือเรียน ═══════════ */
+:root{
+  --paper:#FBF8F1; --paper2:#F5F0E4; --ink:#22292F; --ink-soft:#4B5563;
+  --rule:#D8CFBC; --accent:#1E40AF; --accent2:#B45309;
+  --green:#047857; --green-bg:#ECFDF5; --red:#B91C1C; --red-bg:#FEF2F2;
+  --purple:#6D28D9; --amber-bg:#FFFBEB; --blue-bg:#EFF6FF;
+  --dmux:#0891B2; --dmux-bg:#ECFEFF; --gate:#9333EA; --gate-bg:#FAF5FF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans Thai","Sarabun","Thonburi","Noto Sans Thai",-apple-system,"Segoe UI",sans-serif;
+  font-size:16.5px; line-height:1.85;
+}
+.page{max-width:1040px; margin:0 auto; padding:34px 30px 90px}
+
+/* ═══════════ ส่วนหัวแบบตำรา ═══════════ */
+.course-line{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  border-bottom:3px double var(--ink); padding-bottom:8px; margin-bottom:22px;
+  font-size:.86rem; letter-spacing:.04em; color:var(--ink-soft);
+}
+.chip{border:1.5px solid var(--ink); border-radius:999px; padding:2px 14px; white-space:nowrap}
+h1.book-title{font-size:2rem; line-height:1.35; margin:14px 0 6px; font-weight:800}
+.subtitle{color:var(--ink-soft); font-size:1.02rem; margin-bottom:20px}
+
+.problem-box{
+  border:2px solid var(--ink); background:#fff;
+  padding:20px 26px; margin:26px 0 8px; position:relative;
+  box-shadow:6px 6px 0 var(--paper2);
+}
+.problem-box::before{
+  content:"โจทย์ข้อที่ 2 (SPECIAL DEMUX)"; position:absolute; top:-15px; left:22px;
+  background:var(--ink); color:#fff; font-weight:700; font-size:.82rem;
+  padding:2px 16px; letter-spacing:.12em;
+}
+.problem-box p{margin:6px 0}
+.src-note{font-size:.88rem; color:var(--ink-soft)}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc{
+  border:1.5px solid var(--rule); background:#fffdf7;
+  padding:18px 26px; margin:28px 0; columns:2; column-gap:44px;
+}
+nav.toc .toc-head{column-span:all; font-weight:800; font-size:1.05rem; margin-bottom:10px;
+  border-bottom:1.5px solid var(--rule); padding-bottom:6px}
+nav.toc a{display:block; color:var(--ink); text-decoration:none; padding:3.5px 0; break-inside:avoid}
+nav.toc a:hover{color:var(--accent)}
+nav.toc .no{display:inline-block; width:2.1em; color:var(--accent2); font-weight:700; font-variant-numeric:tabular-nums}
+
+/* ═══════════ หัวข้อ ═══════════ */
+section{margin-top:58px; scroll-margin-top:24px}
+.sec-head{display:flex; align-items:baseline; gap:16px; border-bottom:2.5px solid var(--ink); padding-bottom:8px; margin-bottom:20px}
+.sec-no{
+  flex:0 0 auto; width:52px; height:52px; border-radius:50%;
+  background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center;
+  font-size:1.25rem; font-weight:800; transform:translateY(10px);
+}
+h2{font-size:1.42rem; margin:0; font-weight:800; line-height:1.4}
+h3{font-size:1.13rem; margin:30px 0 10px; font-weight:800; color:var(--accent)}
+h3::before{content:"§ "; color:var(--accent2)}
+p{margin:10px 0}
+b,strong{font-weight:700}
+
+/* ═══════════ รูปแบบตำรา ═══════════ */
+figure.textbook{margin:30px 0; text-align:center}
+figure.textbook .frame{
+  border:1.5px solid var(--rule); background:#fff; padding:12px;
+  box-shadow:0 2px 10px rgba(60,50,20,.07);
+}
+figure.textbook img{width:100%; height:auto; display:block; cursor:zoom-in}
+figcaption{
+  margin-top:12px; font-size:.93rem; color:var(--ink-soft); line-height:1.6;
+}
+figcaption .fno{font-weight:800; color:var(--ink)}
+.zoom-hint{font-size:.78rem; color:#A8A29E; margin-top:4px}
+
+/* ═══════════ กล่องเน้น ═══════════ */
+.callout{border-left:5px solid; padding:13px 20px; margin:20px 0; background:#fff; border-radius:0 8px 8px 0}
+.callout .lab{font-weight:800; font-size:.85rem; letter-spacing:.06em; display:block; margin-bottom:4px}
+.c-key{border-color:var(--accent)}   .c-key .lab{color:var(--accent)}
+.c-warn{border-color:var(--red); background:var(--red-bg)} .c-warn .lab{color:var(--red)}
+.c-tip{border-color:var(--green); background:var(--green-bg)} .c-tip .lab{color:var(--green)}
+.c-ex{border-color:var(--accent2); background:var(--amber-bg)} .c-ex .lab{color:var(--accent2)}
+
+/* ═══════════ ตารางแบบตำรา ═══════════ */
+table.tb{border-collapse:collapse; margin:18px auto; background:#fff; font-size:.97rem; width:100%}
+table.tb caption{caption-side:top; font-weight:800; padding-bottom:8px; font-size:.98rem}
+table.tb th{background:var(--ink); color:#fff; font-weight:600; padding:7px 12px; border:1px solid #3a4149}
+table.tb td{padding:6px 12px; border:1px solid var(--rule); text-align:center; font-variant-numeric:tabular-nums}
+table.tb tr:nth-child(even) td{background:#FAF7EF}
+table.tb td.hl{background:var(--amber-bg)!important; font-weight:700}
+table.tb .t-l{text-align:left}
+table.tb .t-r{text-align:right}
+
+.ov{text-decoration:overline; white-space:nowrap}
+sub{font-size:.72em}
+.y-c{color:var(--green); font-weight:700}
+.dmux-c{color:var(--dmux); font-weight:700}
+.gate-c{color:var(--gate); font-weight:700}
+
+/* ═══════════ Interactive Lab สไตล์ Virtual Trainer ═══════════ */
+.lab-shell{
+  border:2px solid var(--ink); border-radius:16px; background:#181c20;
+  color:#f1f5f9; padding:20px; margin:32px 0; box-shadow:0 8px 28px rgba(0,0,0,.35);
+}
+.lab-header{
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid #334155; padding-bottom:12px; margin-bottom:16px;
+}
+.lab-title{font-size:1.15rem; font-weight:800; color:#38BDF8; display:flex; align-items:center; gap:8px}
+.lab-badge{background:#0369A1; color:#fff; font-size:.75rem; padding:2px 10px; border-radius:999px; font-weight:700}
+
+.lab-modes{display:flex; gap:10px; margin-bottom:16px}
+.lab-btn{
+  background:#334155; color:#f8fafc; border:1px solid #475569;
+  padding:6px 14px; border-radius:6px; font-size:.85rem; font-weight:700; cursor:pointer;
+  transition:all .15s ease;
+}
+.lab-btn.active{background:#0284C7; border-color:#38BDF8; color:#fff}
+.lab-btn:hover:not(.active){background:#475569}
+
+.lab-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:20px; align-items:start}
+@media(max-width:850px){.lab-grid{grid-template-columns:1fr}}
+
+.lab-panel{background:#0F172A; border:1px solid #334155; border-radius:10px; padding:16px}
+.panel-title{font-size:.86rem; font-weight:800; color:#94A3B8; letter-spacing:.05em; margin-bottom:12px; border-bottom:1px solid #1E293B; padding-bottom:6px}
+
+/* สวิตช์ควบคุม */
+.switches{display:grid; grid-template-columns:repeat(auto-fit, minmax(65px, 1fr)); gap:8px; margin-bottom:14px}
+.sw-card{
+  background:#1E293B; border:1px solid #334155; border-radius:8px;
+  padding:8px 6px; text-align:center; cursor:pointer; user-select:none; transition:all .12s ease;
+}
+.sw-card:hover{border-color:#38BDF8}
+.sw-card.high{background:#064E3B; border-color:#10B981}
+.sw-name{font-size:.78rem; color:#94A3B8; font-weight:700; display:block}
+.sw-card.high .sw-name{color:#6EE7B7}
+.sw-val{font-size:1.15rem; font-weight:800; color:#F8FAFC}
+.sw-card.high .sw-val{color:#34D399}
+
+/* LED Matrix */
+.led-group{display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-top:8px}
+.led-item{
+  background:#1E293B; border:1px solid #334155; border-radius:6px;
+  padding:6px 4px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:3px;
+}
+.led-dot{width:12px; height:12px; border-radius:50%; background:#475569; transition:all .15s ease}
+.led-item.active-low .led-dot{background:#EF4444; box-shadow:0 0 8px #EF4444}
+.led-item.active-high .led-dot{background:#10B981; box-shadow:0 0 8px #10B981}
+.led-label{font-size:.74rem; font-weight:700; color:#94A3B8}
+
+/* เครื่องเล่นสเต็ปเวลา */
+.player-wrap{background:#1E293B; border-radius:8px; padding:12px; margin-top:14px}
+.player-controls{display:flex; align-items:center; gap:10px; justify-content:space-between}
+.player-btn{background:#334155; color:#fff; border:none; border-radius:6px; padding:6px 12px; font-weight:700; cursor:pointer}
+.player-btn:hover{background:#0284C7}
+.player-scrub{flex:1; accent-color:#0284C7; cursor:pointer}
+.step-desc{font-size:.86rem; color:#E2E8F0; margin-top:8px; min-height:42px; line-height:1.5}
+
+/* 3D IC Container */
+.ic-3d-box{
+  perspective:900px; height:240px; display:flex; align-items:center; justify-content:center;
+  background:#090D16; border-radius:10px; border:1px solid #1E293B; overflow:hidden; position:relative;
+}
+.ic-body{
+  width:200px; height:74px; background:#1E222B; border-radius:6px;
+  position:relative; transform-style:preserve-3d; transform:rotateX(25deg) rotateY(-20deg);
+  transition:transform .1s ease-out; box-shadow:0 12px 25px rgba(0,0,0,.6); border:1px solid #3A4250;
+}
+.ic-notch{
+  position:absolute; left:-7px; top:50%; transform:translateY(-50%);
+  width:14px; height:20px; background:#090D16; border-radius:50%; border:1px solid #3A4250;
+}
+.ic-text{
+  position:absolute; width:100%; top:50%; transform:translateY(-50%);
+  text-align:center; font-size:.78rem; font-weight:800; color:#94A3B8; letter-spacing:.08em;
+}
+
+/* ═══════════ Floating Toolbar ═══════════ */
+.float-bar{
+  position:fixed; left:20px; bottom:20px; z-index:60;
+  display:flex; gap:9px; align-items:center;
+  background:#fffdf7; border:1.5px solid var(--ink); border-radius:14px;
+  padding:9px 13px; box-shadow:0 6px 22px rgba(40,32,10,.22);
+}
+.fb-btn{
+  width:42px; height:42px; border-radius:8px; border:1.5px solid var(--ink);
+  background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all .15s ease; font-weight:700; text-decoration:none; color:var(--ink);
+}
+.fb-btn:hover{background:var(--ink); color:#fff}
+
+/* Lightbox */
+#lb{
+  position:fixed; inset:0; background:rgba(10,12,16,.88); z-index:999;
+  display:none; align-items:center; justify-content:center; padding:20px; cursor:zoom-out;
+}
+#lb img{max-width:94vw; max-height:94vh; object-fit:contain; border-radius:6px; box-shadow:0 8px 30px rgba(0,0,0,.5)}
+</style>
+</head>
+<body>
+
+<div id="lb" onclick="closeLB()"><img id="lb-img" src="" alt="ขยายภาพ"></div>
+
+<div class="page">
+
+  <!-- แถบนำทาง -->
+  <div class="breadcrumb" style="display:flex; align-items:center; gap:8px; font-size:.88rem; color:var(--ink-soft); margin-bottom:14px;">
+    <a href="../../../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">หน้าหลักวิชา 305241</a>
+    <span style="color:#9CA3AF;">/</span>
+    <a href="../../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">บทที่ 3 (MUX & DMUX)</a>
+    <span style="color:#9CA3AF;">/</span>
+    <a href="../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">คลังข้อสอบ</a>
+    <span style="color:#9CA3AF;">/</span>
+    <span>ข้อที่ 2 (Special DEMUX 74138)</span>
+  </div>
+
+  <header>
+    <div class="course-line">
+      <span>305241 · DIGITAL LOGIC DESIGN</span>
+      <span class="chip">บทที่ 3 · MSI LOGIC — MUX / DMUX</span>
+      <span>แบบฝึกหัดท้ายบท · ข้อที่ 2</span>
+    </div>
+    <h1 class="book-title">เฉลยละเอียด: การวิเคราะห์และกู้คืนสัญญาณด้วย<br><span class="dmux-c">ดีมัลติเพล็กเซอร์ 74138 (1:8 DMUX / 3-to-8 Decoder)</span></h1>
+    <p class="subtitle">ระบบส่งสัญญาณแบบแบ่งเวลา (TDM Link) ต่อยอดจากข้อ 1 สู่ภาครับสมบูรณ์ · อ้างอิงทฤษฎีจากสไลด์บรรยาย 305241</p>
+
+    <div class="problem-box">
+      <p><b>2. จากระบบการรวมส่งสัญญาณและแยกรับสัญญาณแบบแบ่งเวลา (TDM Communication System) ที่กำหนดให้:</b></p>
+      <p>
+        ภาคส่งใช้ไอซี <b>74151 (8:1 MUX)</b> จากข้อที่ 1 ส่งข้อมูลอนุกรม <code>Data = Y</code> ผ่านสายส่งร่วม มาเข้าที่ขา <code>G1</code> ของไอซีดีมัลติเพล็กเซอร์เบอร์ <b>74138 (1:8 Demultiplexer)</b> โดยต่อขา <code>Ḡ2A = GND</code> และ <code>Ḡ2B = GND</code> พร้อมซิงโครไนซ์ขาเลือก <code>A, B, C</code> ทั้งสองฝั่ง
+      </p>
+      <p style="margin-top:8px;">
+        (ก) จงเขียนรูปคลื่นเอาต์พุต <code>Ȳ₀, Ȳ₁, Ȳ₂, Ȳ₃, Ȳ₄, Ȳ₅, Ȳ₆, Ȳ₇</code> ทั้ง 8 ช่องของไอซี 74138<br>
+        (ข) จงเขียนรูปคลื่นสัญญาณกู้คืนปลายทาง <code>R₀ .. R₇</code> เมื่อต่อผ่านอินเวอร์เตอร์ <code>Rₙ = (Ȳₙ)′</code><br>
+        (ค) หากนำเอาต์พุต <code>Ȳ₁, Ȳ₄, Ȳ₇</code> มาต่อเข้าเกต NAND จงหารูปคลื่นเอาต์พุต <code>F = (Ȳ₁ · Ȳ₄ · Ȳ₇)′</code>
+      </p>
+      <p class="src-note">— แบบฝึกหัดประยุกต์ MUX/DMUX, สไลด์บรรยาย 305241 หน้า 86–96</p>
+    </div>
+
+    <!-- สารบัญคลิกกระโดด -->
+    <nav class="toc">
+      <div class="toc-head">สารบัญเฉลยละเอียด</div>
+      <a href="#s0"><span class="no">0</span>สรุปคำตอบสมบูรณ์ (Master Final Answer)</a>
+      <a href="#s1"><span class="no">1</span>ปรับพื้นฐาน — Demultiplexer และ Decoder</a>
+      <a href="#s2"><span class="no">2</span>กฎการทำงานและตารางฟังก์ชันของ IC 74138</a>
+      <a href="#lab74138"><span class="no">LAB</span>ห้องทดลอง 74138 — โมเดล 3D และเครื่องเล่นสเต็ป</a>
+      <a href="#s3"><span class="no">3</span>ขั้นที่ 1 — อ่านผังวงจรระบบ TDM Link</a>
+      <a href="#s4"><span class="no">4</span>ขั้นที่ 2 — ถอดรหัสขาเลือก CBA และขา Enable</a>
+      <a href="#s5"><span class="no">5</span>ขั้นที่ 3 — วิเคราะห์พฤติกรรม Active-LOW Output</a>
+      <a href="#s6"><span class="no">6</span>ขั้นที่ 4 — ไล่คำตอบทีละช่วงเวลา (15 เหตุการณ์)</a>
+      <a href="#s7"><span class="no">7</span>คำตอบรูปคลื่น Ȳ₀..Ȳ₇ และ R₀..R₇</a>
+      <a href="#s8"><span class="no">8</span>การสังเคราะห์ฟังก์ชันลอจิก F ด้วย NAND Gate</a>
+      <a href="#s9"><span class="no">9</span>สมการบูลีนเชิงวิศวกรรมของระบบ</a>
+      <a href="#s10"><span class="no">10</span>4 จุดที่ข้อสอบตั้งใจดัก</a>
+      <a href="#s11"><span class="no">11</span>วิธีตรวจคำตอบด้วยตนเอง</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════════ 0. สรุปคำตอบ ══════════════════ -->
+  <section id="s0">
+    <div class="sec-head"><div class="sec-no">0</div><h2>สรุปคำตอบสมบูรณ์ (Master Final Answer)</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/09_final_answer_waveforms.png" alt="คำตอบสมบูรณ์ ข้อที่ 2" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 0.1</span> — รูปคลื่นผลลัพธ์เอาต์พุต 74138 (Active-LOW), สัญญาณกู้คืน R และเอาต์พุตเกต F บนแกนเวลาเดียวกัน</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยายเต็มจอ</div>
+    </figure>
+
+    <div class="callout c-key">
+      <span class="lab">สรุปกฎเหล็ก 3 ข้อสำหรับหาคำตอบขอนี้</span>
+      <b>(1)</b>&nbsp; เมื่อ <code>Data = Y = 0</code> → 74138 ถูกปิด → เอาต์พุตทุกช่อง <b>Ȳ₀..Ȳ₇ ถูกดึงขึ้นเป็น 1 ทั้งหมด</b><br>
+      <b>(2)</b>&nbsp; เมื่อ <code>Data = Y = 1</code> → 74138 เปิดทำงาน → เฉพาะช่องที่ตรงกับแอดเดรส <code>n</code> จะ <b>ตกเป็นลอจิก 0 (Active-LOW)</b> ช่องอื่นเป็น 1<br>
+      <b>(3)</b>&nbsp; เอาต์พุตเกต NAND: <code>F = (Ȳ₁ · Ȳ₄ · Ȳ₇)′ = Y₁ + Y₄ + Y₇</code> จะเป็น <b>1</b> เมื่อช่อง 1, 4 หรือ 7 มีการส่งข้อมูลลอจิก 1
+    </div>
+  </section>
+
+  <!-- ══════════════════ 1. พื้นฐาน ══════════════════ -->
+  <section id="s1">
+    <div class="sec-head"><div class="sec-no">1</div><h2>ปรับพื้นฐาน: Demultiplexer คืออะไร?</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/01_dmux_concept.png" alt="พื้นฐาน DMUX" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 1.1</span> — อุปมาสวิตช์หมุนกระจายข้อมูล (Data Distributor) และตารางเปรียบเทียบ MUX vs DMUX</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <p><b>ดีมัลติเพล็กเซอร์ (Demultiplexer, DMUX)</b> คือวงจรลอจิกที่รับสัญญาณข้อมูลเข้าเพียง 1 ช่อง แล้วกระจายออกไปยัง 1 ใน 2ⁿ ช่องเอาต์พุต โดยอาศัยขาเลือก (Select Lines) เป็นตัวบอกพิกัดปลายทาง</p>
+
+    <table class="tb">
+      <caption>ตารางที่ 1.1 — เปรียบเทียบหน้าที่ระหว่าง MUX และ DMUX ในระบบสื่อสาร</caption>
+      <tr><th>คุณสมบัติ</th><th>มัลติเพล็กเซอร์ (MUX 74151)</th><th>ดีมัลติเพล็กเซอร์ (DMUX 74138)</th></tr>
+      <tr><td>บทบาทในระบบ</td><td>ภาคส่ง (Transmitter) รวมหลายช่องลงสายเดียว</td><td>ภาครับ (Receiver) แยกสายเดี่ยวออกหลายช่อง</td></tr>
+      <tr><td>อินพุตข้อมูล</td><td>2ⁿ ช่องข้อมูล (D₀..D₇)</td><td>1 ช่องข้อมูลเดี่ยว (Data Input)</td></tr>
+      <tr><td>เอาต์พุต</td><td>1 ช่อง (Y และ W)</td><td>2ⁿ ช่อง (Ȳ₀..Ȳ₇ แบบ Active-LOW)</td></tr>
+      <tr><td>ขาควบคุม</td><td>Select A,B,C และ Enable Ē</td><td>Select A,B,C และ Enable G1, Ḡ2A, Ḡ2B</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════ 2. กฎ 74138 ══════════════════ -->
+  <section id="s2">
+    <div class="sec-head"><div class="sec-no">2</div><h2>กฎการทำงานและตารางฟังก์ชันของ IC 74138</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/02_74138_function_table.png" alt="ตารางฟังก์ชัน 74138" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 2.1</span> — ตารางแสดงการทำงานของไอซี 74138 คัดจากสไลด์บรรยาย 305241 หน้า 88</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <p>ไอซี 74138 มีขาควบคุมอีนาเบิลทั้งหมด 3 ขา: <code>G1</code> (Active-HIGH), <code>Ḡ2A</code> (Active-LOW), และ <code>Ḡ2B</code> (Active-LOW)</p>
+    <div class="callout c-tip">
+      <span class="lab">เงื่อนไขการเปิดวงจร (Active State)</span>
+      <code>G1 = 1</code> AND <code>Ḡ2A = 0</code> AND <code>Ḡ2B = 0</code><br>
+      ในโจทย์ข้อนี้ ขา <code>Ḡ2A = 0</code> และ <code>Ḡ2B = 0</code> ตลอดเวลา ดังนั้น <b>74138 จะเปิด-ปิดตามขา G1 = Data(Y)</b> โดยตรง
+    </div>
+  </section>
+
+  <!-- ══════════════════ LAB ══════════════════ -->
+  <section id="lab74138">
+    <div class="sec-head"><div class="sec-no">LAB</div><h2>ห้องทดลองเสมือน IC 74138 (Interactive Trainer & 3D Model)</h2></div>
+
+    <div class="lab-shell">
+      <div class="lab-header">
+        <div class="lab-title">
+          <span>🔬 74138 VIRTUAL LOGIC TRAINER</span>
+          <span class="lab-badge">3-TO-8 DECODER / DMUX</span>
+        </div>
+        <div class="lab-modes">
+          <button class="lab-btn active" id="btn-mode-free" onclick="setMode('free')">โหมด 1: ทดลองอิสระ (Free Lab)</button>
+          <button class="lab-btn" id="btn-mode-exam" onclick="setMode('exam')">โหมด 2: เล่นสัญญาณตามโจทย์ (Exam Player)</button>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <!-- แผงซ้าย: สวิตช์และ LED -->
+        <div class="lab-panel">
+          <div class="panel-title">CONTROL SWITCHES & INPUT BUS</div>
+          <div class="switches">
+            <div class="sw-card" id="sw-G1" onclick="toggleSw('G1')">
+              <span class="sw-name">G1 (Data)</span>
+              <span class="sw-val" id="val-G1">0</span>
+            </div>
+            <div class="sw-card" id="sw-G2A" onclick="toggleSw('G2A')">
+              <span class="sw-name">Ḡ2A</span>
+              <span class="sw-val" id="val-G2A">0</span>
+            </div>
+            <div class="sw-card" id="sw-G2B" onclick="toggleSw('G2B')">
+              <span class="sw-name">Ḡ2B</span>
+              <span class="sw-val" id="val-G2B">0</span>
+            </div>
+            <div class="sw-card" id="sw-C" onclick="toggleSw('C')">
+              <span class="sw-name">C (MSB)</span>
+              <span class="sw-val" id="val-C">0</span>
+            </div>
+            <div class="sw-card" id="sw-B" onclick="toggleSw('B')">
+              <span class="sw-name">B</span>
+              <span class="sw-val" id="val-B">0</span>
+            </div>
+            <div class="sw-card" id="sw-A" onclick="toggleSw('A')">
+              <span class="sw-name">A (LSB)</span>
+              <span class="sw-val" id="val-A">0</span>
+            </div>
+          </div>
+
+          <div class="panel-title" style="margin-top:16px;">ACTIVE-LOW OUTPUTS (Ȳ₀ .. Ȳ₇) & GATE F</div>
+          <div class="led-group">
+            <div class="led-item" id="led-y0"><div class="led-dot"></div><span class="led-label">Ȳ₀ (Pin 15)</span></div>
+            <div class="led-item" id="led-y1"><div class="led-dot"></div><span class="led-label">Ȳ₁ (Pin 14)</span></div>
+            <div class="led-item" id="led-y2"><div class="led-dot"></div><span class="led-label">Ȳ₂ (Pin 13)</span></div>
+            <div class="led-item" id="led-y3"><div class="led-dot"></div><span class="led-label">Ȳ₃ (Pin 12)</span></div>
+            <div class="led-item" id="led-y4"><div class="led-dot"></div><span class="led-label">Ȳ₄ (Pin 11)</span></div>
+            <div class="led-item" id="led-y5"><div class="led-dot"></div><span class="led-label">Ȳ₅ (Pin 10)</span></div>
+            <div class="led-item" id="led-y6"><div class="led-dot"></div><span class="led-label">Ȳ₆ (Pin 9)</span></div>
+            <div class="led-item" id="led-y7"><div class="led-dot"></div><span class="led-label">Ȳ₇ (Pin 7)</span></div>
+          </div>
+
+          <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center; background:#1E293B; padding:8px 12px; border-radius:6px;">
+            <span style="font-size:.85rem; font-weight:700; color:#C084FC;">NAND GATE OUTPUT (F = Y₁ + Y₄ + Y₇):</span>
+            <span id="val-F" style="font-size:1.2rem; font-weight:800; color:#A855F7;">0</span>
+          </div>
+
+          <!-- เครื่องเล่นเวลา -->
+          <div class="player-wrap" id="exam-player-panel" style="display:none;">
+            <div class="player-controls">
+              <button class="player-btn" onclick="stepExam(-1)">◀ ก่อนหน้า</button>
+              <input type="range" class="player-scrub" id="exam-scrub" min="0" max="14" value="0" oninput="scrubExam(this.value)">
+              <button class="player-btn" onclick="stepExam(1)">ถัดไป ▶</button>
+            </div>
+            <div class="step-desc" id="exam-step-desc">ช่วง 1a (x=906..1142): CBA=000, Data Y=0 → 74138 ถูกปิด → เอาต์พุตทุกช่อง Ȳ=1</div>
+          </div>
+        </div>
+
+        <!-- แผงขวา: 3D IC Display -->
+        <div class="lab-panel">
+          <div class="panel-title">3D IC MODEL · SN74138N (DIP-16)</div>
+          <div class="ic-3d-box" id="ic-container" onmousemove="rotateIC(event)" onmouseleave="resetIC()">
+            <div class="ic-body" id="ic-body">
+              <div class="ic-notch"></div>
+              <div class="ic-text">
+                SN74138N<br>
+                <span style="font-size:.65rem; color:#64748B;">3-TO-8 DEMUX</span>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:.82rem; color:#94A3B8; text-align:center; margin-top:8px;">
+            ชี้เมาส์ในกรอบเพื่อหมุนโมเดล 3D · ขา 1..8 ฝั่งล่าง, ขา 9..16 ฝั่งบน
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 3. ผังวงจร TDM ══════════════════ -->
+  <section id="s3">
+    <div class="sec-head"><div class="sec-no">3</div><h2>ขั้นที่ 1 : อ่านผังวงจรระบบ TDM และขาต่อของ 74138</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/03_tdm_system_circuit.png" alt="ผังวงจร TDM" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 3.1</span> — การเชื่อมต่อระบบ TDM: MUX 74151 (ภาคส่ง) → Data Bus Y → DMUX 74138 (ภาครับ) + NAND Gate</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <p>ระบบสื่อสารแบบแบ่งเวลาประกอบด้วย 3 ส่วนสำคัญ:</p>
+    <ul>
+      <li><b>1. ภาคส่ง (Transmitter):</b> วงจร MUX 74151 จากข้อที่ 1 ส่งข้อมูลอนุกรมบนสาย <code>Data = Y</code></li>
+      <li><b>2. ภาครับ (Receiver):</b> ไอซี DMUX 74138 รับข้อมูลผ่านขา <code>G1</code> และมีขาเลือก <code>A, B, C</code> เดินตามตัวนับเวลาเดียวกัน</li>
+      <li><b>3. ภาครวมฟังก์ชัน (Logic Gate):</b> เกต NAND ต่อเข้ากับเอาต์พุต <code>Ȳ₁, Ȳ₄, Ȳ₇</code> เพื่อสังเคราะห์ฟังก์ชัน <code>F</code></li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════ 4. ถอดรหัส CBA ══════════════════ -->
+  <section id="s4">
+    <div class="sec-head"><div class="sec-no">4</div><h2>ขั้นที่ 2 : ถอดรหัสขาเลือก A, B, C และขา Enable</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/04_input_and_data_waveforms.png" alt="รูปคลื่นอินพุต" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 4.1</span> — รูปคลื่นอินพุตและสัญญาณข้อมูลสายส่งอนุกรม Data = Y จากข้อที่ 1</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/05_enable_and_select_decoding.png" alt="การถอดรหัสแอดเดรส" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 4.2</span> — ตารางวิเคราะห์สถานะการถอดรหัสแอดเดรส n และเงื่อนไขการเปิด-ปิด 74138 ใน 9 ช่วงเวลา</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+  </section>
+
+  <!-- ══════════════════ 5. Active-LOW ══════════════════ -->
+  <section id="s5">
+    <div class="sec-head"><div class="sec-no">5</div><h2>ขั้นที่ 3 : วิเคราะห์พฤติกรรม Active-LOW Output</h2></div>
+
+    <p>เอาต์พุตของ 74138 มีขีดบน (Inverting Bubble) หมายถึง <b>Active-LOW</b>:</p>
+    <div class="formula big">
+      Ȳₙ = (mₙ · Data)′ = m̄ₙ + Data′
+    </div>
+    <p>เมื่อถอดสมการจะได้ว่า: ขาที่ไม่ถูกเลือกจะมีค่าเป็น <b>1</b> เสมอ และขาที่ถูกเลือกจะมีค่าเป็น <b>0</b> เฉพาะเมื่อ <code>Data = 1</code></p>
+  </section>
+
+  <!-- ══════════════════ 6. ไล่ 15 เหตุการณ์ ══════════════════ -->
+  <section id="s6">
+    <div class="sec-head"><div class="sec-no">6</div><h2>ขั้นที่ 4 : ไล่คำตอบทีละช่วงเวลา (9 ช่วง 15 เหตุการณ์ย่อย)</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/10_summary_table.png" alt="ตารางสรุป 15 เหตุการณ์" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 6.1</span> — ตารางสรุปการทำงานและระดับลอจิกของทุกสัญญาณใน 15 เหตุการณ์ย่อย</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <table class="tb">
+      <caption>ตารางที่ 6.1 — สรุปการเกิดพัลส์ลอจิก 0 บนเอาต์พุต 74138 แต่ละแชนเนล</caption>
+      <tr><th>แชนเนล</th><th>ช่วงเวลาที่เกิดพัลส์ 0</th><th>พิกัดเวลา x</th><th>สาเหตุที่เกิดพัลส์</th></tr>
+      <tr><td><b>Ȳ₀</b></td><td>ช่วง 8b</td><td>2575..2604</td><td>แอดเดรส n=0 และ D₀=1 ทำให้ Data Y=1</td></tr>
+      <tr><td><b>Ȳ₁</b></td><td>ช่วง 1c</td><td>1220..1342</td><td>แอดเดรส n=1 และ E=0 ทำให้ส่ง D₁=+5V (Data Y=1)</td></tr>
+      <tr><td><b>Ȳ₂</b></td><td>ช่วง 2b</td><td>1466..1546</td><td>แอดเดรส n=2 และ D₂=1 ทำให้ Data Y=1</td></tr>
+      <tr><td><b>Ȳ₃</b></td><td>ไม่มี</td><td>-</td><td>ต่อ GND ที่ภาคส่ง (Data Y=0 ตลอดช่วง)</td></tr>
+      <tr><td><b>Ȳ₄</b></td><td>ช่วง 4a</td><td>1743..1835</td><td>แอดเดรส n=4 และ D̄₀=1 ทำให้ Data Y=1</td></tr>
+      <tr><td><b>Ȳ₅</b></td><td>ไม่มี</td><td>-</td><td>ต่อ GND ที่ภาคส่ง (Data Y=0 ตลอดช่วง)</td></tr>
+      <tr><td><b>Ȳ₆</b></td><td>ช่วง 6b</td><td>2205..2343</td><td>แอดเดรส n=6 และ D̄₂=1 ทำให้ Data Y=1</td></tr>
+      <tr><td><b>Ȳ₇</b></td><td>ช่วง 7</td><td>2344..2545</td><td>แอดเดรส n=7 และ D₇=+5V ทำให้ Data Y=1 ตลอดช่วง</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════ 7. รูปคลื่นเอาต์พุต ══════════════════ -->
+  <section id="s7">
+    <div class="sec-head"><div class="sec-no">7</div><h2>คำตอบ: รูปคลื่นเอาต์พุต Ȳ₀..Ȳ₇ และ R₀..R₇</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/06_dmux_outputs_y0_y7.png" alt="รูปคลื่น DMUX 74138" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 7.1</span> — รูปคลื่นเอาต์พุต Active-LOW ทั้ง 8 ช่องของ 74138 (Ȳ₀ .. Ȳ₇)</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/07_recovered_signals_r0_r7.png" alt="รูปคลื่นสัญญาณกู้คืน R" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 7.2</span> — รูปคลื่นสัญญาณกู้คืนปลายทาง R₀ .. R₇ = (Ȳₙ)′ (Active-HIGH)</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+  </section>
+
+  <!-- ══════════════════ 8. NAND Gate F ══════════════════ -->
+  <section id="s8">
+    <div class="sec-head"><div class="sec-no">8</div><h2>การสังเคราะห์ฟังก์ชันลอจิก F ด้วย NAND Gate</h2></div>
+
+    <figure class="textbook">
+      <div class="frame"><img src="assets/08_gate_output_f.png" alt="รูปคลื่นเกต F" onclick="openLB(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 8.1</span> — รูปคลื่นเอาต์พุตเกต NAND: F = (Ȳ₁ · Ȳ₄ · Ȳ₇)′ = Y₁ + Y₄ + Y₇</figcaption>
+      <div class="zoom-hint">คลิกที่ภาพเพื่อขยาย</div>
+    </figure>
+
+    <p>การนำเอาต์พุต Active-LOW เข้าเกต NAND จะให้ผลลัพธ์เป็นฟังก์ชันรวมมินเทอม (Sum of Minterms):</p>
+    <div class="formula">
+      F = (Ȳ₁ · Ȳ₄ · Ȳ₇)′ = Y₁ + Y₄ + Y₇
+    </div>
+    <p>เอาต์พุต <b>F = 1</b> ในช่วงเวลา 1c, 4a และ 7 เท่านั้น</p>
+  </section>
+
+  <!-- ══════════════════ 9. สมการบูลีน ══════════════════ -->
+  <section id="s9">
+    <div class="sec-head"><div class="sec-no">9</div><h2>สมการบูลีนเชิงวิศวกรรมของระบบ</h2></div>
+
+    <div class="formula big">
+      Rₙ = (Ȳₙ)′ = mₙ · Data<br>
+      F = (m₁ + m₄ + m₇) · Data
+    </div>
+    <p>แสดงให้เห็นว่า 74138 ทำหน้าที่เป็น Universal Decoder ที่สามารถถอดรหัสมินเทอมใดๆ ในระบบดิจิทัลได้อย่างสมบูรณ์แบบ</p>
+  </section>
+
+  <!-- ══════════════════ 10. จุดดัก ══════════════════ -->
+  <section id="s10">
+    <div class="sec-head"><div class="sec-no">10</div><h2>4 จุดที่ข้อสอบตั้งใจดัก (Exam Pitfalls)</h2></div>
+
+    <div class="callout c-warn">
+      <span class="lab">จุดดักที่ 1 · ระดับลอจิกของช่องที่ไม่ได้เลือก</span>
+      สำหรับ DMUX 74138 ช่องที่ไม่ถูกเลือกจะคงค่าเป็น <b>ลอจิก 1 (HIGH)</b> เสมอ ห้ามวาดเป็น 0 เด็ดขาด!
+    </div>
+    <div class="callout c-warn">
+      <span class="lab">จุดดักที่ 2 · เมื่อ Data Y = 0 ไอซีจะถูกปิด</span>
+      เมื่อ Data Y = 0 ขา G1 จะเป็น 0 ส่งผลให้ 74138 ปิดทำงาน และเอาต์พุตทุกช่องกลายเป็น <b>1 ทั้งหมด</b>
+    </div>
+    <div class="callout c-warn">
+      <span class="lab">จุดดักที่ 3 · การสลับสัญญาณกลางช่วงเวลา</span>
+      ช่วงเวลาที่ 1, 2, 4, 6, 8 มีการเปลี่ยนสถานะกลางช่วงเวลา ต้องวาดขอบพัลส์ตามพิกัดเวลาจริง ไม่ใช่วาดเต็มช่วง
+    </div>
+  </section>
+
+  <!-- ══════════════════ 11. ตรวจคำตอบ ══════════════════ -->
+  <section id="s11">
+    <div class="sec-head"><div class="sec-no">11</div><h2>วิธีตรวจคำตอบด้วยตนเอง</h2></div>
+
+    <table class="tb">
+      <tr><th>จุดตรวจสอบ</th><th>เกณฑ์ความถูกต้อง</th><th>สถานะ</th></tr>
+      <tr><td class="t-l">1. ระดับลอจิกพักของ Ȳ₀..Ȳ₇</td><td>เป็น HIGH (1) ในทุกช่วงที่ไม่ได้แอ็กทีฟ</td><td>✅ ถูกต้อง</td></tr>
+      <tr><td class="t-l">2. จำนวนพัลส์ Active-LOW (0)</td><td>เกิดขึ้น 7 พัลส์ย่อยตามที่ Data Y = 1</td><td>✅ ถูกต้อง</td></tr>
+      <tr><td class="t-l">3. ช่อง Ȳ₃ และ Ȳ₅</td><td>เป็น 1 ตลอดทั้ง 9 ช่วง (ไม่เกิดพัลส์ 0)</td><td>✅ ถูกต้อง</td></tr>
+      <tr><td class="t-l">4. เอาต์พุตเกต F</td><td>เป็น 1 เฉพาะช่วง 1c, 4a และ 7</td><td>✅ ถูกต้อง</td></tr>
+    </table>
+  </section>
+
+  <!-- ท้ายหน้า -->
+  <footer style="margin-top:70px; border-top:2px solid var(--ink); padding-top:24px; font-size:.88rem; color:var(--ink-soft);">
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <div>
+        <strong>305241 Digital Logic Design</strong> · มหาวิทยาลัยนเรศวร<br>
+        บทที่ 3: มัลติเพล็กเซอร์และดีมัลติเพล็กเซอร์ · ข้อสอบข้อที่ 2 (74138 DMUX)
+      </div>
+      <div>
+        <a href="../../index.html" style="color:var(--accent); text-decoration:none; font-weight:600;">← กลับหน้าหลักบทที่ 3</a> · 
+        <a href="../1/solution.html" style="color:var(--accent); text-decoration:none; font-weight:600;">เฉลยข้อสอบข้อที่ 1 (74151 MUX)</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Floating Toolbar -->
+<div class="float-bar">
+  <a href="#s0" class="fb-btn" title="กลับขึ้นบนสุด">↑</a>
+  <a href="#lab74138" class="fb-btn" title="ไปที่ห้องทดลอง LAB">LAB</a>
+  <a href="../../index.html" class="fb-btn" title="กลับหน้าหลักบทที่ 3">🏠</a>
+</div>
+
+<!-- JavaScript สำหรับ Interactive Lab และ Lightbox -->
+<script>
+// สวิตช์และสถานะ
+let state = {
+  G1: 0, G2A: 0, G2B: 0,
+  C: 0, B: 0, A: 0
+};
+
+const examSteps = [
+  { G1:0, G2A:0, G2B:0, C:0, B:0, A:0, desc: "ช่วง 1a (x=906..1142): CBA=000, Data Y=0 → 74138 ปิด (Disabled) → ทุกช่อง Ȳ=1" },
+  { G1:0, G2A:0, G2B:0, C:0, B:0, A:1, desc: "ช่วง 1b (x=1143..1219): CBA=001, E=1 ทำให้ Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:1, G2A:0, G2B:0, C:0, B:0, A:1, desc: "ช่วง 1c (x=1220..1342): CBA=001, E=0 ทำให้ Data Y=1 (+5V) → 74138 เปิด → Ȳ₁ ตกเป็น 0 (Active-LOW)!" },
+  { G1:0, G2A:0, G2B:0, C:0, B:1, A:0, desc: "ช่วง 2a (x=1343..1465): CBA=010, D₂=0 ทำให้ Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:1, G2A:0, G2B:0, C:0, B:1, A:0, desc: "ช่วง 2b (x=1466..1546): CBA=010, D₂=1 ทำให้ Data Y=1 → 74138 เปิด → Ȳ₂ ตกเป็น 0 (Active-LOW)!" },
+  { G1:0, G2A:0, G2B:0, C:0, B:1, A:1, desc: "ช่วง 3 (x=1547..1742): CBA=011 (D₃=GND) → Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:1, G2A:0, G2B:0, C:1, B:0, A:0, desc: "ช่วง 4a (x=1743..1835): CBA=100, D̄₀=1 ทำให้ Data Y=1 → 74138 เปิด → Ȳ₄ ตกเป็น 0 (Active-LOW)!" },
+  { G1:0, G2A:0, G2B:0, C:1, B:0, A:0, desc: "ช่วง 4b (x=1836..1942): CBA=100, D̄₀=0 ทำให้ Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:0, G2A:0, G2B:0, C:1, B:0, A:1, desc: "ช่วง 5 (x=1943..2142): CBA=101 (D₅=GND) → Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:0, G2A:0, G2B:0, C:1, B:1, A:0, desc: "ช่วง 6a (x=2143..2204): CBA=110, D̄₂=0 ทำให้ Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:1, G2A:0, G2B:0, C:1, B:1, A:0, desc: "ช่วง 6b (x=2205..2343): CBA=110, D̄₂=1 ทำให้ Data Y=1 → 74138 เปิด → Ȳ₆ ตกเป็น 0 (Active-LOW)!" },
+  { G1:1, G2A:0, G2B:0, C:1, B:1, A:1, desc: "ช่วง 7 (x=2344..2545): CBA=111, D₇=+5V ทำให้ Data Y=1 → 74138 เปิดตลอดช่วง → Ȳ₇ ตกเป็น 0!" },
+  { G1:0, G2A:0, G2B:0, C:0, B:0, A:0, desc: "ช่วง 8a (x=2546..2574): CBA=000, D₀=0 ทำให้ Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" },
+  { G1:1, G2A:0, G2B:0, C:0, B:0, A:0, desc: "ช่วง 8b (x=2575..2604): CBA=000, D₀=1 ทำให้ Data Y=1 → 74138 เปิด → Ȳ₀ ตกเป็น 0 (Active-LOW)!" },
+  { G1:0, G2A:0, G2B:0, C:0, B:0, A:0, desc: "ช่วง 8c (x=2605..2681): CBA=000, E=1 ทำให้ Data Y=0 → 74138 ปิด → ทุกช่อง Ȳ=1" }
+];
+
+let curExamStep = 0;
+
+function updateOutputs() {
+  const isEnabled = (state.G1 === 1 && state.G2A === 0 && state.G2B === 0);
+  const addr = (state.C * 4) + (state.B * 2) + state.A;
+
+  let yOuts = [1, 1, 1, 1, 1, 1, 1, 1];
+  if (isEnabled) {
+    yOuts[addr] = 0;
+  }
+
+  // อัปเดต LED Y0..Y7
+  for (let i = 0; i < 8; i++) {
+    const el = document.getElementById('led-y' + i);
+    if (yOuts[i] === 0) {
+      el.className = 'led-item active-low';
+    } else {
+      el.className = 'led-item';
+    }
+  }
+
+  // คำนวณ NAND Gate F = (Y1' · Y4' · Y7')'
+  const fVal = (yOuts[1] === 0 || yOuts[4] === 0 || yOuts[7] === 0) ? 1 : 0;
+  const fEl = document.getElementById('val-F');
+  fEl.textContent = fVal;
+  fEl.style.color = (fVal === 1) ? '#A855F7' : '#64748B';
+}
+
+function toggleSw(name) {
+  state[name] = 1 - state[name];
+  const card = document.getElementById('sw-' + name);
+  const valSpan = document.getElementById('val-' + name);
+  valSpan.textContent = state[name];
+  if (state[name] === 1) {
+    card.classList.add('high');
+  } else {
+    card.classList.remove('high');
+  }
+  updateOutputs();
+}
+
+function setMode(m) {
+  const btnFree = document.getElementById('btn-mode-free');
+  const btnExam = document.getElementById('btn-mode-exam');
+  const panelExam = document.getElementById('exam-player-panel');
+
+  if (m === 'free') {
+    btnFree.classList.add('active');
+    btnExam.classList.remove('active');
+    panelExam.style.display = 'none';
+  } else {
+    btnFree.classList.remove('active');
+    btnExam.classList.add('active');
+    panelExam.style.display = 'block';
+    applyExamStep(curExamStep);
+  }
+}
+
+function applyExamStep(idx) {
+  curExamStep = idx;
+  const s = examSteps[idx];
+  for (let k of ['G1', 'G2A', 'G2B', 'C', 'B', 'A']) {
+    state[k] = s[k];
+    const card = document.getElementById('sw-' + k);
+    const valSpan = document.getElementById('val-' + k);
+    valSpan.textContent = state[k];
+    if (state[k] === 1) card.classList.add('high');
+    else card.classList.remove('high');
+  }
+  document.getElementById('exam-scrub').value = idx;
+  document.getElementById('exam-step-desc').textContent = s.desc;
+  updateOutputs();
+}
+
+function stepExam(dir) {
+  let next = curExamStep + dir;
+  if (next < 0) next = 0;
+  if (next >= examSteps.length) next = examSteps.length - 1;
+  applyExamStep(next);
+}
+
+function scrubExam(val) {
+  applyExamStep(parseInt(val, 10));
+}
+
+// 3D IC Rotate
+function rotateIC(e) {
+  const rect = document.getElementById('ic-container').getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  const rotY = (x / rect.width) * 60;
+  const rotX = -(y / rect.height) * 60 + 20;
+  document.getElementById('ic-body').style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+}
+
+function resetIC() {
+  document.getElementById('ic-body').style.transform = 'rotateX(25deg) rotateY(-20deg)';
+}
+
+// Lightbox
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').style.display = 'flex';
+}
+function closeLB() {
+  document.getElementById('lb').style.display = 'none';
+}
+
+// เริ่มต้น
+updateOutputs();
+</script>
+
+</body>
+</html>

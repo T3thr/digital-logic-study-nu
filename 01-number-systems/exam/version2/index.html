@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ข้อสอบลูกโซ่ 15 ขั้นตอน (Version 2) — ระบบจำนวน, การบวกเลขฐาน, SAM และ Complements · 305241 Digital Logic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ พื้นฐานแบบหนังสือเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --paper3: #EFE8D8;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+  --font-thai: "IBM Plex Sans Thai", "Sarabun", -apple-system, sans-serif;
+  --font-mono: "Fira Code", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 36px 30px 90px;
+}
+
+/* ═══════════ แถบนำทาง (Breadcrumbs) ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+/* ═══════════ ส่วนหัวแบบตำรา ═══════════ */
+.course-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+  font-size: .88rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 2px 14px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+h1.book-title {
+  font-size: 2.10rem;
+  line-height: 1.35;
+  margin: 14px 0 8px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+}
+
+.alert-banner {
+  background: var(--red-bg);
+  border-left: 5px solid var(--red);
+  padding: 14px 20px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 26px;
+  font-size: .95rem;
+  color: #7f1d1d;
+  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.08);
+}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc {
+  border: 1.5px solid var(--rule);
+  background: #fffdf7;
+  padding: 20px 26px;
+  margin: 28px 0;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+nav.toc .toc-head {
+  font-weight: 800;
+  font-size: 1.12rem;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 8px;
+  color: var(--accent);
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 8px 24px;
+}
+
+nav.toc a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 4px 0;
+  font-size: .95rem;
+  transition: color 0.15s;
+}
+
+nav.toc a:hover {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+nav.toc .no {
+  color: var(--accent2);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  min-width: 1.8em;
+}
+
+/* ═══════════ กล่องโจทย์ (Problem Box) ═══════════ */
+.problem-box {
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 24px 28px;
+  margin: 40px 0 20px;
+  position: relative;
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 var(--paper2);
+}
+
+.problem-box::before {
+  content: attr(data-qno);
+  position: absolute;
+  top: -15px;
+  left: 22px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  padding: 2px 18px;
+  letter-spacing: .08em;
+  border-radius: 4px;
+}
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.problem-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.chain-badge {
+  background: var(--paper2);
+  border: 1px solid var(--rule);
+  color: var(--accent2);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+/* ═══════════ กล่องเน้น (Callout Boxes) ═══════════ */
+.callout {
+  border-left: 5px solid;
+  padding: 14px 20px;
+  margin: 18px 0;
+  background: #fff;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.callout .lab {
+  font-weight: 800;
+  font-size: .88rem;
+  letter-spacing: .06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.c-key { border-color: var(--accent); background: var(--blue-bg); }
+.c-key .lab { color: var(--accent); }
+
+.c-warn { border-color: var(--red); background: var(--red-bg); }
+.c-warn .lab { color: var(--red); }
+
+.c-tip { border-color: var(--green); background: var(--green-bg); }
+.c-tip .lab { color: var(--green); }
+
+.c-ex { border-color: var(--accent2); background: var(--amber-bg); }
+.c-ex .lab { color: var(--accent2); }
+
+/* ═══════════ กล่องสูตรและ Code (Formula & Code Boxes) ═══════════ */
+.formula-box {
+  background: #0f172a;
+  color: #38bdf8;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: 14px 0;
+  white-space: pre;
+  tab-size: 4;
+}
+
+.formula-box code { color: inherit; font-family: inherit; }
+
+/* ═══════════ ส่วนตรวจคำตอบ Interactive ═══════════ */
+.interactive-panel {
+  background: var(--paper3);
+  border: 1.5px dashed var(--rule);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 18px 0;
+}
+
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.input-row input {
+  padding: 7px 12px;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  background: #fff;
+  color: var(--ink);
+  min-width: 220px;
+}
+
+.input-row input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+}
+
+.btn-check {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-thai);
+  font-size: .92rem;
+  transition: all 0.15s;
+}
+
+.btn-check:hover { background: #1d4ed8; }
+
+.btn-toggle-sol {
+  background: #fff;
+  color: var(--ink-soft);
+  border: 1.5px solid var(--rule);
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-thai);
+  font-size: .92rem;
+  transition: all 0.15s;
+}
+
+.btn-toggle-sol:hover { background: var(--paper2); color: var(--ink); }
+
+.feedback-tag {
+  display: none;
+  font-size: .9rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.feedback-tag.correct { display: inline-block; background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.feedback-tag.incorrect { display: inline-block; background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+
+.solution-details {
+  display: none;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--rule);
+  animation: fadeIn 0.2s ease;
+}
+
+.solution-details.open { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════ ปุ่มลอยกลับสารบัญ (Back to Top) ═══════════ */
+.top-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--ink);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 100;
+}
+.top-fab:hover { background: var(--accent); }
+
+@media print {
+  body { background: #fff; color: #000; font-size: 14px; }
+  .page { max-width: 100%; padding: 0; }
+  .interactive-panel, .top-fab, .btn-check, .btn-toggle-sol { display: none !important; }
+  .solution-details { display: block !important; }
+  .problem-box { page-break-inside: avoid; box-shadow: none; border-color: #999; }
+  .formula-box { background: #f8fafc; color: #000; border: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<div class="page" id="top">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="../../../README.md">🏠 Digital Logic</a>
+    <span class="sep">/</span>
+    <a href="../../README.md">01 Number Systems</a>
+    <span class="sep">/</span>
+    <span>Exam Version 2 (Forward-Flowing Chained Exam)</span>
+  </div>
+
+  <!-- Course Header -->
+  <div class="course-line">
+    <span>305241 DIGITAL LOGIC DESIGN & ENGINEERING</span>
+    <span class="chip">CHAPTER 1 : NUMBER SYSTEMS</span>
+  </div>
+
+  <h1 class="book-title">ข้อสอบลูกโซ่ 15 ขั้นตอน (Version 2)</h1>
+  <div class="subtitle">ชุดข้อสอบลูกโซ่พัฒนาข้อมูลไปข้างหน้า ครอบคลุมการแปลงเลขฐาน, ทศนิยม, การบวกเลขฐาน, SAM และระบบ 1's / 2's Complement</div>
+
+  <div class="alert-banner">
+    ⚠️ <strong>กฎลูกโซ่ต่อเนื่อง (Forward-Flowing Chained Rule):</strong> ข้อสอบชุดนี้คำตอบของแต่ละข้อจะถูกนำไปพัฒนาและส่งต่อไปเป็นโจทย์ของข้อถัดไปโดยตรง โดยไม่มีการวนค่ากลับ ทำให้ไม่สามารถดูเฉลยจากข้อก่อนหน้าได้!
+  </div>
+
+  <!-- Table of Contents -->
+  <nav class="toc">
+    <div class="toc-head">📑 สารบัญสายพานข้อสอบลูกโซ่ 15 ขั้นตอน</div>
+    <div class="toc-grid">
+      <a href="#q1"><span class="no">01</span> แปลงฐานสิบ D₁ เป็นฐานสอง (B₁)</a>
+      <a href="#q2"><span class="no">02</span> แปลงฐานสอง B₁ เป็นฐานแปด (O₂)</a>
+      <a href="#q3"><span class="no">03</span> แปลงฐานสอง B₁ เป็นฐานสิบหก (H₃)</a>
+      <a href="#q4"><span class="no">04</span> บวกฐานสิบหก (H₃ + 1F₁₆ ➔ H₄)</a>
+      <a href="#q5"><span class="no">05</span> แปลงฐานสิบหก H₄ เป็นฐานสิบ (D₅)</a>
+      <a href="#q6"><span class="no">06</span> แปลงฐานสิบ D₅.75 เป็นรหัส BCD (BCD₆)</a>
+      <a href="#q7"><span class="no">07</span> แปลง BCD₆ ➔ Excess-3 (XS₇) & ดึง B₇</a>
+      <a href="#q8"><span class="no">08</span> การบวกฐานสอง B₇ + 53₁₀ ➔ SUM₈</a>
+      <a href="#q9"><span class="no">09</span> การบวกฐานแปด & สกัดค่า K (54₁₀)</a>
+      <a href="#q10"><span class="no">10</span> การแทนค่า 8-bit SAM (±K)</a>
+      <a href="#q11"><span class="no">11</span> การหาค่า 8-bit 1's Complement (S_1comp)</a>
+      <a href="#q12"><span class="no">12</span> การหาค่า 8-bit 2's Complement (S_2comp)</a>
+      <a href="#q13"><span class="no">13</span> ลบด้วย 1's Comp (End-Around Carry)</a>
+      <a href="#q14"><span class="no">14</span> ลบด้วย 2's Comp ทั้งสองทิศทาง</a>
+      <a href="#q15"><span class="no">15</span> การวิเคราะห์ Overflow 2's Comp</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q1 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q1" data-qno="ข้อที่ 1">
+    <div class="problem-header">
+      <div class="problem-title">การแปลงเลขฐานสิบเป็นเลขฐานสองที่มีทศนิยม (Decimal ➔ Binary Fraction)</div>
+      <span class="chain-badge">Start ➔ B₁</span>
+    </div>
+    <p><strong>โจทย์:</strong> กำหนดเลขฐานสิบที่มีทศนิยม: <code>D₁ = 13.375₁₀</code></p>
+    <p>จงแปลง <code>D₁</code> ให้อยู่ในรูป <strong>เลขฐานสอง (Binary: B₁)</strong></p>
+    
+    <div class="interactive-panel">
+      <label>✍️ ลองพิมพ์คำตอบเพื่อตรวจสอบ:</label>
+      <div class="input-row">
+        <input type="text" id="ans-1" placeholder="เช่น 1101.011">
+        <button class="btn-check" onclick="checkQ(1, '1101.011')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(1)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-1"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-1">
+      <div class="callout c-key">
+        <span class="lab">🧠 หลักการจำและที่มา (สไลด์หน้า 5)</span>
+        <ul>
+          <li><strong>ส่วนจำนวนเต็ม:</strong> ใช้วิธี <em>"หารสั้นด้วย 2"</em> จดเศษ แล้วอ่านจาก <strong>ล่างขึ้นบน</strong> (LSB ➔ MSB)</li>
+          <li><strong>ส่วนทศนิยม:</strong> ใช้วิธี <em>"คูณด้วย 2"</em> ดึงส่วนจำนวนเต็มออก แล้วอ่านจาก <strong>บนลงล่าง</strong></li>
+        </ul>
+      </div>
+
+      <p><strong>ขั้นตอนที่ 1 : ส่วนจำนวนเต็ม (13₁₀)</strong></p>
+      <div class="formula-box">
+13 ÷ 2 = 6  เศษ 1  (LSB)
+ 6 ÷ 2 = 3  เศษ 0
+ 3 ÷ 2 = 1  เศษ 1
+ 1 ÷ 2 = 0  เศษ 1  (MSB)
+➔ อ่านเศษจากล่างขึ้นบน = 1101₂
+      </div>
+
+      <p><strong>ขั้นตอนที่ 2 : ส่วนทศนิยม (0.375₁₀)</strong></p>
+      <div class="formula-box">
+0.375 × 2 = 0.750  ➔  ดึงเลข 0  (เหลือ 0.750)   ↑ บิตแรกหลังจุด
+0.750 × 2 = 1.500  ➔  ดึงเลข 1  (เหลือ 0.500)   │
+0.500 × 2 = 1.000  ➔  ดึงเลข 1  (เหลือ 0.000)   ↓ บิตสุดท้าย
+➔ อ่านค่าที่ดึงจากบนลงล่าง = .011₂
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ B₁ สำหรับส่งต่อข้อ 2 และ 3</span>
+        <strong><code>B₁ = 1101.011₂</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q2 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q2" data-qno="ข้อที่ 2">
+    <div class="problem-header">
+      <div class="problem-title">การแปลงเลขฐานสองเป็นเลขฐานแปด (Binary ➔ Octal Fraction)</div>
+      <span class="chain-badge">Input: B₁ ➔ O₂</span>
+    </div>
+    <p><strong>โจทย์:</strong> ให้นำเลขฐานสอง <code>B₁</code> (จากข้อ 1) มาแปลงเป็น <strong>เลขฐานแปด (Octal: O₂)</strong></p>
+    
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-2" placeholder="เช่น 15.3">
+        <button class="btn-check" onclick="checkQ(2, '15.3')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(2)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-2"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-2">
+      <div class="callout c-key">
+        <span class="lab">🧠 หลักการจัดกลุ่มฐานแปด (สไลด์หน้า 8)</span>
+        จัดกลุ่มบิตละ <strong>3 บิต</strong> โดยเริ่มนับ <strong>แยกออกจากจุดทศนิยมเสมอ</strong>
+      </div>
+
+      <div class="formula-box">
+นำ B₁ = 1101.011₂ มาจัดกลุ่ม 3 บิต:
+หน้าจุด:  [001]   [101]   ➔  1   5
+หลังจุด:  .[011]          ➔  .3
+
+➔ O₂ = 15.3₈
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ O₂</span>
+        <strong><code>O₂ = 15.3₈</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q3 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q3" data-qno="ข้อที่ 3">
+    <div class="problem-header">
+      <div class="problem-title">การแปลงเลขฐานสองเป็นเลขฐานสิบหก (Binary ➔ Hexadecimal Fraction)</div>
+      <span class="chain-badge">Input: B₁ ➔ H₃</span>
+    </div>
+    <p><strong>โจทย์:</strong> ให้นำเลขฐานสอง <code>B₁</code> (จากข้อ 1) มาแปลงเป็น <strong>เลขฐานสิบหก (Hexadecimal: H₃)</strong></p>
+    
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-3" placeholder="เช่น D.6">
+        <button class="btn-check" onclick="checkQ(3, 'D.6', false)">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(3)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-3"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-3">
+      <div class="formula-box">
+นำ B₁ = 1101.011₂ มาจัดกลุ่มละ 4 บิตจากจุดทศนิยม:
+หน้าจุด:  [1101]          ➔  D    (13)
+หลังจุด:  .[0110]         ➔  .6   (เติม 0 ขวาสุดให้ครบ 4 บิต)
+
+➔ H₃ = D.6₁₆
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ H₃ สำหรับส่งต่อข้อ 4</span>
+        <strong><code>H₃ = D.6₁₆</code></strong> (ส่วนจำนวนเต็ม = D₁₆)
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q4 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q4" data-qno="ข้อที่ 4">
+    <div class="problem-header">
+      <div class="problem-title">การบวกเลขฐานสิบหกและวิวัฒนาการข้อมูล (Hexadecimal Addition)</div>
+      <span class="chain-badge">Input: D₁₆ + 1F₁₆ ➔ H₄</span>
+    </div>
+    <p><strong>โจทย์:</strong> ให้นำ <strong>ส่วนจำนวนเต็ม</strong> ของ <code>H₃</code> (คือ <code>D₁₆</code>) มาตั้งบวกกับค่าคงที่ฐานสิบหก <code>1F₁₆</code> (31₁₀):</p>
+    
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-4" placeholder="เช่น 2C">
+        <button class="btn-check" onclick="checkQ(4, '2C', false)">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(4)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-4"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-4">
+      <div class="formula-box">
+  ตั้งบวกฐานสิบหก (D₁₆ + 1F₁₆):
+    D ₁₆   (13₁₀)
+  + 1 F ₁₆   (31₁₀)
+  ────────
+    2 C ₁₆   (44₁₀)
+
+• หลักหน่วย: D(13) + F(15) = 28 ➔ 28 - 16 = 12 (C) ทด 1
+• หลักสิบหก: 1(ทด) + 0 + 1 = 2
+➔ H₄ = 2C₁₆
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ H₄ สำหรับส่งต่อข้อ 5</span>
+        <strong><code>H₄ = 2C₁₆</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q5 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q5" data-qno="ข้อที่ 5">
+    <div class="problem-header">
+      <div class="problem-title">การแปลงเลขฐานสิบหกเป็นเลขฐานสิบ (Hexadecimal ➔ Decimal)</div>
+      <span class="chain-badge">Input: H₄ ➔ D₅</span>
+    </div>
+    <p><strong>โจทย์:</strong> ให้นำเลขฐานสิบหก <code>H₄ = 2C₁₆</code> (จากข้อ 4) มาแปลงเป็น <strong>เลขฐานสิบ (D₅)</strong> โดยแสดงการกระจายตามค่าน้ำหนัก <code>16ⁱ</code></p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-5" placeholder="เช่น 44">
+        <button class="btn-check" onclick="checkQ(5, '44')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(5)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-5"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-5">
+      <div class="formula-box">
+กระจาย H₄ = 2C₁₆ ตามค่าน้ำหนัก 16ⁱ:
+(2 × 16¹) + (C × 16⁰)
+= (2 × 16) + (12 × 1)
+= 32 + 12 = 44₁₀
+
+➔ D₅ = 44₁₀
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ D₅ สำหรับส่งต่อข้อ 6 และ 7</span>
+        <strong><code>D₅ = 44₁₀</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q6 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q6" data-qno="ข้อที่ 6">
+    <div class="problem-header">
+      <div class="problem-title">การแปลงเลขฐานสิบเป็นรหัส BCD (Decimal ➔ BCD Code)</div>
+      <span class="chain-badge">Input: 44.75₁₀ ➔ BCD₆</span>
+    </div>
+    <p><strong>โจทย์:</strong> นำค่าฐานสิบ <code>D₅ = 44₁₀</code> มาต่อเศษทศนิยม <code>.75</code> ได้เป็น <code>44.75₁₀</code> จงแปลงเป็น <strong>รหัส BCD (8421 Code)</strong></p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-6" placeholder="เช่น 0100 0100.0111 0101">
+        <button class="btn-check" onclick="checkQ(6, '01000100.01110101')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(6)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-6"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-6">
+      <div class="formula-box">
+  4      4   .    7      5   (ฐานสิบ)
+0100   0100  .  0111   0101  (BCD 4 บิต)
+
+➔ BCD₆ = 0100 0100 . 0111 0101 (BCD)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ BCD₆ สำหรับส่งต่อข้อ 7</span>
+        <strong><code>BCD₆ = 0100 0100 . 0111 0101 (BCD)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q7 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q7" data-qno="ข้อที่ 7">
+    <div class="problem-header">
+      <div class="problem-title">การแปลงรหัส BCD เป็น Excess-3 และดึงค่าจำนวนเต็ม (BCD ➔ XS-3 & Integer Payload)</div>
+      <span class="chain-badge">Input: BCD₆ ➔ XS₇, B₇</span>
+    </div>
+    <p><strong>โจทย์:</strong></p>
+    <ul>
+      <li>7.1 แปลง <code>BCD₆</code> เป็น <strong>รหัส Excess-3 (XS₇)</strong> โดยบวก <code>0011₂</code> (+3) ในแต่ละหลัก 4 บิต</li>
+      <li>7.2 ดึงเฉพาะ <strong>ส่วนจำนวนเต็ม</strong> (44₁₀) เขียนเป็น <strong>เลขฐานสองขนาด 8 บิต (B₇)</strong> เพื่อเตรียมส่งต่อให้ข้อ 8</li>
+    </ul>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-7" placeholder="XS-3, B₇ (เช่น 0111 0111.1010 1000, 00101100)">
+        <button class="btn-check" onclick="checkQ(7, '01110111.10101000,00101100', true)">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(7)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-7"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-7">
+      <p><strong>7.1 แปลง BCD เป็น Excess-3 (บวก 0011₂ ทุกหลัก):</strong></p>
+      <div class="formula-box">
+• หลักสิบ (4):   0100₂ + 0011₂ = 0111₂  (ค่า 7)
+• หลักหน่วย (4): 0100₂ + 0011₂ = 0111₂  (ค่า 7)
+• ทศนิยม 1 (7):  0111₂ + 0011₂ = 1010₂  (ค่า 10)
+• ทศนิยม 2 (5):  0101₂ + 0011₂ = 1000₂  (ค่า 8)
+
+➔ XS₇ = 0111 0111 . 1010 1000 (XS-3)
+      </div>
+
+      <p><strong>7.2 วิธีคิดละเอียด: แปลงส่วนจำนวนเต็ม 44₁₀ เป็นเลขฐานสอง 8 บิต (B₇):</strong></p>
+      <div class="formula-box">
+วิธีที่ 1 : กระจายค่าน้ำหนักประจำตำแหน่ง 8 บิต
+  ค่าน้ำหนัก:  128   64   32   16    8    4    2    1
+  ค่า 44₁₀  :    0    0    1    0    1    1    0    0
+  (เพราะ 44 = 32 + 8 + 4 = 2⁵ + 2³ + 2²)
+  ➔ ได้ผลลัพธ์ B₇ = 00101100₂
+
+วิธีที่ 2 : วิธีหารสั้นด้วย 2
+  44 ÷ 2 = 22  เศษ 0  (LSB)
+  22 ÷ 2 = 11  เศษ 0
+  11 ÷ 2 =  5  เศษ 1
+   5 ÷ 2 =  2  เศษ 1
+   2 ÷ 2 =  1  เศษ 0
+   1 ÷ 2 =  0  เศษ 1  (MSB)
+  ➔ อ่านจากล่างขึ้นบนได้ 101100₂ เติม 0 ด้านหน้า 2 บิตเป็น 00101100₂
+
+(ตรวจสอบ: ถอดรหัสส่วนเต็ม Excess-3 '0111 0111' ลบ 3 จะได้ 0100 0100 = 44₁₀)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ B₇ สำหรับส่งต่อข้อ 8</span>
+        <strong><code>B₇ = 00101100₂ (44₁₀)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q8 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q8" data-qno="ข้อที่ 8">
+    <div class="problem-header">
+      <div class="problem-title">การบวกเลขฐานสองแบบไม่มีเครื่องหมาย (Unsigned Binary Addition)</div>
+      <span class="chain-badge">Input: B₇ + 53₁₀ ➔ SUM₈</span>
+    </div>
+    <p><strong>โจทย์:</strong> นำ <code>B₇ = 00101100₂</code> (44₁₀ จากข้อ 7.2) มาตั้งบวกกับ <code>00110101₂</code> (+53₁₀)</p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-8" placeholder="ผลบวก 8 บิต (เช่น 01100001 หรือ 97)">
+        <button class="btn-check" onclick="checkQ(8, '01100001')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(8)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-8"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-8">
+      <div class="formula-box">
+  แถวตัวทด:   0 0 1 1 0 0 0 0
+  ตัวตั้ง:     0 0 1 0 1 1 0 0 ₂   ( 44₁₀ จาก B₇ ในข้อ 7.2)
++ ตัวบวก:     0 0 1 1 0 1 0 1 ₂   ( 53₁₀)
+──────────────────────────────
+  ผลรวม:     0 1 1 0 0 0 0 1 ₂   ( 97₁₀ = 61₁₆)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ SUM₈ สำหรับส่งต่อข้อ 9</span>
+        <strong><code>SUM₈ = 01100001₂ = 97₁₀ (61₁₆)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q9 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q9" data-qno="ข้อที่ 9">
+    <div class="problem-header">
+      <div class="problem-title">การบวกเลขฐานแปดและสกัดค่าปรับเทียบ (Octal Base Addition & Offset K)</div>
+      <span class="chain-badge">Input: SUM₈ ➔ ADD_OCT₉, K</span>
+    </div>
+    <p><strong>โจทย์:</strong> นำ <code>SUM₈ = 97₁₀</code> (เขียนเป็นฐาน 8 คือ <code>141₈</code>):</p>
+    <ul>
+      <li>9.1 บวกฐานแปด: <code>141₈ + 236₈</code> ได้ผลลัพธ์เป็น <strong><code>ADD_OCT₉</code></strong></li>
+      <li>9.2 คำนวณค่าปรับเทียบขนาด: <code>K = SUM₈ - 43</code> (ฐานสิบ)</li>
+    </ul>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-9" placeholder="ฐาน 8, ค่า K (เช่น 377, 54)">
+        <button class="btn-check" onclick="checkQ(9, '377,54', true)">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(9)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-9"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-9">
+      <div class="formula-box">
+1. บวกฐานแปด (141₈ + 236₈):
+     1 4 1 ₈   ( 97₁₀)
+   + 2 3 6 ₈   (158₁₀)
+   ─────────
+     3 7 7 ₈   (255₁₀)
+
+2. ค่าปรับเทียบขนาด K:
+   K = 97 - 43 = 54₁₀ = 00110110₂ (36₁₆)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ค่าขนาด K สำหรับส่งต่อข้อ 10 ถึง 15</span>
+        <strong><code>K = 54₁₀ = 00110110₂ (36₁₆)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q10 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q10" data-qno="ข้อที่ 10">
+    <div class="problem-header">
+      <div class="problem-title">การแทนค่าในระบบ Sign and Magnitude (SAM ขนาด 8 บิต)</div>
+      <span class="chain-badge">Input: K = 54₁₀ ➔ SAM(±54)</span>
+    </div>
+    <p><strong>โจทย์:</strong> นำค่าขนาด <code>K = 54₁₀</code> (จากข้อ 9) มาเขียนในระบบ <strong>8-bit SAM</strong> ทั้งค่าบวก <code>+54₁₀</code> และค่าติดลบ <code>-54₁₀</code></p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-10" placeholder="SAM(+54), SAM(-54) (เช่น 00110110, 10110110)">
+        <button class="btn-check" onclick="checkQ(10, '00110110,10110110', true)">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(10)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-10"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-10">
+      <div class="formula-box">
+ขนาด 54 ในรูป 7 บิต = 0110110₂
+• SAM(+54): บิต MSB เป็น 0 ➔ 00110110₂ (36₁₆)
+• SAM(-54): บิต MSB เป็น 1 ➔ 10110110₂ (B6₁₆)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 สรุปคำตอบสุดท้าย</span>
+        SAM(+54) = <strong><code>00110110₂</code></strong> | SAM(-54) = <strong><code>10110110₂</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q11 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q11" data-qno="ข้อที่ 11">
+    <div class="problem-header">
+      <div class="problem-title">การหาค่า 1's Complement ขนาด 8 บิต (1's Complement)</div>
+      <span class="chain-badge">Input: -54₁₀ ➔ S_1comp</span>
+    </div>
+    <p><strong>โจทย์:</strong> จงหาค่า <strong>1's Complement ขนาด 8 บิต</strong> ของค่าติดลบ <code>-54₁₀</code> (สลับบิตของ <code>+54₁₀ = 00110110₂</code>)</p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-11" placeholder="เช่น 11001001">
+        <button class="btn-check" onclick="checkQ(11, '11001001')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(11)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-11"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-11">
+      <div class="formula-box">
++54₁₀      = 0 0 1 1   0 1 1 0 ₂
+สลับบิต ➔    1 1 0 0   1 0 0 1 ₂ (C9₁₆)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ค่า S_1comp สำหรับส่งต่อข้อ 12 และ 13</span>
+        <strong><code>S_1comp = 11001001₂ (C9₁₆)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q12 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q12" data-qno="ข้อที่ 12">
+    <div class="problem-header">
+      <div class="problem-title">การหาค่า 2's Complement ขนาด 8 บิต (2's Complement)</div>
+      <span class="chain-badge">Input: S_1comp ➔ S_2comp</span>
+    </div>
+    <p><strong>โจทย์:</strong> จงหาค่า <strong>2's Complement ขนาด 8 บิต</strong> ของค่าติดลบ <code>-54₁₀</code> (นำ `S_1comp` มาบวก 1)</p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-12" placeholder="เช่น 11001010">
+        <button class="btn-check" onclick="checkQ(12, '11001010')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(12)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-12"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-12">
+      <div class="formula-box">
+  1 1 0 0   1 0 0 1 ₂   (1's Comp)
++ 0 0 0 0   0 0 0 1 ₂
+─────────────────────
+  1 1 0 0   1 0 1 0 ₂   (CA₁₆)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ค่า S_2comp สำหรับส่งต่อข้อ 14</span>
+        <strong><code>S_2comp = 11001010₂ (CA₁₆)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q13 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q13" data-qno="ข้อที่ 13">
+    <div class="problem-header">
+      <div class="problem-title">การลบด้วย 1's Complement กรณีผลลัพธ์เป็นบวก (End-Around Carry)</div>
+      <span class="chain-badge">Input: 80 - 54 ➔ RES₁₃</span>
+    </div>
+    <p><strong>โจทย์:</strong> คำนวณ <code>(+80₁₀) - (+54₁₀)</code> ด้วย 1's Complement 8 บิต (กำหนด <code>+80 = 01010000₂</code>, <code>-54 = 11001001₂</code>)</p>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-13" placeholder="ผลลัพธ์ฐานสอง (เช่น 00011010)">
+        <button class="btn-check" onclick="checkQ(13, '00011010')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(13)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-13"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-13">
+      <div class="formula-box">
+ตัวตั้ง:      0 1 0 1   0 0 0 0 ₂   (+80₁₀)
++ 1's(-54):  1 1 0 0   1 0 0 1 ₂   (S_1comp จากข้อ 11)
+─────────────────────────────────
+            (1) 0 0 0 1   1 0 0 1 ₂   ➔ เกิด End Carry = 1
+
+วนตัวทดกลับมาบวก (End-Around Carry):
+    0 0 0 1   1 0 0 1 ₂
+  + 0 0 0 0   0 0 0 1 ₂
+  ─────────────────────
+    0 0 0 1   1 0 1 0 ₂   ➔ +26₁₀ (80 - 54 = 26 ถูกต้อง!)
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 ผลลัพธ์ RES₁₃ สำหรับส่งต่อข้อ 14</span>
+        <strong><code>RES₁₃ = 00011010₂ = +26₁₀</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q14 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q14" data-qno="ข้อที่ 14">
+    <div class="problem-header">
+      <div class="problem-title">การลบด้วย 2's Complement ทั้งสองทิศทาง (2's Complement Subtraction)</div>
+      <span class="chain-badge">Input: 80 - 54 & 26 - 80</span>
+    </div>
+    <p><strong>โจทย์:</strong> คำนวณในระบบ 2's Complement 8 บิต:</p>
+    <ul>
+      <li>14.1 <code>80₁₀ - 54₁₀</code> (ใช้ <code>S_2comp</code> จากข้อ 12)</li>
+      <li>14.2 <code>26₁₀ - 80₁₀</code> (ใช้ <code>RES₁₃</code> จากข้อ 13)</li>
+    </ul>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-14" placeholder="ข้อ 14.1 และ 14.2 ฐานสอง (เช่น 00011010, 11001010)">
+        <button class="btn-check" onclick="checkQ(14, '00011010,11001010', true)">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(14)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-14"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-14">
+      <p><strong>14.1 คำนวณ 80 - 54:</strong></p>
+      <div class="formula-box">
+  0 1 0 1   0 0 0 0 ₂   (+80)
++ 1 1 0 0   1 0 1 0 ₂   (S_2comp ของ 54 จากข้อ 12)
+─────────────────────
+(1) 0 0 0 1   1 0 1 0 ₂   ➔ ตัด Carry 1 ทิ้ง ➔ ตอบ 00011010₂ (+26₁₀)
+      </div>
+
+      <p><strong>14.2 คำนวณ 26 - 80:</strong></p>
+      <div class="formula-box">
+  0 0 0 1   1 0 1 0 ₂   (+26 จาก RES₁₃)
++ 1 0 1 1   0 0 0 0 ₂   (2's Comp ของ 80)
+─────────────────────
+(0) 1 1 0 0   1 0 1 0 ₂   ➔ Carry 0 (ผลลบ)
+• 2's Comp ย้อนกลับ: สลับบิตได้ 00110101 + 1 = 00110110₂ (54) ➔ ตอบ -54₁₀
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 สรุปคำตอบสุดท้าย</span>
+        14.1 = <strong><code>00011010₂ (+26₁₀)</code></strong> | 14.2 = <strong><code>11001010₂ (-54₁₀)</code></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Q15 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="problem-box" id="q15" data-qno="ข้อที่ 15">
+    <div class="problem-header">
+      <div class="problem-title">การวิเคราะห์สภาวะ Overflow ในระบบ 2's Complement 8 บิต</div>
+      <span class="chain-badge">Final ➔ Overflow Analysis</span>
+    </div>
+    <p><strong>โจทย์:</strong> ตรวจสอบว่าเกิดสภาวะ <strong>Overflow (เลขล้น)</strong> หรือไม่:</p>
+    <ul>
+      <li>15.1 <code>(+80₁₀) + (+54₁₀)</code></li>
+      <li>15.2 <code>(-80₁₀) + (-54₁₀)</code></li>
+    </ul>
+
+    <div class="interactive-panel">
+      <div class="input-row">
+        <input type="text" id="ans-15" placeholder="เช่น ใช่, ใช่ หรือ true, true">
+        <button class="btn-check" onclick="checkQ(15, 'yes,yes')">ตรวจคำตอบ</button>
+        <button class="btn-toggle-sol" onclick="toggleSol(15)">📖 ดูเฉลยและวิธีทำ</button>
+        <span class="feedback-tag" id="fb-15"></span>
+      </div>
+    </div>
+
+    <div class="solution-details" id="sol-15">
+      <div class="callout c-warn">
+        <span class="lab">⚠️ กฎการเกิด Overflow (ช่วง 8 บิต [-128 ถึง +127])</span>
+        <ul>
+          <li><strong>(บวก) + (บวก) ➔ ผลลัพธ์เป็นลบ (MSB = 1)</strong> ➔ <em>เกิด Overflow!</em></li>
+          <li><strong>(ลบ) + (ลบ) ➔ ผลลัพธ์เป็นบวก (MSB = 0)</strong> ➔ <em>เกิด Overflow!</em></li>
+          <li><strong>สูตร Logic:</strong> <code>Overflow (V) = C_in(MSB) ⊕ C_out(MSB)</code></li>
+        </ul>
+      </div>
+
+      <p><strong>15.1 บวก (+80) + (+54):</strong></p>
+      <div class="formula-box">
+  0 1 0 1   0 0 0 0 ₂   (+80)
++ 0 0 1 1   0 1 1 0 ₂   (+54)
+─────────────────────
+  1 0 0 0   0 1 1 0 ₂   ➔ MSB เป็น 1 (กลายเป็นลบ!)
+• ค่าจริง: 80 + 54 = 134 > +127 (เกินขอบเขต 8 บิต)
+• C_in = 1, C_out = 0 ➔ V = 1 ⊕ 0 = 1 ➔ เกิด Overflow!
+      </div>
+
+      <p><strong>15.2 บวก (-80) + (-54):</strong></p>
+      <div class="formula-box">
+  1 0 1 1   0 0 0 0 ₂   (-80 ในรูป 2's Comp)
++ 1 1 0 0   1 0 1 0 ₂   (-54 ในรูป 2's Comp)
+─────────────────────
+(1) 0 1 1 1   1 0 1 0 ₂   ➔ MSB เป็น 0 (กลายเป็นบวก!)
+• ค่าจริง: -80 + (-54) = -134 < -128 (ต่ำกว่าขอบเขตล่าง)
+• C_in = 0, C_out = 1 ➔ V = 0 ⊕ 1 = 1 ➔ เกิด Overflow!
+      </div>
+
+      <div class="callout c-tip">
+        <span class="lab">🎯 สรุปคำตอบสุดท้าย</span>
+        ทั้ง 15.1 และ 15.2 <strong>เกิดสภาวะ Overflow ทั้งคู่ (V = 1)</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top FAB -->
+  <a href="#top" class="top-fab">⬆️ กลับสู่สารบัญ</a>
+
+</div>
+
+<script>
+function clean(s) {
+  return (s || '').replace(/\s+/g, '').replace(/,/g, '').toLowerCase()
+    .replace(/ใช่/g, 'yes').replace(/true/g, 'yes').replace(/ไม่/g, 'no').replace(/false/g, 'no');
+}
+
+function checkQ(qno, correctKey, isMulti) {
+  const inputEl = document.getElementById(`ans-${qno}`);
+  const fbEl = document.getElementById(`fb-${qno}`);
+  const userVal = clean(inputEl.value);
+  const targetVal = clean(correctKey);
+
+  let isMatch = false;
+  if (isMulti) {
+    const uParts = userVal.split(/[,&]/);
+    const tParts = targetVal.split(/[,&]/);
+    isMatch = (userVal === targetVal) || (tParts.every(tp => userVal.includes(tp)));
+  } else {
+    isMatch = (userVal === targetVal) || userVal.includes(targetVal);
+  }
+
+  if (isMatch) {
+    fbEl.className = 'feedback-tag correct';
+    fbEl.innerHTML = '🎉 ถูกต้องสมบูรณ์!';
+  } else {
+    fbEl.className = 'feedback-tag incorrect';
+    fbEl.innerHTML = '❌ ยังไม่ตรง ลองกดดูเฉลย';
+  }
+}
+
+function toggleSol(qno) {
+  const solEl = document.getElementById(`sol-${qno}`);
+  solEl.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>เฉลยละเอียด — ข้อสอบบทที่ 2 ข้อที่ 2 (4-Stage 2-Input Gate Combinational Network) · 305241 Digital Logic</title>
+<style>
+/* ═══════════ พื้นฐานแบบหนังสือเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --purple-bg: #F5F3FF;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 36px 30px 90px;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัว ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+.course-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 22px;
+  font-size: .86rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 2px 14px;
+  white-space: nowrap;
+  font-weight: 700;
+  background: #FFFFFF;
+}
+
+h1.book-title {
+  font-size: 2.10rem;
+  line-height: 1.35;
+  margin: 14px 0 8px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+/* ═══════════ กล่องโจทย์ ═══════════ */
+.problem-box {
+  border: 2.5px solid var(--ink);
+  background: #FFFFFF;
+  padding: 24px 28px;
+  margin: 28px 0 16px;
+  position: relative;
+  box-shadow: 6px 6px 0 var(--paper2);
+  border-radius: 6px;
+}
+
+.problem-box::before {
+  content: "โจทย์ข้อสอบจริง (EXAM PROBLEM 02 — 2-INPUT MULTI-GATE NETWORK)";
+  position: absolute;
+  top: -14px;
+  left: 22px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: .82rem;
+  padding: 2px 16px;
+  letter-spacing: .08em;
+  border-radius: 4px;
+}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc {
+  border: 1.5px solid var(--rule);
+  background: #FFFDF7;
+  border-radius: 8px;
+  padding: 20px 28px;
+  margin: 28px 0;
+  columns: 2;
+  column-gap: 40px;
+}
+
+nav.toc .toc-head {
+  column-span: all;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 6px;
+  color: var(--accent);
+}
+
+nav.toc a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 4px 0;
+  break-inside: avoid;
+  font-size: .95rem;
+}
+
+nav.toc a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+nav.toc .no {
+  display: inline-block;
+  width: 2.2em;
+  color: var(--accent2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════ หัวข้อหลักและเนื้อหา ═══════════ */
+section {
+  margin-top: 58px;
+  scroll-margin-top: 24px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 22px;
+}
+
+.sec-no {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin: 24px 0 10px;
+  font-weight: 750;
+  color: var(--ink);
+}
+
+p {
+  margin: 12px 0;
+  text-align: justify;
+}
+
+/* ═══════════ รูปภาพและกรอบ ═══════════ */
+figure.textbook {
+  margin: 28px 0;
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .04);
+}
+
+figure.textbook .frame {
+  background: #FFFFFF;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-in;
+}
+
+figure.textbook img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .2s ease;
+}
+
+figure.textbook img:hover {
+  transform: scale(1.01);
+}
+
+figcaption {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--rule);
+  font-size: .92rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+figcaption .fno {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.zoom-hint {
+  font-size: .80rem;
+  color: var(--accent);
+  text-align: center;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* ═══════════ กล่องข้อความไฮไลท์ ═══════════ */
+.callout {
+  border-left: 4px solid var(--accent);
+  background: var(--paper2);
+  padding: 14px 20px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.callout.c-key {
+  border-left-color: var(--accent);
+  background: var(--blue-bg);
+}
+
+.callout.c-tip {
+  border-left-color: var(--green);
+  background: var(--green-bg);
+}
+
+.callout.c-warn {
+  border-left-color: var(--accent2);
+  background: var(--amber-bg);
+}
+
+.callout .lab {
+  font-weight: 800;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+/* ═══════════ สมการและสัญลักษณ์ ═══════════ */
+.formula {
+  background: #FFFFFF;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin: 18px 0;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
+  font-size: 1.05rem;
+  overflow-x: auto;
+  line-height: 1.7;
+}
+
+.formula.big {
+  font-size: 1.18rem;
+  text-align: center;
+  border-left: 5px solid var(--accent);
+  background: #FFFDF9;
+}
+
+.math-chip {
+  display: inline-block;
+  background: #FFFFFF;
+  border: 1px solid var(--rule);
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
+  font-size: .92em;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ═══════════ ตารางวิชาการ ═══════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  background: #FFFFFF;
+}
+
+table.tb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .90rem;
+  text-align: center;
+}
+
+table.tb th {
+  background: var(--paper2);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 10px 8px;
+  border-bottom: 2px solid var(--ink);
+  border-right: 1px solid var(--rule);
+}
+
+table.tb td {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  font-variant-numeric: tabular-nums;
+}
+
+table.tb tr:nth-child(even) {
+  background: #FAF8F5;
+}
+
+table.tb tr:hover {
+  background: #EFF6FF;
+}
+
+table.tb td.hl-1 {
+  background: #DCFCE7;
+  color: #166534;
+  font-weight: 700;
+}
+
+table.tb td.hl-0 {
+  background: #FEE2E2;
+  color: #991B1B;
+  font-weight: 700;
+}
+
+/* ═══════════ ตัวจำลองวงจร Interactive Switch Simulator ═══════════ */
+.sim-box {
+  background: #FFFFFF;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin: 28px 0;
+  box-shadow: 0 4px 16px rgba(30, 64, 175, .08);
+}
+
+.sim-box .sim-head {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--accent);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.switch-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.switch-card {
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.switch-card label {
+  display: block;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.switch-card .toggle-btn {
+  width: 100%;
+  padding: 6px 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: 6px;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  background: #FFFFFF;
+  color: var(--ink);
+  transition: all .15s ease;
+}
+
+.switch-card .toggle-btn.active {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.signal-flow-card {
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: .92rem;
+  line-height: 1.9;
+}
+
+.signal-flow-card .badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin: 0 3px;
+}
+
+.badge.b-1 { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+.badge.b-0 { background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; }
+
+.final-pill {
+  font-size: 1.25rem;
+  font-weight: 900;
+  padding: 6px 20px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.final-pill.p-1 { background: #16A34A; color: #FFFFFF; }
+.final-pill.p-0 { background: #DC2626; color: #FFFFFF; }
+
+/* ตัวกรองตาราง */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--ink);
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: .90rem;
+  transition: all .15s ease;
+}
+
+.filter-btn:hover {
+  background: var(--paper2);
+}
+
+.filter-btn.active {
+  background: var(--ink);
+  color: #FFFFFF;
+}
+
+/* การ์ดจับกลุ่ม K-Map */
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.group-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.03);
+}
+
+.group-card.sop { border-top: 4px solid var(--green); }
+.group-card.pos { border-top: 4px solid var(--red); }
+
+.group-card .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.group-card .term {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 4px 0 8px;
+}
+
+.group-card.sop .term { background: var(--green-bg); color: var(--green); }
+.group-card.pos .term { background: var(--red-bg); color: var(--red); }
+
+/* Step-by-Step Proof Cards */
+.step-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 14px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.03);
+}
+
+.step-card .step-title {
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step-card .step-law {
+  background: var(--paper2);
+  color: var(--ink);
+  font-size: .80rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+.step-card .step-expr {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 6px 0;
+  color: var(--ink);
+}
+
+/* Modal ซูมรูป */
+#imgModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, .92);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#imgModal img {
+  max-width: 95%;
+  max-height: 92%;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+  background: #FFFFFF;
+  padding: 8px;
+}
+
+#imgModal .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #FFFFFF;
+  font-size: 36px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+footer {
+  margin-top: 70px;
+  border-top: 2px solid var(--ink);
+  padding-top: 24px;
+  font-size: .90rem;
+  color: var(--ink-soft);
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- แถบนำทาง -->
+  <div class="breadcrumb">
+    <a href="../../../index.html">หน้าหลักวิชา 305241</a>
+    <span class="sep">/</span>
+    <a href="../../README.md">บทที่ 2 (Logic Functions)</a>
+    <span class="sep">/</span>
+    <a href="../index.html">คลังข้อสอบ 2569</a>
+    <span class="sep">/</span>
+    <span>ข้อที่ 2 (4-Stage 2-Input Gate Combinational Network)</span>
+  </div>
+
+  <header>
+    <div class="course-line">
+      <span>วิชา 305241 การออกแบบวงจรดิจิตอล · มหาวิทยาลัยนเรศวร</span>
+      <span class="chip">EXAM 2569 · QUESTION 02</span>
+    </div>
+
+    <h1 class="book-title">การวิเคราะห์ วาดวงจรเกตผสมแบบ 2 อินพุต และลดรูปด้วย K-Map 8×4</h1>
+    <div class="subtitle">
+      การวิเคราะห์วงจรเชิงผสม 5 ตัวแปร (A, B, C, D, E) 4 ภาคสัญญาณที่กำหนดให้เกตทุกตัวรับอินพุตไม่เกิน 2 ขา (Strict Max 2-Input Gates: 74HC04 Inverter, 74HC86 XOR, 74HC00 NAND, 74HC02 NOR, 74HC08 AND, 74HC32 OR), ตารางความจริง 32 กรณี, แผนผังคาร์โนต์ 8×4 (SOP & POS การจับกลุ่มวนขอบ Wraparound), การพิสูจน์บูลีนทีละขั้นตอน และการสังเคราะห์วงจรฮาร์ดแวร์จริง
+    </div>
+  </header>
+
+  <!-- กล่องโจทย์ข้อสอบ -->
+  <div class="problem-box">
+    <p><strong>กำหนดวงจรตรรกศาสตร์ดิจิทัลแบบ 5 ตัวแปรอินพุต (A, B, C, D, E)</strong> ซึ่งออกแบบตามมาตรฐานข้อสอบจริง โดยกำหนดให้<strong>ลอจิกเกตทุกตัวในวงจรมีอินพุตไม่เกิน 2 อินพุต (Strict Max 2-Input per Gate)</strong> ต่อเรียงกันเป็นโครงข่าย 4 ภาคสัญญาณ (4-Stage Combinational Network) ประกอบด้วยไอซีมาตรฐาน 74HC04, 74HC86, 74HC00, 74HC02, 74HC08 และ 74HC32</p>
+    <p>โดยมีสมการประจำจุดทดสอบสัญญาณ (Test Points) ในแต่ละภาคดังนี้:</p>
+    <ul style="margin:6px 0 10px 24px; line-height: 1.75;">
+      <li><strong>Stage 1 (Pre-Logic):</strong> <span class="math-chip">W₁ = B ⊕ D</span> (74HC86 XOR), <span class="math-chip">W₂ = (A · C)'</span> (74HC00 NAND), <span class="math-chip">W₃ = (B + E)'</span> (74HC02 NOR)</li>
+      <li><strong>Stage 2 (Product Terms):</strong> <span class="math-chip">W₄ = A' · W₁ = A' · (B ⊕ D)</span> (74HC08 AND1), <span class="math-chip">W₅ = C · W₂ = A' · C</span> (74HC08 AND2), <span class="math-chip">W₆ = W₃ · D' = B' · D' · E'</span> (74HC08 AND3), <span class="math-chip">W₇ = A · D</span> (74HC08 AND4)</li>
+      <li><strong>Stage 3 (Sub-Sums):</strong> <span class="math-chip">W₈ = W₄ + W₅ = A'·(B ⊕ D) + A'·C</span> (74HC32 OR1), <span class="math-chip">W₉ = W₆ + W₇ = B'·D'·E' + A·D</span> (74HC32 OR2)</li>
+      <li><strong>Stage 4 (Collector Output):</strong> <span class="math-chip">F = W₈ + W₉ = A'·(B ⊕ D) + A'·C + B'·D'·E' + A·D</span> (74HC32 OR3)</li>
+    </ul>
+    <div class="callout c-key" style="margin: 14px 0 4px;">
+      <span class="lab">คำสั่งข้อสอบ:</span>
+      1. จงสร้างตารางความจริง 32 กรณี พร้อมระบุค่าที่จุดทดสอบ W₁ ถึง W₉ และแจกแจง Minterms (F=1) และ Maxterms (F=0)<br>
+      2. จงลดรูปสมการด้วย <strong>K-Map 8×4 (แนวตั้ง ABC 8 แถว และแนวนอน DE 4 คอลัมน์)</strong> ทั้งแบบ <strong>SOP (จับกลุ่ม 1)</strong> และ <strong>POS (จับกลุ่ม 0)</strong><br>
+      3. จงแสดงการพิสูจน์ลดรูปด้วยพีชคณิตบูลีนทีละขั้นตอน และวาดวงจรลดรูปพร้อมเปรียบเทียบประสิทธิภาพทางฮาร์ดแวร์
+    </div>
+  </div>
+
+  <!-- สารบัญนำทาง -->
+  <nav class="toc">
+    <div class="toc-head">สารบัญการเฉลยและหัวข้อศึกษา</div>
+    <a href="#sec1"><span class="no">1.</span> วงจรต้นฉบับและการแจกแจงเกต 2 อินพุต (Original Circuit)</a>
+    <a href="#sec2"><span class="no">2.</span> ตารางความจริง 32 กรณี & จุดทดสอบ W₁..W₉</a>
+    <a href="#sec3"><span class="no">3.</span> การลดรูปด้วย K-Map 8×4 แบบ SOP (Grouping 1s)</a>
+    <a href="#sec4"><span class="no">4.</span> การลดรูปด้วย K-Map 8×4 แบบ POS (Grouping 0s)</a>
+    <a href="#sec5"><span class="no">5.</span> การพิสูจน์ลดรูปด้วยพีชคณิตบูลีนทีละขั้นตอน (Boolean Proof)</a>
+    <a href="#sec6"><span class="no">6.</span> การสังเคราะห์วงจรและเปรียบเทียบฮาร์ดแวร์ (Benchmark)</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 1. วงจรต้นฉบับและการแจกแจงเกต 2 อินพุต -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="sec1">
+    <div class="sec-head">
+      <div class="sec-no">1</div>
+      <div>
+        <h2>วงจรต้นฉบับและการแจกแจงเกต 2 อินพุต (Original Circuit Analysis)</h2>
+        <div style="font-size:.9rem; color:var(--ink-soft);">โครงสร้างวงจร 4 ภาคสัญญาณ ไร้เส้นทับซ้อน เกตหลากหลาย และการเชื่อมต่อสมมาตรสมบูรณ์</div>
+      </div>
+    </div>
+
+    <p>โครงสร้างของวงจรเชิงผสมต้นฉบับแบ่งออกเป็น 4 ภาคสัญญาณอย่างเป็นระเบียบจากซ้ายไปขวา โดยเกตทุกตัวรับอินพุตไม่เกิน 2 ขา (Strict Max 2-Input):</p>
+    <ol style="line-height: 1.85;">
+      <li><strong>ภาคที่ 1: Pre-Logic Stage</strong>
+        <ul>
+          <li>74HC04 (Hex Inverter): สร้างสัญญาณกลับเฟส <span class="math-chip">A'</span>, <span class="math-chip">D'</span></li>
+          <li>74HC86 (2-Input XOR): สร้างสัญญาณ <span class="math-chip">W₁ = B ⊕ D = B'·D + B·D'</span></li>
+          <li>74HC00 (2-Input NAND): สร้างสัญญาณ <span class="math-chip">W₂ = (A · C)' = A' + C'</span></li>
+          <li>74HC02 (2-Input NOR): สร้างสัญญาณ <span class="math-chip">W₃ = (B + E)' = B' · E'</span></li>
+        </ul>
+      </li>
+      <li><strong>ภาคที่ 2: Product Term Stage (4 2-Input ANDs, 74HC08)</strong>
+        <ul>
+          <li>AND1 (74HC08): <span class="math-chip">W₄ = A' · W₁ = A' · (B ⊕ D) = A'·B'·D + A'·B·D'</span></li>
+          <li>AND2 (74HC08): <span class="math-chip">W₅ = C · W₂ = C · (A' + C') = A' · C</span></li>
+          <li>AND3 (74HC08): <span class="math-chip">W₆ = W₃ · D' = B' · D' · E'</span></li>
+          <li>AND4 (74HC08): <span class="math-chip">W₇ = A · D</span></li>
+        </ul>
+      </li>
+      <li><strong>ภาคที่ 3: Sub-Sum Stage (2 2-Input ORs, 74HC32)</strong>
+        <ul>
+          <li>OR1 (74HC32): <span class="math-chip">W₈ = W₄ + W₅ = A'·(B ⊕ D) + A'·C</span></li>
+          <li>OR2 (74HC32): <span class="math-chip">W₉ = W₆ + W₇ = B'·D'·E' + A·D</span></li>
+        </ul>
+      </li>
+      <li><strong>ภาคที่ 4: Collector Output Stage (1 2-Input OR, 74HC32)</strong>
+        <ul>
+          <li>OR3 (74HC32): <span class="math-chip">F = W₈ + W₉ = A'·(B ⊕ D) + A'·C + B'·D'·E' + A·D</span></li>
+        </ul>
+      </li>
+    </ol>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/digital_logic_circuit_redrawn.png" alt="วงจรตรรกศาสตร์ต้นฉบับ 2 อินพุต 4 ภาคสัญญาณ ข้อ 2" onclick="openModal(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปที่ 1.1</span> แผนภาพวงจรตรรกศาสตร์ต้นฉบับแบบ 4 ภาคสัญญาณ (คลิกที่รูปเพื่อขยายความละเอียดสูง 300 DPI)
+      </figcaption>
+      <div class="zoom-hint">🔍 บัสสัญญาณ 5 รางแยกสีอิสระ เส้นเชื่อมต่อเป็นมุมฉาก ไม่มีเส้นทับซ้อนหรือขาดตอน</div>
+    </figure>
+
+    <!-- ตัวจำลองวงจร Interactive Switch Simulator -->
+    <div class="sim-box">
+      <div class="sim-head">
+        <span>⚡ ตัวจำลองวงจรดิจิทัลสด (Interactive 5-Input Live Circuit Simulator)</span>
+      </div>
+      <p style="font-size:.9rem; color:var(--ink-soft); margin-top:0;">คลิกสลับสวิตช์อินพุต <code>A, B, C, D, E</code> เพื่อดูการคำนวณระดับแรงดันลอจิกประจำจุดทดสอบ <code>W₁..W₉</code> และเอาต์พุต <code>F</code> แบบเรียลไทม์:</p>
+      
+      <div class="switch-grid">
+        <div class="switch-card">
+          <label style="color:#DC2626;">A</label>
+          <button class="toggle-btn" id="btnA" onclick="toggleInput('A')">0</button>
+        </div>
+        <div class="switch-card">
+          <label style="color:#2563EB;">B</label>
+          <button class="toggle-btn" id="btnB" onclick="toggleInput('B')">0</button>
+        </div>
+        <div class="switch-card">
+          <label style="color:#16A34A;">C</label>
+          <button class="toggle-btn" id="btnC" onclick="toggleInput('C')">0</button>
+        </div>
+        <div class="switch-card">
+          <label style="color:#9333EA;">D</label>
+          <button class="toggle-btn" id="btnD" onclick="toggleInput('D')">0</button>
+        </div>
+        <div class="switch-card">
+          <label style="color:#D97706;">E</label>
+          <button class="toggle-btn" id="btnE" onclick="toggleInput('E')">0</button>
+        </div>
+      </div>
+
+      <div class="signal-flow-card">
+        <div><strong>สัญญาณกลับเฟส (Inverters):</strong> A' = <span class="badge b-1" id="valNotA">1</span>, D' = <span class="badge b-1" id="valNotD">1</span></div>
+        <div><strong>Stage 1 (Pre-Logic):</strong> W₁ = B ⊕ D = <span class="badge b-0" id="valW1">0</span> | W₂ = (A·C)' = <span class="badge b-1" id="valW2">1</span> | W₃ = (B+E)' = <span class="badge b-1" id="valW3">1</span></div>
+        <div><strong>Stage 2 (Product Terms):</strong> W₄ = A'·W₁ = <span class="badge b-0" id="valW4">0</span> | W₅ = C·W₂ = <span class="badge b-0" id="valW5">0</span> | W₆ = W₃·D' = <span class="badge b-1" id="valW6">1</span> | W₇ = A·D = <span class="badge b-0" id="valW7">0</span></div>
+        <div><strong>Stage 3 (Sub-Sums):</strong> W₈ = W₄ + W₅ = <span class="badge b-0" id="valW8">0</span> | W₉ = W₆ + W₇ = <span class="badge b-1" id="valW9">1</span></div>
+        <div style="margin-top:8px; border-top:1px dashed #CBD5E1; padding-top:8px;">
+          <strong>Stage 4 เอาต์พุตรวม:</strong> F = W₈ + W₉ = <span class="final-pill p-1" id="valF">F = 1</span>
+          &nbsp;&nbsp;<span>(มินเทอมปัจจุบัน: <span id="valMinterm" style="font-weight:700; color:var(--accent);">m₀</span>)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางแจกแจงโครงสร้างเกตและไอซีประจำวงจรต้นฉบับ (Strict Max 2-Input Gates)</caption>
+        <thead>
+          <tr>
+            <th>รหัสเกต</th>
+            <th>ประเภทเกต</th>
+            <th>ไอซีมาตรฐาน</th>
+            <th>อินพุตที่เชื่อมต่อ</th>
+            <th>สมการเอาต์พุตประจำจุดทดสอบ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>NOT 1-2</strong></td>
+            <td>Inverter (x2)</td>
+            <td>74HC04 (Hex Inverter)</td>
+            <td>A, D</td>
+            <td><code>A', D'</code></td>
+          </tr>
+          <tr>
+            <td><strong>XOR</strong></td>
+            <td>2-Input XOR</td>
+            <td>74HC86 (Quad 2-In XOR)</td>
+            <td>B, D</td>
+            <td><code>W₁ = B ⊕ D = B'·D + B·D'</code></td>
+          </tr>
+          <tr>
+            <td><strong>NAND</strong></td>
+            <td>2-Input NAND</td>
+            <td>74HC00 (Quad 2-In NAND)</td>
+            <td>A, C</td>
+            <td><code>W₂ = (A · C)' = A' + C'</code></td>
+          </tr>
+          <tr>
+            <td><strong>NOR</strong></td>
+            <td>2-Input NOR</td>
+            <td>74HC02 (Quad 2-In NOR)</td>
+            <td>B, E</td>
+            <td><code>W₃ = (B + E)' = B' · E'</code></td>
+          </tr>
+          <tr>
+            <td><strong>AND1</strong></td>
+            <td>2-Input AND</td>
+            <td>74HC08 (Quad 2-In AND)</td>
+            <td>A', W₁</td>
+            <td><code>W₄ = A' · (B ⊕ D) = A'·B'·D + A'·B·D'</code></td>
+          </tr>
+          <tr>
+            <td><strong>AND2</strong></td>
+            <td>2-Input AND</td>
+            <td>74HC08 (Quad 2-In AND)</td>
+            <td>C, W₂</td>
+            <td><code>W₅ = C · (A·C)' = A' · C</code></td>
+          </tr>
+          <tr>
+            <td><strong>AND3</strong></td>
+            <td>2-Input AND</td>
+            <td>74HC08 (Quad 2-In AND)</td>
+            <td>W₃, D'</td>
+            <td><code>W₆ = (B+E)' · D' = B' · D' · E'</code></td>
+          </tr>
+          <tr>
+            <td><strong>AND4</strong></td>
+            <td>2-Input AND</td>
+            <td>74HC08 (Quad 2-In AND)</td>
+            <td>A, D</td>
+            <td><code>W₇ = A · D</code></td>
+          </tr>
+          <tr>
+            <td><strong>OR1</strong></td>
+            <td>2-Input OR</td>
+            <td>74HC32 (Quad 2-In OR)</td>
+            <td>W₄, W₅</td>
+            <td><code>W₈ = W₄ + W₅ = A'·(B ⊕ D) + A'·C</code></td>
+          </tr>
+          <tr>
+            <td><strong>OR2</strong></td>
+            <td>2-Input OR</td>
+            <td>74HC32 (Quad 2-In OR)</td>
+            <td>W₆, W₇</td>
+            <td><code>W₉ = W₆ + W₇ = B'·D'·E' + A·D</code></td>
+          </tr>
+          <tr style="background:#F0FDF4; font-weight:700;">
+            <td><strong>OR3</strong></td>
+            <td>2-Input OR</td>
+            <td>74HC32 (Quad 2-In OR)</td>
+            <td>W₈, W₉</td>
+            <td><code>F = W₈ + W₉ = A'·(B ⊕ D) + A'·C + B'·D'·E' + A·D</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 2. ตารางความจริง 32 กรณี -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="sec2">
+    <div class="sec-head">
+      <div class="sec-no">2</div>
+      <div>
+        <h2>ตารางความจริง 32 กรณี และจุดทดสอบ W₁ ถึง W₉</h2>
+        <div style="font-size:.9rem; color:var(--ink-soft);">คำนวณค่าลอจิกประจำจุดทดสอบทั้ง 32 รูปแบบ (m₀ ถึง m₃₁)</div>
+      </div>
+    </div>
+
+    <p>ตารางความจริงแสดงค่าอินพุตและสัญญาณทดสอบย่อย <code>W₁, W₂, W₃, W₄, W₅, W₆, W₇, W₈, W₉</code> และเอาต์พุต <code>F</code> ครบทั้ง 32 แถว:</p>
+
+    <div class="filter-bar">
+      <span>ตัวกรองการแสดงผล:</span>
+      <button class="filter-btn active" onclick="filterTable('all')">แสดงครบทั้งหมด 32 กรณี</button>
+      <button class="filter-btn" onclick="filterTable('minterm')">เฉพาะ Minterms (F = 1, 23 กรณี)</button>
+      <button class="filter-btn" onclick="filterTable('maxterm')">เฉพาะ Maxterms (F = 0, 9 กรณี)</button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="tb" id="truthTable">
+        <thead>
+          <tr>
+            <th>Idx</th>
+            <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th>
+            <th>W₁=(B⊕D)</th>
+            <th>W₂=(AC)'</th>
+            <th>W₃=(B+E)'</th>
+            <th>W₄=A'W₁</th>
+            <th>W₅=A'C</th>
+            <th>W₆=B'D'E'</th>
+            <th>W₇=AD</th>
+            <th>W₈=W₄+W₅</th>
+            <th>W₉=W₆+W₇</th>
+            <th>Output (F)</th>
+            <th>ผลลัพธ์พจน์มาตรฐาน</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 32 Rows Generated -->
+          <tr data-out="1"><td class="hl-1">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₀ = A'B'C'D'E'</strong></td></tr>
+          <tr data-out="0"><td class="hl-0">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₁ = (A+B+C+D+E')</td></tr>
+          <tr data-out="1"><td class="hl-1">2</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₂ = A'B'C'DE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">3</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₃ = A'B'C'DE</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">4</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td class="hl-1">1</td><td><strong>m₄ = A'B'CD'E'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">5</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₅ = A'B'CD'E</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">6</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₆ = A'B'CDE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">7</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₇ = A'B'CDE</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">8</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₈ = A'BC'D'E'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">9</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₉ = A'BC'D'E</strong></td></tr>
+          <tr data-out="0"><td class="hl-0">10</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₁₀ = (A+B'+C+D'+E)</td></tr>
+          <tr data-out="0"><td class="hl-0">11</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₁₁ = (A+B'+C+D'+E')</td></tr>
+          <tr data-out="1"><td class="hl-1">12</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₁₂ = A'BCD'E'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">13</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₁₃ = A'BCD'E</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">14</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₁₄ = A'BCDE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">15</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl-1">1</td><td><strong>m₁₅ = A'BCDE</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">16</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₁₆ = AB'C'D'E'</strong></td></tr>
+          <tr data-out="0"><td class="hl-0">17</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₁₇ = (A'+B+C+D+E')</td></tr>
+          <tr data-out="1"><td class="hl-1">18</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₁₈ = AB'C'DE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">19</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₁₉ = AB'C'DE</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">20</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₂₀ = AB'CD'E'</strong></td></tr>
+          <tr data-out="0"><td class="hl-0">21</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₂₁ = (A'+B+C'+D+E')</td></tr>
+          <tr data-out="1"><td class="hl-1">22</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₂₂ = AB'CDE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">23</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₂₃ = AB'CDE</strong></td></tr>
+          <tr data-out="0"><td class="hl-0">24</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₂₄ = (A'+B'+C+D+E)</td></tr>
+          <tr data-out="0"><td class="hl-0">25</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₂₅ = (A'+B'+C+D+E')</td></tr>
+          <tr data-out="1"><td class="hl-1">26</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₂₆ = ABC'DE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">27</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₂₇ = ABC'DE</strong></td></tr>
+          <tr data-out="0"><td class="hl-0">28</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₂₈ = (A'+B'+C'+D+E)</td></tr>
+          <tr data-out="0"><td class="hl-0">29</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hl-0">0</td><td>M₂₉ = (A'+B'+C'+D+E')</td></tr>
+          <tr data-out="1"><td class="hl-1">30</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₃₀ = ABCDE'</strong></td></tr>
+          <tr data-out="1"><td class="hl-1">31</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="hl-1">1</td><td><strong>m₃₁ = ABCDE</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">สรุปผลลัพธ์มินเทอมและแมกซ์เทอม:</span>
+      <strong>Minterms (F = 1):</strong> รวม 23 กรณี ได้แก่ <code>Σm(0, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 18, 19, 20, 22, 23, 26, 27, 30, 31)</code><br>
+      <strong>Maxterms (F = 0):</strong> รวม 9 กรณี ได้แก่ <code>ΠM(1, 10, 11, 17, 21, 24, 25, 28, 29)</code>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 3. การลดรูปด้วย K-Map 8x4 แบบ SOP -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="sec3">
+    <div class="sec-head">
+      <div class="sec-no">3</div>
+      <div>
+        <h2>การลดรูปด้วย K-Map 8×4 แบบ SOP (Grouping 1s)</h2>
+        <div style="font-size:.9rem; color:var(--ink-soft);">จับกลุ่มเลข 1 จำนวน 23 เซลล์ ในตารางคาร์โนต์ 8 แถว × 4 คอลัมน์ แบบวนขอบ (Wraparound)</div>
+      </div>
+    </div>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/kmap_sop_diagram.png" alt="SOP K-Map 8x4 Diagram" onclick="openModal(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปที่ 3.1</span> แผนผัง K-Map 8×4 แสดงการจับกลุ่มมินเทอม (SOP) 5 กลุ่ม (4 Octets + 1 Quad)
+      </figcaption>
+    </figure>
+
+    <h3>รายละเอียดการจับกลุ่ม SOP ทั้ง 5 กลุ่ม</h3>
+    <div class="group-grid">
+      
+      <!-- Group 1 -->
+      <div class="group-card sop">
+        <div class="head">
+          <span>กลุ่มที่ 1 (Octet 8 เซลล์)</span>
+          <span style="color:#2563EB; font-weight:800;">2³ = 8</span>
+        </div>
+        <div class="term">A · D</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 110, 111, 101, 100 ที่คอลัมน์ DE = 11, 10<br>
+          <strong>มินเทอม:</strong> m₁₈, m₁₉, m₂₂, m₂₃, m₂₆, m₂₇, m₃₀, m₃₁<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร B, C, E ถูกตัดออก เหลือพจน์ <strong>A · D</strong>
+        </p>
+      </div>
+
+      <!-- Group 2 -->
+      <div class="group-card sop">
+        <div class="head">
+          <span>กลุ่มที่ 2 (Octet 8 เซลล์)</span>
+          <span style="color:#DC2626; font-weight:800;">2³ = 8</span>
+        </div>
+        <div class="term">A' · C</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 001, 011 (ครบทั้ง 4 คอลัมน์)<br>
+          <strong>มินเทอม:</strong> m₄, m₅, m₆, m₇, m₁₂, m₁₃, m₁₄, m₁₅<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร B, D, E ถูกตัดออก เหลือพจน์ <strong>A' · C</strong>
+        </p>
+      </div>
+
+      <!-- Group 3 -->
+      <div class="group-card sop">
+        <div class="head">
+          <span>กลุ่มที่ 3 (Octet 8 เซลล์ วนขอบบน-ล่าง)</span>
+          <span style="color:#9333EA; font-weight:800;">2³ = 8 Wrap</span>
+        </div>
+        <div class="term">B' · D</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 000, 001 (แถวบน) ร่วมกับ 101, 100 (แถวล่าง) ที่ DE = 11, 10<br>
+          <strong>มินเทอม:</strong> m₂, m₃, m₆, m₇, m₁₈, m₁₉, m₂₂, m₂₃<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร A, C, E ถูกตัดออก เหลือพจน์ <strong>B' · D</strong>
+        </p>
+      </div>
+
+      <!-- Group 4 -->
+      <div class="group-card sop">
+        <div class="head">
+          <span>กลุ่มที่ 4 (Octet 8 เซลล์ วนขอบ 4 ทิศ)</span>
+          <span style="color:#D97706; font-weight:800;">2³ = 8 Wrap</span>
+        </div>
+        <div class="term">B' · E'</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 000, 001 และ 101, 100 ที่คอลัมน์ DE = 00 และ 10<br>
+          <strong>มินเทอม:</strong> m₀, m₂, m₄, m₆, m₁₆, m₁₈, m₂₀, m₂₂<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร A, C, D ถูกตัดออก เหลือพจน์ <strong>B' · E'</strong>
+        </p>
+      </div>
+
+      <!-- Group 5 -->
+      <div class="group-card sop">
+        <div class="head">
+          <span>กลุ่มที่ 5 (Quad 4 เซลล์)</span>
+          <span style="color:#0D9488; font-weight:800;">2² = 4</span>
+        </div>
+        <div class="term">A' · B · D'</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 011, 010 ที่คอลัมน์ DE = 00, 01<br>
+          <strong>มินเทอม:</strong> m₈, m₉, m₁₂, m₁₃<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร C, E ถูกตัดออก เหลือพจน์ <strong>A' · B · D'</strong>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="formula big">
+      <strong>สมการ Minimal SOP ขั้นต่ำ:</strong><br>
+      <span style="color:var(--green); font-weight:800;">F_SOP = A·D + A'·C + B'·D + B'·E' + A'·B·D'</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 4. การลดรูปด้วย K-Map 8x4 แบบ POS -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="sec4">
+    <div class="sec-head">
+      <div class="sec-no">4</div>
+      <div>
+        <h2>การลดรูปด้วย K-Map 8×4 แบบ POS (Grouping 0s)</h2>
+        <div style="font-size:.9rem; color:var(--ink-soft);">จับกลุ่มเลข 0 จำนวน 9 เซลล์ ในตารางคาร์โนต์ 8 แถว × 4 คอลัมน์</div>
+      </div>
+    </div>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/kmap_pos_diagram.png" alt="POS K-Map 8x4 Diagram" onclick="openModal(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปที่ 4.1</span> แผนผัง K-Map 8×4 แสดงการจับกลุ่มแมกซ์เทอม (POS) 4 กลุ่ม (2 Quads + 2 Pairs)
+      </figcaption>
+    </figure>
+
+    <h3>รายละเอียดการจับกลุ่ม POS ทั้ง 4 กลุ่ม</h3>
+    <div class="group-grid">
+      
+      <!-- POS Group 1 -->
+      <div class="group-card pos">
+        <div class="head">
+          <span>กลุ่มที่ 1 (Quad 4 เซลล์)</span>
+          <span style="color:#DC2626; font-weight:800;">2² = 4</span>
+        </div>
+        <div class="term">(A' + B' + D)</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 110, 111 ที่คอลัมน์ DE = 00, 01<br>
+          <strong>แมกซ์เทอม:</strong> M₂₄, M₂₅, M₂₈, M₂₉<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร C, E ตัดออก ได้พจน์บวก <strong>(A' + B' + D)</strong>
+        </p>
+      </div>
+
+      <!-- POS Group 2 -->
+      <div class="group-card pos">
+        <div class="head">
+          <span>กลุ่มที่ 2 (Quad 4 เซลล์ แนวดิ่ง)</span>
+          <span style="color:#2563EB; font-weight:800;">2² = 4</span>
+        </div>
+        <div class="term">(A' + D + E')</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 110, 111, 101, 100 ที่คอลัมน์ DE = 01<br>
+          <strong>แมกซ์เทอม:</strong> M₁₇, M₂₁, M₂₅, M₂₉<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร B, C ตัดออก ได้พจน์บวก <strong>(A' + D + E')</strong>
+        </p>
+      </div>
+
+      <!-- POS Group 3 -->
+      <div class="group-card pos">
+        <div class="head">
+          <span>กลุ่มที่ 3 (Pair 2 เซลล์)</span>
+          <span style="color:#9333EA; font-weight:800;">2¹ = 2</span>
+        </div>
+        <div class="term">(A + B' + C + D')</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 010 ที่คอลัมน์ DE = 11, 10<br>
+          <strong>แมกซ์เทอม:</strong> M₁₀, M₁₁<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร E ตัดออก ได้พจน์บวก <strong>(A + B' + C + D')</strong>
+        </p>
+      </div>
+
+      <!-- POS Group 4 -->
+      <div class="group-card pos">
+        <div class="head">
+          <span>กลุ่มที่ 4 (Pair 2 เซลล์ วนขอบบน-ล่าง)</span>
+          <span style="color:#D97706; font-weight:800;">2¹ = 2 Wrap</span>
+        </div>
+        <div class="term">(B + C + D + E')</div>
+        <p style="font-size:.9rem; color:var(--ink-soft); margin:4px 0;">
+          <strong>แถว:</strong> ABC = 000 (แถวบน) และ 100 (แถวล่าง) ที่คอลัมน์ DE = 01<br>
+          <strong>แมกซ์เทอม:</strong> M₁, M₁₇<br>
+          <strong>ผลลัพธ์:</strong> ตัวแปร A ตัดออก ได้พจน์บวก <strong>(B + C + D + E')</strong>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="formula big">
+      <strong>สมการ Minimal POS ขั้นต่ำ:</strong><br>
+      <span style="color:var(--red); font-weight:800;">F_POS = (A' + B' + D) · (A' + D + E') · (A + B' + C + D') · (B + C + D + E')</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 5. การพิสูจน์ลดรูปด้วยพีชคณิตบูลีน -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="sec5">
+    <div class="sec-head">
+      <div class="sec-no">5</div>
+      <div>
+        <h2>การพิสูจน์ลดรูปด้วยพีชคณิตบูลีนทีละขั้นตอน (Boolean Algebra Proof)</h2>
+        <div style="font-size:.9rem; color:var(--ink-soft);">แสดงขั้นตอนการกระจายสัญญาณย่อยและการลดรูปตามกฎและทฤษฎีบทบูลีนอย่างเป็นลำดับ</div>
+      </div>
+    </div>
+
+    <p>เริ่มต้นจากการถอดสมการลอจิกประจำจุดทดสอบของวงจรเชิงผสม 4 ภาคสัญญาณ:</p>
+
+    <div class="step-card">
+      <div class="step-title">
+        <span>ขั้นที่ 1: ถอดสมการจุดทดสอบภาคที่ 1 (Pre-Logic Stage)</span>
+        <span class="step-law">[De Morgan & XOR Definitions]</span>
+      </div>
+      <div class="step-expr">W₁ = B ⊕ D = B'·D + B·D'</div>
+      <div class="step-expr">W₂ = (A · C)' = A' + C'</div>
+      <div class="step-expr">W₃ = (B + E)' = B' · E'</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">
+        <span>ขั้นที่ 2: ถอดสมการจุดทดสอบภาคที่ 2 (Product Term Stage)</span>
+        <span class="step-law">[Distributive & Complement Laws]</span>
+      </div>
+      <div class="step-expr">W₄ = A' · W₁ = A' · (B'·D + B·D') = A'·B'·D + A'·B·D'</div>
+      <div class="step-expr">W₅ = C · W₂ = C · (A' + C') = A'·C + C·C' = A'·C + 0 = A'·C</div>
+      <div class="step-expr">W₆ = W₃ · D' = (B'·E') · D' = B'·D'·E'</div>
+      <div class="step-expr">W₇ = A · D</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">
+        <span>ขั้นที่ 3: รวมสัญญาณย่อยในภาคที่ 3 (Sub-Sum Stage)</span>
+        <span class="step-law">[OR Combination]</span>
+      </div>
+      <div class="step-expr">W₈ = W₄ + W₅ = A'·B'·D + A'·B·D' + A'·C</div>
+      <div class="step-expr">W₉ = W₆ + W₇ = B'·D'·E' + A·D</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">
+        <span>ขั้นที่ 4: รวมฟังก์ชันเอาต์พุตสมบูรณ์ (Output Stage)</span>
+        <span class="step-law">[Collector OR Gate]</span>
+      </div>
+      <div class="step-expr">F = W₈ + W₉ = A'·B'·D + A'·B·D' + A'·C + B'·D'·E' + A·D</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">
+        <span>ขั้นที่ 5: ประยุกต์ใช้ทฤษฎีบทการดูดกลืนและเอกลักษณ์ (Absorption & Consensus)</span>
+        <span class="step-law">[Adjacency & Consensus Theorem]</span>
+      </div>
+      <p style="margin:4px 0; font-size:.92rem;">เมื่อพิจารณาคู่พจน์ <code>A'·B'·D</code> และ <code>A·D</code> ร่วมกับ <code>B'·D'·E'</code>:</p>
+      <div class="step-expr">1. A'·B'·D + A·D = A'·B'·D + A·B'·D + A·B·D = B'·D · (A' + A) + A·B·D = B'·D + A·D</div>
+      <div class="step-expr">2. B'·D + B'·D'·E' = B' · (D + D'·E') = B' · (D + E') = B'·D + B'·E'</div>
+      <div class="step-expr">3. นำพจน์ทั้งหมดมารวมกัน: F = A·D + A'·C + B'·D + B'·E' + A'·B·D'</div>
+    </div>
+
+    <div class="callout c-key">
+      <span class="lab">สรุปผลการพิสูจน์:</span>
+      <p>สมการจากการลดรูปด้วยกฎพีชคณิตบูลีนได้ผลลัพธ์:</p>
+      <div style="font-size:1.18rem; font-weight:800; color:var(--green); text-align:center; margin:10px 0;">
+        F_SOP = A·D + A'·C + B'·D + B'·E' + A'·B·D'
+      </div>
+      <p>ซึ่งตรงกับผลลัพธ์ที่ได้จากการหา Prime Implicants ทั้ง 5 กลุ่มในแผนผัง K-Map 8×4 อย่างสมบูรณ์ 100%</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 6. การสังเคราะห์วงจรและเปรียบเทียบฮาร์ดแวร์ -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="sec6">
+    <div class="sec-head">
+      <div class="sec-no">6</div>
+      <div>
+        <h2>การสังเคราะห์วงจรและเปรียบเทียบฮาร์ดแวร์ (Hardware Synthesis & Benchmark)</h2>
+        <div style="font-size:.9rem; color:var(--ink-soft);">เปรียบเทียบวงจรเดิม 2 อินพุต, Minimal SOP และ Minimal POS ในเชิงวิศวกรรมไอซี</div>
+      </div>
+    </div>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/sop_circuit_diagram.png" alt="วงจรลดรูป Minimal SOP" onclick="openModal(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปที่ 6.1</span> แผนภาพวงจรลดรูป Minimal SOP (Two-Level AND-OR Logic Synthesis — 5 Product Terms)
+      </figcaption>
+    </figure>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/pos_circuit_diagram.png" alt="วงจรลดรูป Minimal POS" onclick="openModal(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปที่ 6.2</span> แผนภาพวงจรลดรูป Minimal POS (Two-Level OR-AND Logic Synthesis — 4 Sum Terms)
+      </figcaption>
+    </figure>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/ic_pinout_layout.png" alt="แผนผังไอซีฮาร์ดแวร์" onclick="openModal(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปที่ 6.3</span> แผนผังการจัดวางไอซีตระกูล 74HC มาตรฐานสำหรับการทดลองบน Breadboard จริง
+      </figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางเปรียบเทียบประสิทธิภาพทางวิศวกรรมฮาร์ดแวร์ (Hardware Benchmark)</caption>
+        <thead>
+          <tr>
+            <th>ดัชนีชี้วัด (Metrics)</th>
+            <th>วงจรต้นฉบับ 2 อินพุต (Original)</th>
+            <th>Minimal SOP (AND-OR)</th>
+            <th>Minimal POS (OR-AND)</th>
+            <th>ผู้ชนะความคุ้มค่า (Winner)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>รูปแบบโครงสร้าง</strong></td>
+            <td>4-Stage Multi-Level (XOR/NAND/NOR/AND/OR)</td>
+            <td>Two-Level AND-OR (5 Product Terms)</td>
+            <td>Two-Level OR-AND (4 Sum Terms)</td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 POS (4 พจน์)</span></td>
+          </tr>
+          <tr>
+            <td><strong>จำนวนลอจิกเกต (Total Gates)</strong></td>
+            <td>12 เกต (2 NOT + 1 XOR + 1 NAND + 1 NOR + 4 AND + 3 OR)</td>
+            <td><strong>10 เกต</strong> (4 NOT + 5 AND + 1 OR)</td>
+            <td><strong>9 เกต</strong> (4 NOT + 4 OR + 1 AND)</td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 POS (9 เกต)</span></td>
+          </tr>
+          <tr>
+            <td><strong>จำนวนลิเทอรัล (Literals)</strong></td>
+            <td>16 ลิเทอรัล</td>
+            <td>12 ลิเทอรัล</td>
+            <td>14 ลิเทอรัล</td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 SOP (12 ลิเทอรัล)</span></td>
+          </tr>
+          <tr>
+            <td><strong>จำนวนไอซี DIP-14 (IC Count)</strong></td>
+            <td>6 แพ็กเกจ (7404, 7486, 7400, 7402, 7408, 7432)</td>
+            <td><strong>3 แพ็กเกจ</strong> (7404, 7408, 7432)</td>
+            <td><strong>3 แพ็กเกจ</strong> (7404, 7432, 7408)</td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 SOP / POS (ลดลง 50%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>จำนวนทรานซิสเตอร์ (~CMOS)</strong></td>
+            <td>~54 Transistors</td>
+            <td><strong>~46 Transistors</strong></td>
+            <td>~48 Transistors</td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 SOP (ประหยัดสุด)</span></td>
+          </tr>
+          <tr>
+            <td><strong>ความล่าช้า (Propagation Delay)</strong></td>
+            <td>4 Gate Delays (~36 ns)</td>
+            <td><strong>2 Gate Delays (~18 ns)</strong></td>
+            <td><strong>2 Gate Delays (~18 ns)</strong></td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 SOP / POS (เร็วขึ้น 50%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>ความซับซ้อนของสายสัญญาณ</strong></td>
+            <td>24 เส้นต่อ</td>
+            <td><strong>16 เส้นต่อ</strong></td>
+            <td>17 เส้นต่อ</td>
+            <td><span class="chip" style="background:#D1FAE5; color:#065F46;">🏆 SOP</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <!-- ท้ายกระดาษ -->
+  <footer>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <div>
+        <strong>วิชา 305241 การออกแบบวงจรดิจิตอล</strong><br>
+        ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร
+      </div>
+      <div style="text-align:right;">
+        <a href="../index.html" style="color:var(--accent); text-decoration:none; font-weight:700;">← กลับสู่คลังข้อสอบ 2569</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Modal สำหรับซูมดูรูปภาพความละเอียดสูง -->
+<div id="imgModal" onclick="closeModal()">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img id="modalImg" src="" alt="ภาพขยายความละเอียดสูง">
+</div>
+
+<script>
+// State ของตัวจำลอง 5 อินพุต
+const inputs = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+
+function toggleInput(varName) {
+  inputs[varName] = inputs[varName] === 1 ? 0 : 1;
+  const btn = document.getElementById('btn' + varName);
+  btn.textContent = inputs[varName];
+  if (inputs[varName] === 1) {
+    btn.classList.add('active');
+  } else {
+    btn.classList.remove('active');
+  }
+  updateSimulation();
+}
+
+function updateSimulation() {
+  const { A, B, C, D, E } = inputs;
+  
+  const notA = 1 - A;
+  const notD = 1 - D;
+  
+  const W1 = B ^ D;
+  const W2 = 1 - (A & C);
+  const W3 = 1 - (B | E);
+  
+  const W4 = notA & W1;
+  const W5 = C & W2;
+  const W6 = W3 & notD;
+  const W7 = A & D;
+  
+  const W8 = W4 | W5;
+  const W9 = W6 | W7;
+  const F = W8 | W9;
+  
+  const mintermIdx = (A << 4) | (B << 3) | (C << 2) | (D << 1) | E;
+  
+  // อัปเดตการแสดงผล DOM
+  setVal('valNotA', notA);
+  setVal('valNotD', notD);
+  
+  setVal('valW1', W1);
+  setVal('valW2', W2);
+  setVal('valW3', W3);
+  
+  setVal('valW4', W4);
+  setVal('valW5', W5);
+  setVal('valW6', W6);
+  setVal('valW7', W7);
+  
+  setVal('valW8', W8);
+  setVal('valW9', W9);
+  
+  const fEl = document.getElementById('valF');
+  fEl.textContent = 'F = ' + F;
+  fEl.className = F === 1 ? 'final-pill p-1' : 'final-pill p-0';
+  
+  document.getElementById('valMinterm').textContent = 'm' + mintermIdx;
+}
+
+function setVal(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = val;
+  el.className = val === 1 ? 'badge b-1' : 'badge b-0';
+}
+
+function filterTable(type) {
+  const rows = document.querySelectorAll('#truthTable tbody tr');
+  const btns = document.querySelectorAll('.filter-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  rows.forEach(r => {
+    const out = r.getAttribute('data-out');
+    if (type === 'all') {
+      r.style.display = '';
+    } else if (type === 'minterm') {
+      r.style.display = (out === '1') ? '' : 'none';
+    } else if (type === 'maxterm') {
+      r.style.display = (out === '0') ? '' : 'none';
+    }
+  });
+}
+
+function openModal(src) {
+  const modal = document.getElementById('imgModal');
+  const modalImg = document.getElementById('modalImg');
+  modal.style.display = 'flex';
+  modalImg.src = src;
+}
+
+function closeModal() {
+  document.getElementById('imgModal').style.display = 'none';
+}
+
+// Initial calculation
+updateSimulation();
+</script>
+
+</body>
+</html>

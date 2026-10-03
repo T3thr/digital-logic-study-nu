@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="เฉลยละเอียดข้อ 3 ท้ายบทที่ 5: ออกแบบวงจรด้วย 74283 จากตารางรูปที่ 5.36 ตามวิธี 4 ขั้นในเอกสาร 305241 พร้อมวงจรและห้องทดลอง">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../styles.css">
+  <noscript><style>.lab-shell,.quiz-options { display:none; }</style></noscript>
+  <script src="circuit.js" defer></script>
+  <script src="solution.js" defer></script>
+  <title>เฉลยข้อ 3 · วงจรหลายฟังก์ชัน 74283 · 305241</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
+  <div class="page">
+    <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+      <a href="../../../index.html">หน้าหลักวิชา 305241</a><span class="sep" aria-hidden="true">/</span>
+      <a href="../../index.html">บทที่ 5 · วงจรเลขคณิต</a><span class="sep" aria-hidden="true">/</span>
+      <a href="../index.html">แบบฝึกหัด</a><span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">ข้อ 3</span>
+    </nav>
+    <header>
+      <div class="course-line"><span>305241 · DIGITAL LOGIC DESIGN</span><span class="chip">CHAPTER 05 · EXERCISE 03</span></div>
+      <div class="eyebrow">จากตารางฟังก์ชัน สู่ผังวงจรที่ตรวจคำตอบได้</div>
+      <h1>เฉลยละเอียด: ออกแบบวงจรหลายฟังก์ชัน<br><span class="title-accent">ด้วย IC 74283 และลอจิกเกต</span></h1>
+      <p class="subtitle">ข้อมูล 4 บิต 2 ชุด · ควบคุมด้วย G, J, K · ยึดวิธีออกแบบ 4 ขั้นจากหัวข้อ 5.7 ในเอกสารบรรยาย</p>
+      <div class="problem-box">
+        <span class="box-label">โจทย์ข้อที่ 3 · รูปที่ 5.36</span>
+        <p><strong>จงออกแบบวงจรที่ทำงานได้หลายรูปแบบโดยใช้ไอซีเบอร์ 74283 และลอจิกเกตอื่น ๆ เพื่อแสดงการทำงานตามตารางที่กำหนดให้ สำหรับเลขฐานสองขนาดสี่บิต 2 จำนวน</strong></p>
+        <div class="table-scroll compact">
+          <table>
+            <caption>ตารางโจทย์ — ถอดจากรูปที่ 5.36</caption>
+            <thead><tr><th scope="col">G</th><th scope="col">J</th><th scope="col">K</th><th scope="col" class="left">เอาต์พุตที่ต้องการ S₄S₃S₂S₁</th></tr></thead>
+            <tbody>
+              <tr><td>0</td><td>0</td><td>0</td><td class="left">A₄A₃A₂A₁</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td class="left">B₄B₃B₂B₁</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td class="left"><span class="over">A₄</span><span class="over">A₃</span><span class="over">A₂</span><span class="over">A₁</span> · กลับทุกบิตของ A</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td class="left"><span class="over">B₄</span><span class="over">B₃</span><span class="over">B₂</span><span class="over">B₁</span> · กลับทุกบิตของ B</td></tr>
+              <tr><td>1</td><td>×</td><td>×</td><td class="left"><strong>1111</strong> · ไม่ขึ้นกับ J, K, A, B</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="src-note">ต้นฉบับ: <a href="../../../00-lecture/305241_lecture.pdf#page=175">หน้าเอกสาร 160 / หน้า PDF 175</a> · เครื่องหมาย × ในตารางหมายถึงค่าใดก็ได้ (don't care) ไม่ใช่เครื่องหมายคูณ</p>
+      </div>
+      <div class="button-row"><a class="button primary" href="#s1">เริ่มวิธีทำทีละขั้น ↓</a><a class="button" href="#lab">ทดลองวงจร</a><button class="button subtle" type="button" id="print-button">พิมพ์เฉลย</button></div>
+      <nav class="toc" aria-label="สารบัญเฉลย">
+        <div class="toc-title">สารบัญ · อ่านตามลำดับ หรือกระโดดไปตรวจคำตอบ</div>
+        <div class="toc-links">
+          <a href="#answer"><span class="no">0</span>คำตอบสุดท้ายและผังวงจร</a>
+          <a href="#s1"><span class="no">1</span>อ่านและแยกหน้าที่ G, J, K</a>
+          <a href="#s2"><span class="no">2</span>กำหนดอินพุตของ 74283</a>
+          <a href="#s3"><span class="no">3</span>หาและยุบสมการเกต</a>
+          <a href="#s4"><span class="no">4</span>ประกอบวงจรและตรวจทุกโหมด</a>
+          <a href="#lab"><span class="no">LAB</span>ทดลองข้อมูลและไล่สัญญาณ 4 ขั้น</a>
+          <a href="#writeup"><span class="no">5</span>แนวเขียนคำตอบส่งและจุดที่มักผิด</a>
+          <a href="#sources"><span class="no">REF</span>ต้นฉบับและตำแหน่งอ้างอิง</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="answer" aria-labelledby="answer-title">
+        <div class="sec-head"><span class="sec-no">0</span><h2 id="answer-title">คำตอบสุดท้าย · วงจรหนึ่งแบบที่ตรงตามโจทย์</h2></div>
+        <p class="lead">ใช้ <strong>74283 จำนวน 1 ตัว</strong> เป็นวงจรบวก โดยเตรียมอินพุตให้มีข้อมูลอยู่เพียงฝั่งเดียวในแต่ละโหมด แล้วต่อ OR ที่ผลบวกทุกบิตเพื่อบังคับค่า 1 เมื่อ G = 1</p>
+        <div class="equation large math" role="math" aria-label="สำหรับบิต i เท่ากับ 1 ถึง 4: X i เท่ากับ K กลับค่า AND กับ A i XOR J; Y i เท่ากับ K AND กับ B i XOR J; C ศูนย์เท่ากับศูนย์; ซิกมาเท่ากับ X บวก Y บวก C ศูนย์; S i เท่ากับซิกมา i OR G">
+          X<sub>i</sub> = <span class="over">K</span> · (A<sub>i</sub> ⊕ J)<br>
+          Y<sub>i</sub> = K · (B<sub>i</sub> ⊕ J)<br>
+          C₀ = 0<br>
+          Σ[4:1] = X[4:1] + Y[4:1] + C₀<br>
+          S<sub>i</sub> = Σ<sub>i</sub> ∨ G &nbsp; (i = 1, 2, 3, 4)
+        </div>
+        <p class="small">X และ Y คือข้อมูลหลังผ่านเกตที่เข้าขา A และ B ของไอซี ส่วน A และ B ของโจทย์คือข้อมูลต้นทาง · + ในสมการ Σ คือการบวกเลขฐานสอง, · คือ AND, ∨ คือ OR, ⊕ คือ XOR</p>
+        <figure>
+          <div class="frame"><img src="assets/full-circuit.svg" width="1120" height="610" alt="วงจร 4 บิต: A ผ่าน XOR กับ J และ AND กับ K กลับค่า ไปอินพุต A ของ 74283; B ผ่าน XOR กับ J และ AND กับ K ไปอินพุต B; C0 ต่อ 0; ผลบวกทั้ง 4 บิตผ่าน OR กับ G ไปเอาต์พุต S"></div>
+          <div class="figure-toolbar"><button type="button" data-zoom="assets/full-circuit.svg" data-title="ผังวงจร 4 บิต · IC 74283">ขยายผังวงจร ↗</button></div>
+          <figcaption><b>รูปที่ 1</b> · ผัง 4 บิตที่ใช้ตอบโจทย์ เส้นข้อมูล A, B, X, Y, Σ, S เป็นบัส 4 บิต; บล็อก “×4” หมายถึงเกตแยกกัน 4 ตัว ไม่ใช่เกตตัวเดียว</figcaption>
+        </figure>
+        <div class="callout tip"><span class="label">อ่านผังให้เห็นหน้าที่ของสัญญาณ</span><strong>K เลือกชุดข้อมูล</strong> → <strong>J เลือกว่าจะกลับบิตหรือไม่</strong> → <strong>74283 บวกชุดที่เลือกกับ 0000</strong> → <strong>G บังคับเอาต์พุตทุกบิตให้เป็น 1</strong><br>เมื่อ G = 0 จะเห็นผลจาก J, K; เมื่อ G = 1 ผลสุดท้ายเป็น 1111 เสมอ</div>
+      </section>
+
+      <section id="s1" aria-labelledby="s1-title">
+        <div class="sec-head"><span class="sec-no">1</span><h2 id="s1-title">ขั้นที่ 1 · ระบุการทำงานให้ครบในตารางฟังก์ชัน</h2></div>
+        <p>เอกสารหัวข้อ 5.7 ให้เริ่มจากตารางฟังก์ชันก่อนเลือกเกต ในข้อนี้ลองอ่านแถว G = 0 ทั้ง 4 แถว แล้วหาว่าแต่ละสัญญาณควบคุมอะไร</p>
+        <div class="two-col">
+          <div class="card"><h3>K เลือก A หรือ B</h3><p>แถวที่ K = 0 ใช้ A ทั้งคู่<br>แถวที่ K = 1 ใช้ B ทั้งคู่</p><p class="math">K = 0 → เลือก A<br>K = 1 → เลือก B</p></div>
+          <div class="card"><h3>J เลือกค่าจริงหรือค่ากลับ</h3><p>แถวที่ J = 0 ส่งค่าตามเดิม<br>แถวที่ J = 1 กลับทุกบิต</p><p class="math">J = 0 → ข้อมูลเดิม<br>J = 1 → คอมพลีเม้นท์</p></div>
+        </div>
+        <div class="callout"><span class="label">G มีสิทธิ์เหนือ J และ K</span>แม้ในตารางจะเรียก G ว่าอินพุตอีนาเบิล แต่ต้องอ่านพฤติกรรมจริงของแถวสุดท้าย: <strong>G = 0 ให้เลือกฟังก์ชัน, G = 1 ให้เอาต์พุตเป็น 1111</strong> จึงออกแบบเกตตามนี้ ไม่สมมติว่าปิดวงจรแล้วต้องออก 0000</div>
+        <div class="callout warn"><span class="label">คอมพลีเม้นท์ในข้อนี้คือ One's complement</span>รูปที่ 5.36 เขียนขีดบนทุกบิต จึงหมายถึงการกลับ 0 ↔ 1 เท่านั้น เช่น A = 1010 → <span class="over">A</span> = 0101<br>การกลับบิตแล้วบวก 1 จะได้ 0110 ซึ่งเป็น Two's complement และไม่ใช่ผลที่โจทย์ต้องการ</div>
+        <h3>ภาพรวมวิธีคิด 4 ขั้นตามเอกสาร</h3>
+        <div class="flow">
+          <div class="flow-item"><span class="n">01 · FUNCTION</span><b>ระบุผลที่ต้องการ</b><p>5 แถวของโจทย์บอกหน้าที่ G, J, K</p></div>
+          <div class="flow-item"><span class="n">02 · COMPONENTS</span><b>เลือกไอซีและเกต</b><p>74283 + XOR + AND + NOT + OR</p></div>
+          <div class="flow-item"><span class="n">03 · INPUTS</span><b>กำหนดอินพุต</b><p>เลือก X, Y, C₀ ให้ผลบวกเป็นค่าที่ต้องการ</p></div>
+          <div class="flow-item"><span class="n">04 · VERIFY</span><b>สร้างและตรวจวงจร</b><p>แทนทุกโหมด แล้วตรวจข้อมูลครบ 2,048 ชุด</p></div>
+        </div>
+        <p class="src-note">วิธี 4 ขั้น: <a href="../../../00-lecture/305241_lecture.pdf#page=168">หน้าเอกสาร 153 / หน้า PDF 168</a> · การใช้ XOR เป็น controlled inverter: <a href="../../../00-lecture/305241_lecture.pdf#page=155">รูปที่ 5.12 หน้าเอกสาร 140</a></p>
+      </section>
+
+      <section id="s2" aria-labelledby="s2-title">
+        <div class="sec-head"><span class="sec-no">2</span><h2 id="s2-title">ขั้นที่ 2 · แปลงผลที่ต้องการเป็นอินพุตของ 74283</h2></div>
+        <p>74283 บวกข้อมูล 4 บิตสองชุดและตัวทดเข้า: <span class="math">Σ = X + Y + C₀</span> เราจึงทำให้เอาต์พุตเท่ากับข้อมูลที่ต้องการได้ด้วยการ<strong>บวกข้อมูลนั้นกับศูนย์</strong></p>
+        <div class="equation math">A + 0000 + 0 = A<br>B + 0000 + 0 = B<br><span class="over">A</span> + 0000 + 0 = <span class="over">A</span><br><span class="over">B</span> + 0000 + 0 = <span class="over">B</span></div>
+        <p>จัดให้ข้อมูล A หรือ <span class="over">A</span> เข้าฝั่ง X และข้อมูล B หรือ <span class="over">B</span> เข้าฝั่ง Y ส่วนฝั่งที่ไม่ได้เลือกต้องเป็น 0000 วิธีนี้กำหนดอินพุตแยกตามฟังก์ชันได้ตรงไปตรงมา เหมือนตารางอินพุตของไอซีในตัวอย่างที่ 5.8–5.9</p>
+        <p class="table-hint">เลื่อนตารางแนวนอน ↔ เพื่อดูทุกคอลัมน์</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางอินพุตของไอซี เลื่อนแนวนอนได้">
+          <table>
+            <caption>ตารางที่ 1 · อินพุตที่กำหนดให้กับไอซีและเกตเอาต์พุต</caption>
+            <thead><tr><th scope="col">G</th><th scope="col">JK</th><th scope="col">X₄X₃X₂X₁</th><th scope="col">Y₄Y₃Y₂Y₁</th><th scope="col">C₀</th><th scope="col">Σ₄Σ₃Σ₂Σ₁</th><th scope="col">S₄S₃S₂S₁</th></tr></thead>
+            <tbody>
+              <tr><td>0</td><td>00</td><td class="a-color">A</td><td>0000</td><td>0</td><td>A</td><td>A</td></tr>
+              <tr><td>0</td><td>01</td><td>0000</td><td class="b-color">B</td><td>0</td><td>B</td><td>B</td></tr>
+              <tr><td>0</td><td>10</td><td class="a-color"><span class="over">A</span></td><td>0000</td><td>0</td><td><span class="over">A</span></td><td><span class="over">A</span></td></tr>
+              <tr><td>0</td><td>11</td><td>0000</td><td class="b-color"><span class="over">B</span></td><td>0</td><td><span class="over">B</span></td><td><span class="over">B</span></td></tr>
+              <tr><td>1</td><td>××</td><td colspan="2">คำนวณตาม JK เช่นเดิม</td><td>0</td><td>ตาม JK</td><td class="now">1111</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">ในแถว G = 1 เกตอินพุตยังคำนวณตาม J, K แต่ค่า Σ ไม่มีผลต่อเอาต์พุต S เพราะ OR กับ 1 ทุกบิต · ค่า × หมายถึงข้อกำหนดไม่สนใจค่านั้น ไม่ได้หมายถึงปล่อยขาจริงลอย</p>
+        <div class="callout example"><span class="label">ทำไมต้อง C₀ = 0 ทุกโหมด?</span>เราต้องการส่งค่าจริงหรือกลับบิตเท่านั้น หาก C₀ = 1 จะทำให้ผลบวกเพิ่มขึ้น 1 เช่น 0101 กลายเป็น 0110 ดังนั้น<strong>ขา C₀ ต้องต่อกับลอจิก 0</strong></div>
+      </section>
+
+      <section id="s3" aria-labelledby="s3-title">
+        <div class="sec-head"><span class="sec-no">3</span><h2 id="s3-title">ขั้นที่ 3 · หาเกตจากสมการอินพุตและเอาต์พุต</h2></div>
+        <p>ออกแบบสำหรับบิตทั่วไป <span class="math">i</span> ก่อน แล้วทำซ้ำครบ i = 1 ถึง 4 โดยใช้สัญญาณควบคุมร่วมกัน</p>
+        <h3>3.1 หา Xᵢ — ข้อมูลฝั่ง A ต้องถูกเลือกเมื่อ K = 0</h3>
+        <p>จากตาราง: JK = 00 ให้ Xᵢ = Aᵢ, JK = 10 ให้ Xᵢ = <span class="over">Aᵢ</span>, ส่วน K = 1 ให้ Xᵢ = 0 รวมแถวที่มีผลเป็นสมการได้ว่า</p>
+        <div class="equation math">X<sub>i</sub> = <span class="over">J</span>·<span class="over">K</span>·A<sub>i</sub> ∨ J·<span class="over">K</span>·<span class="over">A<sub>i</sub></span><br>&nbsp;&nbsp;&nbsp; = <span class="over">K</span>·(<span class="over">J</span>·A<sub>i</sub> ∨ J·<span class="over">A<sub>i</sub></span>)<br>&nbsp;&nbsp;&nbsp; = <strong><span class="over">K</span>·(A<sub>i</sub> ⊕ J)</strong></div>
+        <p>วงเล็บตรงกลางคือ XOR เพราะให้ 1 เมื่อ Aᵢ และ J ต่างกัน ดังนั้นใช้ XOR เพื่อเลือกค่าจริง/ค่ากลับ แล้วใช้ AND กับ <span class="over">K</span> เพื่อเปิดเฉพาะฝั่ง A</p>
+        <h3>3.2 หา Yᵢ — ข้อมูลฝั่ง B ต้องถูกเลือกเมื่อ K = 1</h3>
+        <div class="equation math">Y<sub>i</sub> = <span class="over">J</span>·K·B<sub>i</sub> ∨ J·K·<span class="over">B<sub>i</sub></span><br>&nbsp;&nbsp;&nbsp; = K·(<span class="over">J</span>·B<sub>i</sub> ∨ J·<span class="over">B<sub>i</sub></span>)<br>&nbsp;&nbsp;&nbsp; = <strong>K·(B<sub>i</sub> ⊕ J)</strong></div>
+        <div class="two-col">
+          <div class="card"><h3>คุณสมบัติ XOR ที่ใช้</h3><p class="math">D ⊕ 0 = D<br>D ⊕ 1 = <span class="over">D</span></p><p class="small">J = 1 กลับบิตทั้งสองชุดก่อนเลือก ฝั่งที่ไม่ได้เลือกจะถูก AND ให้เป็นศูนย์</p></div>
+          <div class="card"><h3>เลือกเพียงฝั่งเดียวด้วย K</h3><p class="math">K = 0 → X เปิด, Y = 0<br>K = 1 → X = 0, Y เปิด</p><p class="small">NOT 1 ตัวสร้าง K กลับค่า แล้วแบ่งไปเข้า AND ทั้ง 4 บิตฝั่ง A</p></div>
+        </div>
+        <h3>3.3 หา Sᵢ — เมื่อ G = 1 ต้องบังคับเป็น 1</h3>
+        <p>ต้องการ G = 0 → Sᵢ = Σᵢ และ G = 1 → Sᵢ = 1 นี่คือตารางการทำงานของ <strong>OR</strong> โดยตรง</p>
+        <div class="equation math">S<sub>i</sub> = Σ<sub>i</sub> ∨ G<br>Σ<sub>i</sub> ∨ 0 = Σ<sub>i</sub><br>Σ<sub>i</sub> ∨ 1 = 1</div>
+        <figure>
+          <div class="frame"><img src="assets/bit-slice.svg" width="1120" height="500" alt="วงจรย่อย 1 บิต: Ai XOR J แล้ว AND กับ K กลับค่าเป็น Xi; Bi XOR J แล้ว AND กับ K เป็น Yi; เข้าเซลล์บวกเพื่อได้ Sigmai แล้ว OR กับ G เป็น Si พร้อมตัวทดเข้าและออก"></div>
+          <div class="figure-toolbar"><button type="button" data-zoom="assets/bit-slice.svg" data-title="วงจรย่อย 1 บิต · ทำซ้ำ 4 ชุด">ขยายวงจรย่อย ↗</button></div>
+          <figcaption><b>รูปที่ 2</b> · วงจรย่อยหนึ่งบิต บล็อกบวกเป็นแบบจำลองเชิงลอจิกของบิตนั้นภายใน 74283 ใช้ผังเต็มในรูปที่ 1 สำหรับการต่อไอซีจริง</figcaption>
+        </figure>
+        <div class="callout tip"><span class="label">ตรวจว่าทุกเกตมีหน้าที่ชัดเจน</span>XOR 8 ตัวกลับบิต · AND 8 ตัวเลือกข้อมูล · NOT 1 ตัวสร้าง <span class="over">K</span> · 74283 1 ตัวให้ผลบวก · OR 4 ตัวบังคับเอาต์พุตด้วย G</div>
+      </section>
+
+      <section id="s4" aria-labelledby="s4-title">
+        <div class="sec-head"><span class="sec-no">4</span><h2 id="s4-title">ขั้นที่ 4 · ประกอบวงจรและพิสูจน์ว่าตรงทุกแถว</h2></div>
+        <h3>4.1 ต่อขาให้ตรงกับผัง</h3>
+        <ol class="answer-list">
+          <li>นำ Aᵢ และ J เข้า XOR ได้ Aᵢ ⊕ J แล้วเข้า AND กับ <span class="over">K</span> ได้ Xᵢ ทำซ้ำ 4 บิต</li>
+          <li>นำ Bᵢ และ J เข้า XOR ได้ Bᵢ ⊕ J แล้วเข้า AND กับ K ได้ Yᵢ ทำซ้ำ 4 บิต</li>
+          <li>ต่อ Xᵢ เข้าขา Aᵢ ของ 74283 และ Yᵢ เข้าขา Bᵢ ของ 74283 โดย<strong>ดัชนีบิตต้องตรงกัน</strong></li>
+          <li>ต่อ C₀ เป็น 0 แล้วนำ Σᵢ แต่ละบิตไป OR กับ G ได้ Sᵢ ทั้ง 4 บิต</li>
+        </ol>
+        <p class="small">กำหนด A₁, B₁, S₁ เป็น LSB น้ำหนัก 1 และ A₄, B₄, S₄ เป็น MSB น้ำหนัก 8 จึงอ่านเลขเรียงจากบิต 4 → 1 เช่น A₄A₃A₂A₁ = 1010</p>
+        <h3>4.2 ทำไมผลบวกไม่เกิดตัวทด?</h3>
+        <p>เพราะ K และ <span class="over">K</span> ไม่เป็น 1 พร้อมกัน จึงไม่มีบิตใดที่ Xᵢ และ Yᵢ เป็น 1 พร้อมกัน</p>
+        <div class="equation math">X<sub>i</sub>·Y<sub>i</sub> = <span class="over">K</span>·K·(A<sub>i</sub> ⊕ J)·(B<sub>i</sub> ⊕ J) = 0<br>C<sub>i</sub> = X<sub>i</sub>·Y<sub>i</sub> ∨ C<sub>i−1</sub>·(X<sub>i</sub> ⊕ Y<sub>i</sub>)<br>C₀ = 0 → C₁ = 0 → C₂ = 0 → C₃ = 0 → C₄ = 0</div>
+        <p>สูตรตัวทดจาก Full Adder ใช้พิสูจน์ค่าลอจิกทีละบิต เมื่อข้อมูลอีกฝั่งเป็นศูนย์และตัวทดเข้าเป็นศูนย์ ผลบวกจึงเท่ากับข้อมูลฝั่งที่เลือก และไม่ล้น 4 บิต</p>
+        <p class="small">การไล่ C₁–C₄ นี้เป็นการตรวจเชิงลอจิก ส่วน 74283 จริงใช้วงจรเร่งการคำนวณตัวทด ไม่ได้จำลองเวลาหน่วงของฮาร์ดแวร์ในหน้านี้</p>
+        <h3>4.3 แทนสัญญาณควบคุมทีละโหมด</h3>
+        <p class="table-hint">เลื่อนตารางแนวนอน ↔ เพื่อดูทุกคอลัมน์</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางตรวจทุกโหมด เลื่อนแนวนอนได้">
+          <table>
+            <caption>ตารางที่ 2 · ตรวจสมการกับข้อกำหนด</caption>
+            <thead><tr><th scope="col">GJK</th><th scope="col" class="left">อินพุตของไอซี</th><th scope="col" class="left">เอาต์พุตหลัง OR</th><th scope="col">ตรงโจทย์</th></tr></thead>
+            <tbody>
+              <tr><td>000</td><td class="left">X = A, Y = 0000, C₀ = 0</td><td class="left">S = A ∨ 0000 = A</td><td>✓</td></tr>
+              <tr><td>001</td><td class="left">X = 0000, Y = B, C₀ = 0</td><td class="left">S = B ∨ 0000 = B</td><td>✓</td></tr>
+              <tr><td>010</td><td class="left">X = <span class="over">A</span>, Y = 0000, C₀ = 0</td><td class="left">S = <span class="over">A</span> ∨ 0000 = <span class="over">A</span></td><td>✓</td></tr>
+              <tr><td>011</td><td class="left">X = 0000, Y = <span class="over">B</span>, C₀ = 0</td><td class="left">S = <span class="over">B</span> ∨ 0000 = <span class="over">B</span></td><td>✓</td></tr>
+              <tr><td>1××</td><td class="left">X, Y ตาม JK; C₀ = 0</td><td class="left">S = Σ ∨ 1111 = 1111</td><td>✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout tip"><span class="label">พิสูจน์ด้วยสมการรวม</span>เมื่อไม่มีตัวทด Σᵢ = Xᵢ ∨ Yᵢ จึงได้ <span class="math">Sᵢ = G ∨ <span class="over">K</span>·(Aᵢ ⊕ J) ∨ K·(Bᵢ ⊕ J)</span><br>G = 1 ทำให้ Sᵢ = 1 เสมอ; G = 0 เหลือฟังก์ชันเลือกข้อมูลและกลับบิตตรงตาม 4 แถวแรก</div>
+        <details>
+          <summary>ดูจำนวนไอซีและตารางต่อขา 74283 สำหรับนำไปต่อวงจร</summary>
+          <div class="details-body">
+            <p>ตัวอย่างจัดชุดเกตในตระกูล 74LS จำนวน 7 แพ็กเกจ สำหรับวงจรที่แสดงนี้:</p>
+            <div class="table-scroll compact"><table><caption>ตารางที่ 3 · รายการไอซี</caption><thead><tr><th scope="col">ไอซี</th><th scope="col">จำนวน</th><th scope="col" class="left">หน้าที่</th></tr></thead><tbody>
+              <tr><td>74LS283</td><td>1</td><td class="left">วงจรบวก 4 บิต</td></tr><tr><td>74LS86</td><td>2</td><td class="left">XOR 8 เกต: A และ B กับ J</td></tr><tr><td>74LS08</td><td>2</td><td class="left">AND 8 เกต: เลือก X หรือ Y</td></tr><tr><td>74LS04</td><td>1</td><td class="left">ใช้ NOT 1 เกตสร้าง K กลับค่า</td></tr><tr><td>74LS32</td><td>1</td><td class="left">OR 4 เกต: Σ กับ G</td></tr>
+            </tbody></table></div>
+            <div class="table-scroll compact"><table><caption>ตารางที่ 4 · ขา SN74LS283 แบบ 16 ขา</caption><thead><tr><th scope="col">บิต i</th><th scope="col">Xᵢ → ขา Aᵢ</th><th scope="col">Yᵢ → ขา Bᵢ</th><th scope="col">Σᵢ → OR กับ G</th></tr></thead><tbody>
+              <tr><td>1 · LSB</td><td>5</td><td>6</td><td>4</td></tr><tr><td>2</td><td>3</td><td>2</td><td>1</td></tr><tr><td>3</td><td>14</td><td>15</td><td>13</td></tr><tr><td>4 · MSB</td><td>12</td><td>11</td><td>10</td></tr>
+            </tbody></table></div>
+            <p>ขา 7 = C₀ ต่อ GND · ขา 8 = GND · ขา 16 = VCC · ขา 9 = C₄ เป็นเอาต์พุตตัวทด ซึ่งไม่ใช้เป็นบิตของคำตอบ S และปล่อยเอาต์พุตนี้ไม่ต่อได้</p>
+            <p class="small">ตรวจหมายเลขขาจาก <a href="https://www.ti.com/lit/ds/symlink/sn74ls283.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments · SN74LS283 datasheet หน้า 1</a> ตารางนี้ใช้กับแพ็กเกจ 16 ขาของ 283; ต้องตรวจผังขาของชิปที่ใช้งานจริง และต่ออินพุตที่ไม่ได้ใช้ของเกตเสริมให้มีระดับลอจิกแน่นอน</p>
+          </div>
+        </details>
+      </section>
+
+      <section id="lab" aria-labelledby="lab-title">
+        <div class="sec-head"><span class="sec-no">LAB</span><h2 id="lab-title">ทดลองวงจร · เห็นข้อมูลไหลไปทีละขั้น</h2></div>
+        <p>เริ่มด้วย A = 1010, B = 0011 แล้วลองทั้ง 5 ฟังก์ชัน กดบิตเพื่อเปลี่ยนค่า หรือใส่เลขฐานสิบ 0–15 ใช้ปุ่ม “ขั้นถัดไป” ดูค่าหลังเกตแต่ละชุด</p>
+        <noscript><div class="callout warn">ห้องทดลองต้องเปิด JavaScript ส่วนเฉลย ตาราง และผังวงจรด้านบนอ่านได้ตามปกติ</div></noscript>
+        <div class="lab-shell" id="trainer">
+          <div class="lab-header"><strong>74283 · MULTIFUNCTION TRAINER</strong><span class="badge">ข้อมูล 4 บิต · ลอจิก 0 / 1</span></div>
+          <div class="lab-controls">
+            <div class="input-panel">
+              <div class="input-title"><strong>ข้อมูล A · A₄ → A₁</strong><label for="a-value">ฐานสิบ <input id="a-value" type="number" min="0" max="15" step="1" value="10" inputmode="numeric" aria-label="ข้อมูล A ฐานสิบ" aria-describedby="input-error"></label></div>
+              <div class="bits" role="group" aria-label="บิตข้อมูล A">
+                <div><span class="bit-label">A₄ · 8</span><button class="bit-btn" type="button" data-word="a" data-bit="3" aria-label="สลับบิต A4" aria-pressed="true">1</button></div>
+                <div><span class="bit-label">A₃ · 4</span><button class="bit-btn" type="button" data-word="a" data-bit="2" aria-label="สลับบิต A3" aria-pressed="false">0</button></div>
+                <div><span class="bit-label">A₂ · 2</span><button class="bit-btn" type="button" data-word="a" data-bit="1" aria-label="สลับบิต A2" aria-pressed="true">1</button></div>
+                <div><span class="bit-label">A₁ · 1</span><button class="bit-btn" type="button" data-word="a" data-bit="0" aria-label="สลับบิต A1" aria-pressed="false">0</button></div>
+              </div>
+            </div>
+            <div class="input-panel b-panel">
+              <div class="input-title"><strong>ข้อมูล B · B₄ → B₁</strong><label for="b-value">ฐานสิบ <input id="b-value" type="number" min="0" max="15" step="1" value="3" inputmode="numeric" aria-label="ข้อมูล B ฐานสิบ" aria-describedby="input-error"></label></div>
+              <div class="bits" role="group" aria-label="บิตข้อมูล B">
+                <div><span class="bit-label">B₄ · 8</span><button class="bit-btn" type="button" data-word="b" data-bit="3" aria-label="สลับบิต B4" aria-pressed="false">0</button></div>
+                <div><span class="bit-label">B₃ · 4</span><button class="bit-btn" type="button" data-word="b" data-bit="2" aria-label="สลับบิต B3" aria-pressed="false">0</button></div>
+                <div><span class="bit-label">B₂ · 2</span><button class="bit-btn" type="button" data-word="b" data-bit="1" aria-label="สลับบิต B2" aria-pressed="true">1</button></div>
+                <div><span class="bit-label">B₁ · 1</span><button class="bit-btn" type="button" data-word="b" data-bit="0" aria-label="สลับบิต B1" aria-pressed="true">1</button></div>
+              </div>
+            </div>
+          </div>
+          <div id="input-error" class="input-error" role="status"></div>
+          <div class="control-bits" role="group" aria-label="สัญญาณควบคุม">
+            <div><button class="bit-btn" type="button" data-control="g" aria-label="สลับสัญญาณ G" aria-pressed="false">G = 0</button><div class="control-desc">1 → บังคับ 1111</div></div>
+            <div><button class="bit-btn" type="button" data-control="j" aria-label="สลับสัญญาณ J" aria-pressed="true">J = 1</button><div class="control-desc">1 → กลับทุกบิต</div></div>
+            <div><button class="bit-btn" type="button" data-control="k" aria-label="สลับสัญญาณ K" aria-pressed="false">K = 0</button><div class="control-desc">0 → A / 1 → B</div></div>
+          </div>
+          <div class="lab-note">เลือกโหมดจากโจทย์</div>
+          <div class="preset-row" role="group" aria-label="โหมดตามตารางโจทย์">
+            <button class="preset" type="button" data-mode="a" aria-pressed="false">ส่ง A</button><button class="preset" type="button" data-mode="b" aria-pressed="false">ส่ง B</button><button class="preset" type="button" data-mode="not-a" aria-pressed="true">กลับบิต A</button><button class="preset" type="button" data-mode="not-b" aria-pressed="false">กลับบิต B</button><button class="preset" type="button" data-mode="ones" aria-pressed="false">บังคับ 1111</button>
+          </div>
+          <div class="lab-result" aria-live="polite" aria-atomic="true">
+            <div><div class="result-label">เอาต์พุต S₄S₃S₂S₁</div><output class="value math" id="result-bits">0101</output><span id="result-decimal"> = 5₁₀</span></div>
+            <div><div class="mode-label" id="mode-label">กลับบิต A</div><div class="result-label" id="mode-reason">G = 0, J = 1, K = 0</div></div>
+          </div>
+          <div class="pipeline" aria-label="ค่าระหว่างทางในวงจร">
+            <div class="pipe-card current" data-stage="0"><strong>① กลับบิตด้วย J</strong><div class="math" id="xor-values">A ⊕ J = 0101<br>B ⊕ J = 1100</div></div>
+            <div class="pipe-card" data-stage="1"><strong>② เลือกฝั่งด้วย K</strong><div class="math" id="operand-values">X = 0101<br>Y = 0000</div></div>
+            <div class="pipe-card" data-stage="2"><strong>③ บวกด้วย 74283</strong><div class="math" id="sum-values">Σ = 0101<br>C₀ = 0, C₄ = 0</div></div>
+            <div class="pipe-card" data-stage="3"><strong>④ OR กับ G</strong><div class="math" id="output-values">0101 ∨ 0000<br>S = 0101</div></div>
+          </div>
+          <div class="step-player">
+            <div class="step-nav"><button type="button" id="step-prev" disabled>← ขั้นก่อนหน้า</button><span class="step-count" id="step-count">ขั้นที่ 1 / 4</span><button type="button" id="step-next">ขั้นถัดไป →</button></div>
+            <p class="step-text" id="step-text" aria-live="polite">J = 1 จึงกลับทุกบิต: A 1010 → 0101 และ B 0011 → 1100</p>
+          </div>
+          <details class="lab-details"><summary>ดูการบวกทีละบิตและตัวทดทั้งหมด</summary><div class="table-scroll" tabindex="0" role="region" aria-label="ตารางตัวทด เลื่อนแนวนอนได้"><table><caption>ไล่เชิงลอจิกจาก LSB → MSB · C₀ คงที่ 0</caption><thead><tr><th scope="col">บิต i</th><th scope="col">Xᵢ</th><th scope="col">Yᵢ</th><th scope="col">Cᵢ₋₁</th><th scope="col">Σᵢ</th><th scope="col">Cᵢ</th><th scope="col">G</th><th scope="col">Sᵢ</th></tr></thead><tbody id="carry-rows"></tbody></table></div><p class="lab-note">เลื่อนตารางแนวนอนเพื่อดูทุกคอลัมน์ · ตารางนี้แสดงค่าลอจิกคงตัว ไม่แสดง propagation delay ของวงจรจริง</p></details>
+          <div class="lab-actions"><button type="button" id="reset-lab">คืนค่าตัวอย่าง A = 10, B = 3</button><button type="button" id="swap-inputs">สลับข้อมูล A ↔ B</button></div>
+        </div>
+        <h3>ตารางผลลัพธ์ตามข้อมูลที่กำลังทดลอง</h3>
+        <p class="small">แถวที่ไฮไลต์คือโหมดปัจจุบัน ตารางนี้เปลี่ยนตาม A และ B ในห้องทดลอง</p>
+        <div class="table-scroll compact"><table><caption id="example-caption">ตารางที่ 5 · A = 1010, B = 0011</caption><thead><tr><th scope="col">GJK</th><th scope="col">ฟังก์ชัน</th><th scope="col">S ฐานสอง</th><th scope="col">S ฐานสิบ</th></tr></thead><tbody id="mode-rows">
+          <tr data-mode-row="a"><td>000</td><td>A</td><td class="math">1010</td><td>10</td></tr><tr data-mode-row="b"><td>001</td><td>B</td><td class="math">0011</td><td>3</td></tr><tr class="active" data-mode-row="not-a"><td>010</td><td>กลับบิต A</td><td class="math">0101</td><td>5</td></tr><tr data-mode-row="not-b"><td>011</td><td>กลับบิต B</td><td class="math">1100</td><td>12</td></tr><tr data-mode-row="ones"><td>1××</td><td>1111</td><td class="math">1111</td><td>15</td></tr>
+        </tbody></table></div>
+        <div class="callout example"><span class="label">ลองให้เห็นว่าทั้งสองชุดไม่ได้ถูกบวกพร้อมกัน</span>ตั้ง A = 1111 และ B = 1111 ถ้าเลือกส่ง A หรือส่ง B จะได้ 1111 และ C₄ = 0 ถ้าเลือกกลับบิตจะได้ 0000 ส่วนเมื่อ G = 1 จะได้ 1111 ทุกค่า J, K เพราะวงจรเลือกข้อมูลเพียงฝั่งเดียวก่อนบวก</div>
+      </section>
+
+      <section id="writeup" aria-labelledby="writeup-title">
+        <div class="sec-head"><span class="sec-no">5</span><h2 id="writeup-title">เขียนคำตอบส่งอย่างไรให้ครบและตรวจง่าย</h2></div>
+        <div class="summary-box"><span class="box-label">แนวคำตอบที่นำไปเขียนได้</span>
+          <p>กำหนด Xᵢ และ Yᵢ เป็นอินพุตของวงจรบวก 74283 โดย</p>
+          <p class="math">Xᵢ = <span class="over">K</span>·(Aᵢ ⊕ J), &nbsp; Yᵢ = K·(Bᵢ ⊕ J), &nbsp; C₀ = 0</p>
+          <p>เมื่อ K = 0 วงจรเลือกข้อมูล A และเมื่อ K = 1 เลือกข้อมูล B ส่วน J = 0 ส่งค่าจริงและ J = 1 กลับทุกบิต จากนั้นนำผลบวก Σᵢ มา OR กับ G ได้</p>
+          <p class="math">Sᵢ = Σᵢ ∨ G, &nbsp; i = 1, 2, 3, 4</p>
+          <p>เมื่อ G = 0 เอาต์พุตเป็น A, B, <span class="over">A</span>, <span class="over">B</span> ตามค่า JK = 00, 01, 10, 11 ตามลำดับ และเมื่อ G = 1 เอาต์พุตเป็น 1111 ทุกโหมด ตัวทด C₄ = 0 เพราะอินพุตทั้งสองฝั่งไม่ถูกเลือกพร้อมกัน</p>
+          <p><strong>แนบตารางที่ 1 และผังวงจรรูปที่ 1</strong> เพื่อให้เห็นการกำหนดอินพุตและการต่อเกตครบทั้ง 4 บิต</p>
+        </div>
+        <div class="two-col">
+          <div class="card"><h3>กลับบิต ≠ กลับบิตแล้วบวก 1</h3><p>ต้องตั้ง C₀ = 0 ทั้งสี่โหมด มิฉะนั้นค่าจริงก็จะเพิ่ม 1 และโหมดกลับบิตจะกลายเป็น Two's complement</p></div>
+          <div class="card"><h3>บังคับ 1111 ใช้ OR กับ G</h3><p>AND กับ G จะให้ศูนย์เมื่อ G = 0 จึงไม่ผ่านข้อมูลตามโจทย์ ต้องใช้ Σᵢ ∨ G ทุกบิต</p></div>
+          <div class="card"><h3>แยกข้อมูลต้นทางกับขาไอซี</h3><p>A ของโจทย์ไม่ใช่ X ที่เข้าฝั่ง A ของไอซีเสมอไป ข้อมูลต้องผ่าน XOR และ AND ก่อนเข้า 74283</p></div>
+          <div class="card"><h3>ตัวทดไม่ใช่บิตที่ห้าของคำตอบ</h3><p>โจทย์ต้องการ S₄S₃S₂S₁ จำนวน 4 บิต ค่า C₄ ไม่ได้เข้าชุดเอาต์พุต S และเป็น 0 ในวงจรนี้</p></div>
+        </div>
+        <div class="callout example" id="quiz"><span class="label">เช็กความเข้าใจก่อนจบ</span><p>A = 1010, B = 0011 และ GJK = 010 เอาต์พุต S ควรเป็นอะไร?</p><div class="quiz-options" role="group" aria-label="คำตอบทดสอบความเข้าใจ"><button type="button" data-answer="1010" class="math">1010</button><button type="button" data-answer="0101" class="math">0101</button><button type="button" data-answer="0110" class="math">0110</button><button type="button" data-answer="1111" class="math">1111</button></div><p class="quiz-feedback" id="quiz-feedback" role="status">เลือกคำตอบแล้วดูเหตุผลประกอบ</p><noscript><p>เฉลย: 0101 เพราะ K = 0 เลือก A, J = 1 กลับบิต และ G = 0 ผ่านผลจากวงจรบวก</p></noscript></div>
+      </section>
+
+      <section id="sources" aria-labelledby="sources-title">
+        <div class="sec-head"><span class="sec-no">REF</span><h2 id="sources-title">อ้างอิงต้นฉบับ · ตรวจตำแหน่งในเอกสารได้</h2></div>
+        <p>ข้อกำหนดและวิธีออกแบบยึดตาม <strong>305241_lecture.pdf</strong> ส่วนสมการ X, Y และผังวงจรในหน้านี้เป็นการประยุกต์วิธีในเอกสารเพื่อเฉลยข้อ 3</p>
+        <p class="table-hint">เลื่อนตารางแนวนอน ↔ เพื่อดูทุกคอลัมน์</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางอ้างอิง เลื่อนแนวนอนได้"><table><caption>ตารางที่ 6 · ตำแหน่งอ้างอิง แยกเลขหน้าเอกสารจากเลขหน้าไฟล์ PDF</caption><thead><tr><th scope="col" class="left">สิ่งที่ใช้</th><th scope="col">หน้าเอกสาร</th><th scope="col">หน้า PDF</th></tr></thead><tbody>
+          <tr><td class="left"><a href="../../../00-lecture/305241_lecture.pdf#page=175">โจทย์ข้อ 3 และตารางรูปที่ 5.36</a></td><td>160</td><td>175</td></tr>
+          <tr><td class="left"><a href="../../../00-lecture/305241_lecture.pdf#page=168">หัวข้อ 5.7: วิธีออกแบบ 4 ขั้น และตัวอย่างที่ 5.8</a></td><td>153</td><td>168</td></tr>
+          <tr><td class="left"><a href="../../../00-lecture/305241_lecture.pdf#page=169">ตัวอย่างที่ 5.9: ตารางกำหนดอินพุตของ 74283</a></td><td>154–155</td><td>169–170</td></tr>
+          <tr><td class="left"><a href="../../../00-lecture/305241_lecture.pdf#page=152">74283: สัญลักษณ์และวงจรบวก รูปที่ 5.6–5.7</a></td><td>137</td><td>152</td></tr>
+          <tr><td class="left"><a href="../../../00-lecture/305241_lecture.pdf#page=155">XOR ควบคุมค่าจริง/คอมพลีเม้นท์ รูปที่ 5.12</a></td><td>140</td><td>155</td></tr>
+          <tr><td class="left"><a href="../../../00-lecture/305241_lecture.pdf#page=150">สูตร Sum และ Carry ของ Full Adder</a></td><td>135</td><td>150</td></tr>
+        </tbody></table></div>
+        <details><summary>ดูโจทย์ต้นฉบับรูปที่ 5.36</summary><div class="details-body"><figure><div class="frame"><img src="assets/lecture-exercise3.png" width="1060" height="515" loading="lazy" alt="ภาพโจทย์จากหน้า PDF 175: GJK 000 ส่ง A, 001 ส่ง B, 010 คอมพลีเม้นท์ A, 011 คอมพลีเม้นท์ B, G เท่ากับ 1 เอาต์พุต 1111"></div><figcaption>ภาพส่วนโจทย์จากหน้าเอกสาร 160 · ตารางที่แสดงในส่วนต้นของเฉลยถอดจากภาพนี้</figcaption></figure></div></details>
+        <p class="src-note">หมายเลขขาไอซีเพิ่มเติม: <a href="https://www.ti.com/lit/ds/symlink/sn74ls283.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments · SN74LS283 datasheet หน้า 1</a></p>
+        <p class="src-note">การตรวจเชิงตรรกะ: ทดสอบ A, B ตั้งแต่ 0–15 และ G, J, K ทุกค่า รวม 16 × 16 × 2³ = <strong>2,048 กรณี</strong> ด้วย <a href="verify_logic.cjs">สคริปต์ตรวจวงจร</a> ซึ่งเปรียบเทียบผลจากเกตกับข้อกำหนดของโจทย์</p>
+      </section>
+    </main>
+    <footer><div class="card-top"><span><strong>305241 Digital Logic Design</strong> · บทที่ 5 · เฉลยข้อ 3</span><a href="../index.html">← กลับแบบฝึกหัดท้ายบท</a></div><p>ค่าที่แสดงเป็นลอจิกคงตัว สำหรับศึกษาวิธีออกแบบและตรวจฟังก์ชันของวงจร</p></footer>
+  </div>
+  <dialog id="figure-dialog" aria-labelledby="figure-title"><div class="dialog-top"><strong id="figure-title">ขยายวงจร</strong><button class="button subtle" type="button" id="close-figure">ปิด ×</button></div><div class="dialog-image"><img id="figure-image" alt=""></div><p class="small">เลื่อนแนวนอนเพื่อดูรายละเอียดบนจอเล็ก · กด Esc เพื่อปิด</p></dialog>
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Systems, SAM & Complements — 12-Step Chained Exam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Kanit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0d14;
+      --bg-card: rgba(18, 24, 38, 0.85);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-glow: rgba(56, 189, 248, 0.3);
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #f59e0b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --font-body: 'Kanit', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, #07090e 0%, #0a0d14 100%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    header { text-align: center; margin-bottom: 2rem; }
+
+    .badge-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 9999px;
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle { color: var(--text-muted); font-size: 1.05rem; }
+
+    .alert-banner {
+      background: linear-gradient(90deg, rgba(244, 63, 94, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+      border-left: 4px solid var(--accent-rose);
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.75rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 0.5rem 0.5rem 0 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.03); }
+    .tab-btn.active {
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border-bottom: 2px solid var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+
+    .step-card:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .step-badge {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .chain-pill {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+    }
+
+    .code-box {
+      background: #06080d;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: #38bdf8;
+      margin: 0.6rem 0;
+      overflow-x: auto;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .input-group input {
+      background: #070a10;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.85rem;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.75rem;
+    }
+
+    .btn-solution {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.75rem;
+      margin-left: 0.5rem;
+    }
+
+    .feedback-box {
+      margin-top: 0.75rem;
+      padding: 0.65rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fb7185;
+    }
+
+    .solution-panel {
+      margin-top: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: #06090e;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 0.5rem;
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    .solution-panel.open { display: block; }
+
+    .sim-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+
+    .sim-table th, .sim-table td {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .sim-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    .status-ok { color: #34d399; font-weight: 600; }
+    .status-fail { color: #fb7185; font-weight: 600; }
+
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; padding: 0; }
+      .nav-tabs, .btn-action, .btn-solution, .feedback-box, .badge-header { display: none !important; }
+      .step-card { background: #ffffff !important; border: 1px solid #cccccc !important; page-break-inside: avoid; margin-bottom: 1cm; color: #000000 !important; }
+      .code-box { background: #f4f4f5 !important; color: #000000 !important; }
+      h1 { color: #000000 !important; -webkit-text-fill-color: #000000 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge-header">🔢 305241 Digital Logic Design & Engineering • Chapter 1</div>
+      <h1>ระบบจำนวน, SAM, การบวกเลขฐาน & Complements (12-Step Chained Exam)</h1>
+      <p class="subtitle">ชุดข้อสอบลูกโซ่พื้นฐาน ครอบคลุมการแปลงฐาน, SAM, การบวกเลขฐาน และส่วนเติมเต็ม 1's / 2's Complement</p>
+    </header>
+
+    <div class="alert-banner">
+      <div>⚠️ <strong>กฎลูกโซ่ (Chained Rule):</strong> ข้อสอบชุดนี้คำตอบของแต่ละข้อจะส่งต่อไปเป็นโจทย์ของข้อถัดไป หากผิดข้อแรกจะส่งผลให้ผิดต่อเนื่องทั้งหมด</div>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('exam-tab')">📝 ห้องสอบ Interactive (12 ข้อ)</button>
+      <button class="tab-btn" onclick="switchTab('solution-tab')">📘 ตารางเฉลยสมบูรณ์ (Master Solution)</button>
+      <button class="tab-btn" onclick="switchTab('simulator-tab')">🌳 Cascade Simulator</button>
+      <button class="tab-btn" onclick="window.print()">🖨️ สั่งพิมพ์ข้อสอบ (Print PDF)</button>
+    </div>
+
+    <!-- Tab 1: Interactive Exam -->
+    <div id="exam-tab" class="tab-content active">
+
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">01</span> 1. แปลงเลขฐานสิบเป็นรหัส BCD (Decimal ➔ BCD)</div>
+          <div class="chain-pill">Start ➔ BCD₁</div>
+        </div>
+        <p>กำหนดเลขฐานสิบที่มีทศนิยม: <code class="code-box">D₁ = 147.625₁₀</code></p>
+        <p>จงแปลง <code>D₁</code> ให้อยู่ในรูปของ <strong>รหัส BCD (8421 Code)</strong>:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>รหัส BCD (BCD₁):</label>
+            <input type="text" id="in-1" placeholder="เช่น 0001 0100 0111.0110 0010 0101">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(1)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(1)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-1"></div>
+        <div class="solution-panel" id="sol-1">
+          <strong>เฉลย:</strong> 1➔0001, 4➔0100, 7➔0111 . 6➔0110, 2➔0010, 5➔0101<br>
+          ➔ <code>0001 0100 0111 . 0110 0010 0101 (BCD)</code>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">02</span> 2. แปลงรหัส BCD เป็นรหัส Excess-3 (BCD ➔ Excess-3)</div>
+          <div class="chain-pill">Input: BCD₁ ➔ XS₂</div>
+        </div>
+        <p>นำรหัส <code>BCD₁</code> จากข้อ 1 มาแปลงเป็น <strong>รหัส Excess-3 (XS-3)</strong> โดยบวก <code>0011₂</code> (+3) ในแต่ละหลัก 4 บิต:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>รหัส Excess-3 (XS₂):</label>
+            <input type="text" id="in-2" placeholder="เช่น 0100 0111 1010.1001 0101 1000">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(2)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(2)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-2"></div>
+        <div class="solution-panel" id="sol-2">
+          <strong>เฉลย:</strong> บวก 3 ทุกหลัก 4 บิต: (1+3=4)➔0100, (4+3=7)➔0111, (7+3=10)➔1010 . (6+3=9)➔1001, (2+3=5)➔0101, (5+3=8)➔1000<br>
+          ➔ <code>0100 0111 1010 . 1001 0101 1000 (XS-3)</code>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">03</span> 3. แปลงเลขฐานสิบเป็นเลขฐานสอง (Decimal ➔ Binary Fraction)</div>
+          <div class="chain-pill">Input: D₁ ➔ B₃</div>
+        </div>
+        <p>นำค่าฐานสิบ <code>D₁ = 147.625₁₀</code> มาแปลงเป็น <strong>เลขฐานสอง (Binary: B₃)</strong>:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>เลขฐานสอง (B₃):</label>
+            <input type="text" id="in-3" placeholder="เช่น 10010011.101">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(3)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(3)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-3"></div>
+        <div class="solution-panel" id="sol-3">
+          <strong>เฉลย:</strong> 147₁₀ = 10010011₂, 0.625₁₀ = 0.5 + 0.125 = .101₂<br>
+          ➔ <code>10010011.101₂</code>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">04</span> 4. แปลงเลขฐานสองเป็นเลขฐานสิบหก (Binary ➔ Hexadecimal)</div>
+          <div class="chain-pill">Input: B₃ ➔ H₄</div>
+        </div>
+        <p>นำ <code>B₃ = 10010011.101₂</code> มาจัดกลุ่มบิตละ 4 บิต แปลงเป็น <strong>เลขฐานสิบหก (H₄)</strong>:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>เลขฐานสิบหก (H₄):</label>
+            <input type="text" id="in-4" placeholder="เช่น 93.A">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(4)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(4)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-4"></div>
+        <div class="solution-panel" id="sol-4">
+          <strong>เฉลย:</strong> หน้าจุด 1001 0011₂ = 93₁₆, หลังจุด .1010₂ = .A₁₆<br>
+          ➔ <code>93.A₁₆</code>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">05</span> 5. แปลงเลขฐานสิบหกเป็นเลขฐานแปด (Hexadecimal ➔ Octal)</div>
+          <div class="chain-pill">Input: H₄ ➔ O₅</div>
+        </div>
+        <p>นำ <code>H₄ = 93.A₁₆</code> มาแปลงเป็น <strong>เลขฐานแปด (O₅)</strong> โดยจัดกลุ่มฐานสองละ 3 บิต:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>เลขฐานแปด (O₅):</label>
+            <input type="text" id="in-5" placeholder="เช่น 223.5">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(5)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(5)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-5"></div>
+        <div class="solution-panel" id="sol-5">
+          <strong>เฉลย:</strong> 93.A₁₆ = 010 010 011 . 101₂ ➔ <code>223.5₈</code>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">06</span> 6. แปลงเลขฐานแปดกลับเป็นฐานสิบและฐานสอง (Octal ➔ Dec & Bin)</div>
+          <div class="chain-pill">Input: O₅ ➔ D₆, B₆</div>
+        </div>
+        <p>นำเลขฐานแปด <code>O₅ = 223.5₈</code> มาแปลงกลับเป็น <strong>เลขฐานสิบ (D₆)</strong> โดยกระจายค่าน้ำหนัก <code>8ⁱ</code> และเขียนส่วนจำนวนเต็มเป็นเลขฐานสอง 8 บิต <code>B₆</code>:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>เลขฐานสิบ (D₆):</label>
+            <input type="text" id="in-6-1" placeholder="เช่น 147.625">
+          </div>
+          <div class="input-group">
+            <label>ส่วนจำนวนเต็มในรูปฐานสอง 8 บิต (B₆):</label>
+            <input type="text" id="in-6-2" placeholder="เช่น 10010011">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(6)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(6)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-6"></div>
+        <div class="solution-panel" id="sol-6">
+          <strong>เฉลย:</strong> (2×64) + (2×8) + (3×1) + (5/8) = <code>147.625₁₀</code><br>
+          ส่วนจำนวนเต็ม 147₁₀ (223₈) = <code>10010011₂</code>
+        </div>
+      </div>
+
+      <!-- Step 7: Base Addition -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">07</span> 7. การบวกเลขฐานสอง (Unsigned Base Addition)</div>
+          <div class="chain-pill">Input: B₆ + 61₁₀ ➔ SUM₇, K</div>
+        </div>
+        <p>นำ <code>B₆ = 10010011₂</code> (147₁₀) บวกกับ <code>00111101₂</code> (+61₁₀) ได้ <code>SUM₇</code> จากนั้นลบด้วย <code>134₁₀</code> ได้ค่าขนาด <code>K</code>:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>ผลบวก SUM₇ (ฐานสอง 8 บิต):</label>
+            <input type="text" id="in-7-1" placeholder="เช่น 11010000">
+          </div>
+          <div class="input-group">
+            <label>ค่าขนาด K = SUM₇ - 134₁₀ (ฐานสิบ):</label>
+            <input type="text" id="in-7-2" placeholder="เช่น 74">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(7)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(7)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-7"></div>
+        <div class="solution-panel" id="sol-7">
+          <strong>เฉลย:</strong> 10010011₂ + 00111101₂ = <code>11010000₂ = 208₁₀ (D0₁₆)</code><br>
+          K = 208 - 134 = <code>74₁₀ = 01001010₂ (4A₁₆)</code>
+        </div>
+      </div>
+
+      <!-- Step 8: SAM -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">08</span> 8. Sign and Magnitude (SAM 8 บิต)</div>
+          <div class="chain-pill">Input: K = 74₁₀ ➔ SAM(±74)</div>
+        </div>
+        <p>นำค่าขนาด <code>K = 74₁₀ (01001010₂)</code> มาเขียนแสดงค่าในระบบ <strong>Sign and Magnitude (SAM)</strong> ขนาด 8 บิต:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>SAM ค่าบวก (+74₁₀):</label>
+            <input type="text" id="in-8-1" placeholder="เช่น 01001010">
+          </div>
+          <div class="input-group">
+            <label>SAM ค่าติดลบ (-74₁₀):</label>
+            <input type="text" id="in-8-2" placeholder="เช่น 11001010">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(8)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(8)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-8"></div>
+        <div class="solution-panel" id="sol-8">
+          <strong>เฉลย:</strong> บิตแรกบอกเครื่องหมาย (0=+, 1=-), 7 บิตหลังบอกขนาด (1001010₂):<br>
+          • <code>SAM(+74) = 01001010₂ (4A₁₆)</code><br>
+          • <code>SAM(-74) = 11001010₂ (CA₁₆)</code>
+        </div>
+      </div>
+
+      <!-- Step 9: 1's & 2's Complement -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">09</span> 9. การหาค่า 1's และ 2's Complement (-74₁₀)</div>
+          <div class="chain-pill">Input: -74₁₀ ➔ 1's & 2's Comp</div>
+        </div>
+        <p>นำค่าติดลบ <code>-74₁₀</code> มาเขียนในระบบส่วนเติมเต็มขนาด 8 บิต (+74 = 01001010₂):</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>1's Complement (S_1comp):</label>
+            <input type="text" id="in-9-1" placeholder="เช่น 10110101">
+          </div>
+          <div class="input-group">
+            <label>2's Complement (S_2comp):</label>
+            <input type="text" id="in-9-2" placeholder="เช่น 10110110">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(9)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(9)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-9"></div>
+        <div class="solution-panel" id="sol-9">
+          <strong>เฉลย:</strong><br>
+          • 1's Comp (Invert ทุกบิต): <code>10110101₂ (B5₁₆)</code><br>
+          • 2's Comp (1's + 1): <code>10110110₂ (B6₁₆)</code>
+        </div>
+      </div>
+
+      <!-- Step 10: 1's Complement Subtraction -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">10</span> 10. การลบด้วย 1's Complement (End-Around Carry)</div>
+          <div class="chain-pill">Input: 85 - 74 ➔ RES₁₀</div>
+        </div>
+        <p>คำนวณ <code>(+85₁₀) - (+74₁₀)</code> ด้วย 1's Complement 8 บิต (+85 = 01010101₂, -74 = 10110101₂):</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>เกิด End Carry หรือไม่ (0 หรือ 1):</label>
+            <input type="text" id="in-10-1" placeholder="1">
+          </div>
+          <div class="input-group">
+            <label>ผลลัพธ์หลังบวก End-Around Carry (RES₁₀):</label>
+            <input type="text" id="in-10-2" placeholder="เช่น 00001011 หรือ 11">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(10)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(10)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-10"></div>
+        <div class="solution-panel" id="sol-10">
+          <strong>เฉลย:</strong> 01010101₂ + 10110101₂ = (1) 00001010₂ ➔ End Carry = 1<br>
+          วนกลับมาบวก: 00001010₂ + 1 = <code>00001011₂ = +11₁₀</code>
+        </div>
+      </div>
+
+      <!-- Step 11: 2's Complement Subtraction -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">11</span> 11. การลบด้วย 2's Complement (Signed Subtraction)</div>
+          <div class="chain-pill">Input: Y - (-74) ➔ RES₁₁</div>
+        </div>
+        <p>คำนวณ <code>Y - (-74) = (+45₁₀) + 2's Comp(-74)</code> ในระบบ 8 บิต (Y = 00101101₂):</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>ผลบวก 8 บิต (RES₁₁):</label>
+            <input type="text" id="in-11-1" placeholder="เช่น 01110111">
+          </div>
+          <div class="input-group">
+            <label>ค่าในระบบฐานสิบ:</label>
+            <input type="text" id="in-11-2" placeholder="เช่น 119">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(11)">✅ ตรวจคำตอบ</button>
+        <button class="btn-solution" onclick="toggleSolution(11)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-11"></div>
+        <div class="solution-panel" id="sol-11">
+          <strong>เฉลย:</strong> 00101101₂ (+45) + 01001010₂ (+74) = <code>01110111₂ = 119₁₀ (77₁₆)</code> (ไม่เกิด Overflow)
+        </div>
+      </div>
+
+      <!-- Step 12 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-title"><span class="step-badge">12</span> 12. แปลงเลขฐานสิบเป็น BCD และ Excess-3 (Final Test)</div>
+          <div class="chain-pill">Input: 119.48₁₀ ➔ Final</div>
+        </div>
+        <p>นำค่าฐานสิบ <code>RES₁₁ = 119₁₀</code> ต่อทศนิยมเป็น <code class="code-box">119.48₁₀</code> แปลงเป็น BCD และ Excess-3:</p>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>รหัส BCD:</label>
+            <input type="text" id="in-12-1" placeholder="เช่น 0001 0001 1001.0100 1000">
+          </div>
+          <div class="input-group">
+            <label>รหัส Excess-3:</label>
+            <input type="text" id="in-12-2" placeholder="เช่น 0100 0100 1100.0111 1011">
+          </div>
+        </div>
+        <button class="btn-action" onclick="checkStep(12)">✅ ตรวจคำตอบข้อที่ 12</button>
+        <button class="btn-solution" onclick="toggleSolution(12)">👁️ ดูวิธีทำ</button>
+        <div class="feedback-box" id="fb-12"></div>
+        <div class="solution-panel" id="sol-12">
+          <strong>เฉลย:</strong><br>
+          • BCD: <code>0001 0001 1001 . 0100 1000 (BCD)</code><br>
+          • Excess-3: <code>0100 0100 1100 . 0111 1011 (XS-3)</code>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tab 2: Master Solution -->
+    <div id="solution-tab" class="tab-content">
+      <div class="step-card">
+        <h2 style="margin-bottom: 0.75rem; color: var(--accent-cyan);">📘 ตารางเฉลยสมบูรณ์ 12 ขั้นตอน</h2>
+        <table class="sim-table">
+          <thead>
+            <tr>
+              <th>ข้อ</th>
+              <th>หัวข้อ</th>
+              <th>อินพุต</th>
+              <th>คำตอบสุดท้าย</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Decimal ➔ BCD</td><td><code>147.625₁₀</code></td><td><code>0001 0100 0111 . 0110 0010 0101 (BCD)</code></td></tr>
+            <tr><td>2</td><td>BCD ➔ Excess-3</td><td>BCD จากข้อ 1</td><td><code>0100 0111 1010 . 1001 0101 1000 (XS-3)</code></td></tr>
+            <tr><td>3</td><td>Decimal ➔ Binary</td><td><code>147.625₁₀</code></td><td><code>10010011.101₂</code></td></tr>
+            <tr><td>4</td><td>Binary ➔ Hex</td><td><code>10010011.101₂</code></td><td><code>93.A₁₆</code></td></tr>
+            <tr><td>5</td><td>Hex ➔ Octal</td><td><code>93.A₁₆</code></td><td><code>223.5₈</code></td></tr>
+            <tr><td>6</td><td>Octal ➔ Dec & Bin</td><td><code>223.5₈</code></td><td><code>D₆ = 147.625₁₀, B₆ = 10010011₂ (147₁₀)</code></td></tr>
+            <tr><td>7</td><td>การบวกเลขฐานสอง</td><td><code>147₁₀ + 61₁₀</code></td><td><code>SUM₇ = 11010000₂ (208₁₀), K = 74₁₀ (01001010₂)</code></td></tr>
+            <tr><td>8</td><td>SAM 8 บิต</td><td><code>K = 74₁₀</code></td><td><code>SAM(+74) = 01001010₂, SAM(-74) = 11001010₂</code></td></tr>
+            <tr><td>9</td><td>1's & 2's Comp</td><td><code>-74₁₀</code></td><td><code>1's = 10110101₂, 2's = 10110110₂</code></td></tr>
+            <tr><td>10</td><td>1's Subtraction</td><td><code>85₁₀ - 74₁₀</code></td><td><code>End Carry = 1 ➔ RES₁₀ = 00001011₂ (+11₁₀)</code></td></tr>
+            <tr><td>11</td><td>2's Subtraction</td><td><code>(+45) - (-74)</code></td><td><code>RES₁₁ = 01110111₂ = 119₁₀ (77₁₆) (No Overflow)</code></td></tr>
+            <tr><td>12</td><td>Dec ➔ Excess-3</td><td><code>119.48₁₀</code></td><td><code>XS-3 = 0100 0100 1100 . 0111 1011</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 3: Simulator -->
+    <div id="simulator-tab" class="tab-content">
+      <div class="step-card">
+        <h2 style="color: var(--accent-purple); margin-bottom: 0.5rem;">🌳 Cascade Error Simulator (จำลองลูกโซ่)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">ทดลองเปลี่ยนค่าจำนวนเต็มเริ่มต้น <code>D₁</code> เพื่อดูว่าผลลัพธ์ของแต่ละข้อเปลี่ยนไปอย่างไร</p>
+        <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem;">
+          <label>จำนวนเต็มเริ่มต้น:</label>
+          <input type="number" id="sim-input" value="147" style="background:#070a10; border:1px solid var(--border-color); color:#38bdf8; font-family:var(--font-mono); font-size:1.1rem; padding:0.4rem 0.8rem; border-radius:0.5rem; width:120px;">
+          <button class="btn-action" onclick="runSim()" style="margin-top:0;">⚡ รันลูกโซ่</button>
+        </div>
+        <div id="sim-output"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function toggleSolution(step) {
+      const p = document.getElementById(`sol-${step}`);
+      p.classList.toggle('open');
+    }
+
+    function clean(s) {
+      return (s || '').replace(/\s+/g, '').replace(/,/g, '').toLowerCase();
+    }
+
+    function showFb(step, ok, msg) {
+      const fb = document.getElementById(`fb-${step}`);
+      fb.className = 'feedback-box ' + (ok ? 'correct' : 'incorrect');
+      fb.innerHTML = msg;
+    }
+
+    function checkStep(step) {
+      if (step === 1) {
+        const v = clean(document.getElementById('in-1').value);
+        const ok = (v === '000101000111.011000100101');
+        showFb(1, ok, ok ? '🎉 ถูกต้องสมบูรณ์!' : '❌ ยังไม่ถูกต้อง (1➔0001, 4➔0100, 7➔0111 . 6➔0110, 2➔0010, 5➔0101)');
+      } else if (step === 2) {
+        const v = clean(document.getElementById('in-2').value);
+        const ok = (v === '010001111010.100101011000');
+        showFb(2, ok, ok ? '🎉 ถูกต้องสมบูรณ์!' : '❌ บวก 0011₂ เข้าไปในแต่ละกลุ่ม 4 บิต');
+      } else if (step === 3) {
+        const v = clean(document.getElementById('in-3').value);
+        const ok = (v === '10010011.101' || v === '10010011.1010');
+        showFb(3, ok, ok ? '🎉 ถูกต้อง! 147.625₁₀ = 10010011.101₂' : '❌ หารสั้น 147 ได้ 10010011₂, คูณ 0.625 ได้ .101₂');
+      } else if (step === 4) {
+        const v = clean(document.getElementById('in-4').value);
+        const ok = (v === '93.a' || v === '0x93.a');
+        showFb(4, ok, ok ? '🎉 ถูกต้อง! 1001 0011 . 1010₂ = 93.A₁₆' : '❌ จัดกลุ่มละ 4 บิต: 1001 0011 . 1010 ➔ 93.A');
+      } else if (step === 5) {
+        const v = clean(document.getElementById('in-5').value);
+        const ok = (v === '223.5');
+        showFb(5, ok, ok ? '🎉 ถูกต้อง! 93.A₁₆ = 223.5₈' : '❌ จัดกลุ่มฐานสองละ 3 บิต: 010 010 011 . 101 ➔ 223.5');
+      } else if (step === 6) {
+        const d = clean(document.getElementById('in-6-1').value);
+        const b = clean(document.getElementById('in-6-2').value);
+        const ok = (d === '147.625' && b === '10010011');
+        showFb(6, ok, ok ? '🎉 ถูกต้อง! D₆ = 147.625₁₀, B₆ = 10010011₂' : '❌ D₆ = 147.625₁₀, B₆ = 10010011₂');
+      } else if (step === 7) {
+        const sum = clean(document.getElementById('in-7-1').value);
+        const k = clean(document.getElementById('in-7-2').value);
+        const ok = ((sum === '11010000' || sum === '208') && (k === '74' || k === '01001010' || k === '4a'));
+        showFb(7, ok, ok ? '🎉 ถูกต้อง! SUM₇ = 11010000₂ (208₁₀), K = 74₁₀ (01001010₂)' : '❌ 10010011₂ + 00111101₂ = 11010000₂ (208₁₀), K = 208 - 134 = 74₁₀');
+      } else if (step === 8) {
+        const pos = clean(document.getElementById('in-8-1').value);
+        const neg = clean(document.getElementById('in-8-2').value);
+        const ok = ((pos === '01001010' || pos === '4a') && (neg === '11001010' || neg === 'ca'));
+        showFb(8, ok, ok ? '🎉 ถูกต้อง! SAM(+74) = 01001010₂ (4A₁₆), SAM(-74) = 11001010₂ (CA₁₆)' : '❌ SAM: บิต MSB เป็น 0 สำหรับบวก, 1 สำหรับลบ ➔ +74 = 01001010₂, -74 = 11001010₂');
+      } else if (step === 9) {
+        const o = clean(document.getElementById('in-9-1').value);
+        const t = clean(document.getElementById('in-9-2').value);
+        const ok = ((o === '10110101' || o === 'b5') && (t === '10110110' || t === 'b6'));
+        showFb(9, ok, ok ? '🎉 ถูกต้องสมบูรณ์! 1\'s Comp = 10110101₂ (B5₁₆), 2\'s Comp = 10110110₂ (B6₁₆)' : '❌ 1\'s Comp: สลับบิตได้ 10110101₂, 2\'s Comp: บวก 1 ได้ 10110110₂');
+      } else if (step === 10) {
+        const carry = clean(document.getElementById('in-10-1').value);
+        const res = clean(document.getElementById('in-10-2').value);
+        const ok = (carry === '1' && (res === '00001011' || res === '11' || res === '+11'));
+        showFb(10, ok, ok ? '🎉 ถูกต้อง! End Carry = 1, วนกลับมาบวกได้ RES₁₀ = 00001011₂ (+11₁₀)' : '❌ 85 - 74: เกิด End Carry = 1 นำมาบวกกลับได้ 00001011₂ (+11₁₀)');
+      } else if (step === 11) {
+        const b = clean(document.getElementById('in-11-1').value);
+        const d = clean(document.getElementById('in-11-2').value);
+        const ok = (b === '01110111' && (d === '119' || d === '77'));
+        showFb(11, ok, ok ? '🎉 ถูกต้อง! (+45) + (+74) = 119₁₀ (01110111₂)' : '❌ 00101101₂ + 01001010₂ = 01110111₂ (119₁₀)');
+      } else if (step === 12) {
+        const bcd = clean(document.getElementById('in-12-1').value);
+        const xs = clean(document.getElementById('in-12-2').value);
+        const ok = (bcd === '000100011001.01001000' && xs === '010001001100.01111011');
+        showFb(12, ok, ok ? '🏆 ยินดีด้วย! คุณผ่านข้อสอบลูกโซ่ 12 ขั้นตอนสำเร็จครบถ้วน!' : '❌ BCD: 0001 0001 1001 . 0100 1000, XS-3: 0100 0100 1100 . 0111 1011');
+      }
+    }
+
+    function runSim() {
+      const n = parseInt(document.getElementById('sim-input').value) || 0;
+      const b_str = (n & 0xFF).toString(2).padStart(8, '0');
+      
+      const sum7 = (n + 61) & 0xFF;
+      const k = (sum7 - 134) & 0xFF;
+      const sam_pos = '0' + k.toString(2).padStart(8, '0').slice(1);
+      const sam_neg = '1' + k.toString(2).padStart(8, '0').slice(1);
+      const ones_comp = (~k & 0xFF).toString(2).padStart(8, '0');
+      const twos_comp = ((~k + 1) & 0xFF).toString(2).padStart(8, '0');
+      const res11 = (45 + k) & 0xFF;
+
+      const html = `
+        <table class="sim-table">
+          <thead>
+            <tr><th>ขั้นตอน</th><th>หัวข้อ & การคำนวณ</th><th>ค่าผลลัพธ์</th><th>สถานะ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1 & 3</td><td>ฐานสิบ ➔ ฐานสอง</td><td><code>${n}₁₀ = ${b_str}₂</code></td><td><span class="${n===147?'status-ok':'status-fail'}">${n===147?'ตรงต้นฉบับ':'ค่าเปลี่ยน'}</span></td></tr>
+            <tr><td>7</td><td>การบวกเลขฐานสอง (B₆ + 61₁₀)</td><td><code>SUM₇ = ${sum7}₁₀, K = ${k}₁₀</code></td><td><span class="${sum7===208?'status-ok':'status-fail'}">${sum7===208?'ตรง':'เปลี่ยน'}</span></td></tr>
+            <tr><td>8</td><td>SAM (+K และ -K)</td><td><code>SAM(+) = ${sam_pos}₂, SAM(-) = ${sam_neg}₂</code></td><td><span class="${k===74?'status-ok':'status-fail'}">${k===74?'ตรง':'เปลี่ยน'}</span></td></tr>
+            <tr><td>9</td><td>1's & 2's Complement</td><td><code>1's = ${ones_comp}₂, 2's = ${twos_comp}₂</code></td><td><span class="${k===74?'status-ok':'status-fail'}">${k===74?'ตรง':'เปลี่ยน'}</span></td></tr>
+            <tr><td>10</td><td>1's Comp Subtraction (85 - K)</td><td><code>85 - ${k} = ${85 - k}₁₀</code></td><td><span class="${k===74?'status-ok':'status-fail'}">${k===74?'ตรง':'เปลี่ยน'}</span></td></tr>
+            <tr><td>11</td><td>2's Comp Subtraction (45 - (-K))</td><td><code>RES = ${res11}₁₀ (${res11.toString(2).padStart(8,'0')}₂)</code></td><td><span class="${res11===119?'status-ok':'status-fail'}">${res11===119?'ตรง':'เปลี่ยน'}</span></td></tr>
+            <tr><td>12</td><td>Final Dec (RES.48)</td><td><code>${res11}.48₁₀</code></td><td><span class="${res11===119?'status-ok':'status-fail'}">${res11===119?'ตรง':'เปลี่ยน'}</span></td></tr>
+          </tbody>
+        </table>
+      `;
+      document.getElementById('sim-output').innerHTML = html;
+    }
+
+    window.addEventListener('DOMContentLoaded', runSim);
+  </script>
+</body>
+</html>

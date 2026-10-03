@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>เฉลยละเอียด — การลดรูป K-Map 5 ตัวแปร (Exam 1) · 305241 Digital Logic</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   ธีมแบบตำราเรียนวิศวกรรมคลาสสิก (Engineering Textbook & Lab Theme)
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --paper:#FBF8F1; --paper2:#F5F0E4; --ink:#1E293B; --ink-soft:#475569;
+  --rule:#D8CFBC; --accent:#1E40AF; --accent2:#B45309;
+  --green:#047857; --green-bg:#ECFDF5; --red:#B91C1C; --red-bg:#FEF2F2;
+  --purple:#7C3AED; --amber-bg:#FFFBEB; --blue-bg:#EFF6FF;
+  --g1-red:#EF4444; --g2-mag:#D946EF; --g3-blue:#3B82F6; --g4-orange:#F97316; --g5-green:#10B981;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans Thai","Sarabun","Thonburi","Noto Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16.5px; line-height:1.85;
+}
+.page{max-width:1040px; margin:0 auto; padding:34px 28px 90px}
+
+/* ส่วนหัวตำรา */
+.course-line{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  border-bottom:3px double var(--ink); padding-bottom:8px; margin-bottom:22px;
+  font-size:.88rem; letter-spacing:.04em; color:var(--ink-soft);
+}
+.chip{border:1.5px solid var(--ink); border-radius:999px; padding:2px 14px; white-space:nowrap; font-weight:700}
+h1.book-title{font-size:2.1rem; line-height:1.35; margin:14px 0 6px; font-weight:800; color:#0F172A}
+.subtitle{color:var(--ink-soft); font-size:1.05rem; margin-bottom:24px}
+
+/* กล่องโจทย์ */
+.problem-box{
+  border:2px solid var(--ink); background:#fff;
+  padding:22px 26px; margin:26px 0 16px; position:relative;
+  box-shadow:6px 6px 0 var(--paper2); border-radius:4px;
+}
+.problem-box::before{
+  content:"โจทย์ข้อสอบ EXAM 1"; position:absolute; top:-15px; left:22px;
+  background:var(--ink); color:#fff; font-weight:700; font-size:.82rem;
+  padding:2px 16px; letter-spacing:.1em; border-radius:3px;
+}
+.prob-grid{display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap}
+.prob-text{flex:1 1 360px; min-width:280px}
+.prob-fig{flex:0 0 340px; max-width:100%; cursor:zoom-in; position:relative}
+.prob-fig img{width:100%; display:block; border:1.5px solid var(--rule); border-radius:8px; transition:transform .18s ease}
+.prob-fig:hover img{transform:scale(1.02)}
+.prob-cap{font-size:.8rem; color:var(--ink-soft); margin-top:6px; text-align:center}
+
+/* สารบัญ */
+nav.toc{
+  border:1.5px solid var(--rule); background:#fffdf7;
+  padding:18px 24px; margin:28px 0; columns:2; column-gap:36px; border-radius:8px;
+}
+nav.toc .toc-head{column-span:all; font-weight:800; font-size:1.05rem; margin-bottom:10px; border-bottom:1.5px solid var(--rule); padding-bottom:6px; color:var(--ink)}
+nav.toc a{display:block; color:var(--ink); text-decoration:none; padding:3.5px 0; break-inside:avoid; font-size:.95rem}
+nav.toc a:hover{color:var(--accent); text-decoration:underline}
+nav.toc .no{display:inline-block; width:2.2em; color:var(--accent2); font-weight:700; font-variant-numeric:tabular-nums}
+
+/* ส่วนหัวข้อ */
+section{margin-top:60px; scroll-margin-top:24px}
+.sec-head{display:flex; align-items:baseline; gap:16px; border-bottom:2.5px solid var(--ink); padding-bottom:8px; margin-bottom:20px}
+.sec-no{
+  flex:0 0 auto; width:48px; height:48px; border-radius:50%;
+  background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; font-weight:800; transform:translateY(8px);
+}
+h2{font-size:1.45rem; margin:0; font-weight:800; line-height:1.4; color:#0F172A}
+h3{font-size:1.15rem; margin:28px 0 10px; font-weight:800; color:var(--accent)}
+h3::before{content:"§ "; color:var(--accent2)}
+p{margin:10px 0}
+b,strong{font-weight:700}
+
+/* รูปภาพประกอบ */
+figure.textbook{margin:30px 0; text-align:center}
+figure.textbook .frame{
+  border:1.5px solid var(--rule); background:#fff; padding:12px;
+  box-shadow:0 3px 12px rgba(60,50,20,.07); border-radius:8px; display:inline-block; max-width:100%;
+}
+figure.textbook img{max-width:100%; height:auto; display:block; cursor:zoom-in; border-radius:4px}
+figcaption{margin-top:12px; font-size:.93rem; color:var(--ink-soft); line-height:1.6}
+figcaption .fno{font-weight:800; color:var(--ink)}
+
+/* กล่องเน้น */
+.callout{border-left:5px solid; padding:14px 20px; margin:22px 0; background:#fff; border-radius:0 8px 8px 0; box-shadow:0 2px 6px rgba(0,0,0,.03)}
+.callout .lab{font-weight:800; font-size:.85rem; letter-spacing:.06em; display:block; margin-bottom:4px}
+.c-key{border-color:var(--accent)}   .c-key .lab{color:var(--accent)}
+.c-warn{border-color:var(--red); background:var(--red-bg)} .c-warn .lab{color:var(--red)}
+.c-tip{border-color:var(--green); background:var(--green-bg)} .c-tip .lab{color:var(--green)}
+.c-ex{border-color:var(--accent2); background:var(--amber-bg)} .c-ex .lab{color:var(--accent2)}
+
+.formula{
+  background:#fff; border:1.5px solid var(--rule); border-radius:8px;
+  padding:16px 22px; margin:20px 0; text-align:center; font-size:1.15rem; overflow-x:auto; font-weight:700;
+}
+.formula.big{font-size:1.25rem; border-width:2px; border-color:var(--ink); background:#FFFDF7}
+
+/* ตาราง */
+table.tb{border-collapse:collapse; margin:20px auto; background:#fff; font-size:.95rem; width:100%; max-width:980px}
+table.tb caption{caption-side:top; font-weight:800; padding-bottom:8px; font-size:.98rem; text-align:left; color:var(--ink)}
+table.tb th{background:var(--ink); color:#fff; font-weight:600; padding:8px 12px; border:1px solid #334155}
+table.tb td{padding:7px 12px; border:1px solid var(--rule); text-align:center; font-variant-numeric:tabular-nums}
+table.tb tr:nth-child(even) td{background:#FAF7EF}
+table.tb td.hl{background:var(--amber-bg)!important; font-weight:700}
+table.tb .t-l{text-align:left}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   INTERACTIVE 5-VARIABLE K-MAP STUDIO
+   ═══════════════════════════════════════════════════════════════════════════ */
+.studio-shell{
+  background:linear-gradient(155deg,#1E293B,#0F172A); color:#F8FAFC;
+  border-radius:14px; padding:22px; margin:32px 0;
+  box-shadow:0 18px 40px rgba(15,23,42,.35), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.studio-head{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  border-bottom:1px solid #334155; padding-bottom:12px; margin-bottom:18px;
+}
+.studio-title{font-size:1.15rem; font-weight:800; letter-spacing:.04em; color:#38BDF8; display:flex; align-items:center; gap:8px}
+.studio-controls{display:flex; gap:8px; flex-wrap:wrap}
+.st-btn{
+  background:#334155; color:#F8FAFC; border:1px solid #475569; border-radius:6px;
+  padding:6px 14px; font-size:.82rem; font-weight:700; cursor:pointer; transition:all .15s ease;
+}
+.st-btn:hover{background:#475569; border-color:#94A3B8}
+.st-btn.active{background:#0284C7; border-color:#38BDF8; color:#fff; box-shadow:0 0 10px rgba(56,189,248,.4)}
+
+.studio-grid-wrap{display:grid; grid-template-columns:1fr 340px; gap:20px; align-items:start}
+@media (max-width:960px){.studio-grid-wrap{grid-template-columns:1fr}}
+
+/* ผัง K-Map แบบตาราง Interactive */
+.kmap-board{background:#0B132B; border:2px solid #1E293B; border-radius:10px; padding:16px; overflow-x:auto}
+.kmap-table{border-collapse:collapse; margin:0 auto; width:100%; min-width:440px}
+.kmap-table th,.kmap-table td{border:1px solid #1E293B; text-align:center; padding:6px 4px; position:relative}
+.kmap-table th{background:#1E293B; color:#94A3B8; font-size:.78rem; font-family:monospace; font-weight:700}
+.kmap-table th.axis{background:#0F172A; color:#38BDF8; font-size:.85rem}
+.kmap-table td.cell{
+  width:22%; height:46px; background:#111827; cursor:pointer;
+  transition:all .15s ease; user-select:none; border-radius:3px;
+}
+.kmap-table td.cell:hover{filter:brightness(1.3); transform:scale(1.02); z-index:10}
+.cell-val{font-size:1.25rem; font-weight:900; line-height:1}
+.cell-val.one{color:#F87171}
+.cell-val.zero{color:#4B5563}
+.cell-minterm{position:absolute; top:2px; right:4px; font-size:.65rem; color:#64748B; font-family:monospace}
+.cell-bin{position:absolute; bottom:2px; left:4px; font-size:.6rem; color:#475569; font-family:monospace}
+
+/* ไฮไลต์ตามกลุ่ม */
+.cell.hl-g1{background:rgba(239,68,68,.25)!important; outline:2px solid #EF4444; outline-offset:-2px}
+.cell.hl-g2{background:rgba(217,70,239,.25)!important; outline:2px solid #D946EF; outline-offset:-2px}
+.cell.hl-g3{background:rgba(59,130,246,.25)!important; outline:2px solid #3B82F6; outline-offset:-2px}
+.cell.hl-g4{background:rgba(249,115,22,.25)!important; outline:2px solid #F97316; outline-offset:-2px}
+.cell.hl-g5{background:rgba(16,185,129,.3)!important; outline:2px solid #10B981; outline-offset:-2px}
+
+/* แถบตัวเลือกกลุ่ม (Group Selector Pills) */
+.group-selector{display:grid; gap:8px; margin-top:14px}
+.group-pill{
+  display:flex; justify-content:space-between; align-items:center; padding:9px 12px;
+  background:#1E293B; border-radius:8px; cursor:pointer; border:1.5px solid transparent;
+  transition:all .15s ease;
+}
+.group-pill:hover{background:#334155}
+.group-pill.active{background:#0F172A; border-color:var(--pill-color, #38BDF8); box-shadow:0 0 10px rgba(0,0,0,.3)}
+.gp-title{display:flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem}
+.gp-dot{width:12px; height:12px; border-radius:50%; display:inline-block}
+.gp-term{font-family:monospace; font-weight:800; font-size:.95rem}
+
+/* แผงข้อมูลมินเทอมที่เลือก (Inspector) */
+.cell-inspector{
+  background:#0B132B; border:1px solid #1E293B; border-radius:10px;
+  padding:16px; font-size:.86rem;
+}
+.ci-title{font-size:.9rem; font-weight:800; color:#38BDF8; margin-bottom:8px; border-bottom:1px solid #1E293B; padding-bottom:4px}
+.ci-row{display:flex; justify-content:space-between; margin:4px 0; font-size:.82rem}
+.ci-row b{color:#F8FAFC}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIVE LOGIC GATE CIRCUIT SIMULATOR
+   ═══════════════════════════════════════════════════════════════════════════ */
+.circ-shell{
+  background:#0F172A; border:1.5px solid #334155; border-radius:14px;
+  padding:20px; margin:28px 0; color:#E2E8F0;
+}
+.switches-bank{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:16px 0}
+.sw-card{
+  background:#1E293B; border:1.5px solid #475569; border-radius:10px;
+  padding:10px 16px; text-align:center; min-width:80px; cursor:pointer;
+  transition:all .15s ease; user-select:none;
+}
+.sw-card:hover{border-color:#94A3B8}
+.sw-card.high{background:#064E3B; border-color:#10B981; box-shadow:0 0 12px rgba(16,185,129,.3)}
+.sw-name{font-weight:900; font-size:1.1rem; color:#94A3B8}
+.sw-card.high .sw-name{color:#34D399}
+.sw-val{font-size:1.4rem; font-weight:900; margin-top:2px; font-family:monospace}
+.sw-card.high .sw-val{color:#A7F3D0}
+
+.circ-output-card{
+  background:linear-gradient(145deg,#1E293B,#0F172A); border:2px solid #334155;
+  border-radius:10px; padding:18px; text-align:center; margin-top:16px;
+  display:flex; align-items:center; justify-content:space-around; flex-wrap:wrap; gap:16px;
+}
+.led-box{display:flex; align-items:center; gap:12px}
+.led-indicator{
+  width:36px; height:36px; border-radius:50%; background:#334155;
+  border:3px solid #64748B; box-shadow:inset 0 2px 4px #000;
+  transition:all .2s ease;
+}
+.led-indicator.on{
+  background:radial-gradient(circle at 35% 30%,#86EFAC,#22C55E,#15803D);
+  border-color:#4ADE80; box-shadow:0 0 20px #22C55E, 0 0 40px rgba(34,197,94,.6), inset 0 2px 4px #fff;
+}
+.out-text{font-size:1.3rem; font-weight:800}
+
+/* Floating Toolbar */
+.float-bar{
+  position:fixed; left:20px; bottom:20px; z-index:60;
+  display:flex; gap:9px; align-items:center;
+  background:#fffdf7; border:1.5px solid var(--ink); border-radius:14px;
+  padding:8px 12px; box-shadow:0 6px 22px rgba(40,32,10,.22);
+}
+.fb-btn{
+  width:40px; height:40px; border-radius:8px; border:1.5px solid var(--ink);
+  background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all .15s ease; padding:0; font-size:1.1rem;
+}
+.fb-btn:hover{background:var(--ink); color:#fff}
+
+/* Lightbox */
+#lb{position:fixed; inset:0; background:rgba(15,23,42,.9); display:none; z-index:99; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:96vw; max-height:94vh; border:4px solid #fff; border-radius:8px; box-shadow:0 10px 40px rgba(0,0,0,.6)}
+
+@media (max-width:700px){
+  .page{padding:20px 14px 70px}
+  nav.toc{columns:1}
+  .circ-output-card{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- Lightbox สำหรับขยายรูปภาพ -->
+<div id="lb" onclick="closeLb()"><img id="lb-img" src="" alt="Zoomed view"></div>
+
+<!-- แถบเครื่องมือลอย -->
+<div class="float-bar">
+  <button class="fb-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="กลับบนสุด">⬆</button>
+  <button class="fb-btn" onclick="toggleStudioView()" title="กระโดดไป K-Map Studio">🗺️</button>
+  <button class="fb-btn" onclick="toggleCircuitSim()" title="กระโดดไป Circuit Simulator">⚡</button>
+</div>
+
+<div class="page">
+
+  <!-- Course Header -->
+  <div class="course-line">
+    <span><b>305241 DIGITAL LOGIC & SYSTEM DESIGN</b> · ภาควิชาวิศวกรรมคอมพิวเตอร์</span>
+    <span class="chip">EXAM 1 · K-MAP 5 ตัวแปร</span>
+  </div>
+
+  <h1 class="book-title">เฉลยละเอียด — การลดรูป K-Map 5 ตัวแปร (Exam 1)</h1>
+  <div class="subtitle">การวิเคราะห์มินเทอมทั้ง 32 ช่อง, การจัดกลุ่ม 8×4 Gray Code, และวงจรลอจิกขั้นต่ำ (Minimal SOP / POS)</div>
+
+  <!-- กล่องโจทย์ -->
+  <div class="problem-box" id="sec-problem">
+    <div class="prob-grid">
+      <div class="prob-text">
+        <p><b>โจทย์:</b> กำหนดตาราง Karnaugh Map ขนาด 5 ตัวแปร (อินพุต <code>A, B, C</code> ในแนวแถว และ <code>D, E</code> ในแนวคอลัมน์) ตามแผนภาพที่กำหนดให้</p>
+        <p><b>คำสั่ง:</b></p>
+        <ol style="margin:6px 0; padding-left:22px;">
+          <li>จงระบุเลขมินเทอมทั้งหมดที่ฟังก์ชันมีค่าลอจิกเป็น <code>1</code> (Σm)</li>
+          <li>จงจัดกลุ่มเพื่อหาเทอมตัวคูณเฉพาะจำเป็น (Essential Prime Implicants) ทุกกลุ่ม</li>
+          <li>จงเขียนสมการบูลีนในรูปผลบวกของผลคูณขั้นต่ำ (Minimal SOP)</li>
+          <li>จงเขียนสมการบูลีนในรูปผลคูณของผลบวกขั้นต่ำ (Minimal POS) และออกแบบวงจรลอจิกเกต</li>
+        </ol>
+      </div>
+      <div class="prob-fig" onclick="openLb('assets/01_kmap_problem_clean.png')">
+        <img src="assets/01_kmap_problem_clean.png" alt="ผัง K-Map โจทย์ต้นฉบับ">
+        <div class="prob-cap">🔍 คลิกที่ภาพเพื่อขยายเต็มจอ (ภาพความละเอียดสูง 300 DPI)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- สารบัญ -->
+  <nav class="toc">
+    <div class="toc-head">📑 สารบัญเนื้อหา</div>
+    <a href="#sec-summary"><span class="no">0.</span> สรุปคำตอบทันที (Quick Answer Summary)</a>
+    <a href="#sec-basics"><span class="no">1.</span> ปรับพื้นฐาน K-Map 5 ตัวแปร & รหัส Gray Code 8 แถว</a>
+    <a href="#sec-studio"><span class="no">LAB</span> ห้องทดลองจำลอง K-Map 5 ตัวแปร (Interactive Studio)</a>
+    <a href="#sec-minterms"><span class="no">2.</span> ตารางแจกแจงมินเทอมทั้ง 32 ช่อง (Minterm Index Map)</a>
+    <a href="#sec-grouping"><span class="no">3.</span> เจาะลึกการจัดกลุ่ม Essential Prime Implicants ทั้ง 5 กลุ่ม</a>
+    <a href="#sec-proof"><span class="no">4.</span> ตารางพิสูจน์ความจำเป็น (Essentialness Proof Matrix)</a>
+    <a href="#sec-pos"><span class="no">5.</span> การลดรูปในรูป Minimal POS (การวงกลุ่มเลข 0)</a>
+    <a href="#sec-circ-sim"><span class="no">SIM</span> ตัวจำลองวงจรลอจิกเกตสด (Live Logic Circuit Simulator)</a>
+    <a href="#sec-traps"><span class="no">6.</span> จุดที่ข้อสอบตั้งใจดักและข้อควรระวัง (Exam Traps)</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       0. สรุปคำตอบก่อน
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-summary">
+    <div class="sec-head">
+      <div class="sec-no">0</div>
+      <h2>สรุปคำตอบทันที (สำหรับคนรีบ)</h2>
+    </div>
+
+    <div class="callout c-key">
+      <span class="lab">💡 สรุปผลเฉลยสมการขั้นต่ำ (MINIMAL EQUATIONS)</span>
+      <p style="margin:4px 0;">สมการผลบวกของผลคูณขั้นต่ำ (Minimal SOP):</p>
+      <div class="formula big" style="color:#0F172A; margin:8px 0;">
+        F(A, B, C, D, E) = E + A'·B + B·C' + B·D' + A·B'·C·D
+      </div>
+      <p style="margin:4px 0;">สมการผลคูณของผลบวกขั้นต่ำ (Minimal POS):</p>
+      <div class="formula" style="color:#047857; margin:8px 0;">
+        F(A, B, C, D, E) = (A + B + E) · (B + C + E) · (B + D + E) · (A' + B' + C' + D' + E)
+      </div>
+    </div>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/08_all_groups_composite.png" alt="ผังการจัดกลุ่มทั้งหมด" onclick="openLb(this.src)">
+      </div>
+      <figcaption><span class="fno">รูปที่ 0.1:</span> แผนภาพแสดงการจัดกลุ่ม Essential Prime Implicants ทั้ง 5 กลุ่มบนตาราง 8×4</figcaption>
+    </figure>
+
+    <table class="tb">
+      <caption>ตารางสรุปองค์ประกอบของกลุ่มทั้ง 5 กลุ่ม (Essential Prime Implicants)</caption>
+      <thead>
+        <tr>
+          <th>กลุ่ม</th>
+          <th>สีไฮไลต์</th>
+          <th>ขนาด (ช่อง)</th>
+          <th>พิกัดในตาราง</th>
+          <th>ตัวแปรที่ตัดได้</th>
+          <th>เทอมผลลัพธ์</th>
+          <th>มินเทอมที่จำเป็นเฉพาะกลุ่ม</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>กลุ่ม 1</b></td>
+          <td><span style="color:var(--g1-red); font-weight:800;">🟥 สีแดง</span></td>
+          <td>16</td>
+          <td>คอลัมน์ DE = 01, 11 (ทุก 8 แถว)</td>
+          <td>A, B, C, D</td>
+          <td><code>E</code></td>
+          <td>m1, m3, m5, m7, m17, m19, m21, m31</td>
+        </tr>
+        <tr>
+          <td><b>กลุ่ม 2</b></td>
+          <td><span style="color:var(--g2-mag); font-weight:800;">🟪 สีชมพู/ม่วง</span></td>
+          <td>8</td>
+          <td>แถว ABC = 011, 010 (ทุก 4 คอลัมน์)</td>
+          <td>C, D, E</td>
+          <td><code>A'·B</code></td>
+          <td>m14 (จำเป็นต้องมีกลุ่มนี้)</td>
+        </tr>
+        <tr>
+          <td><b>กลุ่ม 3</b></td>
+          <td><span style="color:var(--g3-blue); font-weight:800;">🟦 สีน้ำเงิน</span></td>
+          <td>8</td>
+          <td>แถว B=1 (r=2,3,4,5) คอลัมน์ D=0 (c=0,1)</td>
+          <td>A, C, E</td>
+          <td><code>B·D'</code></td>
+          <td>m28 (จำเป็นต้องมีกลุ่มนี้)</td>
+        </tr>
+        <tr>
+          <td><b>กลุ่ม 4</b></td>
+          <td><span style="color:var(--g4-orange); font-weight:800;">🟧 สีส้ม</span></td>
+          <td>8</td>
+          <td>แถว ABC = 010, 110 (ทุก 4 คอลัมน์)</td>
+          <td>A, D, E</td>
+          <td><code>B·C'</code></td>
+          <td>m26 (จำเป็นต้องมีกลุ่มนี้)</td>
+        </tr>
+        <tr>
+          <td><b>กลุ่ม 5</b></td>
+          <td><span style="color:var(--g5-green); font-weight:800;">🟩 สีเขียว</span></td>
+          <td>2</td>
+          <td>แถว ABC = 101, คอลัมน์ DE = 11, 10</td>
+          <td>E</td>
+          <td><code>A·B'·C·D</code></td>
+          <td>m22 (จำเป็นต้องมีกลุ่มนี้)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       LAB. INTERACTIVE 5-VARIABLE K-MAP STUDIO
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-studio">
+    <div class="sec-head">
+      <div class="sec-no">LAB</div>
+      <h2>ห้องทดลองจำลอง K-Map 5 ตัวแปร (Interactive Studio)</h2>
+    </div>
+
+    <p>คลิกเปิด/ปิดกลุ่มเพื่อศึกษาการครอบคลุมของแต่ละ Prime Implicant หรือคลิกที่แต่ละช่องเพื่อตรวจสอบพิกัดบิตและเลขมินเทอม:</p>
+
+    <div class="studio-shell">
+      <div class="studio-head">
+        <div class="studio-title">
+          <span>🗺️ 5-VARIABLE K-MAP LIVE EXPLORER</span>
+        </div>
+        <div class="studio-controls">
+          <button class="st-btn active" id="btn-all" onclick="setGroupFilter('all')">แสดงทุกกลุ่ม</button>
+          <button class="st-btn" id="btn-none" onclick="setGroupFilter('none')">ล้างไฮไลต์</button>
+          <button class="st-btn" id="btn-toggle-mt" onclick="toggleMintermLabels()">สลับป้าย m_i</button>
+        </div>
+      </div>
+
+      <div class="studio-grid-wrap">
+        <!-- ตาราง K-Map -->
+        <div class="kmap-board">
+          <table class="kmap-table" id="interactive-kmap">
+            <thead>
+              <tr>
+                <th rowspan="2" class="axis" style="width:18%;">ABC \ DE</th>
+                <th colspan="4" class="axis">D E</th>
+              </tr>
+              <tr>
+                <th>00</th>
+                <th>01</th>
+                <th>11</th>
+                <th>10</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- สร้างด้วย JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- แผงข้อมูลและตัวเลือกกลุ่ม -->
+        <div>
+          <div class="ci-title">🔍 เลือดูเฉพาะกลุ่ม (Prime Implicants)</div>
+          <div class="group-selector">
+            <div class="group-pill active" id="pill-g1" onclick="toggleGroup('g1')" style="--pill-color:var(--g1-red);">
+              <div class="gp-title"><span class="gp-dot" style="background:var(--g1-red);"></span> กลุ่ม 1 (16 ช่อง)</div>
+              <div class="gp-term" style="color:var(--g1-red);">E</div>
+            </div>
+            <div class="group-pill active" id="pill-g2" onclick="toggleGroup('g2')" style="--pill-color:var(--g2-mag);">
+              <div class="gp-title"><span class="gp-dot" style="background:var(--g2-mag);"></span> กลุ่ม 2 (8 ช่อง)</div>
+              <div class="gp-term" style="color:var(--g2-mag);">A'·B</div>
+            </div>
+            <div class="group-pill active" id="pill-g3" onclick="toggleGroup('g3')" style="--pill-color:var(--g3-blue);">
+              <div class="gp-title"><span class="gp-dot" style="background:var(--g3-blue);"></span> กลุ่ม 3 (8 ช่อง)</div>
+              <div class="gp-term" style="color:var(--g3-blue);">B·D'</div>
+            </div>
+            <div class="group-pill active" id="pill-g4" onclick="toggleGroup('g4')" style="--pill-color:var(--g4-orange);">
+              <div class="gp-title"><span class="gp-dot" style="background:var(--g4-orange);"></span> กลุ่ม 4 (8 ช่อง)</div>
+              <div class="gp-term" style="color:var(--g4-orange);">B·C'</div>
+            </div>
+            <div class="group-pill active" id="pill-g5" onclick="toggleGroup('g5')" style="--pill-color:var(--g5-green);">
+              <div class="gp-title"><span class="gp-dot" style="background:var(--g5-green);"></span> กลุ่ม 5 (2 ช่อง)</div>
+              <div class="gp-term" style="color:var(--g5-green);">A·B'·C·D</div>
+            </div>
+          </div>
+
+          <!-- Inspector -->
+          <div class="cell-inspector" style="margin-top:14px;">
+            <div class="ci-title" id="insp-title">📌 ข้อมูลเซลล์ที่เลือก (คลิกในตาราง)</div>
+            <div id="insp-body">
+              <div class="ci-row"><span>พิกัดบิต (A B C D E):</span> <b id="insp-bits">-</b></div>
+              <div class="ci-row"><span>เลขมินเทอม (Minterm):</span> <b id="insp-m">-</b></div>
+              <div class="ci-row"><span>ค่าลอจิก (Value):</span> <b id="insp-val">-</b></div>
+              <div class="ci-row"><span>กลุ่มที่ครอบคลุม:</span> <b id="insp-groups">-</b></div>
+              <div class="ci-row"><span>สถานะความจำเป็น:</span> <b id="insp-status">-</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       1. ปรับพื้นฐาน
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-basics">
+    <div class="sec-head">
+      <div class="sec-no">1</div>
+      <h2>ปรับพื้นฐาน: โครงสร้าง K-Map 5 ตัวแปร (8×4 Layout)</h2>
+    </div>
+
+    <p>ฟังก์ชันที่มี <b>5 ตัวแปรนำเข้า (A, B, C, D, E)</b> จะมีจำนวนชุดค่าความจริงทั้งหมด <code>2⁵ = 32 สถานะ</code> (ตั้งแต่ <code>m₀</code> ถึง <code>m₃₁</code>)</p>
+
+    <h3>1.1 ทำไมต้องเรียงแถว 8 แถวด้วยรหัสเกรย์ (Gray Code)?</h3>
+    <p>K-Map อาศัยหลักการประชิดเชิงตรรกะ (Logical Adjacency) ซึ่งกำหนดว่า <b>เซลล์สองเซลล์ที่อยู่ติดกันจะต้องมีรหัสบิตต่างกันเพียง 1 บิตเสมอ (Hamming Distance = 1)</b></p>
+
+    <div class="callout c-tip">
+      <span class="lab">ลำดับรหัส GRAY CODE 8 แถว สำหรับตัวแปร A, B, C:</span>
+      <code>000 → 001 → 011 → 010 → 110 → 111 → 101 → 100</code>
+      <p style="margin:4px 0 0; font-size:.88rem;">สังเกตว่าจากแถวบนสุด (<code>000</code>) ถึงแถวล่างสุด (<code>100</code>) เปลี่ยนแปลงทีละ 1 บิต และแถวล่างสุด (<code>100</code>) สามารถพับขอบชนกับแถวบนสุด (<code>000</code>) ได้เพราะต่างกันแค่บิต A เพียงบิตเดียว!</p>
+    </div>
+
+    <h3>1.2 การมองแบบ 3 มิติ (3D Superposition View)</h3>
+    <p>นอกจากโครงสร้าง 8×4 แล้ว เรายังสามารถมอง K-Map 5 ตัวแปรเป็น <b>ตาราง 4×4 สองตารางซ้อนทับกันใน 3 มิติ</b> โดยตารางแรกคือ <code>A = 0</code> และตารางที่สองคือ <code>A = 1</code> ดังรูปที่ 1.1:</p>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/10_3d_two_map_equivalent.png" alt="มุมมอง 3D Superposition" onclick="openLb(this.src)">
+      </div>
+      <figcaption><span class="fno">รูปที่ 1.1:</span> แผนภาพเปรียบเทียบการมองแบบตาราง 4×4 สองตารางซ้อนทับกันใน 3 มิติ</figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       2. ตารางแจกแจงมินเทอม
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-minterms">
+    <div class="sec-head">
+      <div class="sec-no">2</div>
+      <h2>ตารางแจกแจงมินเทอมทั้ง 32 ช่อง (Minterm Index Map)</h2>
+    </div>
+
+    <p>การแปลงรหัสบิต <code>ABC DE</code> เป็นเลขมินเทอมคำนวณจากค่าน้ำหนักฐานสอง <code>m = 16A + 8B + 4C + 2D + E</code>:</p>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/02_kmap_minterm_indices.png" alt="ผังเลขมินเทอม 32 ช่อง" onclick="openLb(this.src)">
+      </div>
+      <figcaption><span class="fno">รูปที่ 2.1:</span> ผังระบุตำแหน่งเลขมินเทอม m0 ถึง m31 บนตาราง K-Map 8×4</figcaption>
+    </figure>
+
+    <div class="callout c-key">
+      <span class="lab">📝 สรุปชุดมินเทอมของโจทย์ข้อนี้:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><b>มินเทอมที่มีค่าเป็น 1 (Ones = 24 ช่อง):</b><br>
+        <code>Σm(1, 3, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31)</code></li>
+        <li><b>แมกซ์เทอมที่มีค่าเป็น 0 (Zeros = 8 ช่อง):</b><br>
+        <code>ΠM(0, 2, 4, 6, 16, 18, 20, 30)</code></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       3. เจาะลึกการจัดกลุ่ม
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-grouping">
+    <div class="sec-head">
+      <div class="sec-no">3</div>
+      <h2>เจาะลึกการจัดกลุ่ม Essential Prime Implicants ทั้ง 5 กลุ่ม</h2>
+    </div>
+
+    <!-- กลุ่ม 1 -->
+    <h3>3.1 กลุ่มที่ 1: ขนาด 16 ช่อง (สีแดงแนวตั้ง) ⇒ เทอม `E`</h3>
+    <figure class="textbook">
+      <div class="frame"><img src="assets/03_group1_red_16cell.png" alt="กลุ่มที่ 1" onclick="openLb(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 3.1:</span> กลุ่มสีแดงขนาด 16 ช่อง คลุมคอลัมน์ DE = 01 และ 11 ครบทั้ง 8 แถว</figcaption>
+    </figure>
+    <p><b>การตัดทอนตัวแปร:</b></p>
+    <ul>
+      <li>แนวแถว: ครอบคลุมแถว <code>000</code> ถึง <code>100</code> ครบทั้ง 8 แถว ทำให้ <code>A, B, C</code> มีค่าทั้ง 0 และ 1 ครบทุกคู่ จึงตัดทิ้งได้ทั้งหมด</li>
+      <li>แนวคอลัมน์: <code>DE = 01</code> และ <code>11</code> → ตัวแปร <code>D</code> เปลี่ยนจาก 0 เป็น 1 (ตัดทิ้ง) ส่วนตัวแปร <code>E = 1</code> ตลอด</li>
+      <li><b>เทอมที่ได้:</b> <code>E</code> (กลุ่มนี้จำเป็นอย่างยิ่งเพราะคลุมมินเทอมคี่ส่วนใหญ่)</li>
+    </ul>
+
+    <!-- กลุ่ม 2 -->
+    <h3>3.2 กลุ่มที่ 2: ขนาด 8 ช่อง (สีชมพู/ม่วงแนวนอน) ⇒ เทอม `A'·B`</h3>
+    <figure class="textbook">
+      <div class="frame"><img src="assets/04_group2_magenta_8cell.png" alt="กลุ่มที่ 2" onclick="openLb(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 3.2:</span> กลุ่มสีชมพูขนาด 8 ช่อง แถว ABC = 011 และ 010 ทุกคอลัมน์</figcaption>
+    </figure>
+    <p><b>การตัดทอนตัวแปร:</b></p>
+    <ul>
+      <li>แนวแถว: <code>ABC = 011</code> และ <code>010</code> → <code>A = 0</code> (เขียนเป็น <code>A'</code>), <code>B = 1</code>, ส่วน <code>C</code> เปลี่ยนสถานะ (ตัดทิ้ง)</li>
+      <li>แนวคอลัมน์: ครอบคลุมทั้ง 4 คอลัมน์ (<code>00, 01, 11, 10</code>) → <code>D, E</code> ตัดทิ้งทั้งหมด</li>
+      <li><b>เทอมที่ได้:</b> <code>A'·B</code> (<b>สำคัญ:</b> มินเทอม <code>m₁₄</code> ถูกคลุมโดยกลุ่มนี้เพียงกลุ่มเดียวเท่านั้น!)</li>
+    </ul>
+
+    <!-- กลุ่ม 3 -->
+    <h3>3.3 กลุ่มที่ 3: ขนาด 8 ช่อง (สีน้ำเงินบล็อกซ้าย) ⇒ เทอม `B·D'`</h3>
+    <figure class="textbook">
+      <div class="frame"><img src="assets/05_group3_blue_8cell.png" alt="กลุ่มที่ 3" onclick="openLb(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 3.3:</span> กลุ่มสีน้ำเงินขนาด 8 ช่อง ในแถวที่มี B=1 และคอลัมน์ DE = 00, 01</figcaption>
+    </figure>
+    <p><b>การตัดทอนตัวแปร:</b></p>
+    <ul>
+      <li>แนวแถว: แถว <code>011, 010, 110, 111</code> (4 แถวติดกันที่มี <code>B = 1</code>) → ตัวแปร <code>A</code> และ <code>C</code> มีครบทั้ง 0 และ 1 จึงตัดทิ้ง เหลือ <code>B</code></li>
+      <li>แนวคอลัมน์: <code>DE = 00</code> และ <code>01</code> → <code>D = 0</code> (เขียนเป็น <code>D'</code>), ส่วน <code>E</code> เปลี่ยนสถานะ (ตัดทิ้ง)</li>
+      <li><b>เทอมที่ได้:</b> <code>B·D'</code> (<b>สำคัญ:</b> มินเทอม <code>m₂₈</code> ถูกคลุมโดยกลุ่มนี้เพียงกลุ่มเดียวเท่านั้น!)</li>
+    </ul>
+
+    <!-- กลุ่ม 4 -->
+    <h3>3.4 กลุ่มที่ 4: ขนาด 8 ช่อง (สีส้มแนวนอนกลางตาราง) ⇒ เทอม `B·C'`</h3>
+    <figure class="textbook">
+      <div class="frame"><img src="assets/06_group4_orange_8cell.png" alt="กลุ่มที่ 4" onclick="openLb(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 3.4:</span> กลุ่มสีส้มขนาด 8 ช่อง ในแถว ABC = 010 และ 110 ทุกคอลัมน์</figcaption>
+    </figure>
+    <p><b>การตัดทอนตัวแปร:</b></p>
+    <ul>
+      <li>แนวแถว: แถว <code>010</code> และ <code>110</code> (ประชิดกันใน Gray Code) → <code>A</code> เปลี่ยนจาก 0 เป็น 1 (ตัดทิ้ง), <code>B = 1</code>, <code>C = 0</code> (เขียนเป็น <code>C'</code>)</li>
+      <li>แนวคอลัมน์: ครอบคลุมทั้ง 4 คอลัมน์ → <code>D, E</code> ตัดทิ้งทั้งหมด</li>
+      <li><b>เทอมที่ได้:</b> <code>B·C'</code> (<b>สำคัญ:</b> มินเทอม <code>m₂₆</code> ถูกคลุมโดยกลุ่มนี้เพียงกลุ่มเดียวเท่านั้น!)</li>
+    </ul>
+
+    <!-- กลุ่ม 5 -->
+    <h3>3.5 กลุ่มที่ 5: ขนาด 2 ช่อง (สีเขียวแถวล่าง) ⇒ เทอม `A·B'·C·D`</h3>
+    <figure class="textbook">
+      <div class="frame"><img src="assets/07_group5_green_2cell.png" alt="กลุ่มที่ 5" onclick="openLb(this.src)"></div>
+      <figcaption><span class="fno">รูปที่ 3.5:</span> กลุ่มสีเขียวขนาด 2 ช่อง ในแถว ABC = 101 คอลัมน์ DE = 11, 10</figcaption>
+    </figure>
+    <p><b>การตัดทอนตัวแปร:</b></p>
+    <ul>
+      <li>แนวแถว: แถวเดียวคือ <code>ABC = 101</code> → <code>A = 1, B = 0 (B'), C = 1</code> (ไม่มีตัวแปรใดเปลี่ยนสถานะ)</li>
+      <li>แนวคอลัมน์: <code>DE = 11</code> และ <code>10</code> → <code>D = 1</code> คงที่, ส่วน <code>E</code> เปลี่ยนจาก 1 เป็น 0 (ตัดทิ้ง)</li>
+      <li><b>เทอมที่ได้:</b> <code>A·B'·C·D</code> (<b>สำคัญ:</b> มินเทอม <code>m₂₂</code> ถูกคลุมโดยกลุ่มนี้เพียงกลุ่มเดียวเท่านั้น!)</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       4. ตารางพิสูจน์ความจำเป็น
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-proof">
+    <div class="sec-head">
+      <div class="sec-no">4</div>
+      <h2>ตารางพิสูจน์ความจำเป็น (Essentialness Proof Matrix)</h2>
+    </div>
+
+    <p>เพื่อยืนยันว่า <b>ไม่มีกลุ่มใดเป็นกลุ่มฟุ่มเฟือย (Redundant Group)</b> เราสร้างตาราง Prime Implicant Chart เพื่อระบุว่าแต่ละกลุ่มมีมินเทอมที่ไม่มีกลุ่มอื่นคลุมเลย (Unique Minterm) หรือไม่:</p>
+
+    <table class="tb">
+      <caption>ตาราง Prime Implicant Coverage Table & Unique Minterms</caption>
+      <thead>
+        <tr>
+          <th>Prime Implicant</th>
+          <th>จำนวนมินเทอมที่คลุม</th>
+          <th>มินเทอมที่จำเป็นเฉพาะตัว (Unique Minterms)</th>
+          <th>สถานะ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>E</code></td>
+          <td>16 มินเทอม</td>
+          <td><code>m₁, m₃, m₅, m₇, m₁₇, m₁₉, m₂₁, m₃₁</code> (8 ช่อง)</td>
+          <td><span class="chip" style="background:#DCFCE7; color:#166534; border-color:#86EFAC;">Essential PI</span></td>
+        </tr>
+        <tr>
+          <td><code>A'·B</code></td>
+          <td>8 มินเทอม</td>
+          <td><code>m₁₄</code> (แถว 011 คอลัมน์ 10)</td>
+          <td><span class="chip" style="background:#DCFCE7; color:#166534; border-color:#86EFAC;">Essential PI</span></td>
+        </tr>
+        <tr>
+          <td><code>B·C'</code></td>
+          <td>8 มินเทอม</td>
+          <td><code>m₂₆</code> (แถว 110 คอลัมน์ 10)</td>
+          <td><span class="chip" style="background:#DCFCE7; color:#166534; border-color:#86EFAC;">Essential PI</span></td>
+        </tr>
+        <tr>
+          <td><code>B·D'</code></td>
+          <td>8 มินเทอม</td>
+          <td><code>m₂₈</code> (แถว 111 คอลัมน์ 00)</td>
+          <td><span class="chip" style="background:#DCFCE7; color:#166534; border-color:#86EFAC;">Essential PI</span></td>
+        </tr>
+        <tr>
+          <td><code>A·B'·C·D</code></td>
+          <td>2 มินเทอม</td>
+          <td><code>m₂₂</code> (แถว 101 คอลัมน์ 10)</td>
+          <td><span class="chip" style="background:#DCFCE7; color:#166534; border-color:#86EFAC;">Essential PI</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout c-key">
+      <span class="lab">บทสรุปทางคณิตศาสตร์:</span>
+      เนื่องจาก Prime Implicants ทั้งหมด 5 ตัว ต่างมีมินเทอมจำเป็นเฉพาะตัว จึงไม่มีกลุ่มใดถูกตัดทิ้งได้เลย ทำให้ <b>ผลเฉลย Minimal SOP ของข้อนี้มีเพียงรูปแบบเดียวที่เป็นเอกลักษณ์ (Unique Solution)</b>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       5. POS
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-pos">
+    <div class="sec-head">
+      <div class="sec-no">5</div>
+      <h2>การลดรูปในรูป Minimal POS (การวงกลุ่มเลข 0)</h2>
+    </div>
+
+    <p>การหาผลคูณของผลบวกขั้นต่ำ (Minimal POS) ทำได้โดยการจัดกลุ่ม <b>เลข 0 ทั้ง 8 ช่อง</b> (ได้แก่ <code>m₀, m₂, m₄, m₆, m₁₆, m₁₈, m₂₀, m₃₀</code>):</p>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/11_pos_maxterm_grouping.png" alt="การจัดกลุ่ม POS" onclick="openLb(this.src)">
+      </div>
+      <figcaption><span class="fno">รูปที่ 5.1:</span> แผนภาพแสดงการจัดกลุ่มเลข 0 เพื่อหา Minimal POS</figcaption>
+    </figure>
+
+    <table class="tb">
+      <caption>ตารางการจัดกลุ่มเลข 0 สำหรับ Minimal POS</caption>
+      <thead>
+        <tr>
+          <th>กลุ่ม Maxterm</th>
+          <th>ขนาด</th>
+          <th>แมกซ์เทอมที่ครอบคลุม</th>
+          <th>เทอมใน F'</th>
+          <th>Maxterm Sum Term ใน F</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>กลุ่ม 1 (พับขอบซ้ายขวา)</td>
+          <td>4</td>
+          <td><code>M₀, M₂, M₄, M₆</code></td>
+          <td><code>A'·B'·E'</code></td>
+          <td><code>(A + B + E)</code></td>
+        </tr>
+        <tr>
+          <td>กลุ่ม 2 (4 มุมขอบบนล่าง)</td>
+          <td>4</td>
+          <td><code>M₀, M₂, M₁₆, M₁₈</code></td>
+          <td><code>B'·C'·E'</code></td>
+          <td><code>(B + C + E)</code></td>
+        </tr>
+        <tr>
+          <td>กลุ่ม 3 (แถว 0,1,6,7 คอลัมน์ 00)</td>
+          <td>4</td>
+          <td><code>M₀, M₄, M₁₆, M₂₀</code></td>
+          <td><code>B'·D'·E'</code></td>
+          <td><code>(B + D + E)</code></td>
+        </tr>
+        <tr>
+          <td>กลุ่ม 4 (ช่องเดี่ยว)</td>
+          <td>1</td>
+          <td><code>M₃₀</code></td>
+          <td><code>A·B·C·D·E'</code></td>
+          <td><code>(A' + B' + C' + D' + E)</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="formula big" style="color:#047857;">
+      F(A, B, C, D, E) = (A + B + E) · (B + C + E) · (B + D + E) · (A' + B' + C' + D' + E)
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       SIM. LIVE LOGIC CIRCUIT SIMULATOR
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-circ-sim">
+    <div class="sec-head">
+      <div class="sec-no">SIM</div>
+      <h2>ตัวจำลองวงจรลอจิกเกตสด (Live Logic Circuit Simulator)</h2>
+    </div>
+
+    <p>ทดลองปรับสวิตช์อินพุต <code>A, B, C, D, E</code> เพื่อดูสถานะสัญญาณและการทำงานของวงจรจริงแบบเรียลไทม์:</p>
+
+    <div class="circ-shell">
+      <div style="font-weight:800; font-size:1.1rem; color:#38BDF8; text-align:center;">
+        ⚡ VIRTUAL DIGITAL LOGIC TRAINER · REAL-TIME CIRCUIT SIMULATION
+      </div>
+
+      <!-- สวิตช์ -->
+      <div class="switches-bank">
+        <div class="sw-card" id="sw-a" onclick="toggleInput('a')">
+          <div class="sw-name">SW A</div>
+          <div class="sw-val" id="val-a">0</div>
+        </div>
+        <div class="sw-card" id="sw-b" onclick="toggleInput('b')">
+          <div class="sw-name">SW B</div>
+          <div class="sw-val" id="val-b">0</div>
+        </div>
+        <div class="sw-card" id="sw-c" onclick="toggleInput('c')">
+          <div class="sw-name">SW C</div>
+          <div class="sw-val" id="val-c">0</div>
+        </div>
+        <div class="sw-card" id="sw-d" onclick="toggleInput('d')">
+          <div class="sw-name">SW D</div>
+          <div class="sw-val" id="val-d">0</div>
+        </div>
+        <div class="sw-card" id="sw-e" onclick="toggleInput('e')">
+          <div class="sw-name">SW E</div>
+          <div class="sw-val" id="val-e">0</div>
+        </div>
+      </div>
+
+      <!-- สถานะเกตย่อยและเอาต์พุต -->
+      <div class="circ-output-card">
+        <div style="text-align:left; font-size:.85rem; font-family:monospace;">
+          <div>AND 1 (A'·B) : <b id="out-and1" style="color:#D946EF;">0</b></div>
+          <div>AND 2 (B·C') : <b id="out-and2" style="color:#F97316;">0</b></div>
+          <div>AND 3 (B·D') : <b id="out-and3" style="color:#3B82F6;">0</b></div>
+          <div>AND 4 (A·B'·C·D) : <b id="out-and4" style="color:#10B981;">0</b></div>
+          <div>LINE E (Direct) : <b id="out-line-e" style="color:#EF4444;">0</b></div>
+        </div>
+
+        <div class="led-box">
+          <div class="led-indicator" id="main-led"></div>
+          <div>
+            <div class="out-text">เอาต์พุต F = <span id="main-f-val">0</span></div>
+            <div style="font-size:.8rem; color:#94A3B8;" id="main-f-desc">สถานะลอจิก LOW (หลอดไฟดับ)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="assets/09_circuit_diagram.png" alt="ผังวงจรเกตลอจิก" onclick="openLb(this.src)">
+      </div>
+      <figcaption><span class="fno">รูปที่ 6.1:</span> แผนภาพวงจรลอจิกเกตตามสมการ Minimal SOP (AND-OR Implementation)</figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       6. จุดที่ข้อสอบตั้งใจดัก
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="sec-traps">
+    <div class="sec-head">
+      <div class="sec-no">6</div>
+      <h2>จุดที่ข้อสอบตั้งใจดักและข้อควรระวัง (Exam Traps)</h2>
+    </div>
+
+    <div class="callout c-warn">
+      <span class="lab">⚠️ กับดักที่ 1: การสับสนลำดับ GRAY CODE 8 แถว</span>
+      <p>ลำดับที่ถูกต้องคือ <code>000, 001, 011, 010, 110, 111, 101, 100</code></p>
+      <p><b>ข้อควรระวัง:</b> นักศึกษามักเผลอเขียน <code>100, 101, 110, 111</code> แบบ Binary ปกติ ซึ่งจะทำให้คุณสมบัติ Hamming Distance = 1 เสียไป และไม่สามารถวงกลุ่มติดกันได้!</p>
+    </div>
+
+    <div class="callout c-warn">
+      <span class="lab">⚠️ กับดักที่ 2: ลืมเช็กกลุ่มฟุ่มเฟือย (REDUNDANT GROUPS)</span>
+      <p>บางคนอาจพยายามวงกลุ่ม <code>m8, m9, m10, m11</code> ซ้ำซ้อน แต่เมื่อตรวจสอบจะพบว่ามินเทอมทั้ง 4 ช่องนี้ถูกคลุมด้วยกลุ่มสีชมพู (<code>A'·B</code>) และกลุ่มสีส้ม (<code>B·C'</code>) ไปหมดแล้ว จึงห้ามใส่ซ้ำเด็ดขาด</p>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">✅ ข้อสังเกตพิเศษ: ทำไมกลุ่มสีเขียว (2 ช่อง) ขยายเป็น 4 ช่องไม่ได้?</span>
+      <p>ที่แถว <code>101</code> คอลัมน์ <code>11, 10</code> (มินเทอม <code>m₂₃, m₂₂</code>) มีค่าเป็น 1 แต่ช่องข้างบน (<code>m₃₀</code> ที่แถว <code>111</code>) มีค่าเป็น <code>0</code> และช่องข้างล่าง (<code>m₁₈</code> ที่แถว <code>100</code>) มีค่าเป็น <code>0</code> เช่นกัน ทำให้กลุ่มนี้ขยายแนวตั้งไม่ได้ จึงได้ขนาดเพียง 2 ช่อง (เทอม 4 ตัวแปร <code>A·B'·C·D</code>)</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     JAVASCRIPT INTERACTIVE ENGINE
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<script>
+// ข้อมูล K-Map 8x4
+const ROW_LABELS = ['000', '001', '011', '010', '110', '111', '101', '100'];
+const COL_LABELS = ['00', '01', '11', '10'];
+const GRID_DATA = [
+  [0, 1, 1, 0], // 000 (m0, m1, m3, m2)
+  [0, 1, 1, 0], // 001 (m4, m5, m7, m6)
+  [1, 1, 1, 1], // 011 (m12, m13, m15, m14)
+  [1, 1, 1, 1], // 010 (m8, m9, m11, m10)
+  [1, 1, 1, 1], // 110 (m24, m25, m27, m26)
+  [1, 1, 1, 0], // 111 (m28, m29, m31, m30)
+  [0, 1, 1, 1], // 101 (m20, m21, m23, m22)
+  [0, 1, 1, 0], // 100 (m16, m17, m19, m18)
+];
+
+// มินเทอมของแต่ละกลุ่ม
+const GROUPS = {
+  g1: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31], // E (16)
+  g2: [8, 9, 10, 11, 12, 13, 14, 15],                              // A'·B (8)
+  g3: [8, 9, 12, 13, 24, 25, 28, 29],                              // B·D' (8)
+  g4: [8, 9, 10, 11, 24, 25, 26, 27],                              // B·C' (8)
+  g5: [22, 23]                                                     // A·B'·C·D (2)
+};
+
+let activeGroups = {g1: true, g2: true, g3: true, g4: true, g5: true};
+let showMintermLabels = true;
+
+// สร้างตาราง K-Map
+function renderKMap() {
+  const tbody = document.querySelector('#interactive-kmap tbody');
+  tbody.innerHTML = '';
+
+  ROW_LABELS.forEach((abc, r) => {
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.textContent = abc;
+    tr.appendChild(th);
+
+    COL_LABELS.forEach((de, c) => {
+      const td = document.createElement('td');
+      const val = GRID_DATA[r][c];
+      const m = parseInt(abc + de, 2);
+      td.className = 'cell';
+      td.id = `cell-m${m}`;
+      td.dataset.m = m;
+      td.dataset.r = r;
+      td.dataset.c = c;
+      td.dataset.bits = `${abc} ${de}`;
+      td.dataset.val = val;
+
+      td.innerHTML = `
+        <span class="cell-minterm">${showMintermLabels ? 'm' + m : ''}</span>
+        <span class="cell-val ${val === 1 ? 'one' : 'zero'}">${val}</span>
+        <span class="cell-bin">${abc[0]}${abc[1]}${abc[2]}</span>
+      `;
+
+      td.onclick = () => inspectCell(m, abc, de, val);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  updateHighlights();
+}
+
+function updateHighlights() {
+  // ล้างคลาสไฮไลต์ทั้งหมด
+  document.querySelectorAll('.kmap-table td.cell').forEach(td => {
+    td.classList.remove('hl-g1', 'hl-g2', 'hl-g3', 'hl-g4', 'hl-g5');
+  });
+
+  // ใส่ไฮไลต์ตาม activeGroups
+  Object.keys(activeGroups).forEach(gKey => {
+    if (activeGroups[gKey]) {
+      GROUPS[gKey].forEach(m => {
+        const td = document.getElementById(`cell-m${m}`);
+        if (td) td.classList.add(`hl-${gKey}`);
+      });
+    }
+  });
+
+  // อัปเดตสถานะปุ่ม Pills
+  Object.keys(activeGroups).forEach(gKey => {
+    const pill = document.getElementById(`pill-${gKey}`);
+    if (pill) {
+      if (activeGroups[gKey]) pill.classList.add('active');
+      else pill.classList.remove('active');
+    }
+  });
+}
+
+function toggleGroup(gKey) {
+  activeGroups[gKey] = !activeGroups[gKey];
+  updateHighlights();
+}
+
+function setGroupFilter(mode) {
+  if (mode === 'all') {
+    activeGroups = {g1: true, g2: true, g3: true, g4: true, g5: true};
+  } else if (mode === 'none') {
+    activeGroups = {g1: false, g2: false, g3: false, g4: false, g5: false};
+  }
+  document.getElementById('btn-all').classList.toggle('active', mode === 'all');
+  document.getElementById('btn-none').classList.toggle('active', mode === 'none');
+  updateHighlights();
+}
+
+function toggleMintermLabels() {
+  showMintermLabels = !showMintermLabels;
+  renderKMap();
+}
+
+function inspectCell(m, abc, de, val) {
+  document.getElementById('insp-title').textContent = `📌 ข้อมูลเซลล์ m${m} (พิกัด ABC=${abc}, DE=${de})`;
+  document.getElementById('insp-bits').textContent = `${abc[0]} ${abc[1]} ${abc[2]} ${de[0]} ${de[1]}`;
+  document.getElementById('insp-m').textContent = `m${m} (ฐานสิบ = ${m})`;
+  document.getElementById('insp-val').textContent = val === 1 ? '1 (Logic HIGH)' : '0 (Logic LOW)';
+
+  // ตรวจสอบว่าอยู่ในกลุ่มไหนบ้าง
+  const coveredIn = [];
+  if (GROUPS.g1.includes(m)) coveredIn.push('กลุ่ม 1 (E)');
+  if (GROUPS.g2.includes(m)) coveredIn.push("กลุ่ม 2 (A'·B)");
+  if (GROUPS.g3.includes(m)) coveredIn.push("กลุ่ม 3 (B·D')");
+  if (GROUPS.g4.includes(m)) coveredIn.push("กลุ่ม 4 (B·C')");
+  if (GROUPS.g5.includes(m)) coveredIn.push("กลุ่ม 5 (A·B'·C·D)");
+
+  document.getElementById('insp-groups').textContent = coveredIn.length > 0 ? coveredIn.join(', ') : 'ไม่มี (เป็นเลข 0)';
+
+  let status = 'ช่องทั่วไป';
+  if (m === 14) status = "⭐ Unique ของกลุ่ม 2 (A'·B) — ทำให้กลุ่ม 2 เป็น Essential!";
+  else if (m === 28) status = "⭐ Unique ของกลุ่ม 3 (B·D') — ทำให้กลุ่ม 3 เป็น Essential!";
+  else if (m === 26) status = "⭐ Unique ของกลุ่ม 4 (B·C') — ทำให้กลุ่ม 4 เป็น Essential!";
+  else if (m === 22) status = "⭐ Unique ของกลุ่ม 5 (A·B'·C·D) — ทำให้กลุ่ม 5 เป็น Essential!";
+  else if ([1, 3, 5, 7, 17, 19, 21, 31].includes(m)) status = "⭐ Unique ของกลุ่ม 1 (E) — ทำให้กลุ่ม 1 เป็น Essential!";
+
+  document.getElementById('insp-status').textContent = status;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LIVE CIRCUIT SIMULATOR ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
+let inputs = {a: 0, b: 0, c: 0, d: 0, e: 0};
+
+function toggleInput(name) {
+  inputs[name] = 1 - inputs[name];
+  const card = document.getElementById(`sw-${name}`);
+  const valEl = document.getElementById(`val-${name}`);
+  if (inputs[name] === 1) {
+    card.classList.add('high');
+    valEl.textContent = '1';
+  } else {
+    card.classList.remove('high');
+    valEl.textContent = '0';
+  }
+  evalCircuit();
+}
+
+function evalCircuit() {
+  const {a, b, c, d, e} = inputs;
+  const not_a = 1 - a;
+  const not_c = 1 - c;
+  const not_d = 1 - d;
+  const not_b = 1 - b;
+
+  const and1 = not_a & b;
+  const and2 = b & not_c;
+  const and3 = b & not_d;
+  const and4 = a & not_b & c & d;
+  const line_e = e;
+
+  const f = line_e | and1 | and2 | and3 | and4;
+
+  document.getElementById('out-and1').textContent = and1;
+  document.getElementById('out-and2').textContent = and2;
+  document.getElementById('out-and3').textContent = and3;
+  document.getElementById('out-and4').textContent = and4;
+  document.getElementById('out-line-e').textContent = line_e;
+
+  const led = document.getElementById('main-led');
+  const fVal = document.getElementById('main-f-val');
+  const fDesc = document.getElementById('main-f-desc');
+
+  fVal.textContent = f;
+  if (f === 1) {
+    led.classList.add('on');
+    fVal.style.color = '#34D399';
+    fDesc.textContent = 'สถานะลอจิก HIGH (หลอดไฟติดสว่าง)';
+  } else {
+    led.classList.remove('on');
+    fVal.style.color = '#94A3B8';
+    fDesc.textContent = 'สถานะลอจิก LOW (หลอดไฟดับ)';
+  }
+}
+
+// Lightbox
+function openLb(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('on');
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('on');
+}
+
+function toggleStudioView() {
+  document.getElementById('sec-studio').scrollIntoView({behavior:'smooth'});
+}
+function toggleCircuitSim() {
+  document.getElementById('sec-circ-sim').scrollIntoView({behavior:'smooth'});
+}
+
+// เริ่มต้น
+document.addEventListener('DOMContentLoaded', () => {
+  renderKMap();
+  evalCircuit();
+  // เลือกเซลล์ m14 เป็นค่าเริ่มต้น
+  inspectCell(14, '011', '10', 1);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>คลังข้อสอบ บทที่ 2 (Logic Functions & Combinational Logic) · 305241 Digital Logic</title>
+<style>
+/* ═══════════ พื้นฐานแบบหนังสือเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --purple: #6D28D9;
+  --purple-bg: #F5F3FF;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 36px 30px 90px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+.course-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+  font-size: .88rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 2px 14px;
+  white-space: nowrap;
+  font-weight: 700;
+  background: #FFFFFF;
+}
+
+h1.book-title {
+  font-size: 2.15rem;
+  line-height: 1.35;
+  margin: 14px 0 8px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+/* ═══════════ การ์ดข้อสอบ ═══════════ */
+.exam-card {
+  background: #FFFFFF;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: 6px 6px 0 var(--paper2);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin: 24px 0;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.exam-card.exam-02 {
+  border-color: var(--purple);
+}
+
+.exam-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 #E2E8F0;
+}
+
+.exam-card.upcoming {
+  border: 2px dashed #94A3B8;
+  background: #FAF8F5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.exam-card.upcoming:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.badge {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 3px 12px;
+  border-radius: 4px;
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid #A7F3D0;
+}
+
+.badge.purple {
+  background: var(--purple-bg);
+  color: var(--purple);
+  border-color: #DDD6FE;
+}
+
+.badge.pending {
+  background: #F1F5F9;
+  color: #64748B;
+  border: 1px solid #CBD5E1;
+}
+
+.action-btn {
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-btn.purple {
+  color: var(--purple);
+}
+
+.action-btn::after {
+  content: "→";
+  font-size: 1.1em;
+}
+
+/* ═══════════ กล่องสรุปภาพรวม ═══════════ */
+.overview-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin: 32px 0;
+}
+
+.overview-box h3 {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 1.15rem;
+}
+
+footer {
+  margin-top: 70px;
+  border-top: 2px solid var(--ink);
+  padding-top: 24px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- แถบนำทาง -->
+  <div class="breadcrumb">
+    <a href="../../index.html">หน้าหลักวิชา 305241</a>
+    <span class="sep">/</span>
+    <a href="../README.md">บทที่ 2 (Logic Functions)</a>
+    <span class="sep">/</span>
+    <span>คลังข้อสอบ 2569</span>
+  </div>
+
+  <header>
+    <div class="course-line">
+      <span>วิชา 305241 การออกแบบวงจรดิจิตอล · มหาวิทยาลัยนเรศวร</span>
+      <span class="chip">EXAM ARCHIVE · 2569</span>
+    </div>
+
+    <h1 class="book-title">คลังข้อสอบและแบบฝึกหัด บทที่ 2 (ปีการศึกษา 2569)</h1>
+    <div class="subtitle">
+      รวมข้อสอบคัดสรร การวิเคราะห์วงจรตรรกศาสตร์ดิจิทัล การสร้างตารางความจริง และการลดรูปวงจรด้วยแผนผังคาร์โนต์ (K-Map) พร้อมเฉลยวิธีทำอย่างละเอียดระดับมาตรฐานตำราเรียนสากล
+    </div>
+  </header>
+
+  <!-- รายการข้อสอบที่ 1 -->
+  <a href="1/solution.html" class="exam-card">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+      <div>
+        <div style="font-size:.84rem; font-weight:800; color:var(--accent2); letter-spacing:.06em;">ข้อสอบข้อที่ 1 (EXAM 01)</div>
+        <div style="font-size:1.35rem; font-weight:800; color:var(--ink); margin:4px 0 8px;">
+          การวิเคราะห์ วาดวงจร และลดรูปวงจรตรรกศาสตร์ 5 ตัวแปรด้วย K-Map 8×4 (ABC / DE)
+        </div>
+      </div>
+      <span class="badge">เฉลยสมบูรณ์ 100%</span>
+    </div>
+    <p style="color:var(--ink-soft); margin:8px 0 16px; font-size:.96rem; line-height:1.7;">
+      วิเคราะห์วงจรเชิงผสม 5 อินพุต (A, B, C, D, E) แบบ 4 ภาคสัญญาณที่ใช้เกตขนาดไม่เกิน 2 อินพุตตามข้อสอบจริง (7404 NOT, 7486 XOR, 7400 NAND, 7402 NOR, 7408 AND, 7432 OR), การวิเคราะห์จุดทดสอบ W₁ ถึง W₉, ตารางความจริง 32 กรณี, แผนผัง K-Map 8×4 แบบตารางเดี่ยว แสดงการจับกลุ่มแบบวนขอบ (Wraparound) พร้อมเปรียบเทียบผลลัพธ์ SOP, POS และการสังเคราะห์วงจรฮาร์ดแวร์จริง
+    </p>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1ECE1; padding-top:14px; font-size:.90rem; flex-wrap:wrap; gap:10px;">
+      <span>สื่อประกอบ: แผนภาพวงจร 300 DPI, K-Map SOP, K-Map POS, วงจรลดรูป และ IC Pinout รวม 6 ไดอะแกรม</span>
+      <span class="action-btn">เปิดอ่านเฉลยละเอียดข้อที่ 1</span>
+    </div>
+  </a>
+
+  <!-- รายการข้อสอบที่ 2 -->
+  <a href="2/solution.html" class="exam-card exam-02">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+      <div>
+        <div style="font-size:.84rem; font-weight:800; color:var(--purple); letter-spacing:.06em;">ข้อสอบข้อที่ 2 (EXAM 02)</div>
+        <div style="font-size:1.35rem; font-weight:800; color:var(--ink); margin:4px 0 8px;">
+          การวิเคราะห์ วาดวงจรเกตผสมผสานระดับสูง และลดรูปวงจรตรรกศาสตร์ 5 ตัวแปรด้วย K-Map 8×4
+        </div>
+      </div>
+      <span class="badge purple">เฉลยสมบูรณ์ 100%</span>
+    </div>
+    <p style="color:var(--ink-soft); margin:8px 0 16px; font-size:.96rem; line-height:1.7;">
+      วงจรเกตหลากหลายครบชุดระดับสูง ประกอบด้วย 74HC04 (Inverter), 74HC86 (2-Input XOR), 74HC00 (2-Input NAND), 74HC02 (2-Input NOR), 74HC7266 (2-Input XNOR), 74HC08, 74HC11 และ 5-Input OR Gate, การวิเคราะห์สัญญาณ W₁..W₄ และ X₁..X₅, ตารางความจริง 32 กรณี (22 Minterms / 10 Maxterms), ผัง K-Map 8×4 จับกลุ่ม 1s และ 0s, การพิสูจน์ลดรูปด้วยทฤษฎีบทพีชคณิตบูลีนทีละบรรทัด พร้อมเปรียบเทียบความคุ้มค่าเชิงวิศวกรรม
+    </p>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1ECE1; padding-top:14px; font-size:.90rem; flex-wrap:wrap; gap:10px;">
+      <span>สื่อประกอบ: แผนภาพวงจร 300 DPI แบบ Structured Bus, K-Map SOP, K-Map POS, วงจรลดรูป และ IC Pinout รวม 6 ไดอะแกรม</span>
+      <span class="action-btn purple">เปิดอ่านเฉลยละเอียดข้อที่ 2</span>
+    </div>
+  </a>
+
+  <!-- รายการข้อสอบที่ 3 -->
+  <a href="3/solution.html" class="exam-card exam-03" style="border-color: var(--green);">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+      <div>
+        <div style="font-size:.84rem; font-weight:800; color:var(--green); letter-spacing:.06em;">ข้อสอบข้อที่ 3 (EXAM 03)</div>
+        <div style="font-size:1.35rem; font-weight:800; color:var(--ink); margin:4px 0 8px;">
+          วงจรลอจิกผสมครบ 7 ชนิดเกตมาตรฐาน (All 7 Standard Gate Types · Max 2-Input) และการลดรูปด้วย K-Map 8×4
+        </div>
+      </div>
+      <span class="badge" style="background:var(--green-bg); color:var(--green); border-color:#A7F3D0;">เฉลยสมบูรณ์ 100%</span>
+    </div>
+    <p style="color:var(--ink-soft); margin:8px 0 16px; font-size:.96rem; line-height:1.7;">
+      วงจรเชิงผสม 4 ระดับที่ประกอบด้วยเกตมาตรฐานครบทั้ง 7 ชนิด (NOT 74HC04, XOR 74HC86, XNOR 74HC7266, NAND 74HC00, NOR 74HC02, AND 74HC08, OR 74HC32) โดยไม่มีเกตชนิดใดซ้ำเกิน 2 ตัว และรับอินพุตไม่เกิน 2 ขาต่อเกต, การวิเคราะห์จุดทดสอบ W₁..W₇, ตารางความจริง 32 กรณี (18 Minterms / 14 Maxterms), ผัง K-Map 8×4 Minimal SOP & POS, การพิสูจน์เอกลักษณ์ XNOR Absorption และ De Morgan on NAND พร้อม Live Simulator 5 สวิตช์
+    </p>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1ECE1; padding-top:14px; font-size:.90rem; flex-wrap:wrap; gap:10px;">
+      <span>สื่อประกอบ: แผนภาพวงจร 300 DPI แบบ Structured Bus, K-Map SOP, K-Map POS, วงจรลดรูป 2 ระดับ และ IC Pinout รวม 6 ไดอะแกรม</span>
+      <span class="action-btn" style="color:var(--green);">เปิดอ่านเฉลยละเอียดข้อที่ 3</span>
+    </div>
+  </a>
+
+  <!-- การ์ดข้อสอบข้อถัดไป (Expandable Future Slots) -->
+  <div class="exam-card upcoming">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+      <div>
+        <div style="font-size:.84rem; font-weight:800; color:#64748B; letter-spacing:.06em;">ข้อสอบข้อที่ 4 (EXAM 04)</div>
+        <div style="font-size:1.25rem; font-weight:800; color:#475569; margin:4px 0 8px;">
+          การแปลงวงจรตรรกศาสตร์สู่เกตสากล (Universal Logic: All-NAND & All-NOR Synthesis)
+        </div>
+      </div>
+      <span class="badge pending">เตรียมพร้อมเร็ว ๆ นี้</span>
+    </div>
+    <p style="color:#64748B; margin:8px 0 12px; font-size:.92rem; line-height:1.7;">
+      การแปลงวงจร AND-OR และ OR-AND ให้อยู่ในรูปของเกตชนิดเดียว (All-NAND หรือ All-NOR) ด้วยทฤษฎีบทดีมอร์แกน (DeMorgan's Laws)
+    </p>
+  </div>
+
+  <!-- กล่องวัตถุประสงค์การเรียนรู้ -->
+  <div class="overview-box">
+    <h3>🎯 สาระสำคัญและการประเมินผลประจำบทที่ 2 (Learning Outcomes)</h3>
+    <ul style="margin:6px 0 0 20px; line-height:1.8; color:var(--ink);">
+      <li><strong>ความเข้าใจการอ่านวงจรเกตเชิงผสม:</strong> สามารถเขียนสมการเอาต์พุตประจำจุดทดสอบ และคำนวณตารางความจริงได้อย่างแม่นยำ 100%</li>
+      <li><strong>ทักษะการใช้ K-Map ขั้นสูง:</strong> การจัดเรียงรหัส Gray Code, การจับกลุ่มขนาด <code>2ⁿ</code> (Octet, Quad, Pair), การมองเห็นเซลล์เชื่อมขอบ (Wraparound) ในผัง K-Map 8×4</li>
+      <li><strong>การเปรียบเทียบ SOP vs POS:</strong> เลือกใช้โครงสร้างที่ประหยัดและเหมาะสมกับจำนวนไอซี และข้อจำกัดทางกายภาพของฮาร์ดแวร์</li>
+    </ul>
+  </div>
+
+  <footer>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <div>
+        <strong>วิชา 305241 การออกแบบวงจรดิจิตอล</strong><br>
+        ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร
+      </div>
+      <div style="text-align:right;">
+        <a href="../../index.html" style="color:var(--accent); text-decoration:none; font-weight:700;">หน้าหลักวิชา 305241 →</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
