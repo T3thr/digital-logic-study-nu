@@ -701,10 +701,32 @@ td.left, th.left {
   width: 28%;
   font-size: 0.72rem !important;
   line-height: 1.25;
-  padding: 6px 3px !important;
+  padding: 5px 3px !important;
   background: var(--paper-subtle);
   color: var(--ink-secondary);
   font-weight: 700;
+  vertical-align: middle;
+}
+
+.kmap-axis-col {
+  display: block;
+  color: #1D4ED8;
+  font-size: 0.68rem;
+  font-weight: 800;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  text-align: right;
+  line-height: 1.15;
+}
+
+.kmap-axis-row {
+  display: block;
+  color: #B45309;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-align: left;
+  line-height: 1.15;
 }
 
 .kmap-col-header {

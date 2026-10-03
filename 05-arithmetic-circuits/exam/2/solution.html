@@ -508,6 +508,58 @@
             <span class="badge-title">📌 คอลัมน์แนวตั้ง (Vertical Columns): บิตต่ำ QB QA (หรือ BA)</span>
             <span class="badge-val">กำหนดค่าประจำคอลัมน์จากซ้ายไปขวาเป็น <code>00, 01, 11, 10</code> ตามลำดับรหัสเกรย์ (Gray Code)</span>
           </div>
+        <!-- แผนที่พิกัดตำแหน่งมินเทอม m0-m15 ในตาราง K-Map 4x4 -->
+        <div class="callout info" style="margin-bottom:24px;">
+          <span class="label">🗺️ แผนที่พิกัดเซลล์และลำดับมินเทอม (Minterm Coordinate Map) เทียบรหัสเกรย์:</span>
+          <p style="margin:4px 0 10px 0; font-size:0.92rem;">
+            เพื่อป้องกันความสับสนในการเทียบค่าระหว่าง <strong>ตารางที่ 1 (เรียงตามลำดับเลขฐานสิบ 0 ถึง 15)</strong> กับ <strong>ตาราง K-Map 4×4</strong> พิกัดเซลล์แต่ละช่องถูกกำหนดอย่างเป็นระบบตามรหัสเกรย์ (Gray Code <code>00 → 01 → 11 → 10</code>) โดยมีตำแหน่งมินเทอมกำกับอยู่มุมขวาล่างของทุกช่องดังนี้:
+          </p>
+          <div class="table-scroll">
+            <table style="text-align:center; font-family:var(--font-mono); margin:0; font-size:0.90rem;">
+              <thead>
+                <tr style="background:var(--paper-subtle);">
+                  <th style="padding:8px 12px; color:var(--ink-secondary); font-size:0.84rem;">↓ แถว (QD QC) \ คอลัมน์ (QB QA) →</th>
+                  <th style="color:#1D4ED8; font-weight:800;">00 (QA=0, QB=0)</th>
+                  <th style="color:#1D4ED8; font-weight:800;">01 (QA=1, QB=0)</th>
+                  <th style="color:#1D4ED8; font-weight:800;">11 (QA=1, QB=1)</th>
+                  <th style="color:#1D4ED8; font-weight:800;">10 (QA=0, QB=1)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th style="color:#B45309; font-weight:800; background:var(--paper-subtle);">00 (QC=0, QD=0)</th>
+                  <td style="background:#EFF6FF;"><strong>m0</strong> (0000)</td>
+                  <td style="background:#EFF6FF;"><strong>m1</strong> (0001)</td>
+                  <td style="background:#FEF3C7;"><strong>m3</strong> (0011) <span style="font-size:0.75rem; color:#B45309;">(คอลัมน์ 3)</span></td>
+                  <td style="background:#FEF3C7;"><strong>m2</strong> (0010) <span style="font-size:0.75rem; color:#B45309;">(คอลัมน์ 4)</span></td>
+                </tr>
+                <tr>
+                  <th style="color:#B45309; font-weight:800; background:var(--paper-subtle);">01 (QC=1, QD=0)</th>
+                  <td style="background:#EFF6FF;"><strong>m4</strong> (0100)</td>
+                  <td style="background:#EFF6FF;"><strong>m5</strong> (0101)</td>
+                  <td style="background:#FEF3C7;"><strong>m7</strong> (0111) <span style="font-size:0.75rem; color:#B45309;">(คอลัมน์ 3)</span></td>
+                  <td style="background:#FEF3C7;"><strong>m6</strong> (0110) <span style="font-size:0.75rem; color:#B45309;">(คอลัมน์ 4)</span></td>
+                </tr>
+                <tr style="background:#FFFBEB;">
+                  <th style="color:#B45309; font-weight:800; background:#FEF3C7;">11 (QC=1, QD=1) <span style="font-size:0.75rem;">(แถว 3)</span></th>
+                  <td style="background:#FEF2F2;"><strong>m12</strong> (1100)</td>
+                  <td style="background:#FEF2F2;"><strong>m13</strong> (1101)</td>
+                  <td style="background:#FEF2F2;"><strong>m15</strong> (1111)</td>
+                  <td style="background:#FEF2F2;"><strong>m14</strong> (1110)</td>
+                </tr>
+                <tr>
+                  <th style="color:#B45309; font-weight:800; background:var(--paper-subtle);">10 (QC=0, QD=1) <span style="font-size:0.75rem;">(แถว 4)</span></th>
+                  <td style="background:#EFF6FF;"><strong>m8</strong> (1000)</td>
+                  <td style="background:#EFF6FF;"><strong>m9</strong> (1001)</td>
+                  <td style="background:#FEF3C7;"><strong>m11</strong> (1011)</td>
+                  <td style="background:#FEF3C7;"><strong>m10</strong> (1010)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin:8px 0 0 0; font-size:0.86rem; color:var(--ink-secondary);">
+            💡 <em>ข้อสังเกตสำคัญตามมาตรฐาน Gray Code:</em> คอลัมน์ที่ 3 คือ <code>11 (m3, m7, m15, m11)</code> สลับมาก่อนคอลัมน์ที่ 4 <code>10 (m2, m6, m14, m10)</code> และแถวที่ 3 คือ <code>11 (m12..m15)</code> สลับมาก่อนแถวที่ 4 <code>10 (m8..m11)</code> เพื่อให้แต่ละเซลล์ที่อยู่ติดกันมีบิตเปลี่ยนค่าเพียง 1 บิตเสมอ
+          </p>
         </div>
 
         <!-- K-Map Grid 2-Column Responsive Layout (Paired by Flip-Flop) -->
@@ -519,7 +571,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -580,7 +635,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -650,7 +708,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -713,7 +774,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -776,7 +840,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -838,7 +905,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -901,7 +971,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -964,7 +1037,10 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
+                    <th class="kmap-corner">
+                      <span class="kmap-axis-col">QB QA →</span>
+                      <span class="kmap-axis-row">↓ QD QC</span>
+                    </th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -1019,6 +1095,220 @@
               <br>• รวมได้สมการเหมือนกับ JD ทุกประการ: <code>KD = QC' · QB' · QA'</code> (สามารถต่อสายสัญญาณร่วมกันระหว่างขา J และขา K ของ FF-D ได้ทันที ช่วยประหยัดเกตในวงจรจริง!)
             </p>
           </div>
+        </div>
+
+
+        <!-- ตารางตรวจสอบความสอดคล้อง 100% ระหว่างตารางที่ 1 กับ K-Map ทั้ง 8 ฟังก์ชัน -->
+        <div class="step-card" style="margin-top:24px;">
+          <h3 style="color:var(--accent); font-size:1.05rem;">📋 ตารางตรวจสอบความสอดคล้องระดับเซลล์ต่อเซลล์ (Table 1 vs K-Map 1:1 Verification Matrix):</h3>
+          <p style="font-size:0.88rem; color:var(--ink-secondary); margin-bottom:12px;">
+            ตารางนี้พิสูจน์ให้เห็นอย่างโปร่งใสว่า ค่าอินพุตกระตุ้นทุกค่าจาก <strong>ขั้นตอนที่ 2 (ตารางที่ 1)</strong> ถูกนำไปลงในพิกัดของ <strong>ขั้นตอนที่ 3 (แผนผังคาร์โนทั้ง 8 ตาราง)</strong> อย่างถูกต้อง 100% โดยไม่มีการสลับค่าหรือสับสนระหว่างแถวและคอลัมน์:
+          </p>
+          <div class="table-scroll">
+            <table style="font-family:var(--font-mono); font-size:0.86rem; text-align:center; margin:0;">
+              <thead>
+                <tr style="background:var(--paper-subtle);">
+                  <th rowspan="2">มินเทอม</th>
+                  <th rowspan="2">สภาวะปัจจุบัน<br>(QD QC QB QA)</th>
+                  <th colspan="2">พิกัดใน K-Map 4×4</th>
+                  <th colspan="2">FF-D</th>
+                  <th colspan="2">FF-C</th>
+                  <th colspan="2">FF-B</th>
+                  <th colspan="2">FF-A</th>
+                  <th rowspan="2">ผลการตรวจทาน</th>
+                </tr>
+                <tr style="background:var(--paper-subtle);">
+                  <th>แถว (QD QC)</th>
+                  <th>คอลัมน์ (QB QA)</th>
+                  <th>JD</th><th>KD</th>
+                  <th>JC</th><th>KC</th>
+                  <th>JB</th><th>KB</th>
+                  <th>JA</th><th>KA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m0</strong></td>
+                  <td>0 0 0 0 (0)</td>
+                  <td><code style="color:#B45309; font-weight:700;">00</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">00</code></td>
+                  <td>1</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m1</strong></td>
+                  <td>0 0 0 1 (1)</td>
+                  <td><code style="color:#B45309; font-weight:700;">00</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">01</code></td>
+                  <td>0</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m2</strong></td>
+                  <td>0 0 1 0 (2)</td>
+                  <td><code style="color:#B45309; font-weight:700;">00</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">10</code></td>
+                  <td>0</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m3</strong></td>
+                  <td>0 0 1 1 (3)</td>
+                  <td><code style="color:#B45309; font-weight:700;">00</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">11</code></td>
+                  <td>0</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m4</strong></td>
+                  <td>0 1 0 0 (4)</td>
+                  <td><code style="color:#B45309; font-weight:700;">01</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">00</code></td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td>1</td><td>X</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m5</strong></td>
+                  <td>0 1 0 1 (5)</td>
+                  <td><code style="color:#B45309; font-weight:700;">01</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">01</code></td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>0</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m6</strong></td>
+                  <td>0 1 1 0 (6)</td>
+                  <td><code style="color:#B45309; font-weight:700;">01</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">10</code></td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m7</strong></td>
+                  <td>0 1 1 1 (7)</td>
+                  <td><code style="color:#B45309; font-weight:700;">01</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">11</code></td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m8</strong></td>
+                  <td>1 0 0 0 (8)</td>
+                  <td><code style="color:#B45309; font-weight:700;">10</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">00</code></td>
+                  <td>X</td><td>1</td>
+                  <td>1</td><td>X</td>
+                  <td>1</td><td>X</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#F0FDF4;">
+                  <td><strong>m9</strong></td>
+                  <td>1 0 0 1 (9)</td>
+                  <td><code style="color:#B45309; font-weight:700;">10</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">01</code></td>
+                  <td>X</td><td>0</td>
+                  <td>0</td><td>X</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#FFF1F2;">
+                  <td><strong>m10</strong></td>
+                  <td>1 0 1 0 (10)</td>
+                  <td><code style="color:#B45309; font-weight:700;">10</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">10</code></td>
+                  <td>X</td><td>0</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#FFF1F2;">
+                  <td><strong>m11</strong></td>
+                  <td>1 0 1 1 (11)</td>
+                  <td><code style="color:#B45309; font-weight:700;">10</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">11</code></td>
+                  <td>X</td><td>0</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>1</td>
+                  <td>X</td><td>0</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#FFF1F2;">
+                  <td><strong>m12</strong></td>
+                  <td>1 1 0 0 (12)</td>
+                  <td><code style="color:#B45309; font-weight:700;">11</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">00</code></td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td>0</td><td>X</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#FFF1F2;">
+                  <td><strong>m13</strong></td>
+                  <td>1 1 0 1 (13)</td>
+                  <td><code style="color:#B45309; font-weight:700;">11</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">01</code></td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td>0</td><td>X</td>
+                  <td>X</td><td>0</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#FFF1F2;">
+                  <td><strong>m14</strong></td>
+                  <td>1 1 1 0 (14)</td>
+                  <td><code style="color:#B45309; font-weight:700;">11</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">10</code></td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td>X</td><td>1</td>
+                  <td>1</td><td>X</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+                <tr style="background:#FFF1F2;">
+                  <td><strong>m15</strong></td>
+                  <td>1 1 1 1 (15)</td>
+                  <td><code style="color:#B45309; font-weight:700;">11</code></td>
+                  <td><code style="color:#1D4ED8; font-weight:700;">11</code></td>
+                  <td>X</td><td>0</td>
+                  <td>X</td><td>1</td>
+                  <td>X</td><td>1</td>
+                  <td>X</td><td>0</td>
+                  <td style="color:#16A34A; font-weight:700;">✓ ตรงกัน</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:8px;">
+            *แถวสีเขียวอ่อน (m0 ถึง m9) คือลูปการนับหลัก แถวสีชมพูอ่อน (m10 ถึง m15) คือสถานะที่ไม่ได้ใช้งานซึ่งส่งกลับไปที่ 9
+          </p>
         </div>
 
         <!-- กล่องวิเคราะห์การแชร์ทรัพยากรลอจิก (Resource Sharing Analysis) จากมุมมอง PhD -->
