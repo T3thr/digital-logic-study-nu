@@ -701,39 +701,138 @@ td.left, th.left {
   border: 1px solid var(--rule);
 }
 
-/* ══════════════ Math Equations (Zero-Dollar Policy Compliant) ══════════════ */
+/* ══════════════ Math Equations (Zero-Dollar Policy & Upright Styling) ══════════════ */
 .math-block {
   background: var(--paper-card);
-  border: 1px solid var(--rule);
+  border: 1.5px solid var(--rule);
   border-radius: var(--radius-md);
-  padding: 18px 24px;
+  padding: 20px 24px;
   margin: 20px 0;
   font-family: var(--font-mono);
+  font-style: normal;
   font-size: 1.05rem;
-  line-height: 1.9;
+  line-height: 2;
   color: var(--ink-primary);
   box-shadow: var(--shadow-sm);
   overflow-x: auto;
+  letter-spacing: 0.02em;
 }
 
 .math-inline {
   font-family: var(--font-mono);
+  font-style: normal;
   font-size: 0.96em;
   background: var(--paper-subtle);
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
   border: 1px solid var(--rule);
   font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .sub {
-  vertical-align: sub;
   font-size: 0.78em;
+  vertical-align: -0.2em;
+  line-height: 0;
+  font-style: normal;
 }
 
 .sup {
-  vertical-align: super;
   font-size: 0.78em;
+  vertical-align: 0.4em;
+  line-height: 0;
+  font-style: normal;
+}
+
+/* ══════════════ Exam Question Answer Highlight & IC Table ══════════════ */
+.answer-summary-box {
+  background: #FFFFFF;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin: 28px 0;
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.08);
+}
+
+.answer-summary-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.summary-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.stat-card {
+  background: var(--paper-subtle);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.stat-desc {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.ic-table {
+  width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+}
+
+.ic-table th {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid var(--accent-border);
+}
+
+.ic-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.ic-tag {
+  display: inline-block;
+  background: var(--paper-card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
 .over {

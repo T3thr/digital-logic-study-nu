@@ -1,16 +1,16 @@
 /**
  * 305241 Digital Logic Design · Exam 03 Interactive Circuit Simulator
- * Synchronous 3-bit Up/Down Counter with Mode Control M (D-FF & JK-FF)
+ * Synchronous 3-bit Arbitrary Sequence Counter (2 -> 3 -> 5 -> 1 -> 7 -> 2)
+ * Unused States (0, 4, 6 -> 2)
  */
 
 (function () {
   'use strict';
 
-  // State: QC (MSB), QB, QA (LSB) and Mode M (0 = Up, 1 = Down)
+  // State: QC (MSB, Bit 2), QB (Bit 1), QA (LSB, Bit 0)
   let qc = 0;
-  let qb = 0;
-  let qa = 0;
-  let modeM = 0;
+  let qb = 1;
+  let qa = 0; // Default starts at 2 (010)
   let timerId = null;
 
   // DOM Elements
@@ -18,38 +18,37 @@
   const chipC = document.getElementById('bit-c');
   const chipB = document.getElementById('bit-b');
   const chipA = document.getElementById('bit-a');
-  const modeStatus = document.getElementById('mode-status');
   const logBox = document.getElementById('state-log');
   const btnClock = document.getElementById('btn-clock');
   const btnAuto = document.getElementById('btn-auto');
   const btnReset = document.getElementById('btn-reset');
-  const btnToggleMode = document.getElementById('btn-toggle-mode');
   const stateSelect = document.getElementById('select-state');
 
-  // Compute D Flip-Flop excitation inputs
-  function computeDInputs(m, c, b, a) {
-    const notM = m === 0 ? 1 : 0;
+  // Compute logic gate equations for JK inputs based on present state
+  function computeInputs(c, b, a) {
     const notC = c === 0 ? 1 : 0;
     const notB = b === 0 ? 1 : 0;
     const notA = a === 0 ? 1 : 0;
 
-    // Toggle steering conditions:
-    // TB = M' · QA + M · QA'
-    const tB = (notM && a) || (m && notA) ? 1 : 0;
+    // JC = QA
+    const jc = a;
 
-    // TC = M' · QB · QA + M · QB' · QA'
-    const tC = (notM && b && a) || (m && notB && notA) ? 1 : 0;
+    // KC = 1 (Tied to High)
+    const kc = 1;
 
-    // DA = QA'
-    const da = notA;
+    // JB = QC' + QA'
+    const jb = (notC || notA) ? 1 : 0;
 
-    // DB = QB ⊕ TB
-    const db = b ^ tB;
+    // KB = QC' · QA
+    const kb = (notC && a) ? 1 : 0;
 
-    // DC = QC ⊕ TC
-    const dc = c ^ tC;
+    // JA = QC' · QB
+    const ja = (notC && b) ? 1 : 0;
 
-    return { da, db, dc, tB, tC };
+    // KA = QC · QB
+    const ka = (c && b) ? 1 : 0;
+
+    return { jc, kc, jb, kb, ja, ka };
   }
 
   // Update UI displays
@@ -59,113 +58,147 @@
       numDisplay.textContent = dec;
     }
 
-    if (chipC) {
-      chipC.textContent = qc;
-      chipC.classList.toggle('active', qc === 1);
-    }
-    if (chipB) {
-      chipB.textContent = qb;
-      chipB.classList.toggle('active', qb === 1);
-    }
-    if (chipA) {
-      chipA.textContent = qa;
-      chipA.classList.toggle('active', qa === 1);
-    }
+    if (chipC) chipC.textContent = qc;
+    if (chipB) chipB.textContent = qb;
+    if (chipA) chipA.textContent = qa;
 
-    if (modeStatus) {
-      if (modeM === 0) {
-        modeStatus.textContent = 'M = 0 (โหมดนับขึ้น UP: 0 → 1 → 2 ... → 7 → 0)';
-        modeStatus.style.color = '#38BDF8';
-      } else {
-        modeStatus.textContent = 'M = 1 (โหมดนับลง DOWN: 7 → 6 → 5 ... → 0 → 7)';
-        modeStatus.style.color = '#F59E0B';
+    // Update bit active classes
+    [
+      { el: chipC, val: qc },
+      { el: chipB, val: qb },
+      { el: chipA, val: qa }
+    ].forEach(item => {
+      if (item.el) {
+        if (item.val === 1) {
+          item.el.classList.add('active');
+        } else {
+          item.el.classList.remove('active');
+        }
       }
-    }
+    });
 
+    const inputs = computeInputs(qc, qb, qa);
+
+    // Update real-time input monitor
+    const monitorMap = {
+      'mon-jc': inputs.jc,
+      'mon-kc': inputs.kc,
+      'mon-jb': inputs.jb,
+      'mon-kb': inputs.kb,
+      'mon-ja': inputs.ja,
+      'mon-ka': inputs.ka
+    };
+
+    Object.entries(monitorMap).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = val;
+        el.className = `mon-val ${val === 1 ? 'val-high' : 'val-low'}`;
+      }
+    });
+
+    // Update dropdown
     if (stateSelect) {
       stateSelect.value = dec.toString();
     }
   }
 
-  function appendLog(msg) {
+  // Append entry to state log
+  function logTransition(fromDec, toDec) {
     if (!logBox) return;
-    const div = document.createElement('div');
-    div.textContent = msg;
-    logBox.appendChild(div);
-    logBox.scrollTop = logBox.scrollHeight;
-  }
 
-  // Single Clock Pulse Transition
-  function clockPulse() {
-    const currentDec = (qc << 2) | (qb << 1) | qa;
-    const { da, db, dc, tB, tC } = computeDInputs(modeM, qc, qb, qa);
-    const nextDec = (dc << 2) | (db << 1) | da;
+    const fromBin = fromDec.toString(2).padStart(3, '0');
+    const toBin = toDec.toString(2).padStart(3, '0');
+    const isUnused = (fromDec === 0 || fromDec === 4 || fromDec === 6);
+    const tag = isUnused ? '<span class="log-tag tag-recovery">Recovery</span>' : '<span class="log-tag tag-count">Sequence</span>';
 
-    const modeName = modeM === 0 ? 'UP' : 'DOWN';
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `
+      <span class="log-time">${new Date().toLocaleTimeString()}</span>
+      ${tag}
+      <span class="log-from">${fromDec} (Q=${fromBin})</span>
+      <span class="log-arrow">&rarr;</span>
+      <span class="log-to">${toDec} (Q=${toBin})</span>
+    `;
 
-    appendLog(
-      `CLK [${modeName}]: สภาวะ ${currentDec} (${qc}${qb}${qa}) → ถัดไป ${nextDec} (${dc}${db}${da}) | ` +
-      `Steering T: (TB=${tB}, TC=${tC}) | D-Inputs: (DC=${dc}, DB=${db}, DA=${da})`
-    );
+    logBox.insertBefore(line, logBox.firstChild);
 
-    qc = dc;
-    qb = db;
-    qa = da;
-
-    updateUI();
-  }
-
-  function toggleMode() {
-    modeM = modeM === 0 ? 1 : 0;
-    const modeName = modeM === 0 ? 'นับขึ้น (UP: M=0)' : 'นับลง (DOWN: M=1)';
-    appendLog(`MODE: สลับทิศทางการนับเป็น → ${modeName}`);
-    updateUI();
-  }
-
-  function setDirectState(val) {
-    const num = parseInt(val, 10);
-    if (isNaN(num) || num < 0 || num > 7) return;
-    qc = (num >> 2) & 1;
-    qb = (num >> 1) & 1;
-    qa = num & 1;
-    appendLog(`FORCE: บังคับตั้งค่าสถานะเริ่มต้นเป็น ${num} (${qc}${qb}${qa})`);
-    updateUI();
-  }
-
-  function resetState() {
-    qc = 0;
-    qb = 0;
-    qa = 0;
-    if (logBox) logBox.innerHTML = '';
-    appendLog('RESET: รีเซ็ตวงจรกลับสู่สถานะ 0 (000) เรียบร้อย');
-    updateUI();
-  }
-
-  function toggleAuto() {
-    if (timerId !== null) {
-      clearInterval(timerId);
-      timerId = null;
-      btnAuto.textContent = 'เริ่มนับอัตโนมัติ (Auto Clock)';
-      btnAuto.classList.remove('secondary');
-    } else {
-      timerId = setInterval(clockPulse, 900);
-      btnAuto.textContent = 'หยุดนับอัตโนมัติ (Pause)';
-      btnAuto.classList.add('secondary');
+    // Limit log rows
+    while (logBox.children.length > 25) {
+      logBox.removeChild(logBox.lastChild);
     }
   }
 
+  // Execute one clock pulse transition
+  function clockPulse() {
+    const fromDec = (qc << 2) | (qb << 1) | qa;
+    const inputs = computeInputs(qc, qb, qa);
+
+    // JK next-state function: Q_next = J · Q' + K' · Q
+    const notC = qc === 0 ? 1 : 0;
+    const notB = qb === 0 ? 1 : 0;
+    const notA = qa === 0 ? 1 : 0;
+
+    const nextC = (inputs.jc && notC) || ((inputs.kc === 0 ? 1 : 0) && qc) ? 1 : 0;
+    const nextB = (inputs.jb && notB) || ((inputs.kb === 0 ? 1 : 0) && qb) ? 1 : 0;
+    const nextA = (inputs.ja && notA) || ((inputs.ka === 0 ? 1 : 0) && qa) ? 1 : 0;
+
+    qc = nextC;
+    qb = nextB;
+    qa = nextA;
+
+    const toDec = (qc << 2) | (qb << 1) | qa;
+    logTransition(fromDec, toDec);
+    updateUI();
+  }
+
+  // Force state from dropdown
+  function forceState(decVal) {
+    const val = parseInt(decVal, 10);
+    qc = (val >> 2) & 1;
+    qb = (val >> 1) & 1;
+    qa = val & 1;
+    updateUI();
+  }
+
   // Event Listeners
-  if (btnClock) btnClock.addEventListener('click', clockPulse);
-  if (btnAuto) btnAuto.addEventListener('click', toggleAuto);
-  if (btnReset) btnReset.addEventListener('click', resetState);
-  if (btnToggleMode) btnToggleMode.addEventListener('click', toggleMode);
-  if (stateSelect) {
-    stateSelect.addEventListener('change', (e) => {
-      setDirectState(e.target.value);
+  if (btnClock) {
+    btnClock.addEventListener('click', function () {
+      clockPulse();
     });
   }
 
-  // Init
+  if (btnAuto) {
+    btnAuto.addEventListener('click', function () {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+        btnAuto.textContent = 'Auto Clock (1 Hz)';
+        btnAuto.classList.remove('btn-running');
+      } else {
+        btnAuto.textContent = 'Stop Clock';
+        btnAuto.classList.add('btn-running');
+        timerId = setInterval(clockPulse, 1000);
+      }
+    });
+  }
+
+  if (btnReset) {
+    btnReset.addEventListener('click', function () {
+      qc = 0;
+      qb = 1;
+      qa = 0; // Reset to 2
+      updateUI();
+    });
+  }
+
+  if (stateSelect) {
+    stateSelect.addEventListener('change', function () {
+      forceState(this.value);
+    });
+  }
+
+  // Initial draw
   updateUI();
-  appendLog('INITIALIZED: พร้อมจำลองวงจรนับขึ้น/ลง 3 บิต พร้อมขาควบคุมโหมด M (คลิก CLK เพื่อเริ่ม)');
 })();

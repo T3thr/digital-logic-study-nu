@@ -106,20 +106,20 @@
           <a class="exam-card" href="3/solution.html">
             <div class="card-top">
               <span class="card-eyebrow">ข้อสอบข้อที่ 3 (EXAM 03)</span>
-              <span class="badge badge-teal">โหมดควบคุม M + D-FF</span>
+              <span class="badge badge-teal">ตัวอย่าง 7.7 หน้า 203</span>
             </div>
-            <h2>วงจรนับขึ้น/ลงซิงโครนัส 3 บิต<br>ควบคุมด้วยโหมด M (D-FF & JK)</h2>
+            <h2>วงจรนับ 3 บิต ลำดับเฉพาะ<br>2 &rarr; 3 &rarr; 5 &rarr; 1 &rarr; 7 (วนรอบ)</h2>
             <p>
-              ออกแบบวงจรนับที่มีขาควบคุมภายนอก M: เมื่อ M=0 ให้นับขึ้น (0..7..0) และเมื่อ M=1 ให้นับลง (7..0..7) สังเคราะห์ด้วย D Flip-Flop (IC 7474) เพื่อศึกษากลไก Steering Logic และเปรียบเทียบกับ JK Flip-Flop อย่างลึกซึ้ง
+              จงออกแบบวงจรนับขนาด 3 บิต ที่มีลำดับการนับเป็น 2, 3, 5, 1, 7 แล้ววนกลับมาที่ 2 สำหรับสถานะที่เหลือ 0, 4, 6 ให้สถานะถัดไปกลับไปเริ่มที่ 2 พร้อมตอบว่าวงจรนี้ใช้ฟลิปฟล็อปกี่ตัว และต้องใช้ไอซีเบอร์อะไรบ้างกี่ตัว
             </p>
             <div class="card-tags">
-              <span class="tag">Mode Input M</span>
-              <span class="tag">Up/Down Counter</span>
-              <span class="tag">D Flip-Flop 7474</span>
-              <span class="tag">Steering Logic</span>
+              <span class="tag">3-Bit Counter</span>
+              <span class="tag">ลำดับ 2-3-5-1-7</span>
+              <span class="tag">JK Flip-Flop 7476</span>
+              <span class="tag">ไอซี 7476, 7408, 7432</span>
             </div>
             <div class="card-bottom">
-              <span>16-State K-Map · D-FF vs JK</span>
+              <span>6 K-Maps &middot; ผังวงจรและรายการไอซีสมบูรณ์</span>
               <span class="card-action">เปิดอ่านเฉลยข้อ 3</span>
             </div>
           </a>
@@ -130,7 +130,7 @@
       <section id="methodology" aria-labelledby="method-title">
         <div class="sec-head">
           <span class="sec-no">01</span>
-          <h2 id="method-title">กระบวนการออกแบบวงจรนับซิงโครนัส 5 ขั้นตอนมาตรฐาน</h2>
+          <h2 id="method-title">กระบวนการทำข้อสอบวงจรนับซิงโครนัส 5 ขั้นตอนมาตรฐาน</h2>
         </div>
         <p class="lead">
           ตามเอกสารบรรยายหัวข้อ 7.4.2 (หน้าเอกสาร 203 / หน้า PDF 219) การออกแบบวงจรนับที่ได้คะแนนเต็มในห้องสอบจะต้องแสดงขั้นตอนครบถ้วนดังนี้:
@@ -138,27 +138,27 @@
 
         <div class="three-col">
           <div class="step-card">
-            <h3>ขั้นที่ 1 · State Diagram</h3>
-            <p>สร้างแผนภาพแสดงการเปลี่ยนสถานะ โดยระบุทิศทางลูกศรของสถานะหลัก และเขียนเส้นทางการฟื้นตัวของสถานะที่ไม่ได้ใช้งานให้ชัดเจน</p>
+            <h3>ขั้นที่ 1 &middot; State Diagram</h3>
+            <p>เขียนแผนภาพแสดงการเปลี่ยนสถานะ โดยระบุทิศทางลูกศรของสถานะหลัก และเขียนเส้นทางการฟื้นตัวของสถานะที่เหลือให้ชัดเจน</p>
           </div>
           <div class="step-card">
-            <h3>ขั้นที่ 2 · Excitation Table</h3>
-            <p>สร้างตารางแสดงสภาวะอินพุตฟลิปฟล็อป โดยแปลงการเปลี่ยนแปลงสถานะปัจจุบัน (Q) ไปยังสถานะถัดไป (Q+) ให้อยู่ในรูป J, K หรือ D</p>
+            <h3>ขั้นที่ 2 &middot; State & Excitation Table</h3>
+            <p>สร้างตารางแสดงสภาวะปัจจุบัน (Q) สภาวะถัดไป (Q+) และแปลงเป็นค่าอินพุตกระตุ้นฟลิปฟล็อป (J, K) ตามตารางคุณสมบัติ</p>
           </div>
           <div class="step-card">
-            <h3>ขั้นที่ 3 · K-Map Minimization</h3>
-            <p>นำค่าอินพุตจากตารางไปลงแผนผังคาร์โน จัดกลุ่ม 1 ร่วมกับ Don't Care (X) เพื่อให้ได้สมการผลบวกของผลคูณ (SOP) ที่ประหยัดเกตที่สุด</p>
+            <h3>ขั้นที่ 3 &middot; K-Map Minimization</h3>
+            <p>นำค่าอินพุตจากตารางไปลงแผนผังคาร์โน จัดกลุ่ม 1 ร่วมกับ Don't Care (X) เพื่อหาฟังก์ชันอินพุตที่ลดรูปแล้ว</p>
           </div>
         </div>
 
         <div class="two-col">
           <div class="step-card">
-            <h3>ขั้นที่ 4 · Logic Circuit Schematics</h3>
+            <h3>ขั้นที่ 4 &middot; Logic Circuit Diagram</h3>
             <p>วาดผังวงจรเชื่อมต่อไอซีจริง โดยป้อนสัญญาณนาฬิกา (Clock) เข้าฟลิปฟล็อปทุกตัวพร้อมกัน และต่อเกตลอจิกเข้าขาอินพุตตามสมการ</p>
           </div>
           <div class="step-card">
-            <h3>ขั้นที่ 5 · Self-Starting & Lockup Verification</h3>
-            <p>ตรวจสอบสภาวะของวงจรหากเกิดสัญญาณรบกวนตกลงไปในสถานะที่ไม่ได้ใช้งาน ว่าวงจรสามารถก้าวกลับเข้าสู่ลูปนับปกติได้เองหรือไม่</p>
+            <h3>ขั้นที่ 5 &middot; ตอบจำนวน Flip-Flop และรายการไอซี (BOM)</h3>
+            <p>ตอบคำถามอาจารย์ให้ชัดเจน: คำนวณจำนวน Flip-Flop ทั้งหมด และสรุปรายการเบอร์ไอซีที่ต้องเบิกมาต่อวงจรจริง เช่น 7476, 7408, 7432, 7404</p>
           </div>
         </div>
       </section>

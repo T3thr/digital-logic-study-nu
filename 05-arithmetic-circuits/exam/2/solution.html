@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="เฉลยละเอียดข้อสอบ Final ข้อที่ 2: ออกแบบวงจรนับลงแบบซิงโครนัส 4 บิต รหัส BCD (MOD-10) พร้อมระบบกู้คืนสู่สถานะ 9 ป้องกันวงจรค้าง ด้วย JK Flip-Flop 7476">
+  <meta name="description" content="เฉลยข้อสอบข้อที่ 2: ออกแบบวงจรนับขนาด 4 บิต ที่นับเลขถอยหลังจาก 9 ถึง 0 แล้ววนกลับมาที่ 9 สำหรับสถานะที่เหลือให้สถานะถัดไปกลับไปที่สถานะ 9 ตามเอกสารบรรยาย 305241">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../styles.css">
   <script src="circuit.js" defer></script>
-  <title>เฉลยข้อสอบข้อที่ 2 · วงจรนับถอยหลัง BCD 4 บิต (MOD-10) · 305241</title>
+  <title>ข้อสอบข้อที่ 2 · วงจรนับถอยหลัง 9 ถึง 0 · 305241</title>
 </head>
 <body>
   <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
@@ -28,117 +28,156 @@
     <header>
       <div class="course-line">
         <span>305241 · DIGITAL LOGIC DESIGN · มหาวิทยาลัยนเรศวร</span>
-        <span class="chip chip-gold">FINAL EXAM · PROBLEM 02</span>
+        <span class="chip chip-gold">FINAL EXAM · ข้อที่ 2</span>
       </div>
 
-      <span class="eyebrow">แบบฝึกหัดท้ายบทที่ 7 ข้อ 1 · หน้าเอกสาร 218 / หน้า PDF 234</span>
-      <h1 class="book-title">เฉลยละเอียด: ออกแบบวงจรนับลงซิงโครนัส 4 บิต<br><span class="title-accent">รหัส BCD (MOD-10) พร้อมระบบคืนสภาพป้องกันค้าง</span></h1>
+      <span class="eyebrow">ข้อสอบออกแบบวงจรนับแบบซิงโครนัส</span>
+      <h1 class="book-title">เฉลยข้อสอบข้อที่ 2: วงจรนับขนาด 4 บิต<br><span class="title-accent">นับเลขถอยหลังจาก 9 ถึง 0 แล้ววนรอบ</span></h1>
       <p class="subtitle">
-        ออกแบบวงจรนับถอยหลัง (Down Counter) 9 → 8 → 7 → ... → 0 → 9 ด้วย JK Flip-Flop (IC 7476) โดยออกแบบให้สถานะที่เกินรหัส BCD (10 ถึง 15) ถูกดึงกลับสู่สถานะ 9 เสมอ เพื่อป้องกันปัญหา Lockup ในทางปฏิบัติ
+        แสดงวิธีทำอย่างละเอียดตามขั้นตอนในเอกสารบรรยายหัวข้อ 7.4.2 (ดัดแปลงจากแบบฝึกหัดท้ายบทที่ 7 ข้อ 1 หน้า 218) พร้อมตอบจำนวนฟลิปฟล็อปและรายการไอซีที่ต้องใช้จริง
       </p>
 
-      <!-- กล่องโจทย์ -->
+      <!-- กล่องโจทย์ (ภาษาบรรยายคำทั่วไปตามที่อาจารย์ออกสอบจริง) -->
       <div class="problem-box">
-        <span class="box-label">คำสั่งโจทย์ข้อสอบข้อที่ 2 (ดัดแปลงจากแบบฝึกหัดท้ายบทที่ 7 ข้อ 1)</span>
-        <p>
-          <strong>จงออกแบบวงจรนับลงแบบซิงโครนัสขนาด 4 บิต ที่มีค่าโมดูลัสเท่ากับ 10 (Synchronous BCD Down Counter) โดยมีลำดับการนับจาก 9 ลงไปถึง 0 แล้ววนกลับมาที่ 9 (9 → 8 → 7 → 6 → 5 → 4 → 3 → 2 → 1 → 0 → 9) โดยใช้ฟลิปฟล็อปแบบเจ-เค (IC 7476) และลอจิกเกตชนิดอื่น ๆ เพิ่มเติม และเพื่อความปลอดภัยในการทำงาน หากมีสัญญาณรบกวนตกไปในสถานะที่ไม่ได้ใช้งาน (สถานะ 10 ถึง 15) ให้กำหนดให้สภาวะถัดไปกระโดดกลับสู่สถานะเริ่มต้นคือ 9 เสมอ (Anti-Lockup Deterministic Recovery: Next State = 9)</strong>
+        <span class="box-label">โจทย์</span>
+        <p style="font-size:1.15rem; font-weight:700; color:var(--ink-primary);">
+          จงออกแบบวงจรนับขนาด 4 บิต ที่นับเลขถอยหลังจาก 9 ถึง 0 แล้ววนกลับมาที่ 9 สำหรับสถานะที่เหลือให้สถานะถัดไปกลับไปที่สถานะ 9
         </p>
       </div>
 
-      <!-- ปุ่มคำสั่งลัด -->
-      <div class="btn-row">
-        <a class="btn btn-primary" href="#sec-ans">สรุปคำตอบสุดท้าย ↓</a>
-        <a class="btn btn-outline" href="#lab">ทดลองใน Virtual Lab</a>
-        <a class="btn btn-subtle" href="../index.html">← กลับหน้ารวมข้อสอบ</a>
+      <!-- กล่องสรุปคำตอบข้อสอบ: จำนวน Flip-Flop และรายการไอซีที่ต้องใช้ -->
+      <div class="answer-summary-box" id="sec-ans">
+        <div class="answer-summary-title">
+          <span>สรุปคำตอบที่ต้องเขียนตอบอาจารย์ในห้องสอบ</span>
+        </div>
+        <div class="summary-stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">จำนวน Flip-Flop ทั้งหมด</div>
+            <div class="stat-value">4 ตัว</div>
+            <div class="stat-desc">ขนาด 4 บิต (QD, QC, QB, QA)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">ไอซี Flip-Flop (IC 7476)</div>
+            <div class="stat-value">2 ตัว</div>
+            <div class="stat-desc">Dual JK Flip-Flop (4 ÷ 2 = 2 ตัว)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">ไอซีลอจิกเกตที่ใช้ร่วม</div>
+            <div class="stat-value">5 ตัว</div>
+            <div class="stat-desc">7408 (AND), 7432 (OR), 7404 (NOT), 7486 (XOR)</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <strong>ตารางสรุปรายการไอซีที่ต้องใช้ในวงจร (Bill of Materials):</strong>
+          <table class="ic-table">
+            <thead>
+              <tr>
+                <th>เบอร์ไอซี</th>
+                <th>ชื่อและหน้าที่ของอุปกรณ์</th>
+                <th>จำนวนเกตต่อตัว</th>
+                <th>จำนวนเกตที่ใช้</th>
+                <th>จำนวนไอซีที่ต้องใช้</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ic-tag">74LS76</span></td>
+                <td>Dual JK Flip-Flop with Preset & Clear</td>
+                <td>2 Flip-Flop</td>
+                <td>4 Flip-Flop</td>
+                <td><strong>2 ตัว</strong></td>
+              </tr>
+              <tr>
+                <td><span class="ic-tag">74LS08</span></td>
+                <td>Quad 2-Input AND Gate</td>
+                <td>4 เกต</td>
+                <td>5 เกต</td>
+                <td><strong>2 ตัว</strong></td>
+              </tr>
+              <tr>
+                <td><span class="ic-tag">74LS32</span></td>
+                <td>Quad 2-Input OR Gate</td>
+                <td>4 เกต</td>
+                <td>3 เกต</td>
+                <td><strong>1 ตัว</strong></td>
+              </tr>
+              <tr>
+                <td><span class="ic-tag">74LS04</span></td>
+                <td>Hex Inverter (NOT Gate)</td>
+                <td>6 เกต</td>
+                <td>4 เกต (QD′, QC′, QB′, QA′)</td>
+                <td><strong>1 ตัว</strong></td>
+              </tr>
+              <tr>
+                <td><span class="ic-tag">74LS86</span></td>
+                <td>Quad 2-Input XOR Gate</td>
+                <td>4 เกต</td>
+                <td>1 เกต (QD ⊕ QC)</td>
+                <td><strong>1 ตัว</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- แถบนำทางด่วนภายในหน้า -->
+      <!-- แถบนำทางด่วน -->
       <nav class="toc-bar" aria-label="สารบัญเฉลย">
-        <div class="toc-title">สารบัญขั้นตอนการทำข้อสอบ</div>
+        <div class="toc-title">ขั้นตอนการทำตามเอกสารบรรยาย 305241</div>
         <div class="toc-pills">
-          <a class="toc-pill" href="#sec-ans"><span class="num">00</span>คำตอบสุดท้าย</a>
-          <a class="toc-pill" href="#sec-s1"><span class="num">01</span>แผนภาพสถานะ</a>
-          <a class="toc-pill" href="#sec-s2"><span class="num">02</span>ตาราง Excitation</a>
-          <a class="toc-pill" href="#sec-s3"><span class="num">03</span>แผนผังคาร์โน (8 Maps)</a>
-          <a class="toc-pill" href="#sec-s4"><span class="num">04</span>ผังวงจรลอจิก</a>
-          <a class="toc-pill" href="#sec-s5"><span class="num">05</span>วิเคราะห์การป้องกันค้าง</a>
+          <a class="toc-pill" href="#sec-ans"><span class="num">00</span>สรุปคำตอบ & ไอซี</a>
+          <a class="toc-pill" href="#sec-s1"><span class="num">01</span>ขั้นตอนที่ 1: แผนภาพสถานะ</a>
+          <a class="toc-pill" href="#sec-s2"><span class="num">02</span>ขั้นตอนที่ 2: ตารางสภาวะอินพุต</a>
+          <a class="toc-pill" href="#sec-s3"><span class="num">03</span>ขั้นตอนที่ 3: แผนผังคาร์โน</a>
+          <a class="toc-pill" href="#sec-s4"><span class="num">04</span>ขั้นตอนที่ 4: เขียนผังวงจร</a>
+          <a class="toc-pill" href="#sec-s5"><span class="num">05</span>ขั้นตอนที่ 5: สรุปรายการไอซี</a>
           <a class="toc-pill" href="#lab"><span class="num">LAB</span>ห้องทดลองเสมือนจริง</a>
         </div>
       </nav>
     </header>
 
     <main id="main">
-      <!-- 00. คำตอบสุดท้าย -->
-      <section id="sec-ans" aria-labelledby="ans-title">
-        <div class="sec-head">
-          <span class="sec-no">00</span>
-          <h2 id="ans-title">คำตอบสุดท้าย · สรุปสมการอินพุต JK สำหรับวงจรนับลง BCD</h2>
-        </div>
-        <p class="lead">
-          ใช้วงจรฟลิปฟล็อปแบบ JK จำนวน 4 ตัว คือ FF-D (MSB), FF-C, FF-B และ FF-A (LSB) โดยสัญญาณนาฬิกา CLK ต่อขนานร่วมกัน มีสมการอินพุตที่ลดรูปแล้วดังนี้:
-        </p>
-
-        <div class="math-block">
-          J<sub>A</sub> = 1<br>
-          K<sub>A</sub> = Q<sub>D</sub>′ + Q<sub>C</sub>′ · Q<sub>B</sub>′<br><br>
-          J<sub>B</sub> = (Q<sub>D</sub> ⊕ Q<sub>C</sub>) · Q<sub>A</sub>′<br>
-          K<sub>B</sub> = Q<sub>A</sub>′ + Q<sub>D</sub><br><br>
-          J<sub>C</sub> = Q<sub>D</sub> · Q<sub>B</sub>′ · Q<sub>A</sub>′<br>
-          K<sub>C</sub> = Q<sub>D</sub> + Q<sub>B</sub>′ · Q<sub>A</sub>′<br><br>
-          J<sub>D</sub> = Q<sub>C</sub>′ · Q<sub>B</sub>′ · Q<sub>A</sub>′<br>
-          K<sub>D</sub> = Q<sub>C</sub>′ · Q<sub>B</sub>′ · Q<sub>A</sub>′
-        </div>
-
-        <div class="callout tip">
-          <span class="label">ข้อสังเกตเชิงลอจิกที่งดงาม (Logical Elegance)</span>
-          สังเกตว่า <strong>J<sub>D</sub> = K<sub>D</sub> = Q<sub>C</sub>′ · Q<sub>B</sub>′ · Q<sub>A</sub>′</strong> หมายความว่า FF-D จะ Toggle สภาวะเพียงกรณีเดียวคือเมื่อ <span class="math-inline">Q<sub>C</sub> = Q<sub>B</sub> = Q<sub>A</sub> = 0</span>:<br>
-          - เมื่ออยู่ที่สถานะ <strong>0 (0000)</strong> จะเปลี่ยนเป็น <strong>9 (1001)</strong>: FF-D สลับจาก 0 เป็น 1<br>
-          - เมื่ออยู่ที่สถานะ <strong>8 (1000)</strong> จะเปลี่ยนเป็น <strong>7 (0111)</strong>: FF-D สลับจาก 1 เป็น 0<br>
-          ซึ่งตรงกับคุณสมบัติของวงจรนับถอยหลัง BCD อย่างสมบูรณ์แบบ!
-        </div>
-      </section>
-
-      <!-- 01. แผนภาพแสดงการเปลี่ยนสถานะ -->
+      <!-- ขั้นตอนที่ 1 -->
       <section id="sec-s1" aria-labelledby="s1-title">
         <div class="sec-head">
           <span class="sec-no">01</span>
-          <h2 id="s1-title">ขั้นตอนที่ 1 · สร้างแผนภาพแสดงการเปลี่ยนสถานะ (State Diagram)</h2>
+          <h2 id="s1-title">ขั้นตอนที่ 1: สร้างแผนภาพแสดงการเปลี่ยนสถานะของวงจรนับจากที่โจทย์กำหนดให้</h2>
         </div>
         <p class="lead">
-          แบ่งสถานะการนับออกเป็น 2 กลุ่ม: วงจรนับหลัก 10 สถานะ และกลุ่มสถานะที่ไม่ได้ใช้งาน 6 สถานะ
+          จากโจทย์ระบุว่า วงจรนับมีขนาด 4 บิต (0 ถึง 15 รวม 16 สถานะ):<br>
+          1. <strong>ลำดับการนับหลัก:</strong> นับถอยหลังจาก 9 ลงไปยัง 0 แล้ววนรอบกลับไปที่ 9 (9 → 8 → 7 → 6 → 5 → 4 → 3 → 2 → 1 → 0 → 9)<br>
+          2. <strong>สถานะที่เหลือ:</strong> ถ้าเป็นสถานะ 10, 11, 12, 13, 14, 15 ให้สถานะถัดไปกลับไปที่สถานะ 9
         </p>
 
         <div class="two-col">
           <div class="step-card">
-            <h3>ลูปการนับหลัก (BCD Down-Count · MOD-10)</h3>
-            <p>นับถอยหลังจาก 9 ลงไปยัง 0 แล้ววนรอบ:</p>
-            <div class="math-block" style="text-align:center; font-size:1.15rem;">
+            <h3>ลำดับการนับหลัก (นับลง 9 ถึง 0)</h3>
+            <div class="math-block" style="text-align:center;">
               9 → 8 → 7 → 6 → 5 → 4 → 3 → 2 → 1 → 0 → 9
             </div>
             <p class="small" style="color:var(--ink-muted);">
-              (1001 → 1000 → 0111 → 0110 → 0101 → 0100 → 0011 → 0010 → 0001 → 0000 → 1001)
+              1001 → 1000 → 0111 → 0110 → 0101 → 0100 → 0011 → 0010 → 0001 → 0000 → 1001
             </p>
           </div>
 
           <div class="step-card">
-            <h3>การคืนสภาพของสถานะผิดพลาด (10 ถึง 15)</h3>
-            <p>สถานะเกินรหัส BCD จะถูกบังคับรีเซ็ตกลับสู่สถานะ 9 ทันที:</p>
-            <div class="math-block" style="text-align:center; font-size:1.05rem;">
-              10, 11, 12, 13, 14, 15 → <strong>9 (1001)</strong>
+            <h3>สถานะที่เหลือ (กลับไปที่ 9)</h3>
+            <div class="math-block" style="text-align:center;">
+              10, 11, 12, 13, 14, 15 → 9 (1001)
             </div>
             <p class="small" style="color:var(--ink-muted);">
-              หากเกิดสัญญาณรบกวนทำให้บิตหลุดไปเป็น 1010..1111 พัลส์ถัดไปจะดึงกลับเข้าสู่ 9 ทันที
+              สถานะนอกช่วงนับปกติทั้งหมดจะกระโดดกลับเข้าสู่สถานะเริ่มต้น 9 ทันทีในพัลส์ถัดไป
             </p>
           </div>
         </div>
 
         <figure class="circuit-frame">
           <div class="frame-header">
-            <span>แผนภาพการเปลี่ยนสถานะวงจรนับลง BCD (MOD-10 State Diagram)</span>
-            <span class="chip chip-gold">DETERMINISTIC RESET TO 9</span>
+            <span>แผนภาพแสดงการเปลี่ยนสถานะของวงจรนับ (State Diagram)</span>
+            <span class="chip">รูปที่ 1</span>
           </div>
           <div class="frame-content">
-            <svg viewBox="0 0 860 380" width="100%" height="auto" style="max-width:820px;" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 860 360" width="100%" height="auto" style="max-width:820px;" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <marker id="arrow-down" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                   <path d="M 0 1 L 10 5 L 0 9 z" fill="#1E40AF"/>
@@ -148,19 +187,7 @@
                 </marker>
               </defs>
 
-              <!-- Circle Center Points for MOD-10:
-                   9: (100, 160)
-                   8: (210, 80)
-                   7: (350, 60)
-                   6: (490, 60)
-                   5: (630, 80)
-                   4: (740, 160)
-                   3: (630, 240)
-                   2: (490, 260)
-                   1: (350, 260)
-                   0: (210, 240)
-              -->
-              <!-- Flow Lines -->
+              <!-- Main Loop Arrows -->
               <path d="M 125 140 L 185 95" stroke="#1E40AF" stroke-width="2.5" fill="none" marker-end="url(#arrow-down)"/>
               <path d="M 245 75 L 315 65" stroke="#1E40AF" stroke-width="2.5" fill="none" marker-end="url(#arrow-down)"/>
               <path d="M 385 60 L 455 60" stroke="#1E40AF" stroke-width="2.5" fill="none" marker-end="url(#arrow-down)"/>
@@ -172,319 +199,177 @@
               <path d="M 315 255 L 245 245" stroke="#1E40AF" stroke-width="2.5" fill="none" marker-end="url(#arrow-down)"/>
               <path d="M 185 225 L 125 180" stroke="#1E40AF" stroke-width="2.5" fill="none" marker-end="url(#arrow-down)"/>
 
-              <!-- Unused State Recovery Feeder Line into State 9 -->
-              <path d="M 430 330 Q 180 340 115 200" stroke="#B91C1C" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow-reset)"/>
+              <!-- Unused State Feeder Line to 9 -->
+              <path d="M 430 325 Q 180 340 115 195" stroke="#B91C1C" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow-reset)"/>
 
-              <!-- BCD Loop Nodes -->
-              <!-- 9 -->
-              <circle cx="100" cy="160" r="34" fill="#EFF6FF" stroke="#1E40AF" stroke-width="3"/>
-              <text x="100" y="156" font-family="sans-serif" font-weight="bold" font-size="17" fill="#1E40AF" text-anchor="middle">9</text>
+              <!-- Nodes: 9 down to 0 -->
+              <circle cx="100" cy="160" r="32" fill="#EFF6FF" stroke="#1E40AF" stroke-width="3"/>
+              <text x="100" y="156" font-family="sans-serif" font-weight="bold" font-size="16" fill="#1E40AF" text-anchor="middle">9</text>
               <text x="100" y="174" font-family="monospace" font-size="10" fill="#475569" text-anchor="middle">1001</text>
 
-              <!-- 8 -->
-              <circle cx="210" cy="80" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="210" y="77" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">8</text>
+              <circle cx="210" cy="80" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="210" y="77" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">8</text>
               <text x="210" y="93" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">1000</text>
 
-              <!-- 7 -->
-              <circle cx="350" cy="60" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="350" y="57" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">7</text>
+              <circle cx="350" cy="60" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="350" y="57" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">7</text>
               <text x="350" y="73" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0111</text>
 
-              <!-- 6 -->
-              <circle cx="490" cy="60" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="490" y="57" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">6</text>
+              <circle cx="490" cy="60" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="490" y="57" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">6</text>
               <text x="490" y="73" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0110</text>
 
-              <!-- 5 -->
-              <circle cx="630" cy="80" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="630" y="77" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">5</text>
+              <circle cx="630" cy="80" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="630" y="77" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">5</text>
               <text x="630" y="93" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0101</text>
 
-              <!-- 4 -->
-              <circle cx="740" cy="160" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="740" y="157" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">4</text>
+              <circle cx="740" cy="160" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="740" y="157" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">4</text>
               <text x="740" y="173" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0100</text>
 
-              <!-- 3 -->
-              <circle cx="630" cy="240" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="630" y="237" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">3</text>
+              <circle cx="630" cy="240" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="630" y="237" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">3</text>
               <text x="630" y="253" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0011</text>
 
-              <!-- 2 -->
-              <circle cx="490" cy="260" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="490" y="257" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">2</text>
+              <circle cx="490" cy="260" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="490" y="257" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">2</text>
               <text x="490" y="273" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0010</text>
 
-              <!-- 1 -->
-              <circle cx="350" cy="260" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="350" y="257" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">1</text>
+              <circle cx="350" cy="260" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="350" y="257" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">1</text>
               <text x="350" y="273" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0001</text>
 
-              <!-- 0 -->
-              <circle cx="210" cy="240" r="30" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
-              <text x="210" y="237" font-family="sans-serif" font-weight="bold" font-size="15" fill="#1E40AF" text-anchor="middle">0</text>
+              <circle cx="210" cy="240" r="28" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5"/>
+              <text x="210" y="237" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1E40AF" text-anchor="middle">0</text>
               <text x="210" y="253" font-family="monospace" font-size="9" fill="#475569" text-anchor="middle">0000</text>
 
               <!-- Unused States Box -->
-              <rect x="360" y="320" width="220" height="42" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" rx="6"/>
-              <text x="470" y="346" font-family="monospace" font-size="12" font-weight="bold" fill="#B91C1C" text-anchor="middle">
-                สถานะ 10, 11, 12, 13, 14, 15
+              <rect x="340" y="315" width="260" height="38" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" rx="6"/>
+              <text x="470" y="339" font-family="sans-serif" font-size="12" font-weight="bold" fill="#B91C1C" text-anchor="middle">
+                สถานะที่เหลือ: 10, 11, 12, 13, 14, 15
               </text>
             </svg>
           </div>
           <figcaption>
-            <strong>รูปที่ 1 · แผนภาพการเปลี่ยนสถานะของวงจรนับลง BCD:</strong> วงกลมสีน้ำเงินแทนลูปการนับถอยหลัง 9 → 8 → ... → 0 → 9; ส่วนสถานะผิดพลาด 10 ถึง 15 (กล่องสีแดงด้านล่าง) มีเส้นทางกู้คืนฉุกเฉิน (เส้นประสีแดง) พุ่งตรงเข้าสู่สถานะ 9 ในพัลส์ถัดไปทันที
+            <strong>รูปที่ 1 แผนภาพแสดงการเปลี่ยนสถานะของวงจรนับ:</strong> ลำดับการนับหลักจะนับถอยหลังจาก 9 ลงไปถึง 0 แล้ววนกลับไป 9 ส่วนสถานะที่เหลือ 10 ถึง 15 จะชี้กลับไปที่สถานะเริ่มต้นคือ 9 เสมอ
           </figcaption>
         </figure>
       </section>
 
-      <!-- 02. ตาราง Excitation Table -->
+      <!-- ขั้นตอนที่ 2 -->
       <section id="sec-s2" aria-labelledby="s2-title">
         <div class="sec-head">
           <span class="sec-no">02</span>
-          <h2 id="s2-title">ขั้นตอนที่ 2 · ตารางแสดงสภาวะอินพุตฟลิปฟล็อป (State & Excitation Table)</h2>
+          <h2 id="s2-title">ขั้นตอนที่ 2: สร้างตารางแสดงสภาวะอินพุตเมื่อมีการเปลี่ยนสถานะเอาต์พุตของฟลิปฟล็อป</h2>
         </div>
         <p class="lead">
-          สร้างตารางการทำงาน 16 สภาวะ โดยระบุสถานะถัดไปของ 0 ถึง 9 ให้นับลงทีละ 1 (โดย 0 วนกลับไป 9) และสถานะ 10 ถึง 15 บังคับให้เป็น 9 (1001)
+          จากแผนภาพแสดงการเปลี่ยนสถานะในขั้นตอนที่ 1 สามารถสร้างตารางแสดงสภาวะอินพุตเมื่อมีการเปลี่ยนสถานะเอาต์พุตของฟลิปฟล็อปแบบเจ-เค (IC 7476) ได้ดังนี้:
         </p>
 
         <div class="table-scroll">
           <table>
-            <caption>ตารางแสดงสภาวะอินพุตฟลิปฟล็อปแบบเจ-เค สำหรับวงจรนับลง BCD MOD-10</caption>
+            <caption>ตารางแสดงสภาวะอินพุตเมื่อมีการเปลี่ยนสถานะเอาต์พุตของฟลิปฟล็อปแบบเจ-เค</caption>
             <thead>
               <tr>
-                <th scope="col" rowspan="2">สภาวะ<br>ฐานสิบ</th>
-                <th scope="col" colspan="4">สถานะปัจจุบัน (Present State)</th>
-                <th scope="col" colspan="4">สถานะถัดไป (Next State)</th>
-                <th scope="col" colspan="2">FF-D</th>
-                <th scope="col" colspan="2">FF-C</th>
-                <th scope="col" colspan="2">FF-B</th>
-                <th scope="col" colspan="2">FF-A</th>
-                <th scope="col" rowspan="2" class="left">หมายเหตุสภาวะ</th>
+                <th scope="col" rowspan="2">สถานะ<br>ปัจจุบัน</th>
+                <th scope="col" colspan="4">เอาต์พุตสถานะปัจจุบัน</th>
+                <th scope="col" colspan="4">เอาต์พุตสถานะถัดไป</th>
+                <th scope="col" colspan="8">อินพุตสถานะปัจจุบันที่ป้อนเข้าไป</th>
               </tr>
               <tr>
-                <th>Q<sub>D</sub></th><th>Q<sub>C</sub></th><th>Q<sub>B</sub></th><th>Q<sub>A</sub></th>
-                <th>Q<sub>D</sub>+</th><th>Q<sub>C</sub>+</th><th>Q<sub>B</sub>+</th><th>Q<sub>A</sub>+</th>
-                <th>J<sub>D</sub></th><th>K<sub>D</sub></th>
-                <th>J<sub>C</sub></th><th>K<sub>C</sub></th>
-                <th>J<sub>B</sub></th><th>K<sub>B</sub></th>
-                <th>J<sub>A</sub></th><th>K<sub>A</sub></th>
+                <th>QD</th><th>QC</th><th>QB</th><th>QA</th>
+                <th>QD+</th><th>QC+</th><th>QB+</th><th>QA+</th>
+                <th>JD</th><th>KD</th>
+                <th>JC</th><th>KC</th>
+                <th>JB</th><th>KB</th>
+                <th>JA</th><th>KA</th>
               </tr>
             </thead>
             <tbody>
               <tr class="highlight-valid">
                 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>1</td><td>X</td><td>0</td><td>X</td><td>0</td><td>X</td><td>1</td><td>X</td>
-                <td class="left">วนรอบ: 0 → 9 (1001)</td>
               </tr>
               <tr class="highlight-valid">
                 <td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td>
                 <td>0</td><td>X</td><td>0</td><td>X</td><td>0</td><td>X</td><td>X</td><td>1</td>
-                <td class="left">นับลง: 1 → 0</td>
               </tr>
               <tr class="highlight-valid">
                 <td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td>
                 <td>0</td><td>X</td><td>0</td><td>X</td><td>X</td><td>1</td><td>1</td><td>X</td>
-                <td class="left">นับลง: 2 → 1</td>
               </tr>
               <tr class="highlight-valid">
                 <td>3</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td>
                 <td>0</td><td>X</td><td>0</td><td>X</td><td>X</td><td>0</td><td>X</td><td>1</td>
-                <td class="left">นับลง: 3 → 2</td>
               </tr>
               <tr class="highlight-valid">
                 <td>4</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td>
                 <td>0</td><td>X</td><td>X</td><td>1</td><td>1</td><td>X</td><td>1</td><td>X</td>
-                <td class="left">นับลง: 4 → 3</td>
               </tr>
               <tr class="highlight-valid">
                 <td>5</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td>
                 <td>0</td><td>X</td><td>X</td><td>0</td><td>0</td><td>X</td><td>X</td><td>1</td>
-                <td class="left">นับลง: 5 → 4</td>
               </tr>
               <tr class="highlight-valid">
                 <td>6</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td>
                 <td>0</td><td>X</td><td>X</td><td>0</td><td>X</td><td>1</td><td>1</td><td>X</td>
-                <td class="left">นับลง: 6 → 5</td>
               </tr>
               <tr class="highlight-valid">
                 <td>7</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td>
                 <td>0</td><td>X</td><td>X</td><td>0</td><td>X</td><td>0</td><td>X</td><td>1</td>
-                <td class="left">นับลง: 7 → 6</td>
               </tr>
               <tr class="highlight-valid">
                 <td>8</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td>
                 <td>X</td><td>1</td><td>1</td><td>X</td><td>1</td><td>X</td><td>1</td><td>X</td>
-                <td class="left">นับลง: 8 → 7</td>
               </tr>
               <tr class="highlight-valid">
                 <td>9</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td>
                 <td>X</td><td>0</td><td>0</td><td>X</td><td>0</td><td>X</td><td>X</td><td>1</td>
-                <td class="left">นับลง: 9 → 8</td>
               </tr>
               <tr>
                 <td>10</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>X</td><td>0</td><td>0</td><td>X</td><td>X</td><td>1</td><td>1</td><td>X</td>
-                <td class="left">กู้คืน: 10 → 9 (1001)</td>
               </tr>
               <tr>
                 <td>11</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>X</td><td>0</td><td>0</td><td>X</td><td>X</td><td>1</td><td>X</td><td>0</td>
-                <td class="left">กู้คืน: 11 → 9 (1001)</td>
               </tr>
               <tr>
                 <td>12</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>X</td><td>0</td><td>X</td><td>1</td><td>0</td><td>X</td><td>1</td><td>X</td>
-                <td class="left">กู้คืน: 12 → 9 (1001)</td>
               </tr>
               <tr>
                 <td>13</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>X</td><td>0</td><td>X</td><td>1</td><td>0</td><td>X</td><td>X</td><td>0</td>
-                <td class="left">กู้คืน: 13 → 9 (1001)</td>
               </tr>
               <tr>
                 <td>14</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>X</td><td>0</td><td>X</td><td>1</td><td>X</td><td>1</td><td>1</td><td>X</td>
-                <td class="left">กู้คืน: 14 → 9 (1001)</td>
               </tr>
               <tr>
                 <td>15</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td>
                 <td>X</td><td>0</td><td>X</td><td>1</td><td>X</td><td>1</td><td>X</td><td>0</td>
-                <td class="left">กู้คืน: 15 → 9 (1001)</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- 03. แผนผังคาร์โน -->
+      <!-- ขั้นตอนที่ 3 -->
       <section id="sec-s3" aria-labelledby="s3-title">
         <div class="sec-head">
           <span class="sec-no">03</span>
-          <h2 id="s3-title">ขั้นตอนที่ 3 · หาสมการลอจิกด้วยแผนผังคาร์โน (K-Maps)</h2>
+          <h2 id="s3-title">ขั้นตอนที่ 3: หาสมการลอจิกของอินพุตขา J และอินพุตขา K จากแผนผังคาร์โน</h2>
         </div>
         <p class="lead">
-          พิจารณาแผนผังคาร์โนทั้ง 8 ตารางเพื่อจัดกลุ่มลดรูปสมการอินพุต JK
+          นำค่าจากตารางไปลงในแผนผังคาร์โนเพื่อลดรูปสมการลอจิกของอินพุตขา J และขา K ดังแสดงในรูปที่ 2:
         </p>
 
-        <!-- K-Maps FF-D -->
-        <h3 style="margin: 24px 0 12px; color:var(--ink-primary);">1. แผนผังคาร์โนของฟลิปฟล็อป D (J<sub>D</sub> และ K<sub>D</sub>)</h3>
         <div class="two-col">
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน J<sub>D</sub></span><span class="chip">GROUP OF 2</span></div>
+            <div class="kmap-title"><span>แผนผังคาร์โน JA</span></div>
             <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-                <tr><th>01</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-              </tbody>
-            </table>
-            <div class="kmap-equation">จับคู่ช่อง 0 กับ Don't Care แถวล่าง → J<sub>D</sub> = Q<sub>C</sub>′ · Q<sub>B</sub>′ · Q<sub>A</sub>′</div>
-          </div>
-
-          <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน K<sub>D</sub></span><span class="chip">GROUP OF 2</span></div>
-            <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>11</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-              </tbody>
-            </table>
-            <div class="kmap-equation">จับคู่ช่อง 8 กับ Don't Care แถวบน → K<sub>D</sub> = Q<sub>C</sub>′ · Q<sub>B</sub>′ · Q<sub>A</sub>′</div>
-          </div>
-        </div>
-
-        <!-- K-Maps FF-C -->
-        <h3 style="margin: 28px 0 12px; color:var(--ink-primary);">2. แผนผังคาร์โนของฟลิปฟล็อป C (J<sub>C</sub> และ K<sub>C</sub>)</h3>
-        <div class="two-col">
-          <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน J<sub>C</sub></span><span class="chip">GROUP OF 2</span></div>
-            <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-              </tbody>
-            </table>
-            <div class="kmap-equation">จับคู่ช่อง 8 กับ 12 → J<sub>C</sub> = Q<sub>D</sub> · Q<sub>B</sub>′ · Q<sub>A</sub>′</div>
-          </div>
-
-          <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน K<sub>C</sub></span><span class="chip">2 GROUPS</span></div>
-            <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>01</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
-                <tr><th>11</th><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-              </tbody>
-            </table>
-            <div class="kmap-equation">แถว 11+10 รวมเป็น Q<sub>D</sub> บวกกับช่อง 0,4,12,8 → K<sub>C</sub> = Q<sub>D</sub> + Q<sub>B</sub>′ · Q<sub>A</sub>′</div>
-          </div>
-        </div>
-
-        <!-- K-Maps FF-B -->
-        <h3 style="margin: 28px 0 12px; color:var(--ink-primary);">3. แผนผังคาร์โนของฟลิปฟล็อป B (J<sub>B</sub> และ K<sub>B</sub>)</h3>
-        <div class="two-col">
-          <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน J<sub>B</sub></span><span class="chip">XOR GROUP</span></div>
-            <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>01</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>11</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
-              </tbody>
-            </table>
-            <div class="kmap-equation">J<sub>B</sub> = (Q<sub>D</sub> ⊕ Q<sub>C</sub>) · Q<sub>A</sub>′</div>
-          </div>
-
-          <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน K<sub>B</sub></span><span class="chip">2 GROUPS</span></div>
-            <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-0">0</td><td class="kmap-cell-1">1</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-0">0</td><td class="kmap-cell-1">1</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td></tr>
-              </tbody>
-            </table>
-            <div class="kmap-equation">หลัก 10 ทั้งหมด (Q<sub>A</sub>′) รวมกับสองแถวล่าง (Q<sub>D</sub>) → K<sub>B</sub> = Q<sub>A</sub>′ + Q<sub>D</sub></div>
-          </div>
-        </div>
-
-        <!-- K-Maps FF-A -->
-        <h3 style="margin: 28px 0 12px; color:var(--ink-primary);">4. แผนผังคาร์โนของฟลิปฟล็อป A (J<sub>A</sub> และ K<sub>A</sub>)</h3>
-        <div class="two-col">
-          <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน J<sub>A</sub></span><span class="chip">TOGGLE HIGH</span></div>
-            <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
               <tbody>
                 <tr><th>00</th><td class="kmap-cell-1">1</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td></tr>
                 <tr><th>01</th><td class="kmap-cell-1">1</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td></tr>
@@ -492,15 +377,13 @@
                 <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td></tr>
               </tbody>
             </table>
-            <div class="kmap-equation">รวมทั้ง 16 ช่อง → J<sub>A</sub> = 1</div>
+            <div class="kmap-equation">JA = 1</div>
           </div>
 
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน K<sub>A</sub></span><span class="chip">2 GROUPS</span></div>
+            <div class="kmap-title"><span>แผนผังคาร์โน KA</span></div>
             <table class="kmap-table">
-              <thead>
-                <tr><th>Q<sub>D</sub>Q<sub>C</sub> \ Q<sub>B</sub>Q<sub>A</sub></th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-              </thead>
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
               <tbody>
                 <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td><td class="kmap-cell-x">X</td></tr>
                 <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td><td class="kmap-cell-x">X</td></tr>
@@ -508,156 +391,251 @@
                 <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td></tr>
               </tbody>
             </table>
-            <div class="kmap-equation">สองแถวบน (Q<sub>D</sub>′) รวมกับช่อง 0,1,8,9 (Q<sub>C</sub>′·Q<sub>B</sub>′) → K<sub>A</sub> = Q<sub>D</sub>′ + Q<sub>C</sub>′ · Q<sub>B</sub>′</div>
+            <div class="kmap-equation">KA = QD′ + QC′ · QB′</div>
           </div>
+
+          <div class="kmap-container">
+            <div class="kmap-title"><span>แผนผังคาร์โน JB</span></div>
+            <table class="kmap-table">
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><th>00</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>01</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>11</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+              </tbody>
+            </table>
+            <div class="kmap-equation">JB = (QD ⊕ QC) · QA′</div>
+          </div>
+
+          <div class="kmap-container">
+            <div class="kmap-title"><span>แผนผังคาร์โน KB</span></div>
+            <table class="kmap-table">
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-0">0</td><td class="kmap-cell-1">1</td></tr>
+                <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-0">0</td><td class="kmap-cell-1">1</td></tr>
+                <tr><th>11</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td></tr>
+                <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td></tr>
+              </tbody>
+            </table>
+            <div class="kmap-equation">KB = QA′ + QD</div>
+          </div>
+
+          <div class="kmap-container">
+            <div class="kmap-title"><span>แผนผังคาร์โน JC</span></div>
+            <table class="kmap-table">
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><th>00</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+                <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>11</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+              </tbody>
+            </table>
+            <div class="kmap-equation">JC = QD · QB′ · QA′</div>
+          </div>
+
+          <div class="kmap-container">
+            <div class="kmap-title"><span>แผนผังคาร์โน KC</span></div>
+            <table class="kmap-table">
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>01</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+                <tr><th>11</th><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td><td class="kmap-cell-1">1</td></tr>
+                <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+              </tbody>
+            </table>
+            <div class="kmap-equation">KC = QD + QB′ · QA′</div>
+          </div>
+
+          <div class="kmap-container">
+            <div class="kmap-title"><span>แผนผังคาร์โน JD</span></div>
+            <table class="kmap-table">
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><th>00</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+                <tr><th>01</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+                <tr><th>11</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>10</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+              </tbody>
+            </table>
+            <div class="kmap-equation">JD = QC′ · QB′ · QA′</div>
+          </div>
+
+          <div class="kmap-container">
+            <div class="kmap-title"><span>แผนผังคาร์โน KD</span></div>
+            <table class="kmap-table">
+              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><th>00</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>01</th><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td><td class="kmap-cell-x">X</td></tr>
+                <tr><th>11</th><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+                <tr><th>10</th><td class="kmap-cell-1">1</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td><td class="kmap-cell-0">0</td></tr>
+              </tbody>
+            </table>
+            <div class="kmap-equation">KD = QC′ · QB′ · QA′</div>
+          </div>
+        </div>
+
+        <div class="math-block" style="margin-top:24px;">
+          <strong>สรุปสมการอินพุตของฟลิปฟล็อปแบบเจ-เคที่ได้จากแผนผังคาร์โน:</strong><br>
+          JA = 1<br>
+          KA = QD′ + QC′ · QB′<br>
+          JB = (QD ⊕ QC) · QA′<br>
+          KB = QA′ + QD<br>
+          JC = QD · QB′ · QA′<br>
+          KC = QD + QB′ · QA′<br>
+          JD = QC′ · QB′ · QA′<br>
+          KD = QC′ · QB′ · QA′
         </div>
       </section>
 
-      <!-- 04. ผังวงจรลอจิก -->
+      <!-- ขั้นตอนที่ 4 -->
       <section id="sec-s4" aria-labelledby="s4-title">
         <div class="sec-head">
           <span class="sec-no">04</span>
-          <h2 id="s4-title">ขั้นตอนที่ 4 · ผังวงจรลอจิกสมบูรณ์ด้วย IC 74LS76</h2>
+          <h2 id="s4-title">ขั้นตอนที่ 4: เขียนวงจรนับที่ออกแบบได้</h2>
         </div>
         <p class="lead">
-          ต่อวงจรโดยใช้ไอซี JK Flip-Flop 74LS76 จำนวน 2 ตัว สัญญาณนาฬิกาต่อขนานแบบซิงโครนัส และสร้างอินพุต J, K ด้วยลอจิกเกต
+          จากสมการอินพุตที่ได้จากการลดรูปโดยใช้แผนผังคาร์โน สามารถเขียนเป็นวงจรนับแบบซิงโครนัสได้ดังแสดงในรูปที่ 3:
         </p>
 
         <figure class="circuit-frame">
           <div class="frame-header">
-            <span>ผังวงจรนับลง BCD 4 บิต (Logic Circuit Diagram · MOD-10 Down Counter)</span>
-            <span class="chip">IC 7476 + GATES</span>
+            <span>รูปที่ 3 วงจรนับลงแบบซิงโครนัสขนาด 4 บิต สำหรับข้อสอบข้อที่ 2</span>
+            <span class="chip">รูปวงจรตามเอกสารบรรยาย</span>
           </div>
           <div class="frame-content">
-            <svg viewBox="0 0 940 360" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-              <rect width="940" height="360" fill="#FAF8F5"/>
+            <svg viewBox="0 0 940 370" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+              <rect width="940" height="370" fill="#FAF8F5"/>
 
               <!-- 4 Flip-Flop Blocks -->
               <!-- FF-D -->
-              <g transform="translate(60, 90)">
-                <rect width="130" height="170" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="6"/>
-                <text x="65" y="24" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1E40AF" text-anchor="middle">FF-D (MSB)</text>
-                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">½ 74LS76</text>
-                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">J</text>
+              <g transform="translate(60, 95)">
+                <rect width="130" height="165" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="4"/>
+                <text x="65" y="24" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1E40AF" text-anchor="middle">FF-D (บิตสูงสุด)</text>
+                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">IC 7476 ตัวที่ 1</text>
+                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">JD</text>
                 <text x="14" y="115" font-family="monospace" font-size="12" font-weight="bold">>CLK</text>
-                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">K</text>
-                <text x="110" y="70" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">D</tspan></text>
-                <text x="110" y="150" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">D</tspan>′</text>
+                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">KD</text>
+                <text x="105" y="70" font-family="monospace" font-size="12" font-weight="bold">QD</text>
+                <text x="105" y="150" font-family="monospace" font-size="12" font-weight="bold">QD′</text>
               </g>
 
               <!-- FF-C -->
-              <g transform="translate(280, 90)">
-                <rect width="130" height="170" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="6"/>
+              <g transform="translate(280, 95)">
+                <rect width="130" height="165" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="4"/>
                 <text x="65" y="24" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1E40AF" text-anchor="middle">FF-C</text>
-                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">½ 74LS76</text>
-                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">J</text>
+                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">IC 7476 ตัวที่ 1</text>
+                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">JC</text>
                 <text x="14" y="115" font-family="monospace" font-size="12" font-weight="bold">>CLK</text>
-                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">K</text>
-                <text x="110" y="70" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">C</tspan></text>
-                <text x="110" y="150" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">C</tspan>′</text>
+                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">KC</text>
+                <text x="105" y="70" font-family="monospace" font-size="12" font-weight="bold">QC</text>
+                <text x="105" y="150" font-family="monospace" font-size="12" font-weight="bold">QC′</text>
               </g>
 
               <!-- FF-B -->
-              <g transform="translate(500, 90)">
-                <rect width="130" height="170" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="6"/>
+              <g transform="translate(500, 95)">
+                <rect width="130" height="165" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="4"/>
                 <text x="65" y="24" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1E40AF" text-anchor="middle">FF-B</text>
-                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">½ 74LS76</text>
-                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">J</text>
+                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">IC 7476 ตัวที่ 2</text>
+                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">JB</text>
                 <text x="14" y="115" font-family="monospace" font-size="12" font-weight="bold">>CLK</text>
-                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">K</text>
-                <text x="110" y="70" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">B</tspan></text>
-                <text x="110" y="150" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">B</tspan>′</text>
+                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">KB</text>
+                <text x="105" y="70" font-family="monospace" font-size="12" font-weight="bold">QB</text>
+                <text x="105" y="150" font-family="monospace" font-size="12" font-weight="bold">QB′</text>
               </g>
 
               <!-- FF-A -->
-              <g transform="translate(720, 90)">
-                <rect width="130" height="170" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="6"/>
-                <text x="65" y="24" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1E40AF" text-anchor="middle">FF-A (LSB)</text>
-                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">½ 74LS76</text>
-                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">J</text>
+              <g transform="translate(720, 95)">
+                <rect width="130" height="165" fill="#FFFFFF" stroke="#1E293B" stroke-width="2" rx="4"/>
+                <text x="65" y="24" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1E40AF" text-anchor="middle">FF-A (บิตต่ำสุด)</text>
+                <text x="65" y="40" font-family="monospace" font-size="10" fill="#64748B" text-anchor="middle">IC 7476 ตัวที่ 2</text>
+                <text x="14" y="70" font-family="monospace" font-size="12" font-weight="bold">JA</text>
                 <text x="14" y="115" font-family="monospace" font-size="12" font-weight="bold">>CLK</text>
-                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">K</text>
-                <text x="110" y="70" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">A</tspan></text>
-                <text x="110" y="150" font-family="monospace" font-size="12" font-weight="bold">Q<tspan font-size="9" dy="3">A</tspan>′</text>
+                <text x="14" y="150" font-family="monospace" font-size="12" font-weight="bold">KA</text>
+                <text x="105" y="70" font-family="monospace" font-size="12" font-weight="bold">QA</text>
+                <text x="105" y="150" font-family="monospace" font-size="12" font-weight="bold">QA′</text>
               </g>
 
-              <!-- Clock Line -->
+              <!-- Common Clock Line -->
               <line x1="20" y1="310" x2="880" y2="310" stroke="#B91C1C" stroke-width="2.5"/>
-              <text x="20" y="335" font-family="sans-serif" font-weight="bold" font-size="12" fill="#B91C1C">COMMON CLOCK (CLK INPUT)</text>
+              <text x="20" y="335" font-family="sans-serif" font-weight="bold" font-size="12" fill="#B91C1C">สัญญาณนาฬิกา (ต่อร่วมทุกตัวพร้อมกัน)</text>
 
-              <line x1="60" y1="205" x2="40" y2="205" stroke="#B91C1C" stroke-width="2"/>
-              <line x1="40" y1="205" x2="40" y2="310" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="60" y1="210" x2="40" y2="210" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="40" y1="210" x2="40" y2="310" stroke="#B91C1C" stroke-width="2"/>
               <circle cx="40" cy="310" r="4" fill="#B91C1C"/>
 
-              <line x1="280" y1="205" x2="260" y2="205" stroke="#B91C1C" stroke-width="2"/>
-              <line x1="260" y1="205" x2="260" y2="310" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="280" y1="210" x2="260" y2="210" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="260" y1="210" x2="260" y2="310" stroke="#B91C1C" stroke-width="2"/>
               <circle cx="260" cy="310" r="4" fill="#B91C1C"/>
 
-              <line x1="500" y1="205" x2="480" y2="205" stroke="#B91C1C" stroke-width="2"/>
-              <line x1="480" y1="205" x2="480" y2="310" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="500" y1="210" x2="480" y2="210" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="480" y1="210" x2="480" y2="310" stroke="#B91C1C" stroke-width="2"/>
               <circle cx="480" cy="310" r="4" fill="#B91C1C"/>
 
-              <line x1="720" y1="205" x2="700" y2="205" stroke="#B91C1C" stroke-width="2"/>
-              <line x1="700" y1="205" x2="700" y2="310" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="720" y1="210" x2="700" y2="210" stroke="#B91C1C" stroke-width="2"/>
+              <line x1="700" y1="210" x2="700" y2="310" stroke="#B91C1C" stroke-width="2"/>
               <circle cx="700" cy="310" r="4" fill="#B91C1C"/>
 
-              <!-- VCC to JA -->
-              <line x1="720" y1="160" x2="680" y2="160" stroke="#047857" stroke-width="2"/>
-              <circle cx="680" cy="160" r="4" fill="#047857"/>
-              <text x="675" y="155" font-family="monospace" font-weight="bold" font-size="11" fill="#047857" text-anchor="end">+5V (JA=1)</text>
+              <!-- +5V to JA -->
+              <line x1="720" y1="165" x2="680" y2="165" stroke="#047857" stroke-width="2"/>
+              <circle cx="680" cy="165" r="4" fill="#047857"/>
+              <text x="675" y="160" font-family="sans-serif" font-weight="bold" font-size="11" fill="#047857" text-anchor="end">+5 โวลต์ (JA=1)</text>
 
-              <!-- J_D = K_D bus line -->
-              <line x1="60" y1="160" x2="30" y2="160" stroke="#1E40AF" stroke-width="2"/>
-              <line x1="60" y1="240" x2="30" y2="240" stroke="#1E40AF" stroke-width="2"/>
-              <line x1="30" y1="160" x2="30" y2="240" stroke="#1E40AF" stroke-width="2"/>
-              <circle cx="30" cy="200" r="4" fill="#1E40AF"/>
-              <text x="25" y="205" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1E40AF" text-anchor="end">J<tspan dy="2" font-size="8">D</tspan><tspan dy="-2">=K</tspan><tspan dy="2" font-size="8">D</tspan><tspan dy="-2">=Q</tspan><tspan dy="2" font-size="8">C</tspan>′</Q<tspan dy="2" font-size="8">B</tspan>′Q<tspan dy="2" font-size="8">A</tspan>′</</text>
+              <!-- Combined JD and KD line -->
+              <line x1="60" y1="165" x2="30" y2="165" stroke="#1E40AF" stroke-width="2"/>
+              <line x1="60" y1="245" x2="30" y2="245" stroke="#1E40AF" stroke-width="2"/>
+              <line x1="30" y1="165" x2="30" y2="245" stroke="#1E40AF" stroke-width="2"/>
+              <circle cx="30" cy="205" r="4" fill="#1E40AF"/>
+              <text x="25" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1E40AF" text-anchor="end">JD = KD = QC′·QB′·QA′</text>
 
-              <!-- Top Info Bar -->
+              <!-- Top Info Header -->
               <rect x="50" y="25" width="840" height="42" fill="#EFF6FF" stroke="#BFDBFE" rx="4"/>
-              <text x="470" y="50" font-family="sans-serif" font-weight="bold" font-size="12" fill="#1E40AF" text-anchor="middle">
-                สมการขับอินพุต: J<tspan dy="2" font-size="9">B</tspan><tspan dy="-2">=(Q<tspan dy="2" font-size="9">D</tspan>⊕Q<tspan dy="2" font-size="9">C</tspan>)Q<tspan dy="2" font-size="9">A</tspan>′</</tspan>, K<tspan dy="2" font-size="9">B</tspan><tspan dy="-2">=Q<tspan dy="2" font-size="9">A</tspan>′+Q<tspan dy="2" font-size="9">D</tspan></tspan>, J<tspan dy="2" font-size="9">C</tspan><tspan dy="-2">=Q<tspan dy="2" font-size="9">D</tspan>Q<tspan dy="2" font-size="9">B</tspan>′Q<tspan dy="2" font-size="9">A</tspan>′</</tspan>, K<tspan dy="2" font-size="9">C</tspan><tspan dy="-2">=Q<tspan dy="2" font-size="9">D</tspan>+Q<tspan dy="2" font-size="9">B</tspan>′Q<tspan dy="2" font-size="9">A</tspan>′</</tspan>, K<tspan dy="2" font-size="9">A</tspan><tspan dy="-2">=Q<tspan dy="2" font-size="9">D</tspan>′+Q<tspan dy="2" font-size="9">C</tspan>′Q<tspan dy="2" font-size="9">B</tspan>′</</tspan>
+              <text x="470" y="51" font-family="sans-serif" font-weight="bold" font-size="12" fill="#1E40AF" text-anchor="middle">
+                สมการอินพุต: KA = QD′+QC′QB′, JB = (QD⊕QC)QA′, KB = QA′+QD, JC = QD·QB′QA′, KC = QD+QB′QA′, JD=KD=QC′QB′QA′
               </text>
             </svg>
           </div>
           <figcaption>
-            <strong>รูปที่ 2 · ผังการต่อวงจรนับลง BCD 4 บิต:</strong> สัญญาณนาฬิกาต่อเข้าขา CLK ทุกตัวพร้อมกัน ขา J ของ FF-A ต่อกับ +5V (ลอจิก 1 คงที่) ส่วนอินพุตอื่น ๆ สร้างจากลอจิกเกตตามสมการ
+            <strong>รูปที่ 3 วงจรนับลงแบบซิงโครนัสขนาด 4 บิต สำหรับข้อสอบข้อที่ 2:</strong> สัญญาณนาฬิกาต่อเข้าขา CLK ทุกตัวพร้อมกัน ขา JA ต่อไฟ +5 โวลต์ และขา JD กับ KD รับสัญญาณร่วมกันจากเทอม QC′·QB′·QA′
           </figcaption>
         </figure>
       </section>
 
-      <!-- 05. วิเคราะห์การป้องกันค้าง -->
+      <!-- ขั้นตอนที่ 5 -->
       <section id="sec-s5" aria-labelledby="s5-title">
         <div class="sec-head">
           <span class="sec-no">05</span>
-          <h2 id="s5-title">ขั้นตอนที่ 5 · การวิเคราะห์การคืนสภาพและเปรียบเทียบกรณี Don't Care</h2>
+          <h2 id="s5-title">ขั้นตอนที่ 5: สรุปจำนวนฟลิปฟล็อปและรายการไอซีที่ต้องใช้ในวงจร (ตอบอาจารย์)</h2>
         </div>
         <p class="lead">
-          ประเด็นสำคัญในข้อสอบระดับมหาวิทยาลัย คือการเปรียบเทียบระหว่าง <strong>การกำหนดเงื่อนไขกู้คืนโดยตรง (Deterministic Recovery)</strong> กับ <strong>การปล่อยเป็น Don't Care (X)</strong>:
+          จากการสังเคราะห์วงจร สามารถสรุปจำนวนอุปกรณ์ที่ต้องเขียนส่งอาจารย์ได้ดังนี้:
         </p>
 
-        <div class="two-col">
-          <div class="step-card">
-            <h3>กรณีที่ 1: กำหนดให้คืนสภาพสู่ 9 ทันที (ข้อนี้ใช้แนวทางนี้)</h3>
-            <p>
-              กำหนดให้สถานะ 10–15 มี Next State = 9 อย่างชัดเจน<br>
-              <strong>ข้อดี:</strong> ปลอดภัย 100% รับประกันว่าวงจรจะไม่มีวันค้างในสถานะอื่น หากเกิด Noise หลุดไปสถานะ 10–15 สัญญาณนาฬิกาเพียงพัลส์เดียวจะดึงวงจรกลับมาที่ 9 ทันที<br>
-              <strong>ข้อเสีย:</strong> สมการอาจมีเทอมเพิ่มขึ้นเล็กน้อยเมื่อเทียบกับ Don't Care
-            </p>
-          </div>
+        <div class="step-card">
+          <h3 style="color:var(--accent);">1. จำนวนฟลิปฟล็อปที่ต้องใช้</h3>
+          <p>
+            วงจรนับถอยหลังขนาด 4 บิต ต้องใช้ฟลิปฟล็อปแบบเจ-เคทั้งหมด <strong>4 ตัว</strong> (QD, QC, QB, QA)
+          </p>
 
-          <div class="step-card">
-            <h3>กรณีที่ 2: ปล่อยให้สถานะ 10–15 เป็น Don't Care (X)</h3>
-            <p>
-              ใส่ค่า X ในตาราง Excitation แล้วจัดกลุ่ม K-Map เพื่อให้สมการสั้นที่สุด<br>
-              <strong>ข้อควรระวัง:</strong> หลังจากได้สมการแล้ว <strong>ต้องนำสมการมาแทนค่ากลับเพื่อตรวจสอบ (Self-Starting Check)</strong> ว่าสถานะ 10–15 ไหลกลับเข้าลูป 0–9 หรือไม่ หากเกิดลูปปิดย่อย เช่น 10 → 11 → 10 วงจรจะเกิดสภาวะ Lockup และสอบตกทันที!
-            </p>
-          </div>
-        </div>
+          <h3 style="color:var(--accent); margin-top:20px;">2. จำนวนและเบอร์ไอซีฟลิปฟล็อปที่ใช้</h3>
+          <p>
+            ใช้ไอซีเบอร์ <strong>7476 (Dual JK Flip-Flop with Preset & Clear)</strong> จำนวน <strong>2 ตัว</strong> (เพราะไอซี 1 ตัวบรรจุฟลิปฟล็อปได้ 2 ตัว, 4 ÷ 2 = 2 ตัวพอดี)
+          </p>
 
-        <div class="callout tip">
-          <span class="label">ตารางการทดสอบการคืนสภาพจากสถานะผิดพลาด 10–15</span>
-          ในวงจรที่สังเคราะห์นี้ เมื่อแทนค่าสถานะ 10, 11, 12, 13, 14, 15 ลงในสมการจริง จะได้สถานะถัดไปเป็น <strong>9 (1001)</strong> ทุกสถานะอย่างสมบูรณ์แบบ วงจรจึงไม่เกิดการติดค้าง (No Lockup States) อย่างแน่นอน
+          <h3 style="color:var(--accent); margin-top:20px;">3. รายการไอซีลอจิกเกตที่ใช้ประกอบวงจร</h3>
+          <ul style="padding-left: 24px; line-height: 2;">
+            <li><strong>IC 7408 (Quad 2-Input AND Gate):</strong> 1 ตัวมี 4 เกต ใช้ทั้งหมด 5 เกต จึงต้องใช้ไอซี 7408 จำนวน <strong>2 ตัว</strong></li>
+            <li><strong>IC 7432 (Quad 2-Input OR Gate):</strong> 1 ตัวมี 4 เกต ใช้ทั้งหมด 3 เกต จึงต้องใช้ไอซี 7432 จำนวน <strong>1 ตัว</strong></li>
+            <li><strong>IC 7404 (Hex Inverter / NOT Gate):</strong> 1 ตัวมี 6 เกต ใช้กลับค่าสัญญาณ QD′, QC′, QB′, QA′ รวม 4 เกต จึงต้องใช้ไอซี 7404 จำนวน <strong>1 ตัว</strong></li>
+            <li><strong>IC 7486 (Quad 2-Input XOR Gate):</strong> 1 ตัวมี 4 เกต ใช้สำหรับเทอม (QD ⊕ QC) จำนวน 1 เกต จึงต้องใช้ไอซี 7486 จำนวน <strong>1 ตัว</strong></li>
+          </ul>
+          <p style="margin-top:12px; font-weight:700; color:var(--emerald);">
+            รวมอุปกรณ์ทั้งหมด: ฟลิปฟล็อป 4 ตัว, ใช้ไอซีเบอร์ 7476 จำนวน 2 ตัว และใช้ไอซีเกตลอจิก (7408, 7432, 7404, 7486) รวม 5 ตัว
+          </p>
         </div>
       </section>
 
@@ -666,7 +644,7 @@
         <div class="interactive-lab">
           <div class="lab-head">
             <div>
-              <div class="lab-title">ห้องทดลองเสมือนจริง · จำลองวงจรนับลง BCD 4 บิต (MOD-10 Down Counter Lab)</div>
+              <div class="lab-title">ห้องทดลองเสมือนจริง · จำลองวงจรนับถอยหลัง 9 ถึง 0 (Interactive Virtual Lab)</div>
               <div class="lab-desc">ทดสอบนับถอยหลัง 9 → 8 → ... → 0 → 9 หรือลองฉีดสถานะผิดพลาด 10–15 เพื่อสังเกตการดึงกลับสู่ 9 แบบสด ๆ</div>
             </div>
             <span class="chip chip-gold">LIVE SIMULATION</span>
@@ -674,49 +652,49 @@
 
           <div class="lab-stage">
             <div class="counter-display">
-              <span class="bit-label" style="font-size:0.85rem; color:#94A3B8; text-transform:uppercase;">ค่าเอาต์พุตเลขฐานสิบ (BCD Decimal)</span>
+              <span class="bit-label" style="font-size:0.85rem; color:#94A3B8; text-transform:uppercase;">ค่าเอาต์พุตเลขฐานสิบ</span>
               <div class="counter-num" id="lab-num">9</div>
               <div class="counter-bits">
                 <div>
                   <div class="bit-chip active" id="bit-d">1</div>
-                  <span class="bit-label">Q<sub>D</sub> (8)</span>
+                  <span class="bit-label">QD (8)</span>
                 </div>
                 <div>
                   <div class="bit-chip" id="bit-c">0</div>
-                  <span class="bit-label">Q<sub>C</sub> (4)</span>
+                  <span class="bit-label">QC (4)</span>
                 </div>
                 <div>
                   <div class="bit-chip" id="bit-b">0</div>
-                  <span class="bit-label">Q<sub>B</sub> (2)</span>
+                  <span class="bit-label">QB (2)</span>
                 </div>
                 <div>
                   <div class="bit-chip active" id="bit-a">1</div>
-                  <span class="bit-label">Q<sub>A</sub> (1)</span>
+                  <span class="bit-label">QA (1)</span>
                 </div>
               </div>
             </div>
 
             <div>
               <label for="select-state" style="display:block; font-size:0.88rem; font-weight:700; color:#94A3B8; margin-bottom:8px;">
-                บังคับตั้งค่าสถานะเริ่มต้น (Inject Test State):
+                บังคับตั้งค่าสถานะเริ่มต้น (ทดสอบสภาวะใดก็ได้):
               </label>
               <select id="select-state" style="width:100%; padding:10px 14px; border-radius:6px; background:#1E293B; border:1px solid #475569; color:#FFF; font-family:var(--font-mono); font-size:0.95rem; margin-bottom:18px;">
-                <option value="9">9 (1001) · สถานะเริ่มต้น BCD</option>
-                <option value="8">8 (1000) · BCD ลูปนับลง</option>
-                <option value="7">7 (0111) · BCD ลูปนับลง</option>
-                <option value="6">6 (0110) · BCD ลูปนับลง</option>
-                <option value="5">5 (0101) · BCD ลูปนับลง</option>
-                <option value="4">4 (0100) · BCD ลูปนับลง</option>
-                <option value="3">3 (0011) · BCD ลูปนับลง</option>
-                <option value="2">2 (0010) · BCD ลูปนับลง</option>
-                <option value="1">1 (0001) · BCD ลูปนับลง</option>
-                <option value="0">0 (0000) · BCD ลูปนับลง (พัลส์ถัดไปจะวนรอบไป 9)</option>
-                <option value="10">10 (1010) · [สถานะผิดพลาด] ทดสอบดูการดึงกลับสู่ 9</option>
-                <option value="11">11 (1011) · [สถานะผิดพลาด] ทดสอบดูการดึงกลับสู่ 9</option>
-                <option value="12">12 (1100) · [สถานะผิดพลาด] ทดสอบดูการดึงกลับสู่ 9</option>
-                <option value="13">13 (1101) · [สถานะผิดพลาด] ทดสอบดูการดึงกลับสู่ 9</option>
-                <option value="14">14 (1110) · [สถานะผิดพลาด] ทดสอบดูการดึงกลับสู่ 9</option>
-                <option value="15">15 (1111) · [สถานะผิดพลาด] ทดสอบดูการดึงกลับสู่ 9</option>
+                <option value="9">9 (1001) · สถานะเริ่มต้น</option>
+                <option value="8">8 (1000) · ลูปนับลง</option>
+                <option value="7">7 (0111) · ลูปนับลง</option>
+                <option value="6">6 (0110) · ลูปนับลง</option>
+                <option value="5">5 (0101) · ลูปนับลง</option>
+                <option value="4">4 (0100) · ลูปนับลง</option>
+                <option value="3">3 (0011) · ลูปนับลง</option>
+                <option value="2">2 (0010) · ลูปนับลง</option>
+                <option value="1">1 (0001) · ลูปนับลง</option>
+                <option value="0">0 (0000) · ลูปนับลง (พัลส์ถัดไปจะวนรอบไป 9)</option>
+                <option value="10">10 (1010) · [สถานะที่เหลือ] พัลส์ถัดไปจะกลับไปที่ 9</option>
+                <option value="11">11 (1011) · [สถานะที่เหลือ] พัลส์ถัดไปจะกลับไปที่ 9</option>
+                <option value="12">12 (1100) · [สถานะที่เหลือ] พัลส์ถัดไปจะกลับไปที่ 9</option>
+                <option value="13">13 (1101) · [สถานะที่เหลือ] พัลส์ถัดไปจะกลับไปที่ 9</option>
+                <option value="14">14 (1110) · [สถานะที่เหลือ] พัลส์ถัดไปจะกลับไปที่ 9</option>
+                <option value="15">15 (1111) · [สถานะที่เหลือ] พัลส์ถัดไปจะกลับไปที่ 9</option>
               </select>
 
               <div class="lab-controls">
@@ -728,7 +706,7 @@
           </div>
 
           <div style="font-size:0.8rem; font-weight:700; color:#94A3B8; text-transform:uppercase; margin-bottom:6px;">
-            บันทึกการทำงานและสภาวะอินพุต (Transition & Excitation Live Log):
+            บันทึกการทำงานและสภาวะอินพุต (Transition Live Log):
           </div>
           <div class="state-log" id="state-log"></div>
         </div>
@@ -742,7 +720,7 @@
         </div>
         <div class="step-card">
           <ul style="padding-left: 20px; line-height: 2;">
-            <li><strong>แบบฝึกหัดท้ายบทที่ 7 ข้อ 1 (โจทย์ต้นฉบับวงจรนับลง BCD MOD-10):</strong> <a href="../../../00-lecture/305241_lecture.pdf#page=234">หน้าเอกสาร 218 / หน้า PDF 234</a></li>
+            <li><strong>แบบฝึกหัดท้ายบทที่ 7 ข้อ 1 (โจทย์ต้นฉบับวงจรนับลง BCD):</strong> <a href="../../../00-lecture/305241_lecture.pdf#page=234">หน้าเอกสาร 218 / หน้า PDF 234</a></li>
             <li><strong>ตัวอย่างที่ 7.7 (การออกแบบวงจรนับและการกู้คืนสถานะที่ไม่ได้ใช้งาน):</strong> <a href="../../../00-lecture/305241_lecture.pdf#page=219">หน้าเอกสาร 203 / หน้า PDF 219</a></li>
           </ul>
         </div>
@@ -754,7 +732,7 @@
       <div class="footer-content">
         <div>
           <strong>305241 Digital Logic Design</strong> · ข้อสอบ Final ข้อที่ 2<br>
-          <span style="font-size:0.82rem; color:var(--ink-muted);">วงจรนับลง BCD 4 บิต (MOD-10) พร้อมระบบคืนสภาพสู่ 9</span>
+          <span style="font-size:0.82rem; color:var(--ink-muted);">วงจรนับถอยหลังจาก 9 ถึง 0 แล้ววนรอบ (สถานะที่เหลือกู้คืนไป 9)</span>
         </div>
         <div class="footer-links">
           <a href="../1/solution.html">← ย้อนกลับข้อสอบข้อที่ 1</a>
