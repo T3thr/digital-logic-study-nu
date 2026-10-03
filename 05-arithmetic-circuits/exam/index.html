@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ติวเข้มข้อสอบ Final วิชา 305241 Digital Logic Design: รวมโจทย์ออกแบบวงจรนับแบบซิงโครนัส 4 บิต บทที่ 7 พร้อมเฉลยละเอียด 5 ขั้นตอนและห้องทดลองเสมือนจริง">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <title>คลังข้อสอบ Final · วงจรนับแบบซิงโครนัส (บทที่ 7) · 305241</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
+
+  <div class="page">
+    <!-- แถบนำทางมาตรฐาน -->
+    <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+      <a href="../../index.html">หน้าหลักวิชา 305241</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="../index.html">บทที่ 5 · วงจรเลขคณิต</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">ติวเข้มข้อสอบ Final · วงจรนับ (บทที่ 7)</span>
+    </nav>
+
+    <!-- ส่วนหัวข้อสอบ -->
+    <header>
+      <div class="course-line">
+        <span>305241 · DIGITAL LOGIC DESIGN · มหาวิทยาลัยนเรศวร</span>
+        <span class="chip chip-gold">FINAL EXAM PREPARATION · CHAPTER 07</span>
+      </div>
+
+      <span class="eyebrow">เจาะลึกข้อสอบอัตนัย · ออกแบบวงจรนับแบบซิงโครนัส</span>
+      <h1 class="book-title">ชุดข้อสอบซ้อมติว Final<br><span class="title-accent">การออกแบบวงจรนับและวิเคราะห์การคืนสภาพ</span></h1>
+      <p class="subtitle">
+        ยกระดับความเข้าใจด้วยโจทย์ข้อสอบระดับ Final 3 ข้อเต็มรูปแบบ อ้างอิงระเบียบวิธีคิด 5 ขั้นตอนตามเอกสารบรรยายวิชา 305241 (ตัวอย่าง 7.7–7.8 หน้า 203–208 และแบบฝึกหัดท้ายบทที่ 7 หน้า 218) พร้อมเฉลยละเอียด ตารางสภาวะ K-Map ผังวงจร และห้องทดลองอินเทอร์แอคทีฟ
+      </p>
+    </header>
+
+    <!-- แถบดัชนีนำทางด่วน -->
+    <nav class="toc-bar" aria-label="ดัชนีข้อสอบ">
+      <div class="toc-title">สารบัญข้อสอบและสรุปหลักการสำคัญ</div>
+      <div class="toc-pills">
+        <a class="toc-pill" href="#exam-list"><span class="num">01</span>รายการข้อสอบ 3 ข้อ</a>
+        <a class="toc-pill" href="#methodology"><span class="num">02</span>แนวทางการออกแบบ 5 ขั้นตอน</a>
+        <a class="toc-pill" href="#excitation-cheatsheet"><span class="num">03</span>ตาราง Excitation Table</a>
+        <a class="toc-pill" href="#sources"><span class="num">REF</span>เอกสารอ้างอิงบรรยาย</a>
+      </div>
+    </nav>
+
+    <main id="main">
+      <!-- การ์ดข้อสอบทั้ง 3 ข้อ ดีไซน์สมมาตร -->
+      <section id="exam-list" aria-labelledby="exam-list-title">
+        <div class="sec-head">
+          <span class="sec-no">EX</span>
+          <h2 id="exam-list-title">รายการข้อสอบซ้อมติว Final (3 ข้อมาตรฐาน)</h2>
+        </div>
+        <p class="lead">
+          คัดสรรโจทย์ที่มีความเข้มข้น ความยากรอบด้าน และครอบคลุมทั้ง JK Flip-Flop (IC 7476), D Flip-Flop (IC 7474), วงจรนับขึ้น, วงจรนับลง, สัญญาณควบคุมโหมด และการป้องกันวงจรค้าง (Self-Starting / Anti-Lockup)
+        </p>
+
+        <div class="card-grid">
+          <!-- ข้อที่ 1 -->
+          <a class="exam-card featured" href="1/solution.html">
+            <div class="card-top">
+              <span class="card-eyebrow">ข้อสอบข้อที่ 1 (EXAM 01)</span>
+              <span class="badge">เฉลยละเอียด 5 ขั้น + Lab</span>
+            </div>
+            <h2>วงจรนับ 4 บิต หาร 3 ลงตัว<br>สภาวะที่เหลือก้าวหน้าทีละ 1</h2>
+            <p>
+              ออกแบบวงจรนับซิงโครนัส 4 บิต นับขึ้นเฉพาะเลขที่หาร 3 ลงตัว (0 → 3 → 6 → 9 → 12 → 15 → 0) สำหรับ 10 สถานะที่เหลือให้ก้าวหน้าไปมากกว่าเดิม 1 ค่า (Next = Current + 1) โดยใช้ JK-FF IC 7476 เพื่อพิสูจน์การกู้คืนสู่ลูปหลักอย่างไร้จุดค้าง
+            </p>
+            <div class="card-tags">
+              <span class="tag">4-Bit MOD-6</span>
+              <span class="tag">JK Flip-Flop 7476</span>
+              <span class="tag">Next = Present + 1</span>
+              <span class="tag">Zero Lockup</span>
+            </div>
+            <div class="card-bottom">
+              <span>8 K-Maps · ผังวงจรสมบูรณ์</span>
+              <span class="card-action">เปิดอ่านเฉลยข้อ 1</span>
+            </div>
+          </a>
+
+          <!-- ข้อที่ 2 -->
+          <a class="exam-card" href="2/solution.html">
+            <div class="card-top">
+              <span class="card-eyebrow">ข้อสอบข้อที่ 2 (EXAM 02)</span>
+              <span class="badge badge-amber">แบบฝึกหัดท้ายบท 7 ข้อ 1</span>
+            </div>
+            <h2>วงจรนับถอยหลัง 4 บิต BCD<br>พร้อมกู้คืนสู่สถานะ 9 ป้องกันค้าง</h2>
+            <p>
+              ออกแบบวงจรนับลงซิงโครนัส 4 บิต รหัส BCD (9 → 8 → 7 → ... → 0 → 9) หากเกิดสถานะผิดพลาด 10–15 ให้บังคับดึงกลับสู่สถานะ 9 ทันทีในพัลส์ถัดไป (Deterministic Anti-Lockup) พร้อมเปรียบเทียบกรณี Don't Care
+            </p>
+            <div class="card-tags">
+              <span class="tag">BCD Down Counter</span>
+              <span class="tag">MOD-10</span>
+              <span class="tag">Anti-Lockup Reset</span>
+              <span class="tag">JK Flip-Flop 7476</span>
+            </div>
+            <div class="card-bottom">
+              <span>ท้ายบทที่ 7 หน้า 218</span>
+              <span class="card-action">เปิดอ่านเฉลยข้อ 2</span>
+            </div>
+          </a>
+
+          <!-- ข้อที่ 3 -->
+          <a class="exam-card" href="3/solution.html">
+            <div class="card-top">
+              <span class="card-eyebrow">ข้อสอบข้อที่ 3 (EXAM 03)</span>
+              <span class="badge badge-teal">โหมดควบคุม M + D-FF</span>
+            </div>
+            <h2>วงจรนับขึ้น/ลงซิงโครนัส 3 บิต<br>ควบคุมด้วยโหมด M (D-FF & JK)</h2>
+            <p>
+              ออกแบบวงจรนับที่มีขาควบคุมภายนอก M: เมื่อ M=0 ให้นับขึ้น (0..7..0) และเมื่อ M=1 ให้นับลง (7..0..7) สังเคราะห์ด้วย D Flip-Flop (IC 7474) เพื่อศึกษากลไก Steering Logic และเปรียบเทียบกับ JK Flip-Flop อย่างลึกซึ้ง
+            </p>
+            <div class="card-tags">
+              <span class="tag">Mode Input M</span>
+              <span class="tag">Up/Down Counter</span>
+              <span class="tag">D Flip-Flop 7474</span>
+              <span class="tag">Steering Logic</span>
+            </div>
+            <div class="card-bottom">
+              <span>16-State K-Map · D-FF vs JK</span>
+              <span class="card-action">เปิดอ่านเฉลยข้อ 3</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- สรุปกระบวนการออกแบบ 5 ขั้นตอน -->
+      <section id="methodology" aria-labelledby="method-title">
+        <div class="sec-head">
+          <span class="sec-no">01</span>
+          <h2 id="method-title">กระบวนการออกแบบวงจรนับซิงโครนัส 5 ขั้นตอนมาตรฐาน</h2>
+        </div>
+        <p class="lead">
+          ตามเอกสารบรรยายหัวข้อ 7.4.2 (หน้าเอกสาร 203 / หน้า PDF 219) การออกแบบวงจรนับที่ได้คะแนนเต็มในห้องสอบจะต้องแสดงขั้นตอนครบถ้วนดังนี้:
+        </p>
+
+        <div class="three-col">
+          <div class="step-card">
+            <h3>ขั้นที่ 1 · State Diagram</h3>
+            <p>สร้างแผนภาพแสดงการเปลี่ยนสถานะ โดยระบุทิศทางลูกศรของสถานะหลัก และเขียนเส้นทางการฟื้นตัวของสถานะที่ไม่ได้ใช้งานให้ชัดเจน</p>
+          </div>
+          <div class="step-card">
+            <h3>ขั้นที่ 2 · Excitation Table</h3>
+            <p>สร้างตารางแสดงสภาวะอินพุตฟลิปฟล็อป โดยแปลงการเปลี่ยนแปลงสถานะปัจจุบัน (Q) ไปยังสถานะถัดไป (Q+) ให้อยู่ในรูป J, K หรือ D</p>
+          </div>
+          <div class="step-card">
+            <h3>ขั้นที่ 3 · K-Map Minimization</h3>
+            <p>นำค่าอินพุตจากตารางไปลงแผนผังคาร์โน จัดกลุ่ม 1 ร่วมกับ Don't Care (X) เพื่อให้ได้สมการผลบวกของผลคูณ (SOP) ที่ประหยัดเกตที่สุด</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="step-card">
+            <h3>ขั้นที่ 4 · Logic Circuit Schematics</h3>
+            <p>วาดผังวงจรเชื่อมต่อไอซีจริง โดยป้อนสัญญาณนาฬิกา (Clock) เข้าฟลิปฟล็อปทุกตัวพร้อมกัน และต่อเกตลอจิกเข้าขาอินพุตตามสมการ</p>
+          </div>
+          <div class="step-card">
+            <h3>ขั้นที่ 5 · Self-Starting & Lockup Verification</h3>
+            <p>ตรวจสอบสภาวะของวงจรหากเกิดสัญญาณรบกวนตกลงไปในสถานะที่ไม่ได้ใช้งาน ว่าวงจรสามารถก้าวกลับเข้าสู่ลูปนับปกติได้เองหรือไม่</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ตาราง Excitation Table ช่วยจำ -->
+      <section id="excitation-cheatsheet" aria-labelledby="cheat-title">
+        <div class="sec-head">
+          <span class="sec-no">02</span>
+          <h2 id="cheat-title">ตารางการกระตุ้นฟลิปฟล็อป (Excitation Table Quick Reference)</h2>
+        </div>
+        <p class="lead">
+          หัวใจสำคัญของการทำข้อสอบออกแบบวงจรนับ คือการจำตารางสภาวะการเปลี่ยนสถานะของฟลิปฟล็อปแต่ละชนิดได้อย่างแม่นยำ
+        </p>
+
+        <div class="two-col">
+          <div class="table-scroll">
+            <table>
+              <caption>ตารางการกระตุ้น JK Flip-Flop (IC 7476)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">สภาวะปัจจุบัน (Q)</th>
+                  <th scope="col">สภาวะถัดไป (Q+)</th>
+                  <th scope="col">อินพุต J</th>
+                  <th scope="col">อินพุต K</th>
+                  <th scope="col" class="left">คำอธิบายสภาวะ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>0</td><td><strong>0</strong></td><td><strong>X</strong></td><td class="left">No change (J=0, K=0) หรือ Reset (J=0, K=1)</td></tr>
+                <tr><td>0</td><td>1</td><td><strong>1</strong></td><td><strong>X</strong></td><td class="left">Set (J=1, K=0) หรือ Toggle (J=1, K=1)</td></tr>
+                <tr><td>1</td><td>0</td><td><strong>X</strong></td><td><strong>1</strong></td><td class="left">Reset (J=0, K=1) หรือ Toggle (J=1, K=1)</td></tr>
+                <tr><td>1</td><td>1</td><td><strong>X</strong></td><td><strong>0</strong></td><td class="left">No change (J=0, K=0) หรือ Set (J=1, K=0)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <caption>ตารางการกระตุ้น D Flip-Flop (IC 7474)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">สภาวะปัจจุบัน (Q)</th>
+                  <th scope="col">สภาวะถัดไป (Q+)</th>
+                  <th scope="col">อินพุต D</th>
+                  <th scope="col" class="left">คำอธิบายสภาวะ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>0</td><td><strong>0</strong></td><td class="left">ส่งค่าลอจิก 0 เข้าสู่เอาต์พุต (D = Q+)</td></tr>
+                <tr><td>0</td><td>1</td><td><strong>1</strong></td><td class="left">ส่งค่าลอจิก 1 เข้าสู่เอาต์พุต (D = Q+)</td></tr>
+                <tr><td>1</td><td>0</td><td><strong>0</strong></td><td class="left">ส่งค่าลอจิก 0 เข้าสู่เอาต์พุต (D = Q+)</td></tr>
+                <tr><td>1</td><td>1</td><td><strong>1</strong></td><td class="left">ส่งค่าลอจิก 1 เข้าสู่เอาต์พุต (D = Q+)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <span class="label">ข้อสังเกตและเทคนิคในห้องสอบ</span>
+          สำหรับ <strong>D Flip-Flop</strong> สมการอินพุตจะเท่ากับสภาวะถัดไปเสมอ (<span class="math-inline">D = Q+</span>) ทำให้ไม่ต้องกังวลเรื่อง Don't Care ในช่องอินพุต แต่สมการอาจยาวกว่า<br>
+          ขณะที่ <strong>JK Flip-Flop</strong> จะมีค่า Don't Care (X) ถึงครึ่งหนึ่งของตารางเสมอ ทำให้ยุบสมการใน K-Map ได้ขนาดเล็กและใช้เกตน้อยกว่ามาก!
+        </div>
+      </section>
+
+      <!-- แหล่งอ้างอิงเอกสารบรรยาย -->
+      <section id="sources" aria-labelledby="sources-title">
+        <div class="sec-head">
+          <span class="sec-no">REF</span>
+          <h2 id="sources-title">ตำแหน่งอ้างอิงในเอกสารบรรยาย (305241 Lecture Notes)</h2>
+        </div>
+        <p class="lead">
+          ท่านสามารถคลิกเปิดเอกสาร PDF ต้นฉบับเพื่อเทียบเคียงทฤษฎีและตัวอย่างของภาควิชา:
+        </p>
+
+        <div class="step-card">
+          <ul style="padding-left: 20px; line-height: 2;">
+            <li><strong>หัวข้อ 7.4.2 การออกแบบวงจรนับแบบซิงโครนัส:</strong> <a href="../../00-lecture/305241_lecture.pdf#page=219">หน้าเอกสาร 203 / หน้า PDF 219</a></li>
+            <li><strong>ตัวอย่างที่ 7.7 (การออกแบบวงจรนับ MOD-5 และการกู้คืนสู่สถานะ 2):</strong> <a href="../../00-lecture/305241_lecture.pdf#page=219">หน้าเอกสาร 203 / หน้า PDF 219</a></li>
+            <li><strong>ตัวอย่างที่ 7.8 (วงจรนับที่สถานะที่ไม่ได้ใช้งานเปลี่ยนเป็นค่าถัดไปของตัวเอง):</strong> <a href="../../00-lecture/305241_lecture.pdf#page=222">หน้าเอกสาร 206 / หน้า PDF 222</a></li>
+            <li><strong>แบบฝึกหัดท้ายบทที่ 7 ข้อ 1 (วงจรนับลง BCD 4 บิต MOD-10 ด้วย JK-FF):</strong> <a href="../../00-lecture/305241_lecture.pdf#page=234">หน้าเอกสาร 218 / หน้า PDF 234</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- ท้ายหน้าเว็บ -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <strong>305241 Digital Logic Design</strong> · มหาวิทยาลัยนเรศวร<br>
+          <span style="font-size:0.82rem; color:var(--ink-muted);">ชุดเฉลยและสื่อจำลองเสมือนจริงเพื่อการศึกษา</span>
+        </div>
+        <div class="footer-links">
+          <a href="../index.html">← กลับหน้าบทที่ 5</a>
+          <a href="../exercises/index.html">แบบฝึกหัดบทที่ 5</a>
+          <a href="../../index.html">หน้าหลักวิชา</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
