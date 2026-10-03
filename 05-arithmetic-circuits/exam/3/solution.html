@@ -405,10 +405,10 @@
         <div class="step-badge">ขั้นตอนที่ 3 จาก 5 ขั้นตอนตามเอกสารบรรยาย</div>
         <h2>ขั้นตอนที่ 3: การหาฟังก์ชันอินพุตด้วย Karnaugh Map (K-Map)</h2>
         <p>
-          เนื่องจากเป็นวงจรขนาด 3 บิต ตาราง K-Map จึงมีขนาด 2 &times; 4 โดยตัวแปรแถวคือ QC (ค่า 0, 1) และตัวแปรคอลัมน์คือ QB QA (ค่า 00, 01, 11, 10):
+          ตามมาตรฐานของเอกสารบรรยายหัวข้อ 2.7 (รูปที่ 2.51 หน้า 58) และหัวข้อ 7.4.2 ตัวอย่างที่ 7.7 (รูปที่ 7.24 หน้า 205) แผนผังคาร์โนสำหรับ 3 ตัวแปรจะจัดเป็น <strong>แนวตั้งขนาด 4 แถว &times; 2 คอลัมน์</strong> โดยกำหนดให้ตัวแปรบิตสูง <strong>QC QB เป็นแถวแนวตั้ง (ค่า 00, 01, 11, 10 ตามรหัสเกรย์)</strong> และตัวแปรบิตต่ำ <strong>QA เป็นคอลัมน์แนวนอน (ค่า 0, 1)</strong>:
         </p>
 
-        <!-- K-Map Grid 2x3 -->
+        <!-- K-Map Grid 2x3 (Vertical 4x2 format strictly matching Figure 7.24) -->
         <div class="kmap-grid">
           <!-- K-Map JC -->
           <div class="kmap-card">
@@ -416,29 +416,35 @@
             <table class="kmap-table">
               <thead>
                 <tr>
-                  <th rowspan="2" class="kmap-header-corner">QC \ QB QA</th>
-                  <th>00</th><th>01</th><th>11</th><th>10</th>
+                  <th class="kmap-header-corner">QC QB \ QA</th>
+                  <th>0</th><th>1</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="row-label">0</th>
+                  <th class="row-label">00</th>
                   <td>0</td>
                   <td class="kmap-cell-group">1</td>
-                  <td class="kmap-cell-group">1</td>
-                  <td>0</td>
                 </tr>
                 <tr>
-                  <th class="row-label">1</th>
+                  <th class="row-label">01</th>
+                  <td>0</td>
+                  <td class="kmap-cell-group">1</td>
+                </tr>
+                <tr>
+                  <th class="row-label">11</th>
                   <td>X</td>
                   <td class="kmap-cell-group">X</td>
-                  <td class="kmap-cell-group">X</td>
+                </tr>
+                <tr>
+                  <th class="row-label">10</th>
                   <td>X</td>
+                  <td class="kmap-cell-group">X</td>
                 </tr>
               </tbody>
             </table>
             <div class="kmap-eqn-box">
-              <span class="eqn-label">จับกลุ่ม 4 ช่อง (คอลัมน์ 01 และ 11):</span>
+              <span class="eqn-label">จับกลุ่มแนวตั้ง 4 ช่อง (คอลัมน์ QA = 1):</span>
               <div class="eqn-result">JC = QA</div>
             </div>
           </div>
@@ -449,22 +455,28 @@
             <table class="kmap-table">
               <thead>
                 <tr>
-                  <th rowspan="2" class="kmap-header-corner">QC \ QB QA</th>
-                  <th>00</th><th>01</th><th>11</th><th>10</th>
+                  <th class="kmap-header-corner">QC QB \ QA</th>
+                  <th>0</th><th>1</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="row-label">0</th>
-                  <td class="kmap-cell-group">X</td>
-                  <td class="kmap-cell-group">X</td>
+                  <th class="row-label">00</th>
                   <td class="kmap-cell-group">X</td>
                   <td class="kmap-cell-group">X</td>
                 </tr>
                 <tr>
-                  <th class="row-label">1</th>
+                  <th class="row-label">01</th>
+                  <td class="kmap-cell-group">X</td>
+                  <td class="kmap-cell-group">X</td>
+                </tr>
+                <tr>
+                  <th class="row-label">11</th>
                   <td class="kmap-cell-group">1</td>
                   <td class="kmap-cell-group">1</td>
+                </tr>
+                <tr>
+                  <th class="row-label">10</th>
                   <td class="kmap-cell-group">1</td>
                   <td class="kmap-cell-group">1</td>
                 </tr>
@@ -482,29 +494,35 @@
             <table class="kmap-table">
               <thead>
                 <tr>
-                  <th rowspan="2" class="kmap-header-corner">QC \ QB QA</th>
-                  <th>00</th><th>01</th><th>11</th><th>10</th>
+                  <th class="kmap-header-corner">QC QB \ QA</th>
+                  <th>0</th><th>1</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="row-label">0</th>
+                  <th class="row-label">00</th>
                   <td class="kmap-cell-group">1</td>
                   <td class="kmap-cell-group">1</td>
+                </tr>
+                <tr>
+                  <th class="row-label">01</th>
                   <td class="kmap-cell-group">X</td>
                   <td class="kmap-cell-group">X</td>
                 </tr>
                 <tr>
-                  <th class="row-label">1</th>
+                  <th class="row-label">11</th>
+                  <td class="kmap-cell-group">X</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <th class="row-label">10</th>
                   <td class="kmap-cell-group">1</td>
                   <td>0</td>
-                  <td>X</td>
-                  <td class="kmap-cell-group">X</td>
                 </tr>
               </tbody>
             </table>
             <div class="kmap-eqn-box">
-              <span class="eqn-label">กลุ่ม 1 (แถวบนทั้ง 4 ช่อง) + กลุ่ม 2 (เสาซ้าย-ขวา):</span>
+              <span class="eqn-label">กลุ่ม 1 (แถว 00, 01 รวม 4 ช่อง) + กลุ่ม 2 (คอลัมน์ 0 ทั้ง 4 แถว):</span>
               <div class="eqn-result">JB = QC' + QA' = (QC &middot; QA)'</div>
             </div>
           </div>
@@ -515,29 +533,35 @@
             <table class="kmap-table">
               <thead>
                 <tr>
-                  <th rowspan="2" class="kmap-header-corner">QC \ QB QA</th>
-                  <th>00</th><th>01</th><th>11</th><th>10</th>
+                  <th class="kmap-header-corner">QC QB \ QA</th>
+                  <th>0</th><th>1</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="row-label">0</th>
+                  <th class="row-label">00</th>
                   <td>X</td>
                   <td class="kmap-cell-group">X</td>
+                </tr>
+                <tr>
+                  <th class="row-label">01</th>
+                  <td>0</td>
                   <td class="kmap-cell-group">1</td>
+                </tr>
+                <tr>
+                  <th class="row-label">11</th>
+                  <td>0</td>
                   <td>0</td>
                 </tr>
                 <tr>
-                  <th class="row-label">1</th>
+                  <th class="row-label">10</th>
                   <td>X</td>
                   <td>X</td>
-                  <td>0</td>
-                  <td>0</td>
                 </tr>
               </tbody>
             </table>
             <div class="kmap-eqn-box">
-              <span class="eqn-label">จับกลุ่ม 2 ช่องแนวนอน (เซลล์ 1 และ 3 ในแถวบน):</span>
+              <span class="eqn-label">จับกลุ่ม 2 ช่องแนวตั้ง (แถว 00 และ 01 ในคอลัมน์ 1):</span>
               <div class="eqn-result">KB = QC' &middot; QA</div>
             </div>
           </div>
@@ -548,29 +572,35 @@
             <table class="kmap-table">
               <thead>
                 <tr>
-                  <th rowspan="2" class="kmap-header-corner">QC \ QB QA</th>
-                  <th>00</th><th>01</th><th>11</th><th>10</th>
+                  <th class="kmap-header-corner">QC QB \ QA</th>
+                  <th>0</th><th>1</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="row-label">0</th>
+                  <th class="row-label">00</th>
                   <td>0</td>
                   <td>X</td>
-                  <td class="kmap-cell-group">X</td>
-                  <td class="kmap-cell-group">1</td>
                 </tr>
                 <tr>
-                  <th class="row-label">1</th>
+                  <th class="row-label">01</th>
+                  <td class="kmap-cell-group">1</td>
+                  <td class="kmap-cell-group">X</td>
+                </tr>
+                <tr>
+                  <th class="row-label">11</th>
                   <td>0</td>
                   <td>X</td>
-                  <td>X</td>
+                </tr>
+                <tr>
+                  <th class="row-label">10</th>
                   <td>0</td>
+                  <td>X</td>
                 </tr>
               </tbody>
             </table>
             <div class="kmap-eqn-box">
-              <span class="eqn-label">จับกลุ่ม 2 ช่องแนวนอน (เซลล์ 2 และ 3 ในแถวบน):</span>
+              <span class="eqn-label">จับกลุ่ม 2 ช่องแนวนอน (แถว 01 ทั้งหมด):</span>
               <div class="eqn-result">JA = QC' &middot; QB</div>
             </div>
           </div>
@@ -581,29 +611,35 @@
             <table class="kmap-table">
               <thead>
                 <tr>
-                  <th rowspan="2" class="kmap-header-corner">QC \ QB QA</th>
-                  <th>00</th><th>01</th><th>11</th><th>10</th>
+                  <th class="kmap-header-corner">QC QB \ QA</th>
+                  <th>0</th><th>1</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="row-label">0</th>
+                  <th class="row-label">00</th>
                   <td>X</td>
                   <td>0</td>
-                  <td>0</td>
-                  <td>X</td>
                 </tr>
                 <tr>
-                  <th class="row-label">1</th>
+                  <th class="row-label">01</th>
                   <td>X</td>
                   <td>0</td>
-                  <td class="kmap-cell-group">1</td>
+                </tr>
+                <tr>
+                  <th class="row-label">11</th>
                   <td class="kmap-cell-group">X</td>
+                  <td class="kmap-cell-group">1</td>
+                </tr>
+                <tr>
+                  <th class="row-label">10</th>
+                  <td>X</td>
+                  <td>0</td>
                 </tr>
               </tbody>
             </table>
             <div class="kmap-eqn-box">
-              <span class="eqn-label">จับกลุ่ม 2 ช่องแนวนอน (เซลล์ 7 และ 6 ในแถวล่าง):</span>
+              <span class="eqn-label">จับกลุ่ม 2 ช่องแนวนอน (แถว 11 ทั้งหมด):</span>
               <div class="eqn-result">KA = QC &middot; QB</div>
             </div>
           </div>
