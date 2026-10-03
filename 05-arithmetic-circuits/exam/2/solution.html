@@ -495,19 +495,31 @@
         </div>
 
         <p class="lead">
-          ตามมาตรฐานของวิชา 305241 แผนผังคาร์โนสำหรับ 4 ตัวแปรจะจัดเป็นตารางขนาด <strong>4 แถว × 4 คอลัมน์</strong> โดยกำหนดให้ตัวแปรบิตสูง <strong>QD QC เป็นแถวแนวตั้ง (00, 01, 11, 10 ตามรหัสเกรย์)</strong> และตัวแปรบิตต่ำ <strong>QB QA เป็นคอลัมน์แนวนอน (00, 01, 11, 10 ตามรหัสเกรย์)</strong> ดังนี้:
+          ตามมาตรฐานของวิชา 305241 แผนผังคาร์โนสำหรับ 4 ตัวแปรจะจัดเป็นตารางขนาด <strong>4 แถว × 4 คอลัมน์</strong> ในฟอร์แมต <strong>QD QC / QB QA (หรือ DC / BA)</strong> อ้างอิงตามเอกสารบรรยายรูปที่ 2.51 หน้า 58 และแบบฝึกหัดท้ายบทที่ 7 โดยกำหนดการวางแกนอย่างเป็นระบบดังนี้:
         </p>
+
+        <!-- กล่องระบุแกนและมาตรฐาน K-Map 4x4 -->
+        <div class="kmap-standard-badge-row">
+          <div class="kmap-spec-badge">
+            <span class="badge-title">📌 แถวแนวนอน (Horizontal Rows): บิตสูง QD QC (หรือ DC)</span>
+            <span class="badge-val">กำหนดค่าประจำแถวจากบนลงล่างเป็น <code>00, 01, 11, 10</code> ตามลำดับรหัสเกรย์ (Gray Code)</span>
+          </div>
+          <div class="kmap-spec-badge">
+            <span class="badge-title">📌 คอลัมน์แนวตั้ง (Vertical Columns): บิตต่ำ QB QA (หรือ BA)</span>
+            <span class="badge-val">กำหนดค่าประจำคอลัมน์จากซ้ายไปขวาเป็น <code>00, 01, 11, 10</code> ตามลำดับรหัสเกรย์ (Gray Code)</span>
+          </div>
+        </div>
 
         <!-- K-Map Grid 2-Column Responsive Layout (Paired by Flip-Flop) -->
         <div class="kmap-grid">
           <!-- Flip-Flop A: JA -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน JA</span> <span class="chip">FF-A (บิต 0)</span></div>
+            <div class="kmap-title"><span>แผนผังคาร์โน JA</span> <span class="chip">FF-A (บิต 0 - LSB)</span></div>
             <div class="kmap-table-wrap">
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -517,49 +529,58 @@
                 <tbody>
                   <tr>
                     <th class="kmap-row-header">00</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m0</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m2</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m2</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">01</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m6</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m6</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">11</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m12</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m10</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m10</span></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (16 ช่อง): JA = 1 (ต่อไฟตรง +5V)</span>
+            </div>
+
             <div class="kmap-equation">JA = 1</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> ช่องเลขคู่ (QA=0) เป็น 1 ทั้งหมด ช่องเลขคี่ (QA=1) เป็น X ทั้งหมด จึงสามารถ <strong>รวมกลุ่มทั้ง 16 ช่องเข้าด้วยกัน</strong> ได้ผลลัพธ์เป็นระดับลอจิกสูงคงที่ (ต่อไฟตรง +5V)
+              <strong>การพิสูจน์ทางวิศวกรรม:</strong>
+              <br>• ช่องเลขคู่ทั้งหมด (QA=0) มีค่าเป็น 1 (รวม 8 ช่อง: m0, m2, m4, m6, m8, m10, m12, m14)
+              <br>• ช่องเลขคี่ทั้งหมด (QA=1) มีค่าเป็น X (รวม 8 ช่อง: m1, m3, m5, m7, m9, m11, m13, m15)
+              <br>• ตามกฎ K-Map เมื่อไม่มีค่า 0 ในตารางเลยแม้แต่ช่องเดียว เราสามารถ <strong>รวบทั้ง 16 ช่อง (ขนาด 2⁴) เป็นกลุ่มมหึมากลุ่มเดียว</strong> ตัวแปรทั้ง 4 ตัวถูกตัดทิ้งทั้งหมด ได้ผลลัพธ์เป็นระดับลอจิกสูงคงที่ <code>JA = 1</code> (ต่อไฟตรง VCC +5V)
             </p>
           </div>
 
-          <!-- Flip-Flop A: KA -->
+          <!-- Flip-Flop A: KA (Detailed Examination) -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน KA</span> <span class="chip">FF-A (บิต 0)</span></div>
+            <div class="kmap-title"><span>แผนผังคาร์โน KA</span> <span class="chip">FF-A (บิต 0 - LSB)</span></div>
             <div class="kmap-table-wrap">
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -569,17 +590,18 @@
                 <tbody>
                   <tr>
                     <th class="kmap-row-header">00</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m1</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m3</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
+                    <!-- m0 & m1 are shared between Group 1 (8-cell) and Group 2 (4-cell) -->
+                    <td class="kmap-cell-x kmap-cell-shared"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-1 kmap-cell-shared"><span class="kmap-val">1</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">01</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m5</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m7</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">11</th>
@@ -590,17 +612,34 @@
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x kmap-cell-g2"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g2"><span class="kmap-val">1</span><span class="kmap-minterm">m9</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m11</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (8 ช่อง แถว 00, 01): QD'</span>
+              <span class="kmap-tag kmap-tag-g2">🟠 วงกลุ่มที่ 2 (4 ช่อง ม้วนขอบบน-ล่าง): QC'·QB'</span>
+              <span class="kmap-tag kmap-tag-shared">🟣 เซลล์ร่วม (Shared): m0, m1</span>
+            </div>
+
             <div class="kmap-equation">KA = QD' + QC' · QB'</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> จับกลุ่ม 8 ช่อง (แถว 00, 01 ครบทุกคอลัมน์) ได้เทอม <code>QD'</code> และจับกลุ่ม 4 ช่องมุมซ้าย {m0, m1, m8, m9} ได้เทอม <code>QC'·QB'</code> รวมกันเป็น <code>KA = QD' + QC'·QB'</code>
+              <strong>การวิเคราะห์และพิสูจน์การวงกลุ่ม SOP อย่างละเอียด:</strong>
+              <br><strong>1. ที่มาของค่า 1, 0, X ในตาราง:</strong>
+              <br>&nbsp;&nbsp;• <em>ค่า 1 (5 ช่อง):</em> คือ <code>m1, m3, m5, m7, m9</code> เพราะในลูปนับถอยหลัง สภาวะเลขคี่ (QA=1) ต้องลดลงเป็นเลขคู่ (QA+=0) ตามตาราง Excitation (1 → 0) บังคับให้ <code>K = 1</code> เสมอ
+              <br>&nbsp;&nbsp;• <em>ค่า 0 (3 ช่อง):</em> คือ <code>m11, m13, m15</code> เป็นสถานะที่ไม่ได้ใช้งานที่มี QA=1 อยู่แล้ว และโจทย์กำหนดให้สภาวะถัดไปกระโดดไปสถานะ 9 (1001 ซึ่ง QA+=1) สภาวะ 1 → 1 บังคับให้ <code>K = 0</code> ห้ามเป็น 1 เด็ดขาดเพื่อไม่ให้บิต Toggle! จึงเกิดค่า 0 ขวางในตาราง
+              <br>&nbsp;&nbsp;• <em>ค่า X (8 ช่อง):</em> คือช่องเลขคู่ทั้งหมด (QA=0) สภาวะ 0 → 1 ได้ K เป็น Don't Care (X)
+              <br><strong>2. ขั้นตอนการวงกลุ่ม SOP (Grouping):</strong>
+              <br>&nbsp;&nbsp;• <strong>วงกลุ่มที่ 1 (ขนาด 8 ช่อง แนวนอน 2 แถวบน):</strong> รวมแถว <code>00</code> และ <code>01</code> ครบทุกคอลัมน์ {m0, m1, m3, m2, m4, m5, m7, m6} ใน 2 แถวนี้ค่า <code>QD = 0</code> คงที่ ส่วน QC, QB, QA เปลี่ยนค่าทั้งหมด จึงตัดทิ้ง ได้เทอมผลคูณ <code>QD'</code> (ครอบคลุมค่า 1 ไป 4 ตัว: m1, m3, m5, m7)
+              <br>&nbsp;&nbsp;• <strong>วงกลุ่มที่ 2 (ขนาด 4 ช่อง ม้วนพับขอบบน-ล่าง):</strong> ยังเหลือค่า 1 ที่ <code>m9</code> (แถว 10, คอลัมน์ 01) ซึ่งต้องจับกลุ่มให้ได้ขนาด 2ⁿ ที่ใหญ่ที่สุด ตามคุณสมบัติรหัสเกรย์ แถวบนสุด <code>00</code> (QD QC = 00) และแถวล่างสุด <code>10</code> (QD QC = 10) อยู่ติดกันทางตรรกะ (Toroidal Adjacency) โดยมี <code>QC = 0</code> คงที่ และคอลัมน์ <code>00</code> กับ <code>01</code> อยู่ติดกันโดยมี <code>QB = 0</code> คงที่ จึงม้วนพับ K-Map เข้าหากันเกิดเป็นกลุ่มสี่เหลี่ยม 2×2 ขนาด 4 ช่อง ได้แก่ <code>{m0, m1, m8, m9}</code> ได้เทอมผลคูณ <code>QC'·QB'</code>
+              <br>&nbsp;&nbsp;• <em>ทำไมกลุ่มที่ 2 ถึงขยายเป็น 8 ช่องไม่ได้?</em> หากพยายามรวมคอลัมน์ 00, 01 ตลอดทั้ง 4 แถว จะติดค่า <code>m13 = 0</code> ในแถว 11 ทันที ทำให้กลุ่ม 4 ช่องนี้คือขนาดใหญ่ที่สุดที่เป็นไปได้แล้ว (Maximal Prime Implicant)
+              <br><strong>3. สรุปสมการ:</strong> นำทั้ง 2 กลุ่มมา OR รวมกันได้ <code>KA = QD' + QC'·QB'</code> ถูกต้องสมบูรณ์ 100%
             </p>
           </div>
 
@@ -611,7 +650,7 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -628,10 +667,10 @@
                   </tr>
                   <tr>
                     <th class="kmap-row-header">01</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m5</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">11</th>
@@ -642,17 +681,28 @@
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g2"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m9</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
+                    <td class="kmap-cell-x kmap-cell-g2"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (2 ช่อง แถว 01 ขอบซ้าย-ขวา): QD'·QC·QA'</span>
+              <span class="kmap-tag kmap-tag-g2">🟠 วงกลุ่มที่ 2 (2 ช่อง แถว 10 ขอบซ้าย-ขวา): QD·QC'·QA'</span>
+            </div>
+
             <div class="kmap-equation">JB = (QD ⊕ QC) · QA'</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> กลุ่ม 2 ช่อง {m4, m6} ได้ <code>QD'·QC·QA'</code> และกลุ่ม 2 ช่อง {m8, m10} ได้ <code>QD·QC'·QA'</code> ดึงตัวร่วม <code>QA'</code> ออกมาเหลือ <code>(QD'·QC + QD·QC')·QA' = (QD ⊕ QC)·QA'</code>
+              <strong>การวิเคราะห์และลดรูปพีชคณิตบูลีน:</strong>
+              <br>• มีค่า 1 สองตำแหน่งคือ <code>m4</code> (แถว 01, คอลัมน์ 00) และ <code>m8</code> (แถว 10, คอลัมน์ 00)
+              <br>• <strong>กลุ่มที่ 1 (2 ช่อง):</strong> จับคู่ <code>m4</code> กับ Don't Care <code>m6</code> ที่ขอบขวา (คอลัมน์ 00 และ 10) ในแถว 01 โดยค่า <code>QA = 0</code> คงที่ ตัด QB ทิ้ง ได้เทอม <code>QD'·QC·QA'</code>
+              <br>• <strong>กลุ่มที่ 2 (2 ช่อง):</strong> จับคู่ <code>m8</code> กับ Don't Care <code>m10</code> ที่ขอบขวา (คอลัมน์ 00 และ 10) ในแถว 10 โดยค่า <code>QA = 0</code> คงที่ ตัด QB ทิ้ง ได้เทอม <code>QD·QC'·QA'</code>
+              <br>• <strong>การยุบเกตด้วย XOR:</strong> <code>JB = QD'·QC·QA' + QD·QC'·QA' = (QD'·QC + QD·QC')·QA' = (QD ⊕ QC)·QA'</code> ลดการใช้เกต AND/OR ลงได้อย่างมากโดยใช้ XOR gate (7486) 1 เกต และ AND gate (7408) 1 เกต
             </p>
           </div>
 
@@ -663,7 +713,7 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -673,38 +723,49 @@
                 <tbody>
                   <tr>
                     <th class="kmap-row-header">00</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m3</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m2</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m2</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">01</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m7</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m6</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m6</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">11</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m15</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
+                    <td class="kmap-cell-x kmap-cell-shared"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x kmap-cell-g2"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g2"><span class="kmap-val">1</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-1 kmap-cell-shared"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m11</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m10</span></td>
+                    <td class="kmap-cell-x kmap-cell-shared"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x kmap-cell-g2"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g2"><span class="kmap-val">1</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-1 kmap-cell-shared"><span class="kmap-val">1</span><span class="kmap-minterm">m10</span></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (8 ช่อง ม้วนขอบซ้าย-ขวา): QA'</span>
+              <span class="kmap-tag kmap-tag-g2">🟠 วงกลุ่มที่ 2 (8 ช่อง แถว 11, 10): QD</span>
+              <span class="kmap-tag kmap-tag-shared">🟣 เซลล์ร่วม (Shared): m8, m10, m12, m14</span>
+            </div>
+
             <div class="kmap-equation">KB = QA' + QD</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> จับกลุ่ม 8 ช่องแนวตั้ง (คอลัมน์ 00 ร่วมกับ 10 ครบ 4 แถว) ได้เทอม <code>QA'</code> และจับกลุ่ม 8 ช่องแนวนอน (แถว 11 ร่วมกับ 10 ครบ 4 คอลัมน์) ได้เทอม <code>QD</code> รวมกันเป็น <code>KB = QA' + QD</code>
+              <strong>การวิเคราะห์และพิสูจน์การวงกลุ่ม SOP:</strong>
+              <br>• <strong>กลุ่มที่ 1 (ขนาด 8 ช่องแนวตั้ง - ม้วนพับขอบซ้าย-ขวา):</strong> รวมคอลัมน์ <code>00</code> (QB QA = 00) และคอลัมน์ <code>10</code> (QB QA = 10) ครบทั้ง 4 แถว {m0, m4, m12, m8, m2, m6, m14, m10} ในทั้งสองคอลัมน์นี้ค่า <code>QA = 0</code> คงที่ ตัด QB, QD, QC ทิ้งทั้งหมด ได้เทอม <code>QA'</code>
+              <br>• <strong>กลุ่มที่ 2 (ขนาด 8 ช่องแนวนอน - 2 แถวล่าง):</strong> รวมแถว <code>11</code> (QD QC = 11) และแถว <code>10</code> (QD QC = 10) ครบทั้ง 4 คอลัมน์ {m12, m13, m15, m14, m8, m9, m11, m10} ในทั้งสองแถวนี้ค่า <code>QD = 1</code> คงที่ ตัด QC, QB, QA ทิ้งทั้งหมด ได้เทอม <code>QD</code>
+              <br>• <strong>สรุปสมการ:</strong> รวมกันได้ <code>KB = QA' + QD</code> (ใช้ OR gate เพียง 1 เกต)
             </p>
           </div>
 
@@ -715,7 +776,7 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -739,14 +800,14 @@
                   </tr>
                   <tr>
                     <th class="kmap-row-header">11</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m14</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m9</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m11</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m10</span></td>
@@ -754,9 +815,19 @@
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (2 ช่องแนวตั้ง คอลัมน์ 00): QD·QB'·QA'</span>
+            </div>
+
             <div class="kmap-equation">JC = QD · QB' · QA'</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> มี 1 ช่องเดียวที่ m8 จับคู่กับ X ที่ m12 ในคอลัมน์ 00 ได้กลุ่ม 2 ช่อง {m8, m12} แถว 10 และ 11 ตัด QC ออกเหลือ <code>QD</code> และคอลัมน์ 00 คือ <code>QB'·QA'</code> ได้สมการ <code>JC = QD·QB'·QA'</code>
+              <strong>การวิเคราะห์และพิสูจน์การวงกลุ่ม SOP:</strong>
+              <br>• มีค่า 1 เพียงตำแหน่งเดียวคือที่ <code>m8</code> (สถานะ 8 ถอยไป 7 ทำให้ QC เปลี่ยนจาก 0 เป็น 1)
+              <br>• จับกลุ่ม 2 ช่องแนวตั้งในคอลัมน์ 00 ระหว่าง <code>m8 (ค่า 1)</code> กับ Don't Care <code>m12 (ค่า X)</code> ในแถว 10 และ 11
+              <br>• แถว 10 (QD QC = 10) กับ แถว 11 (QD QC = 11) มี <code>QD = 1</code> คงที่ (ตัด QC ทิ้ง) และคอลัมน์ 00 มี <code>QB = 0, QA = 0</code> คงที่
+              <br>• ได้สมการผลคูณ: <code>JC = QD · QB' · QA'</code>
             </p>
           </div>
 
@@ -767,7 +838,7 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -777,38 +848,49 @@
                 <tbody>
                   <tr>
                     <th class="kmap-row-header">00</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x kmap-cell-g2"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">01</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g2"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m5</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m7</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m6</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">11</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m12</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m13</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m15</span></td>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
+                    <td class="kmap-cell-1 kmap-cell-shared"><span class="kmap-val">1</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
+                    <td class="kmap-cell-x kmap-cell-shared"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (8 ช่อง แถว 11, 10): QD</span>
+              <span class="kmap-tag kmap-tag-g2">🟠 วงกลุ่มที่ 2 (4 ช่อง คอลัมน์ 00): QB'·QA'</span>
+              <span class="kmap-tag kmap-tag-shared">🟣 เซลล์ร่วม (Shared): m8, m12</span>
+            </div>
+
             <div class="kmap-equation">KC = QD + QB' · QA'</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> จับกลุ่ม 8 ช่องแนวนอน (แถว 11 ร่วมกับ 10 ครบ 4 คอลัมน์) ได้เทอม <code>QD</code> และจับกลุ่ม 4 ช่องแนวตั้งในคอลัมน์ 00 {m0, m4, m12, m8} ได้เทอม <code>QB'·QA'</code> รวมกันเป็น <code>KC = QD + QB'·QA'</code>
+              <strong>การวิเคราะห์และพิสูจน์การวงกลุ่ม SOP:</strong>
+              <br>• <strong>กลุ่มที่ 1 (ขนาด 8 ช่องแนวนอน):</strong> รวมแถว <code>11</code> และแถว <code>10</code> ครบทั้ง 4 คอลัมน์ {m12, m13, m15, m14, m8, m9, m11, m10} ในทั้ง 2 แถวนี้ <code>QD = 1</code> คงที่ ได้เทอม <code>QD</code>
+              <br>• <strong>กลุ่มที่ 2 (ขนาด 4 ช่องแนวตั้ง):</strong> รวมคอลัมน์ <code>00</code> ครบทั้ง 4 แถว {m0, m4, m12, m8} เพื่อครอบคลุมค่า 1 ที่ <code>m4</code> ในคอลัมน์นี้ค่า <code>QB = 0, QA = 0</code> คงที่ ตัด QD, QC ทิ้งทั้งหมด ได้เทอม <code>QB'·QA'</code>
+              <br>• <strong>สรุปสมการ:</strong> รวมกันได้ <code>KC = QD + QB'·QA'</code> (ใช้ 1 AND, 1 OR)
             </p>
           </div>
 
@@ -819,7 +901,7 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -829,7 +911,7 @@
                 <tbody>
                   <tr>
                     <th class="kmap-row-header">00</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m0</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m1</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m3</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m2</span></td>
@@ -850,7 +932,7 @@
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
@@ -858,9 +940,20 @@
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (2 ช่อง ม้วนขอบบน-ล่าง คอลัมน์ 00): QC'·QB'·QA'</span>
+            </div>
+
             <div class="kmap-equation">JD = QC' · QB' · QA'</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> มี 1 ช่องเดียวที่ m0 จับกลุ่ม 2 ช่องกับ X ที่ m8 (แถว 00 และแถว 10 ในคอลัมน์ 00) แถว 00 กับ 10 ตัด QD ออกเหลือ <code>QC'</code> และคอลัมน์ 00 คือ <code>QB'·QA'</code> รวมเป็น <code>JD = QC'·QB'·QA'</code>
+              <strong>การวิเคราะห์และพิสูจน์การวงกลุ่ม SOP:</strong>
+              <br>• มีค่า 1 ช่องเดียวคือที่ <code>m0</code> (สถานะ 0 ถอยหลังวนกลับไป 9 ทำให้ QD เปลี่ยนจาก 0 เป็น 1)
+              <br>• จับกลุ่ม 2 ช่องแนวตั้งม้วนพับขอบบน-ขอบล่าง ระหว่าง <code>m0 (ค่า 1)</code> ในแถว 00 กับ Don't Care <code>m8 (ค่า X)</code> ในแถว 10
+              <br>• แถว 00 (QD QC = 00) และแถว 10 (QD QC = 10) ม้วนขอบติดกัน มี <code>QC = 0</code> คงที่ (ตัด QD ทิ้ง)
+              <br>• คอลัมน์ 00 มี <code>QB = 0, QA = 0</code> คงที่ ได้เทอม <code>QB'·QA'</code>
+              <br>• รวมได้สมการ: <code>JD = QC' · QB' · QA'</code>
             </p>
           </div>
 
@@ -871,7 +964,7 @@
               <table class="kmap-table">
                 <thead>
                   <tr>
-                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-corner">QD QC<br>/ QB QA</th>
                     <th class="kmap-col-header">00</th>
                     <th class="kmap-col-header">01</th>
                     <th class="kmap-col-header">11</th>
@@ -881,7 +974,7 @@
                 <tbody>
                   <tr>
                     <th class="kmap-row-header">00</th>
-                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x kmap-cell-g1"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
                     <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
@@ -902,7 +995,7 @@
                   </tr>
                   <tr>
                     <th class="kmap-row-header">10</th>
-                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-1 kmap-cell-g1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m9</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m11</span></td>
                     <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m10</span></td>
@@ -910,9 +1003,20 @@
                 </tbody>
               </table>
             </div>
+
+            <!-- วง SOP Legend -->
+            <div class="kmap-group-legend">
+              <span class="kmap-tag kmap-tag-g1">🔵 วงกลุ่มที่ 1 (2 ช่อง ม้วนขอบล่าง-บน คอลัมน์ 00): QC'·QB'·QA'</span>
+            </div>
+
             <div class="kmap-equation">KD = QC' · QB' · QA'</div>
             <p class="kmap-proof">
-              <strong>การพิสูจน์:</strong> มี 1 ช่องเดียวที่ m8 จับกลุ่ม 2 ช่องกับ X ที่ m0 (แถว 10 และแถว 00 ในคอลัมน์ 00) ได้ผลลัพธ์เหมือนกันทุกประการคือ <code>KD = QC'·QB'·QA'</code>
+              <strong>การวิเคราะห์และพิสูจน์การวงกลุ่ม SOP:</strong>
+              <br>• มีค่า 1 เพียงตำแหน่งเดียวคือที่ <code>m8</code> (สถานะ 8 ถอยหลังไป 7 ทำให้ QD เปลี่ยนจาก 1 เป็น 0)
+              <br>• จับกลุ่ม 2 ช่องแนวตั้งม้วนพับขอบล่าง-ขอบบน ระหว่าง <code>m8 (ค่า 1)</code> ในแถว 10 กับ Don't Care <code>m0 (ค่า X)</code> ในแถว 00
+              <br>• แถว 10 (QD QC = 10) และแถว 00 (QD QC = 00) ม้วนขอบติดกัน มี <code>QC = 0</code> คงที่ (ตัด QD ทิ้ง)
+              <br>• คอลัมน์ 00 มี <code>QB = 0, QA = 0</code> คงที่ ได้เทอม <code>QB'·QA'</code>
+              <br>• รวมได้สมการเหมือนกับ JD ทุกประการ: <code>KD = QC' · QB' · QA'</code> (สามารถต่อสายสัญญาณร่วมกันระหว่างขา J และขา K ของ FF-D ได้ทันที ช่วยประหยัดเกตในวงจรจริง!)
             </p>
           </div>
         </div>

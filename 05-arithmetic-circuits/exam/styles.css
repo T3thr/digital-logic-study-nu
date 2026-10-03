@@ -736,6 +736,92 @@ td.left, th.left {
   color: #94A3B8;
 }
 
+/* ══════════════ วง SOP Group Highlighting ══════════════ */
+.kmap-cell-g1 {
+  background: #DBEAFE !important;
+  color: #1E3A8A !important;
+  box-shadow: inset 0 0 0 2.5px #2563EB;
+}
+
+.kmap-cell-g2 {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  box-shadow: inset 0 0 0 2.5px #D97706;
+}
+
+.kmap-cell-shared {
+  background: #F3E8FF !important;
+  color: #6B21A8 !important;
+  box-shadow: inset 0 0 0 2.5px #9333EA;
+}
+
+.kmap-group-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 10px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.kmap-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  line-height: 1.3;
+}
+
+.kmap-tag-g1 {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #93C5FD;
+}
+
+.kmap-tag-g2 {
+  background: #FFFBEB;
+  color: #B45309;
+  border: 1px solid #FCD34D;
+}
+
+.kmap-tag-shared {
+  background: #FAF5FF;
+  color: #7E22CE;
+  border: 1px solid #D8B4FE;
+}
+
+/* กล่องระบุแกนและมาตรฐาน K-Map */
+.kmap-standard-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 20px;
+}
+
+.kmap-spec-badge {
+  background: var(--paper-card);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  flex: 1 1 280px;
+  font-size: 0.88rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.kmap-spec-badge .badge-title {
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+.kmap-spec-badge .badge-val {
+  color: var(--ink-secondary);
+}
+
 .kmap-val {
   display: block;
   font-size: 1.15rem;
