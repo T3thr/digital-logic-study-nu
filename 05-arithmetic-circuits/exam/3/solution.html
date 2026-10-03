@@ -59,17 +59,17 @@
           <div class="stat-card">
             <div class="stat-label">ไอซี Flip-Flop (IC 7476)</div>
             <div class="stat-value">2 ตัว</div>
-            <div class="stat-desc">Dual JK Flip-Flop (3 &divide; 2 = 1.5 &rarr; ปัดขึ้นเป็น 2 ตัว)</div>
+            <div class="stat-desc">Dual JK-FF (3 &divide; 2 = 1.5 &rarr; ปัดขึ้นเป็น 2 ตัว)</div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">ไอซีลอจิกเกตที่ใช้ร่วม</div>
-            <div class="stat-value">2 ถึง 3 ตัว</div>
-            <div class="stat-desc">7408 (AND), 7432 (OR), และ 7404 (NOT)*</div>
+            <div class="stat-label">รวมไอซีที่ต้องใช้ทั้งหมด</div>
+            <div class="stat-value">4 ตัว</div>
+            <div class="stat-desc">7476 &times; 2, 7408 &times; 1, 7432 &times; 1 (ไม่ใช้ 7404)</div>
           </div>
         </div>
 
         <div style="margin-top:16px;">
-          <strong>ตารางสรุปรายการไอซีที่ต้องใช้ในวงจร (Bill of Materials):</strong>
+          <strong>ตารางสรุปรายการไอซีที่ต้องใช้ในวงจร (Bill of Materials - BOM):</strong>
           <table class="ic-table">
             <thead>
               <tr>
@@ -86,34 +86,54 @@
                 <td>Dual JK Flip-Flop with Preset & Clear</td>
                 <td>2 Flip-Flop</td>
                 <td>3 Flip-Flop</td>
-                <td><strong>2 ตัว</strong> (เหลือ 1 Flip-Flop สำรอง)</td>
+                <td><strong>2 ตัว</strong> (ใช้ 3 FFs, เหลือ 1 FF สำรอง)</td>
               </tr>
               <tr>
                 <td><span class="ic-tag">74LS08</span></td>
                 <td>Quad 2-Input AND Gate</td>
                 <td>4 เกต</td>
                 <td>3 เกต</td>
-                <td><strong>1 ตัว</strong> (ใช้สำหรับ KB, JA, KA)</td>
+                <td><strong>1 ตัว</strong> (ใช้สำหรับ KB, JA, KA เหลือ 1 เกต)</td>
               </tr>
               <tr>
                 <td><span class="ic-tag">74LS32</span></td>
                 <td>Quad 2-Input OR Gate</td>
                 <td>4 เกต</td>
                 <td>1 เกต</td>
-                <td><strong>1 ตัว</strong> (ใช้สำหรับ JB = QC' + QA')</td>
+                <td><strong>1 ตัว</strong> (ใช้สำหรับ JB = QC' + QA' เหลือ 3 เกต)*</td>
               </tr>
-              <tr>
-                <td><span class="ic-tag">74LS04</span></td>
+              <tr style="background:#f8fafc; color:var(--ink-muted);">
+                <td><span class="ic-tag" style="background:#e2e8f0; color:#64748b;">74LS04</span></td>
                 <td>Hex Inverter Gate (NOT Gate)</td>
                 <td>6 เกต</td>
-                <td>2 เกต</td>
-                <td><strong>1 ตัว</strong> (ใช้สำหรับ QC' และ QA')*</td>
+                <td>0 เกต</td>
+                <td><strong>0 ตัว (ไม่ต้องใช้เลย!)</strong></td>
               </tr>
             </tbody>
           </table>
-          <p style="font-size:0.88rem; color:var(--ink-secondary); margin-top:8px;">
-            *<strong>หมายเหตุสำคัญในห้องสอบ:</strong> หากดึงสัญญาณจากขา Q' (ขา 2 และขา 14) ของ IC 7476 โดยตรง จะ<strong>ไม่จำเป็นต้องใช้ IC 7404</strong> เลย ทำให้ประหยัดไอซีเหลือเพียง <strong>4 ตัว</strong> (IC 7476 จำนวน 2 ตัว, IC 7408 จำนวน 1 ตัว และ IC 7432 จำนวน 1 ตัว)
-          </p>
+
+          <!-- กล่องอธิบายความหมายของทั้ง 3 ช่องตารางอย่างละเอียด -->
+          <div style="background:var(--paper-subtle); border:1.5px solid var(--rule); border-radius:8px; padding:16px 20px; margin-top:14px; font-size:0.92rem; line-height:1.7;">
+            <div style="font-weight:800; color:var(--ink-primary); margin-bottom:6px; font-size:1rem;">
+              💡 คู่มือทำความเข้าใจ 3 ช่องตารางนี้ (นำไปใช้ตอบข้อสอบแล็บและการคำนวณจริง):
+            </div>
+            <ul style="margin:0; padding-left:20px;">
+              <li><strong>1. จำนวนเกตต่อตัว (Gates per Package):</strong> คือจำนวนวงจรย่อยที่ผู้ผลิตบรรจุมาให้ในตัวถังไอซี 1 ชิปจริง (เช่น Quad = 4 เกตต่อตัวถัง, Dual = 2 ฟลิปฟล็อปต่อตัวถัง)</li>
+              <li><strong>2. จำนวนเกตที่ใช้ (Gates Required):</strong> คือจำนวนเกตที่วงจรเราต้องใช้จริง ๆ ตามสมการตรรกะที่ลดรูปได้ (เช่น มี AND 3 จุด แปลว่าต้องใช้ AND 3 เกต)</li>
+              <li><strong>3. จำนวนไอซีที่ต้องใช้ (Total ICs to Procure):</strong> คือจำนวนตัวถังชิปจริงที่ต้องไปเบิกมาจากห้องแล็บ คำนวณจากสูตร:
+                <br><code style="background:var(--paper-white); padding:2px 8px; border-radius:4px; border:1px solid var(--rule); font-weight:700;">จำนวนไอซีที่ต้องใช้ = ceil( จำนวนเกตที่ใช้ ÷ จำนวนเกตต่อตัว )</code>
+                <br><em>*ต้องปัดเศษขึ้นเป็นจำนวนเต็มเสมอ เพราะไอซีจริงไม่สามารถตัดแบ่งครึ่งตัวถังมาใช้งานได้</em>
+              </li>
+            </ul>
+          </div>
+
+          <!-- กล่องเน้นย้ำเรื่อง Q-bar ไม่ต้องใช้ NOT Gate -->
+          <div style="background:#f0fdf4; border:1.5px solid #86efac; border-left:5px solid #16a34a; border-radius:8px; padding:14px 18px; margin-top:12px; font-size:0.92rem;">
+            <strong style="color:#15803d; font-size:0.98rem;">⚡ เหตุผลสำคัญที่ "ไม่ต้องใช้ IC 7404 (NOT Gate)" ในวงจรนี้:</strong>
+            <p style="margin:6px 0 0 0; color:#166534; line-height:1.6;">
+              เพราะฟลิปฟล็อป <strong>IC 7476 มีขาเอาต์พุตคอมพลีเมนต์ Q' (Q-bar) อยู่แล้วในตัวถังฮาร์ดแวร์</strong> (ขา 2 สำหรับฟลิปฟล็อปที่ 1 และขา 14 สำหรับฟลิปฟล็อปที่ 2) เมื่อสมการต้องการสัญญาณ <strong>QC'</strong> หรือ <strong>QA'</strong> จึงสามารถ<strong>ลากสายตรงจากขา Q' เข้าสู่เกตได้ทันที</strong> โดยไม่ต้องผ่าน IC 7404 เลย ตรงตามผังวงจรจริงใน <strong>รูปที่ 7.25 หน้า 206 ของเอกสารบรรยาย</strong> ช่วยประหยัดไอซีและป้องกันการถูกหักคะแนนจากการต่อวงจรฟุ่มเฟือย!
+            </p>
+          </div>
         </div>
       </div>
 
