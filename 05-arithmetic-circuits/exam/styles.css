@@ -631,74 +631,145 @@ td.left, th.left {
 /* ══════════════ Karnaugh Maps (K-Maps) ══════════════ */
 .kmap-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
   margin: 24px 0;
+}
+
+@media (max-width: 840px) {
+  .kmap-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
 }
 
 .kmap-container {
   background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
-  padding: 18px;
+  padding: 20px;
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .kmap-title {
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--accent);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.kmap-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 8px 0 14px;
+  border-radius: var(--radius-sm);
+}
+
 .kmap-table {
   width: 100%;
-  margin: 10px 0;
+  min-width: 280px;
+  max-width: 100%;
+  border-collapse: collapse;
   border: 2px solid var(--ink-primary);
+  table-layout: fixed;
+  margin: 0;
 }
 
 .kmap-table th, .kmap-table td {
-  padding: 8px 10px;
+  padding: 6px 3px;
   font-family: var(--font-mono);
-  font-weight: 700;
   text-align: center;
+  vertical-align: middle;
+  border: 1px solid var(--rule);
+  white-space: normal !important;
 }
 
 .kmap-table th {
   background: var(--paper-subtle);
   font-size: 0.85rem;
+  color: var(--ink-primary);
+}
+
+.kmap-corner {
+  width: 28%;
+  font-size: 0.72rem !important;
+  line-height: 1.25;
+  padding: 6px 3px !important;
+  background: var(--paper-subtle);
+  color: var(--ink-secondary);
+  font-weight: 700;
+}
+
+.kmap-col-header {
+  width: 18%;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--paper-subtle);
+}
+
+.kmap-row-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--paper-subtle);
+  color: var(--ink-primary);
 }
 
 .kmap-cell-1 {
   background: #DBEAFE;
   color: #1E3A8A;
-  font-weight: 800;
 }
 
 .kmap-cell-x {
   background: #FEF3C7;
   color: #92400E;
-  font-weight: 700;
 }
 
 .kmap-cell-0 {
-  color: var(--ink-faint);
+  background: #FFFFFF;
+  color: #94A3B8;
+}
+
+.kmap-val {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.kmap-minterm {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  line-height: 1;
+  margin-top: 2px;
 }
 
 .kmap-equation {
-  margin-top: 10px;
-  padding: 8px 12px;
+  margin-top: auto;
+  padding: 10px 14px;
   background: var(--paper-subtle);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--ink-primary);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--accent);
   text-align: center;
-  border: 1px solid var(--rule);
+  border: 1.5px solid var(--accent-border);
+}
+
+.kmap-proof {
+  font-size: 0.86rem;
+  color: var(--ink-secondary);
+  margin-top: 10px;
+  line-height: 1.6;
 }
 
 /* ══════════════ Math Equations (Zero-Dollar Policy & Upright Styling) ══════════════ */

@@ -73,54 +73,56 @@
 
         <div style="margin-top:16px;">
           <strong>ตารางสรุปรายการไอซีที่ต้องใช้ในวงจร (Bill of Materials - BOM):</strong>
-          <table class="ic-table">
-            <thead>
-              <tr>
-                <th>เบอร์ไอซี</th>
-                <th>ชื่อและหน้าที่ของอุปกรณ์</th>
-                <th>จำนวนเกตต่อตัว</th>
-                <th>จำนวนเกตที่ใช้</th>
-                <th>จำนวนไอซีที่ต้องใช้</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="ic-tag">74LS76</span></td>
-                <td>Dual JK Flip-Flop with Preset & Clear</td>
-                <td>2 Flip-Flop</td>
-                <td>4 Flip-Flop</td>
-                <td><strong>2 ตัว</strong> (ใช้ครบ 4 FFs พอดี)</td>
-              </tr>
-              <tr>
-                <td><span class="ic-tag">74LS08</span></td>
-                <td>Quad 2-Input AND Gate</td>
-                <td>4 เกต</td>
-                <td>5 เกต</td>
-                <td><strong>2 ตัว</strong> (ใช้ 5 เกต, เหลือ 3 เกตสำรอง)</td>
-              </tr>
-              <tr>
-                <td><span class="ic-tag">74LS32</span></td>
-                <td>Quad 2-Input OR Gate</td>
-                <td>4 เกต</td>
-                <td>3 เกต</td>
-                <td><strong>1 ตัว</strong> (ใช้สำหรับ KA, KB, KC เหลือ 1 เกต)</td>
-              </tr>
-              <tr>
-                <td><span class="ic-tag">74LS86</span></td>
-                <td>Quad 2-Input XOR Gate</td>
-                <td>4 เกต</td>
-                <td>1 เกต</td>
-                <td><strong>1 ตัว</strong> (ใช้สำหรับ QD ⊕ QC เหลือ 3 เกต)</td>
-              </tr>
-              <tr style="background:#f8fafc; color:var(--ink-muted);">
-                <td><span class="ic-tag" style="background:#e2e8f0; color:#64748b;">74LS04</span></td>
-                <td>Hex Inverter Gate (NOT Gate)</td>
-                <td>6 เกต</td>
-                <td>0 เกต</td>
-                <td><strong>0 ตัว (ไม่ต้องใช้เลย!)</strong></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-scroll" style="margin:12px 0;">
+            <table class="ic-table" style="margin:0;">
+              <thead>
+                <tr>
+                  <th>เบอร์ไอซี</th>
+                  <th>ชื่อและหน้าที่ของอุปกรณ์</th>
+                  <th>จำนวนเกตต่อตัว</th>
+                  <th>จำนวนเกตที่ใช้</th>
+                  <th>จำนวนไอซีที่ต้องใช้</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="ic-tag">74LS76</span></td>
+                  <td>Dual JK Flip-Flop with Preset & Clear</td>
+                  <td>2 Flip-Flop</td>
+                  <td>4 Flip-Flop</td>
+                  <td><strong>2 ตัว</strong> (ใช้ครบ 4 FFs พอดี)</td>
+                </tr>
+                <tr>
+                  <td><span class="ic-tag">74LS08</span></td>
+                  <td>Quad 2-Input AND Gate</td>
+                  <td>4 เกต</td>
+                  <td>5 เกต</td>
+                  <td><strong>2 ตัว</strong> (ใช้ 5 เกต, เหลือ 3 เกตสำรอง)</td>
+                </tr>
+                <tr>
+                  <td><span class="ic-tag">74LS32</span></td>
+                  <td>Quad 2-Input OR Gate</td>
+                  <td>4 เกต</td>
+                  <td>3 เกต</td>
+                  <td><strong>1 ตัว</strong> (ใช้สำหรับ KA, KB, KC เหลือ 1 เกต)</td>
+                </tr>
+                <tr>
+                  <td><span class="ic-tag">74LS86</span></td>
+                  <td>Quad 2-Input XOR Gate</td>
+                  <td>4 เกต</td>
+                  <td>1 เกต</td>
+                  <td><strong>1 ตัว</strong> (ใช้สำหรับ QD ⊕ QC เหลือ 3 เกต)</td>
+                </tr>
+                <tr style="background:#f8fafc; color:var(--ink-muted);">
+                  <td><span class="ic-tag" style="background:#e2e8f0; color:#64748b;">74LS04</span></td>
+                  <td>Hex Inverter Gate (NOT Gate)</td>
+                  <td>6 เกต</td>
+                  <td>0 เกต</td>
+                  <td><strong>0 ตัว (ไม่ต้องใช้เลย!)</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
           <!-- กล่องอธิบายความหมายของทั้ง 3 ช่องตารางอย่างละเอียด -->
           <div style="background:var(--paper-subtle); border:1.5px solid var(--rule); border-radius:8px; padding:16px 20px; margin-top:14px; font-size:0.92rem; line-height:1.7;">
@@ -496,148 +498,420 @@
           ตามมาตรฐานของวิชา 305241 แผนผังคาร์โนสำหรับ 4 ตัวแปรจะจัดเป็นตารางขนาด <strong>4 แถว × 4 คอลัมน์</strong> โดยกำหนดให้ตัวแปรบิตสูง <strong>QD QC เป็นแถวแนวตั้ง (00, 01, 11, 10 ตามรหัสเกรย์)</strong> และตัวแปรบิตต่ำ <strong>QB QA เป็นคอลัมน์แนวนอน (00, 01, 11, 10 ตามรหัสเกรย์)</strong> ดังนี้:
         </p>
 
-        <!-- K-Map Grid 2x4 for all 8 inputs -->
+        <!-- K-Map Grid 2-Column Responsive Layout (Paired by Flip-Flop) -->
         <div class="kmap-grid">
-          <!-- K-Map JA -->
+          <!-- Flip-Flop A: JA -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน JA</span> <span class="chip">FF-A</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-1">1 (m0)</td><td class="kmap-cell-x">X (m1)</td><td class="kmap-cell-x">X (m3)</td><td class="kmap-cell-1">1 (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-1">1 (m4)</td><td class="kmap-cell-x">X (m5)</td><td class="kmap-cell-x">X (m7)</td><td class="kmap-cell-1">1 (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-1">1 (m12)</td><td class="kmap-cell-x">X (m13)</td><td class="kmap-cell-x">X (m15)</td><td class="kmap-cell-1">1 (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1 (m8)</td><td class="kmap-cell-x">X (m9)</td><td class="kmap-cell-x">X (m11)</td><td class="kmap-cell-1">1 (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน JA</span> <span class="chip">FF-A (บิต 0)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">JA = 1</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> ช่องเลขคู่ (QA=0) เป็น 1 ทั้งหมด ช่องเลขคี่ (QA=1) เป็น X ทั้งหมด จึงสามารถ <strong>รวมกลุ่มทั้ง 16 ช่องเข้าด้วยกัน</strong> ได้ผลลัพธ์เป็นระดับลอจิกสูงคงที่ (ต่อไฟตรง +5V)
             </p>
           </div>
 
-          <!-- K-Map KA -->
+          <!-- Flip-Flop A: KA -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน KA</span> <span class="chip">FF-A</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X (m0)</td><td class="kmap-cell-1">1 (m1)</td><td class="kmap-cell-1">1 (m3)</td><td class="kmap-cell-x">X (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X (m4)</td><td class="kmap-cell-1">1 (m5)</td><td class="kmap-cell-1">1 (m7)</td><td class="kmap-cell-x">X (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X (m12)</td><td class="kmap-cell-0">0 (m13)</td><td class="kmap-cell-0">0 (m15)</td><td class="kmap-cell-x">X (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X (m8)</td><td class="kmap-cell-1">1 (m9)</td><td class="kmap-cell-0">0 (m11)</td><td class="kmap-cell-x">X (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน KA</span> <span class="chip">FF-A (บิต 0)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">KA = QD' + QC' · QB'</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> จับกลุ่ม 8 ช่อง (แถว 00, 01 ครบทุกคอลัมน์) ได้เทอม <code>QD'</code> และจับกลุ่ม 4 ช่องมุมซ้าย {m0, m1, m8, m9} ได้เทอม <code>QC'·QB'</code> รวมกันเป็น <code>KA = QD' + QC'·QB'</code>
             </p>
           </div>
 
-          <!-- K-Map JB -->
+          <!-- Flip-Flop B: JB -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน JB</span> <span class="chip">FF-B</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-0">0 (m0)</td><td class="kmap-cell-0">0 (m1)</td><td class="kmap-cell-x">X (m3)</td><td class="kmap-cell-x">X (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-1">1 (m4)</td><td class="kmap-cell-0">0 (m5)</td><td class="kmap-cell-x">X (m7)</td><td class="kmap-cell-x">X (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-0">0 (m12)</td><td class="kmap-cell-0">0 (m13)</td><td class="kmap-cell-x">X (m15)</td><td class="kmap-cell-x">X (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1 (m8)</td><td class="kmap-cell-0">0 (m9)</td><td class="kmap-cell-x">X (m11)</td><td class="kmap-cell-x">X (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน JB</span> <span class="chip">FF-B (บิต 1)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">JB = (QD ⊕ QC) · QA'</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> กลุ่ม 2 ช่อง {m4, m6} ได้ <code>QD'·QC·QA'</code> และกลุ่ม 2 ช่อง {m8, m10} ได้ <code>QD·QC'·QA'</code> ดึงตัวร่วม <code>QA'</code> ออกมาเหลือ <code>(QD'·QC + QD·QC')·QA' = (QD ⊕ QC)·QA'</code>
             </p>
           </div>
 
-          <!-- K-Map KB -->
+          <!-- Flip-Flop B: KB -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน KB</span> <span class="chip">FF-B</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X (m0)</td><td class="kmap-cell-x">X (m1)</td><td class="kmap-cell-0">0 (m3)</td><td class="kmap-cell-1">1 (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X (m4)</td><td class="kmap-cell-x">X (m5)</td><td class="kmap-cell-0">0 (m7)</td><td class="kmap-cell-1">1 (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X (m12)</td><td class="kmap-cell-x">X (m13)</td><td class="kmap-cell-1">1 (m15)</td><td class="kmap-cell-1">1 (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X (m8)</td><td class="kmap-cell-x">X (m9)</td><td class="kmap-cell-1">1 (m11)</td><td class="kmap-cell-1">1 (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน KB</span> <span class="chip">FF-B (บิต 1)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">KB = QA' + QD</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> จับกลุ่ม 8 ช่องแนวตั้ง (คอลัมน์ 00 ร่วมกับ 10 ครบ 4 แถว) ได้เทอม <code>QA'</code> และจับกลุ่ม 8 ช่องแนวนอน (แถว 11 ร่วมกับ 10 ครบ 4 คอลัมน์) ได้เทอม <code>QD</code> รวมกันเป็น <code>KB = QA' + QD</code>
             </p>
           </div>
 
-          <!-- K-Map JC -->
+          <!-- Flip-Flop C: JC -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน JC</span> <span class="chip">FF-C</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-0">0 (m0)</td><td class="kmap-cell-0">0 (m1)</td><td class="kmap-cell-0">0 (m3)</td><td class="kmap-cell-0">0 (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X (m4)</td><td class="kmap-cell-x">X (m5)</td><td class="kmap-cell-x">X (m7)</td><td class="kmap-cell-x">X (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X (m12)</td><td class="kmap-cell-x">X (m13)</td><td class="kmap-cell-x">X (m15)</td><td class="kmap-cell-x">X (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1 (m8)</td><td class="kmap-cell-0">0 (m9)</td><td class="kmap-cell-0">0 (m11)</td><td class="kmap-cell-0">0 (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน JC</span> <span class="chip">FF-C (บิต 2)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">JC = QD · QB' · QA'</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> มี 1 ช่องเดียวที่ m8 จับคู่กับ X ที่ m12 ในคอลัมน์ 00 ได้กลุ่ม 2 ช่อง {m8, m12} แถว 10 และ 11 ตัด QC ออกเหลือ <code>QD</code> และคอลัมน์ 00 คือ <code>QB'·QA'</code> ได้สมการ <code>JC = QD·QB'·QA'</code>
             </p>
           </div>
 
-          <!-- K-Map KC -->
+          <!-- Flip-Flop C: KC -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน KC</span> <span class="chip">FF-C</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X (m0)</td><td class="kmap-cell-x">X (m1)</td><td class="kmap-cell-x">X (m3)</td><td class="kmap-cell-x">X (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-1">1 (m4)</td><td class="kmap-cell-0">0 (m5)</td><td class="kmap-cell-0">0 (m7)</td><td class="kmap-cell-0">0 (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-1">1 (m12)</td><td class="kmap-cell-1">1 (m13)</td><td class="kmap-cell-1">1 (m15)</td><td class="kmap-cell-1">1 (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X (m8)</td><td class="kmap-cell-x">X (m9)</td><td class="kmap-cell-x">X (m11)</td><td class="kmap-cell-x">X (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน KC</span> <span class="chip">FF-C (บิต 2)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">KC = QD + QB' · QA'</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> จับกลุ่ม 8 ช่องแนวนอน (แถว 11 ร่วมกับ 10 ครบ 4 คอลัมน์) ได้เทอม <code>QD</code> และจับกลุ่ม 4 ช่องแนวตั้งในคอลัมน์ 00 {m0, m4, m12, m8} ได้เทอม <code>QB'·QA'</code> รวมกันเป็น <code>KC = QD + QB'·QA'</code>
             </p>
           </div>
 
-          <!-- K-Map JD -->
+          <!-- Flip-Flop D: JD -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน JD</span> <span class="chip">FF-D</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-1">1 (m0)</td><td class="kmap-cell-0">0 (m1)</td><td class="kmap-cell-0">0 (m3)</td><td class="kmap-cell-0">0 (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-0">0 (m4)</td><td class="kmap-cell-0">0 (m5)</td><td class="kmap-cell-0">0 (m7)</td><td class="kmap-cell-0">0 (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-x">X (m12)</td><td class="kmap-cell-x">X (m13)</td><td class="kmap-cell-x">X (m15)</td><td class="kmap-cell-x">X (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-x">X (m8)</td><td class="kmap-cell-x">X (m9)</td><td class="kmap-cell-x">X (m11)</td><td class="kmap-cell-x">X (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน JD</span> <span class="chip">FF-D (บิต 3 - MSB)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">JD = QC' · QB' · QA'</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> มี 1 ช่องเดียวที่ m0 จับกลุ่ม 2 ช่องกับ X ที่ m8 (แถว 00 และแถว 10 ในคอลัมน์ 00) แถว 00 กับ 10 ตัด QD ออกเหลือ <code>QC'</code> และคอลัมน์ 00 คือ <code>QB'·QA'</code> รวมเป็น <code>JD = QC'·QB'·QA'</code>
             </p>
           </div>
 
-          <!-- K-Map KD -->
+          <!-- Flip-Flop D: KD -->
           <div class="kmap-container">
-            <div class="kmap-title"><span>แผนผังคาร์โน KD</span> <span class="chip">FF-D</span></div>
-            <table class="kmap-table">
-              <thead><tr><th>QD QC \ QB QA</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
-              <tbody>
-                <tr><th>00</th><td class="kmap-cell-x">X (m0)</td><td class="kmap-cell-x">X (m1)</td><td class="kmap-cell-x">X (m3)</td><td class="kmap-cell-x">X (m2)</td></tr>
-                <tr><th>01</th><td class="kmap-cell-x">X (m4)</td><td class="kmap-cell-x">X (m5)</td><td class="kmap-cell-x">X (m7)</td><td class="kmap-cell-x">X (m6)</td></tr>
-                <tr><th>11</th><td class="kmap-cell-0">0 (m12)</td><td class="kmap-cell-0">0 (m13)</td><td class="kmap-cell-0">0 (m15)</td><td class="kmap-cell-0">0 (m14)</td></tr>
-                <tr><th>10</th><td class="kmap-cell-1">1 (m8)</td><td class="kmap-cell-0">0 (m9)</td><td class="kmap-cell-0">0 (m11)</td><td class="kmap-cell-0">0 (m10)</td></tr>
-              </tbody>
-            </table>
+            <div class="kmap-title"><span>แผนผังคาร์โน KD</span> <span class="chip">FF-D (บิต 3 - MSB)</span></div>
+            <div class="kmap-table-wrap">
+              <table class="kmap-table">
+                <thead>
+                  <tr>
+                    <th class="kmap-corner">QD QC<br>\ QB QA</th>
+                    <th class="kmap-col-header">00</th>
+                    <th class="kmap-col-header">01</th>
+                    <th class="kmap-col-header">11</th>
+                    <th class="kmap-col-header">10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="kmap-row-header">00</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m0</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m1</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m3</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m2</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">01</th>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m4</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m5</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m7</span></td>
+                    <td class="kmap-cell-x"><span class="kmap-val">X</span><span class="kmap-minterm">m6</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">11</th>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m12</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m13</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m15</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m14</span></td>
+                  </tr>
+                  <tr>
+                    <th class="kmap-row-header">10</th>
+                    <td class="kmap-cell-1"><span class="kmap-val">1</span><span class="kmap-minterm">m8</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m9</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m11</span></td>
+                    <td class="kmap-cell-0"><span class="kmap-val">0</span><span class="kmap-minterm">m10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="kmap-equation">KD = QC' · QB' · QA'</div>
-            <p style="font-size:0.84rem; color:var(--ink-secondary); margin-top:6px; line-height:1.5;">
+            <p class="kmap-proof">
               <strong>การพิสูจน์:</strong> มี 1 ช่องเดียวที่ m8 จับกลุ่ม 2 ช่องกับ X ที่ m0 (แถว 10 และแถว 00 ในคอลัมน์ 00) ได้ผลลัพธ์เหมือนกันทุกประการคือ <code>KD = QC'·QB'·QA'</code>
             </p>
           </div>
